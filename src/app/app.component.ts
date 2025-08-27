@@ -69,6 +69,7 @@ export class AppComponent implements OnInit {
       if (value instanceof NavigationEnd) {
         if (value.url?.includes('/ubi')) {
           this.isTableau = true;
+          console.log("Tableau view detected");
         }
         else {
           this.isTableau = false;
