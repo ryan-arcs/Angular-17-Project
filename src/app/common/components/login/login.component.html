@@ -53,9 +53,14 @@
                   (click)="passwordInputBox.focus()">
 
                   <div class="input-wrapper lg">
-                    <input #inputElement #passwordInputBox type="text" id="password" formControlName="password"
+                    <input #inputElement #passwordInputBox [type]="showPassword ? 'text' : 'password'"  id="password" formControlName="password"
                       placeholder=" " [class.filled]="loginForm.get('password')?.value" />
                     <label for="password" class="floating-label">Password: <span class="required">*</span></label>
+                    <button class="toggle-password cursor-pointer" (click)="showPassword = !showPassword">
+                      <span class="material-symbols-outlined">
+                        {{showPassword ? 'visibility_off' : 'visibility'}}
+                      </span>
+                    </button>
                   </div>
 
                   @if (showErrors && loginForm.get("password")?.invalid) {

@@ -1,7 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UIService } from '@app/common/services/ui.service';
-import { signInWithRedirect } from '@app/common/utils/custom-session';
 
 @Component({
   selector: 'app-page-not-found',
@@ -10,11 +9,16 @@ import { signInWithRedirect } from '@app/common/utils/custom-session';
   templateUrl: './logout.component.html',
   styleUrl: './logout.component.scss',
 })
-export class LogoutComponent{
+export class LogoutComponent implements OnInit {
 
   constructor(
-    private router: Router
+    private router: Router,
+    private uiService: UIService
   ) {}
+
+  ngOnInit(): void {
+    this.uiService.setTheme({activeTheme: 'light'});
+  }
 
   signIn(){
     this.router.navigate(['/login']);

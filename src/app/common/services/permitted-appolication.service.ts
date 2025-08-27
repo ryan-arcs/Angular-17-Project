@@ -32,6 +32,10 @@ export class PermittedApplicationService {
     this._permittedApplications.next(permittedApplications);
   }
 
+  clearPermittedApplications() {
+    this._permittedApplications.next(null);
+  }
+
   getPermittedApplications() {
     return this._permittedApplications.getValue() || [];
   }

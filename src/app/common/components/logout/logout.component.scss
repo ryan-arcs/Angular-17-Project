@@ -1,3 +1,9 @@
+::ng-deep {
+  .right-content-main-wrapper {
+    width: 100% !important;
+  }
+}
+
 .error-container {
   height: calc(100vh - 50px);
   width: 100%;
@@ -6,7 +12,7 @@
   justify-content: center;
   align-items: center;
   text-align: center;
-  background-color: #fff;
+  background-color: var(--secondary-background-color);
   padding: 20px;
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);

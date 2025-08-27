@@ -1,4 +1,4 @@
-import { Component, QueryList, ViewChildren } from '@angular/core';
+import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { GlobalDataService } from '@app/common/services/global-data.service';
@@ -11,9 +11,10 @@ import { UIService } from '@app/common/services/ui.service';
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   showErrors = false;
+  showPassword = false;
   @ViewChildren('inputElement') inputElements?: QueryList<any>;
   constructor(
     private fb: FormBuilder,
