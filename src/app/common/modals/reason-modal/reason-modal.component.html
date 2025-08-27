@@ -1,0 +1,34 @@
+<div class="modal-header">
+  <h4 class="modal-title">Reason for Rejection</h4>
+</div>
+
+<form [formGroup]="reasonForm" (ngSubmit)="submitReason()" class="form">
+  <div class="mb-3">
+    <label for="rejectionReason" class="">Reason</label>
+    <textarea
+      formControlName="reason"
+      placeholder="Please give the reason for rejection"
+      id="rejectionReason"
+      rows="3"
+    ></textarea>
+    @if (
+      reasonForm.get("reason")?.touched && reasonForm.get("reason")?.invalid
+    ) {
+      <p class="errors">Reason is required.</p>
+    }
+  </div>
+</form>
+
+<div class="modal-footer">
+  <button type="button" class="btn btn-secondary" (click)="close()">
+    Close
+  </button>
+  <button
+    type="submit"
+    class="btn btn-success"
+    (click)="submitReason()"
+    [disabled]="reasonForm.invalid"
+  >
+    Save
+  </button>
+</div>

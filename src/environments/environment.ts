@@ -1,0 +1,21 @@
+export const environment = {
+  production: true,
+  scheduleExpressionDocUrl: '',
+  instanceCopyright: '',
+  iAppApiUrl: '',
+  devUrl: '',
+  uatUrl: '',
+  prodUrl: '',
+  tableauAppApiUrl: '',
+  tableauEnvironments: '',
+  dbRecordsLimit: 0,
+  iAppProjectMonitoringFrequency: '',
+  iAppProjectMonitoringMinDuration: '',
+  iAppLogAdvanceSearchLimit: '',
+  systemUserDetails: '',
+  cspPolicy: '',
+  sspSignOutUrl: '',
+  userInactivityLogoutTime: '',
+  c4ePermittedTables: '',
+  defaultDateFormat: ''
+};

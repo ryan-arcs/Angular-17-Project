@@ -1,0 +1,72 @@
+<!-- Sidebar Overlay (mobile) -->
+
+<div [class.overlay-sidebar]="sidebarOpen" (click)="toggleSidebarMobile()"></div>
+<!-- Burger Menu -->
+<div class="burgur-menu" (click)="toggleSidebar()">
+  <span class="material-symbols-outlined">
+    menu
+  </span>
+</div>
+
+<!-- Sidebar -->
+<div class="left-sidebar-large large" [class.small]="!sidebarOpen" [class.hideSidebar]="sidebarOpen">
+  <div class="d-btn d-btn--circle white-bg-circle vs cp" (click)="toggleSidebar()">
+    <span class="icon-rightarrow icon--vvs"></span>
+  </div>
+  <div class="search-n-btn" [class.d-none]="!sidebarOpen">
+    <div class="search-bar search-bar--rounded ">
+      <span class="material-symbols-outlined btn-icon">
+        search
+      </span>
+      <input id="search" class="search-icon" type="text" placeholder="Search tables or views..." #searchBox="ngModel"
+        [(ngModel)]="searchString" />
+    </div>
+  </div>
+
+  <ul class="upper-icons">
+    @for (project of items; track $index) {
+    <li class="list" (click)="onAccordionChange(project)">
+      <a class="icon-div" [class.active]="isProjectActive(project)">
+        <div class="icon-sud-div">
+          <div class="logo tooltip-btn" placement="end" [ngbTooltip]="!sidebarOpen? project.section :''"
+            container="body">
+            <span class="material-symbols-outlined nav-icon">
+              {{ project?.section === 'Views' ? 'folder_eye' : 'table_view'}}
+            </span>
+          </div>
+          <p class="text">{{ project.section }}</p>
+        </div>
+        <!-- @if (project.isExpanded && sidebarOpen) {
+        <img src="../../../../../assets/images/dropdown.svg" alt="dropdown" />
+        } @else {
+        <img src="../../../../../assets/images/dropdown02.svg" alt="dropdown" />
+        } -->
+      </a>
+    </li>
+    @if (project.isExpanded) {
+    <ul class="listing">
+      @if (project?.content?.length > 0) {
+      @for (cont of project.content; track $index) {
+      <li class="list" (click)="onTabChange($event, 'list/' + cont.value, $index)" [routerLink]="['list', cont.value]"
+        [title]="cont.value">
+        <a class="icon-div" [class.active]="currentTab === cont.value">
+          <div class="logo tooltip-btn">
+            <span class="material-symbols-outlined nav-icon">
+              toolbar
+            </span>
+
+          </div>
+          <p class="text">{{ cont.name }}</p>
+        </a>
+      </li>
+      }
+      } @else {
+      <li class="child-list-item subtitle-2">
+        No {{ $index === 0 ? 'table' : 'view' }} found!
+      </li>
+      }
+    </ul>
+    }
+    }
+  </ul>
+</div>

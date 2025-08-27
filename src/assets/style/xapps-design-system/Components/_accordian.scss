@@ -1,0 +1,57 @@
+@use './mixins' as *;
+@use './foundation' as*;
+
+.accordion {
+    border: none;
+
+    .accordion-item {
+        margin-bottom: $vvvs-m;
+        border: none;
+
+        .accordion-header {
+            &.md-accordian {
+                height: 38px;
+            }
+
+            &.lg-accordian {
+                height: 42px;
+            }
+
+            .accordion-button {
+                &:not(.collapsed) {
+                    box-shadow: none;
+                }
+
+                background-color: #f6f7fb;
+                border-radius: $border-radius-small;
+                padding: $vvs-p $vs-p;
+                height: 100%;
+                @include typography(var(--fs-medium), na, var(--font-medium), #676879);
+
+                &::after {
+                    @include dimensions(8, 13);
+                    background-image: url("data:image/svg+xml,%3Csvg width='13' height='8' viewBox='0 0 13 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1.58398 1.5L6.58398 6.5L11.584 1.5' stroke='%23676879' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+                    background-repeat: no-repeat;
+                    background-size: contain;
+                    display: inline-block;
+                }
+
+                &:focus {
+                    color: #323238 !important;
+                    box-shadow: none;
+                }
+            }
+        }
+
+        .accordion-collapse {
+            padding: $zero-p $vs-p $vvvs-p $vs-p;
+            background-color: #f6f7fb;
+
+            .accordion-body {
+                box-shadow: inset 0 1px 0 #D0D4E4;
+                @include typography(var(--fs-small), na, var(--font-regular), #676879);
+                padding: $vvs-p;
+            }
+        }
+    }
+}

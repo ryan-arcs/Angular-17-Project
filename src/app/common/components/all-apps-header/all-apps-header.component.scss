@@ -1,0 +1,101 @@
+@import "src/assets/style/xapps-design-system/Abstract/_mixins.scss";
+@import "src/assets/style/xapps-design-system/Foundations/_foundation.scss";
+@import "src/assets/style/xapps-design-system/fonts/_medium.scss";
+@import "src/assets/style/xapps-design-system/Foundations/_typography.scss";
+@import "src/assets/style/xapps-design-system/Themes/light/_blue.scss";
+@import "src/assets/style/xapps-design-system/Themes/dark/_blue.scss";
+
+.popup_container {
+  padding: $vs-p $zero-p $vs-p $vs-p;
+  background-color: var(--grey-background-color);
+  border-radius: 28px;
+  box-shadow: var(--bs-var);
+  max-width: 355px;
+  width: fit-content;
+  max-height: 360px;
+  overflow-y: auto;
+  scrollbar-width: 6px;
+
+  &.without-scroll {
+    padding: $vvs-p !important;
+  }
+
+  &::-webkit-scrollbar-track {
+    margin: $small-p $zero-p !important;
+  }
+
+  &::-webkit-scrollbar-button {
+    display: none !important;
+  }
+
+  .pop-up-container-wrapper {
+    background-color: var(--primary-background-color);
+    padding: $large-p;
+    border-radius: 24px;
+
+    .profile_edit {
+      padding: $zero-p;
+      li {
+        p.large {
+          font-size: var(--bs-body-font-size);
+        }
+      }
+    }
+
+    .app-ul {
+      list-style: none;
+      padding-left: $zero-p;
+      margin: $zero-m;
+      width: 100%;
+      @include flex-box(row, na, na, wrap, 8);
+
+      .app-li {
+        box-sizing: border-box;
+        padding-top: $vvs-p;
+        border-radius: $border-radius-large;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        @include dimensions(84, 89);
+
+        .app-name {
+          color: var(--primary-text-color);
+        }
+
+        &:hover {
+          background-color: var(--primary-background-hover-color);
+
+          .ao-content {
+            .app-name {
+              white-space: normal !important;
+              overflow: visible !important;
+              text-overflow: unset !important;
+            }
+          }
+        }
+
+        .ao-logo {
+          @include flex-box(row, center, na, na, na);
+
+          .app-img {
+            @include dimensions(38, 38);
+          }
+        }
+
+        .ao-content {
+          display: block;
+          width: 96%;
+          margin: $vvs-p auto $zero-m;
+          text-align: center;
+
+          .app-name {
+            text-align: center;
+            display: block;
+            max-width: 100%;
+            cursor: pointer;
+            @include typography(var(--fs-small), 12px, 500, na);
+          }
+        }
+      }
+    }
+  }
+}

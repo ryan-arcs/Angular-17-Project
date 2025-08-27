@@ -1,0 +1,182 @@
+<ng-template #actionRow let-row="row" let-value="value" let-i="index">
+  <span class="action-row">
+    @if (isActionPermitted(row, 'start_project') || isActionPermitted(row, 'stop_project')) {
+      <div ngbDropdown container="body" class="ag-grid-more-outer">
+        <button type="button" class="d-btn d-btn--circle vs" id="dropdownBasic1" title="options" ngbDropdownToggle>
+          <span class="material-symbols-rounded more-icon">more_horiz</span>
+        </button>
+        <div class="dropdown-menu" ngbDropdownMenu aria-labelledby="dropdownBasic1">
+          @if (row.status === 'STARTED' ) {
+          @if(isActionPermitted(row, 'start_project') && row.status?.toLowerCase()!='deploying' &&
+          row.status?.toLowerCase() != 'undeploying'){
+          <button ngbDropdownItem class="d-btn d-btn--tertiary sm" (click)="onCellClicked(row, 'RESTART')">
+            <i style="font-size: 17px; cursor: pointer;line-height:24px;" class="fa fa-repeat btn-icon"></i>
+            <p>Restart Project</p>
+          </button>
+          }
+          @if(isActionPermitted(row, 'stop_project') && row.status?.toLowerCase()!='deploying' &&
+          row.status?.toLowerCase() != 'undeploying'){
+          <button ngbDropdownItem class="d-btn d-btn--tertiary sm" (click)="onCellClicked(row, 'STOP')">
+            <i style="font-size: 17px; cursor: pointer;line-height:24px;" class="fa fa-stop-circle btn-icon"></i>
+            <p>Stop Project</p>
+          </button>
+          }
+          }
+          @if (row.status === 'UNDEPLOYED') {
+          @if(isActionPermitted(row, 'start_project') && row.status?.toLowerCase() != 'deploying' &&
+          row.status?.toLowerCase() != 'undeploying'){
+          <button ngbDropdownItem class="d-btn d-btn--tertiary sm" (click)="onCellClicked(row, 'START')">
+            <i style="font-size: 17px; cursor: pointer;line-height:24px;" class="fa fa-play-circle btn-icon"></i>
+            <p>Start Project</p>
+          </button>
+          }
+          }
+          @if(row.status != 'STARTED' && row.status !== 'UNDEPLOYED') {
+            <p>No Action Available</p>
+          }
+          <!-- <button ngbDropdownItem class="d-btn d-btn--tertiary sm" (click)="onCellClicked(row, 'VIEWLOGS')">
+            <i style="font-size: 17px; cursor: pointer;line-height:24px;" class="fa fa-history btn-icon"></i>
+            <p class="">Action Logs</p>
+          </button> -->
+        </div>
+      </div>
+    } @else {
+    <span> - </span>
+    }
+  </span>
+</ng-template>
+
+<ng-template #statusTemplate let-row="row" let-value="value">
+  @switch (value) {
+  @case ("DEPLOYING") {
+  <div class='sell-outer'>
+    <span class='material-symbols-rounded loader'>cycle</span>
+    <span>{{value}}</span>
+  </div>
+  }
+  @case ('UNDEPLOYING') {
+  <div class='sell-outer'>
+    <span class='material-symbols-rounded loader'>cycle</span>
+    <span>{{value}}</span>
+  </div>
+  }
+  @default {
+  <div class="sell-outer">
+    <div class="circul-status {{getClassForStatusTemplate(value)}}"></div>
+    <span>{{value}}</span>
+  </div>
+  }
+
+  }
+</ng-template>
+
+<ng-template #staticIPsEnabledTemplate let-value="value">
+  <div class="sell-outer check-outer">
+    <label class="custom-checkbox checkbox-vs">
+      @if(value){
+      <input type="checkbox" name="check1" checked disabled />
+      <div class="checkbox-box opacity-active">
+        <div class="checkmark"></div>
+      </div>
+      }
+      @else{
+      <input type="checkbox" name="check1" disabled />
+      <div class="checkbox-box">
+        <div class="checkmark"></div>
+      </div>
+      }
+    </label>
+    <span>{{value ? 'Enabled' : 'Disabled'}}</span>
+
+
+
+
+  </div>
+</ng-template>
+
+<ng-template #applicationNameTemplate let-row="row" let-value="value">
+  <div class="sell-outer">
+    <div class="circul-in " [class]="getAvatarClass(row.id)">{{ value.charAt(0) }}</div>
+    <span class="sell-outer-span sell-outer-span-name" title="{{value}}">
+      {{ value }}
+    </span>
+  </div>
+</ng-template>
+
+<ng-template #dateTemplate let-row="row" let-value="value">
+  <div class="sell-outer">
+    <span class="sell-outer-span" title="{{value}}">
+      {{ formatTimestamp(value) }}
+    </span>
+  </div>
+</ng-template>
+
+<div class="application-container">
+  <div class="application-container-inner">
+
+    <!-- left-subheader -->
+    <div class="subheader-container">
+      <div class="tc-manage-screen">
+        <div class="heading">
+        <h2>Projects</h2>
+        </div>
+        <div class="right right-panel">
+
+          <div class="listing-page-buttons-manage-screen">
+          <div class="search-n-btn">
+            <div class="search-bar search-bar--rounded">
+              <span class="material-symbols-outlined btn-icon">
+                search
+              </span>
+              <div class="search-outer">
+                <input type="text" [(ngModel)]="searchTerm" placeholder="Search here..."
+                  (input)="onSearchChange($event)"
+                  title="This search will be performed on all displayed and hidden columns." />
+              </div>
+            </div>
+          </div>
+          </div>
+
+
+          <div class="sh-buttons">
+            <div class="btns-res-divider">
+            <button class="d-btn d-btn--secondary sm" (click)="getApplications()" [disabled]="isLoadingApplications"
+              placement="start" [ngbTooltip]="isMobileScreen() ? 'Refresh' : ''" triggers="hover">
+              <span class="material-symbols-rounded btn-icon">refresh</span>
+              <p class="">Refresh</p>
+            </button>
+            <!-- <button class="d-btn d-btn--secondary sm" (click)="viewLogs()" placement="top">
+              <span class="material-symbols-rounded btn-icon">history</span>
+              <p class="">Action Logs</p>
+            </button> -->
+            @if (columnFilters.length || searchTerm) {
+            <!-- <button class="d-btn d-btn--secondary sm" (click)="clearFilters()" placement="top">
+              <span class="material-symbols-rounded btn-icon">filter_list</span>
+              <p>Clear Filter</p>
+            </button> -->
+            <button class="d-btn d-btn--secondary sm tooltip-btn" (click)="clearFilters()" placement="start">
+              <span class="material-symbols-rounded btn-icon">filter_list_off</span>
+              <p class="">Clear Filter</p>
+            </button>
+            }
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- grid -->
+    <div class="panel-and-table">
+      <div class="logs-container logs-cell-padding inner-pages-footer">
+        <app-data-grid [gridName]="'iapp-dashboard-grid'" [gridColumns]="columns"
+          [gridRows]="applicationsList.data || []" [pagination]="pagination" [columnFilters]="columnFilters"
+          [pageSizes]="paginationPageSizeSelector" [selectedPageSize]="defaultSize" [externalSorting]="false"
+          [actionRowTemplate]="actionRow" [gridSorts]="gridSort.prop ? [gridSort] : []" [errorMessage]="errorMessage"
+          (onGridSort)="onSort($event)" (onGridPageSizeChange)="onGridPageSizeChange($event)"
+          (onGridPageChange)="onGridPageChange($event)" (onColumnFilterChange)="onColumnFilterChange($event)"
+          (onGridActivate)="onRowClick($event)" [enableInlineSearch]="true"></app-data-grid>
+      </div>
+    </div>
+  </div>
+</div>

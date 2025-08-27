@@ -1,0 +1,112 @@
+
+// @import "./design-system/_variables";
+// @import "./design-system/themes/blue";
+// @import "./design-system/themes/dark-mode";
+
+// @import "./design-system/mixins";
+// @import "./design-system/foundations";
+// @import "./design-system/typography";
+// @import "./design-system/buttons";
+// @import "./design-system/global";
+// @import "./design-system/sidebar";
+// @import "./design-system/header-footer";
+// @import "./design-system/ag-grid";
+// @import "./design-system/modal";
+// @import "./design-system/table";
+// @import "./design-system/responsive";
+// @import "./design-system/dark-theme";
+// @import "./design-system/classic-theme";
+// @import "./design-system/default-theme";
+// @import "./design-system/light-theme";
+// @import "./design-system/form";
+
+// // NEW DESIGN SYSTEM
+
+// @import "./design_system/mixins";
+// // @import "./design_system/small-sidebar";
+// @import "./design_system/large-sidebar";
+// @import "./design_system/subheader";
+// @import "./design_system/typography";
+// @import "./design_system/buttons";
+// @import "./design_system/search-bar";
+// @import "./design_system/foundation";
+// @import "./design_system/colors";
+// @import "./design_system/reports-panel";
+
+
+// //  UDS
+
+
+// @import "./U_DESIGN_SYSTEM/Pages/Tableau/main-sidebar";
+// @import "./U_DESIGN_SYSTEM/Pages/Tableau/right-panel-wrapper";
+// @import "./U_DESIGN_SYSTEM/Pages/Tableau/cards";
+// @import "./U_DESIGN_SYSTEM/Pages/Tableau/recents";
+
+
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,300,1,0");
+@import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20,300,0,0");
+@import url("https://fonts.googleapis.com/icon?family=Material+Icons");
+
+// ********************   NEW DESIGN SYSTEM   ********************** //
+
+// @import "./xapps-design-system/Components/inputs";
+@import "./xapps-design-system/Foundations/foundation";
+// @import "./xapps-design-system/Layouts/main-header";
+@import "./xapps-design-system/Abstract/mixins";
+// @import "./xapps-design-system/Layouts/left-sidebar";
+@import "./xapps-design-system/Themes/light/blue";
+@import "./xapps-design-system/Themes/dark/blue";
+
+@import "./xapps-design-system/Themes/light/green";
+@import "./xapps-design-system/Themes/dark/green";
+
+@import "./xapps-design-system/Themes/light/murrey";
+@import "./xapps-design-system/Themes/dark/murrey";
+
+@import "./xapps-design-system/Themes/light/orange";
+@import "./xapps-design-system/Themes/dark/orange";
+
+@import "./xapps-design-system/Themes/light/red";
+@import "./xapps-design-system/Themes/dark/red";
+
+@import "./xapps-design-system/Themes/light/yellow";
+@import "./xapps-design-system/Themes/dark/yellow";
+
+@import "./xapps-design-system/fonts/medium";
+@import "./xapps-design-system/Components/cards";
+@import "./xapps-design-system/Components/iconButtons";
+// @import "./xapps-design-system/Layouts/sub-header";
+@import "./xapps-design-system/Components/buttons";
+// @import "./xapps-design-system/Layouts/welcome-page";
+
+// @import "./xapps-design-system/Pages/Tableau/home-page";
+// @import "./xapps-design-system/Pages/Tableau/header";
+@import "./xapps-design-system/Layouts/empty-data";
+@import "./xapps-design-system/Components/dropdowns";
+// pages
+
+// @import "./xapps-design-system/Pages/Tableau/report-sidebar";
+@import "./xapps-design-system/Layouts/layout/";
+// @import "./xapps-design-system/Pages/Tableau/tableau";
+// @import "./xapps-design-system/Pages/Tableau/layout";
+@import "./xapps-design-system/Foundations/typography";
+
+// @import "./xapps-design-system/Pages/Tableau/view-modal";
+@import "./xapps-design-system/Components/forms";
+@import "./xapps-design-system/Components/scrollbar";
+@import "./xapps-design-system/Layouts/dialogueModal";
+@import "./xapps-design-system/fonts/large";
+@import "./xapps-design-system/fonts/small";
+@import "./xapps-design-system/Layouts/right-popup";
+
+@import "./xapps-design-system/Layouts/common-left-panel";
+// @import "./xapps-design-system/Layouts/asher-listings";
+@import "./xapps-design-system/Abstract/_mixins.scss";
+
+@import "./xapps-design-system/Components/global";
+
+@import "./xapps-design-system/Components/ngx-datatable";
+@import "./xapps-design-system/Components/manage-roles";
+@import "./xapps-design-system/Components/application-information";
+@import "./xapps-design-system/Components/tooltip";

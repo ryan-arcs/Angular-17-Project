@@ -1,0 +1,54 @@
+<div [class.overlay-sidebar]="sidebarOpen" (click)="toggleSidebarMobile()"></div>
+<div class="burgur-menu" (click)="toggleSidebar()">
+    <span class="material-symbols-outlined">
+        menu
+    </span>
+</div>
+
+<div class="left-sidebar-large large" [class.small]="!sidebarOpen" [class.hideSidebar]="sidebarOpen">
+    <div class="d-btn d-btn--circle white-bg-circle vs cp" (click)="toggleSidebar()">
+        <span class="icon-rightarrow icon--vvs"></span>
+    </div>
+    <ul class="upper-icons">
+        @if (hasAccessToModule("dashboard")) {
+        <li class="list" (click)="toggleSidebarMobile()">
+            <a class="icon-div" [routerLink]="'dashboard'" routerLinkActive="active"
+                [class.active]="currentTab === 'dashboard'">
+                <div class="logo tooltip-btn" placement="end" [ngbTooltip]="!sidebarOpen?'Dashboard':''">
+                    <span class="material-symbols-rounded nav-icon">dashboard</span>
+
+                </div>
+                <p class="text">Dashboard</p>
+            </a>
+
+        </li>
+        }
+
+        @if (hasAccessToModule("logs")) {
+        <li class="list" (click)="toggleSidebarMobile()">
+            <a class="icon-div" [routerLink]="'logs'" routerLinkActive="active" [class.active]="currentTab === 'logs'">
+                <div class="logo tooltip-btn" placement="end" [ngbTooltip]="!sidebarOpen?'Logs':''">
+                    <span class="material-symbols-rounded nav-icon">description</span>
+
+                </div>
+                <p class="text">Logs</p>
+            </a>
+
+        </li>
+        }
+
+        @if (hasAccessToModule("projects")) {
+        <li class="list" (click)="toggleSidebarMobile()">
+            <a class="icon-div" [routerLink]="'schedules'" routerLinkActive="active"
+                [class.active]="currentTab === 'schedules'">
+                <div class="logo tooltip-btn" placement="end" [ngbTooltip]="!sidebarOpen?'Schedules':''">
+                    <span class="material-symbols-rounded nav-icon">schedule</span>
+
+                </div>
+                <p class="text">Schedules</p>
+            </a>
+
+        </li>
+        }
+    </ul>
+</div>

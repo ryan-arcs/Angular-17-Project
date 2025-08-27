@@ -1,0 +1,27 @@
+<div class="layout-grid">
+  <!-- Left Panel -->
+  <div class="left-sidebar-panel" [ngClass]="sidebar ? 'show' : 'hide'">
+    <app-left-panel (slidebar)="hideLeftBar($event)"></app-left-panel>
+  </div>
+  <button
+    [className]="sidebar ? 'sidebar-toggle-btn' : 'sidebar-toggle-btn2'"
+    (click)="sidebarToggle()"
+    [ngClass]="sidebar ? 'slide' : 'move'"
+  >
+    @if (sidebar) {
+      <span class="res-menu-btn-hide material-symbols-rounded">
+        chevron_left
+      </span>
+      <span class="res-menu-btn-show material-symbols-rounded"> menu </span>
+    } @else {
+      <span class="res-menu-btn-hide material-symbols-rounded">
+        chevron_right
+      </span>
+      <span class="res-menu-btn-show material-symbols-rounded"> menu </span>
+    }
+  </button>
+
+  <div class="main">
+    <router-outlet></router-outlet>
+  </div>
+</div>

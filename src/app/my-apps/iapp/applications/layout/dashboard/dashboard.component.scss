@@ -1,0 +1,177 @@
+@import "../../../../../../assets/style/xapps-design-system/Foundations/foundation";
+@import "src/assets/style/xapps-design-system/Abstract/_functions.scss";
+@import "src/assets/style/xapps-design-system/Abstract/_mixins.scss";
+@import "src/assets/style/xapps-design-system/fonts/_medium.scss";
+@import "src/assets/style/xapps-design-system/Themes/light/_blue.scss";
+
+.application-container{
+  padding: $zero-p $vvs-p $vvs-p $vvs-p;
+  .application-container-inner{
+    .subheader-container{
+      padding: $vvs-p $zero-p;
+      margin: $zero-m;
+    }
+  }
+}
+
+::ng-deep{
+  .ngx-datatable{
+    datatable-body{
+      height: calc(100vh - 230px) !important;
+    }
+  }
+}
+
+.chart-container {
+  display: flex;
+  flex-direction: row;
+  margin: 8px 0px;
+  justify-content: space-between;
+  gap: 8px;
+
+  @include max-width(768) {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .chart-outer-pie {
+    width: 40%;
+    border-radius: 8px;
+    overflow: hidden;
+
+    @include max-width(768) {
+      width: 100%;
+    }
+
+    .donut {
+      position: relative;
+      height: 350px;
+      border: 1px solid var(--layout-border-color);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+  }
+
+  .chart-outer-bar {
+    width: 60%;
+    border-radius: 8px;
+    overflow: hidden;
+
+    .bar {
+      position: relative;
+      height: 350px;
+      border: 1px solid var(--layout-border-color);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    @include max-width(768) {
+      width: 100%;
+    }
+  }
+}
+
+.dropdown {
+  background: transparent !important;
+}
+
+.search-label-form {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+
+  @include max-width(580) {
+    gap: 4px;
+    align-items: flex-start;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .payload-label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    width: 170px;
+  }
+}
+
+.application-text {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.subheader-container {
+
+  .top-container {
+
+    @include max-width(580) {
+      flex-direction: column;
+      gap: 8px !important;
+    }
+
+    .heading {
+
+      @include max-width(580) {
+        width: 100%;
+      }
+
+      .application-text {
+
+        h2 {
+          @include max-width(580) {
+            position: static !important;
+          }
+        }
+
+        .small {
+          @include max-width(580) {
+            position: static !important;
+          }
+        }
+      }
+    }
+
+    .right {
+      @include max-width(580) {
+        width: 100%;
+      }
+
+      .listing-page-buttons {
+        @include max-width(992) {
+          justify-content: end;
+        }
+
+        @include max-width(580) {
+          width: 100%;
+        }
+
+        .nav-dropdown {
+          @include max-width(580) {
+            width: 100%;
+          }
+        }
+
+        button {
+          @include max-width(580) {
+            width: 100%;
+          }
+
+          p {
+            @include max-width(580) {
+              width: auto !important;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+
+.content-wrapper {
+  .ag-grid-outer {
+    position: relative;
+    height: calc(100vh - 562px);
+  }
+}

@@ -1,0 +1,826 @@
+<!-- <div class="write-popup">
+    <div class="popup-header">
+      <div class="heading">
+        <p class="heading-content">Configuration</p>
+      </div>
+    </div>
+    <div class="req-info">
+      <span class="note">Fields marked with <span>*</span>&nbsp;&nbsp; are required.</span>
+    </div>
+    <form [formGroup]="notificationForm" (ngSubmit)="submitNotification()">
+      <div class="outer-box">
+        <div class="inner-box">
+          <div class="only-feilds">
+            <div class="input-feild-columns add-edit-input-feilds">
+  
+              <div class="form-group d-flex flex-column" 
+              [class.invalid]='showErrors && notificationForm.get("notificationEvent")?.invalid'
+              (click)="notificationEventInputBox.focus()"
+              >
+                <input #inputElement #notificationEventInputBox formControlName="notificationEvent" type="text" id="notification_event" placeholder="Enter event" required />
+                <label for="notification_event">Notification Event:<span class="important"></span></label>
+                @if (showErrors && notificationForm.get("notificationEvent")?.invalid) {
+                  <p class="errors">Please enter notification event.</p>
+                }
+              </div>
+  
+              <div class="form-group d-flex flex-column"
+              [class.invalid]='showErrors && notificationForm.get("initialTriggerDays")?.invalid'
+              (click)="initialTriggerDaysInputBox.focus()"
+              >
+                <input #inputElement #initialTriggerDaysInputBox formControlName="initialTriggerDays" type="number" id="initial_trigger_days" placeholder="Enter days"  min="0" required />
+                <label for="initial_trigger_days">Initial Trigger Days:<span class="important">*</span></label>
+                @if (showErrors && notificationForm.get("initialTriggerDays")?.invalid) {
+                  <p class="errors">Please enter initial trigger days.</p>
+                }
+              </div>
+  
+              <div class="form-group d-flex flex-column"
+              [class.invalid]='showErrors && notificationForm.get("repeatFrequencyDays")?.invalid'
+              (click)="repeatFrequencyDaysInputBox.focus()"
+              >
+                <input #inputElement #repeatFrequencyDaysInputBox formControlName="repeatFrequencyDays" type="number" id="repeat_frequency_days" placeholder="Enter frequency" min="1"  required />
+                <label for="repeat_frequency_days">Repeat Frequency Days:<span class="important">*</span></label>
+                @if (showErrors && notificationForm.get("repeatFrequencyDays")?.invalid) {
+                  <p class="errors">Please enter repeat frequency days.</p>
+                }
+              </div>
+  
+              <div class="form-group d-flex flex-column"
+              [class.invalid]='showErrors && notificationForm.get("threshold")?.invalid'
+              (click)="thresholdInputBox.focus()"
+              >
+                <input  #inputElement #thresholdInputBox  formControlName="threshold" type="number" id="threshold" placeholder="Enter threshold" min="-1" required />
+                <label for="threshold">Threshold:<span class="important">*</span></label>
+                @if (showErrors && notificationForm.get("threshold")?.invalid) {
+                  <p class="errors">Please enter threshold.</p>
+                }
+              </div>
+  
+              <div class="form-group d-flex flex-column">
+                <input formControlName="emailTo" type="email" id="email_to" placeholder="Enter recipient emails" />
+                <label for="email_to">Email To:</label>
+              </div>
+  
+              <div class="form-group d-flex flex-column">
+                <input formControlName="emailCc" type="email" id="email_cc" placeholder="Enter CC emails" />
+                <label for="email_cc">Email CC:</label>
+              </div>
+  
+              <div class="form-group d-flex flex-column">
+                <input formControlName="emailBcc" type="email" id="email_bcc" placeholder="Enter BCC emails" />
+                <label for="email_bcc">Email BCC:</label>
+              </div>
+  
+              <div class="form-group d-flex flex-column" [class.invalid]='showErrors && notificationForm.get("adminEmail")?.invalid'
+              (click)="adminEmailInputBox.focus()">
+                <input #inputElement #adminEmailInputBox formControlName="adminEmail" type="email" id="email_bcc" placeholder="Enter Admin email" />
+                <label for="email_bcc">Admin Email <span class="important">*</span></label>
+                @if (showErrors && notificationForm.get("adminEmail")?.invalid) {
+                  <p class="errors">Please enter admin email.</p>
+                }
+              </div>
+  
+              <div class="form-group d-flex flex-column" [class.invalid]='showErrors && notificationForm.get("emailSubject")?.invalid'
+              (click)="emailSubjectInputBox.focus()">
+                <input  #inputElement #emailSubjectInputBox formControlName="emailSubject" type="text" id="email_subject" placeholder="Enter subject" />
+                <label for="email_subject">Email Subject: <span class="important">*</span></label>
+                @if (showErrors && notificationForm.get("emailSubject")?.invalid) {
+                  <p class="errors">Please enter email subject.</p>
+                }
+              </div>
+  
+              <div class="form-group d-flex flex-column textarea-wrapper" [class.invalid]='showErrors && notificationForm.get("emailBody")?.invalid'
+              (click)="emailBodyInputBox.focus()">
+                <textarea  #inputElement #emailBodyInputBox formControlName="emailBody" id="emailBody" placeholder="Email body" rows="5"></textarea>
+                <label for="emailBody">Email Body:  <span class="important">*</span></label>
+                @if (showErrors && notificationForm.get("emailBody")?.invalid) {
+                  <p class="errors">Please enter email body.</p>
+                }
+              </div>
+              <div class="form-group d-flex flex-column">
+                <input formControlName="emailReminderSubject" id="email_body" placeholder="Email Reminder subject" />
+                <label for="email_body">Email Reminder Subject</label>
+              </div>
+  
+              <div class="form-group d-flex flex-column textarea-wrapper">
+                <textarea formControlName="emailReminderBody" id="email_body" placeholder="Email Reminder body" rows="5"></textarea>
+                <label for="email_body">Email Reminder Body:</label>
+              </div>
+  
+              <div class="form-group d-flex flex-column">
+                <input formControlName="attribute1" type="text" id="attribute_1" placeholder="Enter attribute 1" />
+                <label for="attribute_1">Attribute 1:</label>
+              </div>
+  
+              <div class="form-group d-flex flex-column">
+                <input formControlName="attribute2" type="text" id="attribute_2" placeholder="Enter attribute 2" />
+                <label for="attribute_2">Attribute 2:</label>
+              </div>
+  
+              <div class="form-group d-flex flex-column">
+                <input formControlName="attribute3" type="text" id="attribute_3" placeholder="Enter attribute 3" />
+                <label for="attribute_3">Attribute 3:</label>
+              </div>
+  
+              <div class="form-group d-flex flex-column">
+                <input formControlName="attribute4" type="text" id="attribute_4" placeholder="Enter attribute 4" />
+                <label for="attribute_4">Attribute 4:</label>
+              </div>
+  
+              <div class="form-group d-flex flex-column">
+                <input formControlName="attribute5" type="text" id="attribute_5" placeholder="Enter attribute 5" />
+                <label for="attribute_5">Attribute 5:</label>
+              </div>
+  
+              <div [class.active-upper]="this.notificationForm.get('recordStatus') &&  activeField==='recordStatus'"
+              [class.invalid]='showErrors && notificationForm.get("recordStatus")?.invalid'
+                class="form-group drop-down d-flex flex-column select-box"
+                (click)="statusDropdown.open()"  
+                >
+                <label [class.active]="this.notificationForm.get('recordStatus')" for="recordStatus">Record Status: <span class="important">*</span></label>
+                <ng-select
+                  #inputElement
+                  formControlName="recordStatus"
+                  #statusDropdown
+                  id="recordStatus"
+                  (focus)="activeField='recordStatus'"
+                  bindLabel="label"
+                    bindValue="value"
+                  (open)="setClassToLabel('recordStatus')"
+                  (close)="reinitializeConfigStatus()"
+                  [items]="statusOptions"
+                  appendTo="body"
+                  placeholder="Select Status">
+                </ng-select>
+                @if (showErrors && notificationForm.get("recordStatus")?.invalid) {
+                  <p class="errors">Please select record status.</p>
+                  }
+              </div>
+            </div>
+          </div>
+        </div>
+  
+        <button type="submit" class="submit-btn text-style">
+          <span class="material-symbols-outlined">check_circle</span>Save
+        </button>
+      </div>
+    </form>
+  </div>
+   -->
+
+<!-- <div class="main-manage-roles">
+  <div class="breadcrumbs-outer">
+    <ul>
+        <li (click)="navigateToConfigurations()"><a >Configuration</a></li>
+        <li><span>/</span></li>
+        <li>{{notificationEventName +' &nbsp;&nbsp;/&nbsp;&nbsp; Edit'}}</li>
+      </ul>
+  </div>
+
+  <div class="header d-flex justify-content-between">
+    <p class="heading">
+      <span (click)="navigateToConfigurations()" class="res-menu-btn-hide back-button material-symbols-rounded">
+        chevron_left
+      </span>
+      Edit Configuration 
+    </p>
+    <span class="note"
+      >Fields marked with <span>*</span>&nbsp;&nbsp; are required.</span
+    >
+  </div>
+  <div class="main-box">
+    <form [formGroup]="notificationForm" (ngSubmit)="submitNotification()">
+      <div class="outer-box">
+        <div class="inner-box">
+          <div class="only-feilds">
+            <div class="input-feild-columns add-edit-input-feilds">
+              <div
+                class="form-group d-flex flex-column"
+                [class.invalid]="
+                  showErrors &&
+                  notificationForm.get('notificationEvent')?.invalid
+                "
+                (click)="notificationEventInputBox.focus()"
+              >
+                <input
+                  #inputElement
+                  #notificationEventInputBox
+                  formControlName="notificationEvent"
+                  type="text"
+                  id="notification_event"
+                  placeholder="Enter event"
+                  required
+                />
+                <label for="notification_event"
+                  >Notification Event:<span class="important"></span
+                ></label>
+                @if (
+                  showErrors &&
+                  notificationForm.get("notificationEvent")?.invalid
+                ) {
+                  <p class="errors">Please enter notification event.</p>
+                }
+              </div>
+
+              <div
+                class="form-group d-flex flex-column"
+                [class.invalid]="
+                  showErrors &&
+                  notificationForm.get('initialTriggerDays')?.invalid
+                "
+                (click)="initialTriggerDaysInputBox.focus()"
+              >
+                <input
+                  #inputElement
+                  #initialTriggerDaysInputBox
+                  formControlName="initialTriggerDays"
+                  type="number"
+                  id="initial_trigger_days"
+                  placeholder="Enter days"
+                  min="0"
+                  required
+                />
+                <label for="initial_trigger_days"
+                  >Counter:<span class="important">*</span></label
+                >
+                @if (
+                  showErrors &&
+                  notificationForm.get("initialTriggerDays")?.invalid
+                ) {
+                  <p class="errors">Please enter counter.</p>
+                }
+              </div>
+
+              <div
+                class="form-group d-flex flex-column"
+                [class.invalid]="
+                  showErrors &&
+                  notificationForm.get('repeatFrequencyDays')?.invalid
+                "
+                (click)="repeatFrequencyDaysInputBox.focus()"
+              >
+                <input
+                  #inputElement
+                  #repeatFrequencyDaysInputBox
+                  formControlName="repeatFrequencyDays"
+                  type="number"
+                  id="repeat_frequency_days"
+                  placeholder="Enter frequency"
+                  min="1"
+                  required
+                />
+                <label for="repeat_frequency_days"
+                  >Repeat Frequency Days:<span class="important">*</span></label
+                >
+                @if (
+                  showErrors &&
+                  notificationForm.get("repeatFrequencyDays")?.invalid
+                ) {
+                  <p class="errors">Please enter repeat frequency days.</p>
+                }
+              </div>
+            </div>
+            
+            <div class="input-feild-columns add-edit-input-feilds">
+              <div
+                class="form-group d-flex flex-column"
+                [class.invalid]="
+                  showErrors && notificationForm.get('threshold')?.invalid
+                "
+                (click)="thresholdInputBox.focus()"
+              >
+                <input
+                  #inputElement
+                  #thresholdInputBox
+                  formControlName="threshold"
+                  type="number"
+                  id="threshold"
+                  placeholder="Enter threshold"
+                  min="-1"
+                  required
+                />
+                <label for="threshold"
+                  >Threshold:<span class="important">*</span></label
+                >
+                @if (showErrors && notificationForm.get("threshold")?.invalid) {
+                  <p class="errors">Please enter threshold.</p>
+                }
+              </div>
+
+              <div class="form-group d-flex flex-column">
+                <input
+                  formControlName="emailTo"
+                  type="email"
+                  id="email_to"
+                  placeholder="Enter recipient emails"
+                />
+                <label for="email_to">Email To:</label>
+              </div>
+
+              <div class="form-group d-flex flex-column">
+                <input
+                  formControlName="emailCc"
+                  type="email"
+                  id="email_cc"
+                  placeholder="Enter CC emails"
+                />
+                <label for="email_cc">Email CC:</label>
+              </div>
+            </div>
+
+            <div class="input-feild-columns add-edit-input-feilds">
+              <div class="form-group d-flex flex-column">
+                <input
+                  formControlName="emailBcc"
+                  type="email"
+                  id="email_bcc"
+                  placeholder="Enter BCC emails"
+                />
+                <label for="email_bcc">Email BCC:</label>
+              </div>
+
+              <div
+                class="form-group d-flex flex-column"
+                [class.invalid]="
+                  showErrors && notificationForm.get('adminEmail')?.invalid
+                "
+                (click)="adminEmailInputBox.focus()"
+              >
+                <input
+                  #inputElement
+                  #adminEmailInputBox
+                  formControlName="adminEmail"
+                  type="email"
+                  id="email_bcc"
+                  placeholder="Enter Admin email"
+                />
+                <label for="email_bcc"
+                  >Admin Email <span class="important">*</span></label
+                >
+                @if (
+                  showErrors && notificationForm.get("adminEmail")?.invalid
+                ) {
+                  <p class="errors">Please enter admin email.</p>
+                }
+              </div>
+
+              <div
+                class="form-group d-flex flex-column"
+                [class.invalid]="
+                  showErrors && notificationForm.get('emailSubject')?.invalid
+                "
+                (click)="emailSubjectInputBox.focus()"
+              >
+                <input
+                  #inputElement
+                  #emailSubjectInputBox
+                  formControlName="emailSubject"
+                  type="text"
+                  id="email_subject"
+                  placeholder="Enter subject"
+                />
+                <label for="email_subject"
+                  >Email Subject: <span class="important">*</span></label
+                >
+                @if (
+                  showErrors && notificationForm.get("emailSubject")?.invalid
+                ) {
+                  <p class="errors">Please enter email subject.</p>
+                }
+              </div>
+            </div>
+            <div
+              class="form-group-textarea d-flex flex-column description-box"
+              [class.invalid]="
+                showErrors && notificationForm.get('emailBody')?.invalid
+              "
+              (click)="emailBodyInputBox.focus()"
+            >
+              <textarea
+                #inputElement
+                #emailBodyInputBox
+                id="emailBody"
+                formControlName="emailBody"
+                placeholder="Email body"
+                rows="4"
+              ></textarea>
+              <label for="emailBody"
+                >Email Body: <span class="important">*</span></label
+              >
+              @if (showErrors && notificationForm.get("emailBody")?.invalid) {
+                <p class="errors">Please enter email body.</p>
+              }
+            </div>
+            <div class="form-group d-flex flex-column">
+              <input
+                formControlName="emailReminderSubject"
+                id="email_body"
+                placeholder="Email Reminder subject"
+              />
+              <label for="email_body">Email Reminder Subject</label>
+            </div>
+
+            <div
+              class="form-group-textarea d-flex flex-column description-box"
+              (click)="emailRemainderInputBox.focus()"
+            >
+              <textarea
+                #inputElement
+                #emailRemainderInputBox
+                id="email_body"
+                formControlName="emailReminderBody"
+                placeholder="Email Reminder body"
+                rows="4"
+              ></textarea>
+              <label for="email_body"
+                >Email Reminder Body:</label
+              >
+            </div>
+            <div class="input-feild-columns add-edit-input-feilds">
+              <div class="form-group d-flex flex-column">
+                <input
+                  formControlName="attribute1"
+                  type="text"
+                  id="attribute_1"
+                  placeholder="Enter attribute 1"
+                />
+                <label for="attribute_1">Attribute 1:</label>
+              </div>
+
+              <div class="form-group d-flex flex-column">
+                <input
+                  formControlName="attribute2"
+                  type="text"
+                  id="attribute_2"
+                  placeholder="Enter attribute 2"
+                />
+                <label for="attribute_2">Attribute 2:</label>
+              </div>
+
+              <div class="form-group d-flex flex-column">
+                <input
+                  formControlName="attribute3"
+                  type="text"
+                  id="attribute_3"
+                  placeholder="Enter attribute 3"
+                />
+                <label for="attribute_3">Attribute 3:</label>
+              </div>
+            </div>
+            <div class="input-feild-columns add-edit-input-feilds">
+              <div class="form-group d-flex flex-column">
+                <input
+                  formControlName="attribute4"
+                  type="text"
+                  id="attribute_4"
+                  placeholder="Enter attribute 4"
+                />
+                <label for="attribute_4">Attribute 4:</label>
+              </div>
+
+              <div class="form-group d-flex flex-column">
+                <input
+                  formControlName="attribute5"
+                  type="text"
+                  id="attribute_5"
+                  placeholder="Enter attribute 5"
+                />
+                <label for="attribute_5">Attribute 5:</label>
+              </div>
+
+              <div
+                [class.active-upper]="
+                  this.notificationForm.get('recordStatus') &&
+                  activeField === 'recordStatus'
+                "
+                [class.invalid]="
+                  showErrors && notificationForm.get('recordStatus')?.invalid
+                "
+                class="form-group drop-down d-flex flex-column select-box"
+                (click)="statusDropdown.open()"
+              >
+                <label
+                  [class.active]="this.notificationForm.get('recordStatus')"
+                  for="recordStatus"
+                  >Record Status: <span class="important">*</span></label
+                >
+                <ng-select
+                  #inputElement
+                  formControlName="recordStatus"
+                  #statusDropdown
+                  id="recordStatus"
+                  (focus)="activeField = 'recordStatus'"
+                  bindLabel="label"
+                  bindValue="value"
+                  (open)="setClassToLabel('recordStatus')"
+                  (close)="reinitializeConfigStatus()"
+                  [items]="statusOptions"
+                  appendTo="body"
+                  placeholder="Select Status"
+                >
+                </ng-select>
+                @if (
+                  showErrors && notificationForm.get("recordStatus")?.invalid
+                ) {
+                  <p class="errors">Please select record status.</p>
+                }
+              </div>
+            </div>
+          </div>
+
+          <div class="button-group mt-2">
+            <button
+              class="common-btn gap small btn btn-secondary left-button"
+              type="button"
+              (click)="navigateToConfigurations()"
+            >
+              <span class="material-symbols-outlined"> cancel </span>Cancel
+            </button>
+            <button
+              class="common-btn gap primary-btn small right-button"
+              type="submit"
+            >
+              <span class="material-symbols-outlined"> check_circle </span>Save
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div> -->
+
+
+
+
+<div class="main-manage-roles">
+
+  <!-- bread crumbs -->
+  <div class="breadcrumbs-outer">
+    <ul>
+      <li><a class="label medium">Configuration</a></li>
+      <li><span>/</span></li>
+      <li class="label medium">{{'Edit'}}
+      </li>
+    </ul>
+  </div>
+
+  <!-- information -->
+  <div class="application-container">
+    <div class="application-container-inner">
+      <div class="subheader-container">
+        <div class="top-container ">
+          <div class="heading">
+            <button class="d-btn d-btn--circle sm white-bg-circle _cp">
+              <span (click)="navigateToConfigurations()" class="res-menu-btn-hide back-button icon-leftarrow icon--sm">
+              </span>
+              <!-- {{asherDetails?.id ? 'Edit' : 'Add'}} -->
+            </button>
+            <div class="application-text">
+              <h2>Configuration</h2>
+            </div>
+          </div>
+
+          <div class="right">
+            <button class="d-btn d-btn--secondary sm" (click)="navigateToConfigurations()" type="button">
+              <span class="material-symbols-outlined btn-icon">close</span>
+              <p class=""> Cancel</p>
+            </button>
+            <button class="d-btn d-btn--primary sm" type="submit" (click)="submitNotification()">
+              <span class="material-symbols-outlined btn-icon">check</span>
+              <p class=""> Save</p>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="main-box">
+        <div class="filled-important-div">
+          <p class="small">Fields marked with &nbsp;<span class="required">*</span>&nbsp; are required.</p>
+        </div>
+        <form [formGroup]="notificationForm">
+          <div class="outer-box accordian-box-wrapper">
+            <div class="heading-wrapper">
+              <h3>Notification & Email </h3>
+            </div>
+            <div class="inner-box">
+              <div class="only-feilds">
+                <div class="input-feild-columns add-edit-input-feilds">
+                  <!-- notification event -->
+                  <div class="form-group" (click)="notificationEventInputBox.focus()"
+                    [class.error]='showErrors && notificationForm.get("notificationEvent")?.invalid'>
+
+                    <div class="input-wrapper lg">
+                      <input #inputElement #notificationEventInputBox formControlName="notificationEvent" type="text"
+                        id="notification_event" placeholder="Enter event"
+                        [class.filled]="notificationForm.get('notificationEvent')?.value" />
+                      <label for="notificationEvent" class="floating-label">Notification Event:<span
+                          class="required">*</span></label>
+                    </div>
+                    @if (showErrors && notificationForm.get("notificationEvent")?.invalid) {
+                    <p class="error-message">Please enter notification event.</p>
+                    }
+                  </div>
+
+                  <!-- trigger -->
+                  <div class="form-group"
+                    [class.error]='showErrors && notificationForm.get("initialTriggerDays")?.invalid'
+                    (click)="initialTriggerDaysInputBox.focus()">
+                    <div class="input-wrapper lg">
+                      <input #inputElement #initialTriggerDaysInputBox formControlName="initialTriggerDays"
+                        type="number" id="initial_trigger_days" placeholder="Enter days" min="0"
+                        [class.filled]="notificationForm.get('initialTriggerDays')?.value" />
+                      <label for="initial_trigger_days" class="floating-label">Initial Trigger Days:<span
+                          class="required">*</span></label>
+                    </div>
+
+                    @if (showErrors && notificationForm.get("initialTriggerDays")?.invalid) {
+                    <p class="error-message">Please enter initial trigger days.</p>
+                    }
+                  </div>
+
+
+                  <div class="form-group"
+                    [class.error]='showErrors && notificationForm.get("repeatFrequencyDays")?.invalid'
+                    (click)="repeatFrequencyDaysInputBox.focus()">
+                    <div class="input-wrapper lg">
+                      <input #inputElement #repeatFrequencyDaysInputBox formControlName="repeatFrequencyDays"
+                        type="number" id="repeat_frequency_days" placeholder="Enter frequency" min="1"
+                        [class.filled]="notificationForm.get('repeatFrequencyDays')?.value" />
+                      <label for="repeat_frequency_days" class="floating-label">Repeat Frequency Days:<span
+                          class="required">*</span></label>
+                    </div>
+                    @if (showErrors && notificationForm.get("repeatFrequencyDays")?.invalid) {
+                    <p class="error-message">Please enter repeat frequency days.</p>
+                    }
+                  </div>
+
+                  <!-- thresold -->
+                  <div class="form-group" [class.error]='showErrors && notificationForm.get("threshold")?.invalid'
+                    (click)="thresholdInputBox.focus()">
+                    <div class="input-wrapper lg">
+                      <input #inputElement #thresholdInputBox formControlName="threshold" type="number" id="threshold"
+                        placeholder="Enter threshold" min="-1"
+                        [class.filled]="notificationForm.get('threshold')?.value" />
+                      <label for="threshold" class="floating-label">Threshold:<span class="required">*</span></label>
+                    </div>
+                    @if (showErrors && notificationForm.get("threshold")?.invalid) {
+                    <p class="error-message">Please enter threshold.</p>
+                    }
+                  </div>
+
+                  <!-- email -->
+                  <div class="form-group" (click)="emailToInputBox.focus()">
+                    <div class="input-wrapper lg">
+                      <input #emailToInputBox formControlName="emailTo" type="email" id="email_to"
+                        placeholder="Enter recipient emails" [class.filled]="notificationForm.get('emailTo')?.value" />
+                      <label for="email_to" class="floating-label">Email To:</label>
+                    </div>
+                  </div>
+
+
+                  <div class="form-group">
+                    <div class="input-wrapper lg">
+                      <input formControlName="emailCc" type="email" id="email_cc" placeholder="Enter CC emails"
+                        [class.filled]="notificationForm.get('emailCc')?.value" />
+                      <label for="email_cc" class="floating-label">Email CC:</label>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <div class="input-wrapper lg">
+                      <input formControlName="emailBcc" type="email" id="email_bcc" placeholder="Enter BCC emails"
+                        [class.filled]="notificationForm.get('emailBcc')?.value" />
+                      <label for="email_bcc" class="floating-label">Email BCC:</label>
+                    </div>
+                  </div>
+
+                  <div class="form-group" [class.error]='showErrors && notificationForm.get("adminEmail")?.invalid'
+                    (click)="adminEmailInputBox.focus()">
+                    <div class="input-wrapper lg">
+                      <input #inputElement #adminEmailInputBox formControlName="adminEmail" type="email" id="email_bcc"
+                        placeholder="Enter Admin email" [class.filled]="notificationForm.get('adminEmail')?.value" />
+                      <label for="email_bcc" class="floating-label">Admin Email <span class="required">*</span></label>
+                    </div>
+                    @if (showErrors && notificationForm.get("adminEmail")?.invalid) {
+                    <p class="error-message">Please enter admin email.</p>
+                    }
+                  </div>
+
+
+                  <!-- Email Subject -->
+                  <div class="form-group" [class.invalid]='showErrors && notificationForm.get("emailSubject")?.invalid'
+                    (click)="emailSubjectInputBox.focus()">
+                    <div class="input-wrapper lg">
+                      <input #emailSubjectInputBox formControlName="emailSubject" type="text" id="email_subject"
+                        placeholder="Enter subject" [class.filled]="notificationForm.get('emailSubject')?.value" />
+                      <label for="email_subject" class="floating-label">Email Subject: <span
+                          class="required">*</span></label>
+                    </div>
+                    @if (showErrors && notificationForm.get("emailSubject")?.invalid) {
+                    <p class="error-message">Please enter email subject.</p>
+                    }
+                  </div>
+
+
+
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="outer-box accordian-box-wrapper">
+            <div class="heading-wrapper">
+              <h3>Email Body & Email Remainder</h3>
+            </div>
+            <div class="inner-box">
+              <div class="only-feilds">
+
+                <!-- Email Body -->
+                <div class="form-group description-box"
+                  [class.invalid]='showErrors && notificationForm.get("emailBody")?.invalid'
+                  (click)="emailBodyInputBox.focus()">
+                  <div class="input-wrapper">
+                    <textarea #emailBodyInputBox formControlName="emailBody" id="emailBody" placeholder="Email body"
+                      rows="5" [class.filled]="notificationForm.get('emailBody')?.value"></textarea>
+                    <label for="emailBody" class="floating-label">Email Body: <span class="required">*</span></label>
+                  </div>
+                  @if (showErrors && notificationForm.get("emailBody")?.invalid) {
+                  <p class="error-message">Please enter email body.</p>
+                  }
+                </div>
+
+                <!-- Email Reminder Subject -->
+                <div class="form-group">
+                  <div class="input-wrapper lg">
+                    <input formControlName="emailReminderSubject" id="emailReminderSubject"
+                      placeholder="Email Reminder subject"
+                      [class.filled]="notificationForm.get('emailReminderSubject')?.value" />
+                    <label for="emailReminderSubject" class="floating-label">Email Reminder Subject</label>
+                  </div>
+                </div>
+
+                <!-- Email Reminder Body -->
+                <div class="form-group description-box">
+                  <div class="input-wrapper">
+                    <textarea formControlName="emailReminderBody" id="emailReminderBody" placeholder=" " rows="5"
+                      [class.filled]="notificationForm.get('emailReminderBody')?.value"></textarea>
+                    <label for="emailReminderBody" class="floating-label">Email Reminder Body:</label>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+          <div class="outer-box accordian-box-wrapper">
+            <div class="heading-wrapper">
+              <h3>Attribute & Records</h3>
+            </div>
+            <div class="inner-box">
+              <div class="only-feilds">
+                <div class="input-feild-columns  add-edit-input-feilds">
+                  <!-- Attributes -->
+                  @for (i of [1, 2, 3, 4, 5]; track i) {
+                  <div class="form-group d-flex flex-column">
+                    <div class="input-wrapper lg">
+                      <input formControlName="attribute{{i}}" type="text" id="attribute_{{i}}"
+                        placeholder="Enter attribute {{i}}"
+                        [class.filled]="notificationForm.get('attribute' + i)?.value" />
+                      <label for="attribute_{{i}}" class="floating-label">Attribute {{i}}:</label>
+                    </div>
+                  </div>
+                  }
+
+                  <div
+                    [class.active-upper]="this.notificationForm.get('recordStatus') && activeField === 'recordStatus'"
+                    [class.invalid]="
+                      showErrors && notificationForm.get('recordStatus')?.invalid"
+                    class="form-group drop-down d-flex flex-column select-box" (click)="statusDropdown.open()">
+                    <div class="input-wrapper lg">
+                      <ng-select #inputElement formControlName="recordStatus" #statusDropdown id="recordStatus"
+                        class="custom-select" (focus)="activeField = 'recordStatus'" bindLabel="label" bindValue="value"
+                        (open)="setClassToLabel('recordStatus')" (close)="reinitializeConfigStatus()"
+                        [items]="statusOptions" placeholder=" "
+                        [class.filled]="notificationForm.get('recordStatus')?.value" appendTo="body">
+                      </ng-select>
+                      <label [class.active]="this.notificationForm.get('recordStatus')" class="floating-label"
+                        for="recordStatus">Record Status:
+                        <span class="important">*</span></label>
+                    </div>
+                    @if (showErrors && notificationForm.get("recordStatus")?.invalid) {
+                    <p class="error-message">Please select record status.</p>
+                    }
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+          </div>
+
+
+
+        </form>
+      </div>
+    </div>
+  </div>

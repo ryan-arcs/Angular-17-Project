@@ -1,0 +1,137 @@
+<div class="main-manage-roles">
+  <div class="breadcrumbs-outer">
+    <ul>
+      <li><a (click)="navigateToRoles()" class="label medium"> Roles </a></li>
+      <li><span>/</span></li>
+      <li class="label medium">{{roleId ? roleName + ' &nbsp;&nbsp;/&nbsp;&nbsp; Edit' : 'Add'}}
+      </li>
+    </ul>
+  </div>
+
+
+  <div class="application-container">
+    <div class="subheader-container">
+      <div class="top-container ">
+        <div class="heading">
+          <button class="d-btn d-btn--circle sm white-bg-circle _cp">
+            <span (click)="navigateToRoles()" class="res-menu-btn-hide back-button icon-leftarrow icon--sm">
+            </span>
+            <!-- {{userId ? 'Edit' : 'Add'}} -->
+          </button>
+          <div class="application-text">
+            <h2>Role</h2>
+          </div>
+        </div>
+
+        <div class="right">
+          <div class="listing-page-buttons">
+            <button class="d-btn d-btn--secondary sm" (click)="navigateToRoles()" type="button">
+              <span class="material-symbols-outlined btn-icon">close</span>
+              <p class=""> Cancel</p>
+            </button>
+            <button class="d-btn d-btn--primary sm" type="submit" (click)="onSubmit()">
+              <span class="material-symbols-outlined btn-icon">check</span>
+              <p class=""> Save</p>
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="main-box">
+      <div class="filled-important-div">
+        <p class="small">Fields marked with &nbsp;<span class="required">*</span>&nbsp; are required.</p>
+      </div>
+      <form [formGroup]="roleForm">
+
+        <!-- open close class for toggle accordian -->
+        <div class="outer-box accordian-box-wrapper">
+          <div class="heading-wrapper">
+            <!-- <span class="icon-Vector-Stroke-15"></span> -->
+            <h3>Details</h3>
+          </div>
+
+          <div class="inner-box">
+
+            <div class="only-feilds">
+              <!-- input field column class used when we want to show 3 div in one row -->
+              <div class="input-feild-columns ">
+                <div class="form-group" [class.error]='showErrors && roleForm.get("name")?.invalid'
+                  (click)="nameInputBox.focus()">
+
+                  <div class="input-wrapper lg">
+                    <input #inputElement #nameInputBox type="text" id="name" formControlName="name" placeholder=" "
+                      [class.filled]="roleForm.get('name')?.value" />
+                    <label for="name" class="floating-label">Name: <span class="required">*</span></label>
+                  </div>
+
+                  @if (showErrors && roleForm.get("name")?.invalid) {
+                  <p class="error-message">Please enter role name.</p>
+                  }
+                </div>
+                <div class="form-group">
+                  <div class="input-wrapper lg">
+                    <input [class.filled]="roleForm.get('description')?.value" type="text" id="description"
+                      formControlName="description" placeholder="Description" />
+                    <label for="description" class="floating-label">Description:</label>
+                  </div>
+                </div>
+                <div
+                  [class.active-upper]="(ngSelectClass==='application' || roleForm.value?.application ) && activeField==='application'"
+                  [class.error]='showErrors && roleForm.get("application")?.invalid'
+                  class="form-group drop-down select-box" (click)="applicationDropdown.open()">
+                  <div class="input-wrapper lg">
+                    <ng-select #applicationDropdown #inputElement class="custom-select" id="application"
+                      formControlName="application" (open)="setClassToLabel('application')"
+                      (close)="reinitializeApplicationOptions()" [class.filled]="roleForm.get('application')?.value"
+                      appendTo="body" placeholder=" ">
+                      @for (app of applications; track app) {
+                      <ng-option [value]="app?.id">{{app.application_name}}</ng-option>
+                      }
+                    </ng-select>
+                    <label [class.active]="(ngSelectClass==='application' || roleForm.value?.application )"
+                      for="application" class="floating-label">Application:</label>
+                  </div>
+                  @if (showErrors && roleForm.get("application")?.invalid) {
+                  <p class="error-message">Please select an application.</p>
+                  }
+                </div>
+
+                @if (roleId) {
+                <div class="form-group" (click)="toggleCheckbox('isActive')"
+                  [class.error]='showErrors && roleForm.get("isActive")?.invalid'>
+                  <div class="input-wrapper lg">
+                    <div class="switch-label">
+                      <label for="isActive" class="floating-label"
+                        [class.active]="roleForm.get('isActive')?.value !== null">
+                        Status:<span class="important">*</span>
+                      </label>
+
+                      <p class="toggle-text">
+                        {{roleForm.get("isActive")?.value ? "Active" : "Inactive"}}
+                      </p>
+
+                      <div class="switchBox">
+                        <label class="switch">
+                          <input type="checkbox" id="isActive" formControlName="isActive" class="toggle-input" />
+                          <span class="slider" (click)="toggleCheckbox('isActive')"></span>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                  @if (showErrors && roleForm.get("sortOrder")?.invalid) {
+                  <p class="error-message">Check if role is active or not.</p>
+                  }
+                </div>
+                }
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+      </form>
+    </div>
+  </div>
+</div>

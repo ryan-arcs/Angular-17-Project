@@ -1,0 +1,172 @@
+<div class="main-manage-roles">
+  <div class="breadcrumbs-outer">
+    <ul>
+      <li><a (click)="navigateToApplications()" class="label medium"> Applications </a></li>
+      <li><span>/</span></li>
+      <li class="label medium">{{applicationId ? applicationName + ' &nbsp;&nbsp;/&nbsp;&nbsp; Edit' : 'Add'}}
+      </li>
+    </ul>
+  </div>
+
+
+  <div class="application-container">
+    <div >
+      <div class="subheader-container">
+        <div class="top-container ">
+          <div class="heading">
+            <button class="d-btn d-btn--circle sm white-bg-circle _cp">
+              <span (click)="navigateToApplications()" class="res-menu-btn-hide back-button icon-leftarrow icon--sm">
+              </span>
+              <!-- {{userId ? 'Edit' : 'Add'}} -->
+            </button>
+            <div class="application-text">
+              <h2>Application</h2>
+            </div>
+          </div>
+
+          <div class="right">
+            <button class="d-btn d-btn--secondary sm" (click)="navigateToApplications()" type="button">
+              <span class="material-symbols-outlined btn-icon">close</span>
+              <p class=""> Cancel</p>
+            </button>
+            <button class="d-btn d-btn--primary sm" type="submit" (click)="onSubmit()">
+              <span class="material-symbols-outlined btn-icon">check</span>
+              <p class=""> Save</p>
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="main-box">
+         <div class="filled-important-div">
+          <p class="small">Fields marked with &nbsp;<span class="required">*</span>&nbsp; are required.</p>
+        </div>
+        <form [formGroup]="applicationForm">
+
+          <!-- open close class for toggle accordian -->
+          <div class="outer-box accordian-box-wrapper">
+            <div class="heading-wrapper">
+              <!-- <span class="icon-Vector-Stroke-15"></span> -->
+              <h3>Details</h3>
+            </div>
+
+            <div class="inner-box">
+
+              <div class="only-feilds">
+                <!-- input field column class used when we want to show 3 div in one row -->
+                <div class="input-feild-columns ">
+                  <div class="form-group"
+                    [class.error]='showErrors && applicationForm.get("name")?.invalid'
+                    (click)="nameInputBox.focus()">
+
+                    <div class="input-wrapper lg">
+                      <input #inputElement #nameInputBox type="text" id="name"
+                      formControlName="name" placeholder=" " [class.filled]="applicationForm.get('name')?.value"/>
+                      <label for="name" class="floating-label">Application Name: <span class="required">*</span></label>
+                    </div>
+
+                    @if (showErrors && applicationForm.get("name")?.invalid) {
+                    <p class="error-message">Please enter application name.</p>
+                    }
+                  </div>
+                  <div
+                    [class.active-upper]="(ngSelectClass==='status' || applicationForm.value?.status ) && activeField==='status'"
+                    [class.error]='showErrors && applicationForm.get("status")?.invalid'
+                    class="form-group drop-down select-box" (click)="statusDropdown.open()">
+                    <div class="input-wrapper lg">
+                      <ng-select #statusDropdown #inputElement class="custom-select" id="status"
+                      formControlName="status" (open)="setClassToLabel('status')"
+                      (close)="reinitializeUsersOptions()" [class.filled]="applicationForm.get('status')?.value" appendTo="body" placeholder=" ">
+                      <ng-option value="Development_Initiated">Development Initiated</ng-option>
+                      <ng-option value="Launched">Lauched</ng-option>
+                      <ng-option value="Coming_Soon">Coming Soon</ng-option>
+                    </ng-select>
+                    <label
+                      [class.active]="(ngSelectClass==='status' || applicationForm.value?.status )"
+                      for="status" class="floating-label">Status: <span
+                        class="required">*</span></label>
+                    </div>
+                    @if (showErrors && applicationForm.get("status")?.invalid) {
+                    <p class="error-message">Please select status.</p>
+                    }
+                  </div>
+                  <div class="form-group"
+                    [class.error]='showErrors && applicationForm.get("logo")?.invalid'
+                    (click)="logoInputBox.focus()">
+
+                    <div class="input-wrapper lg">
+                      <input #inputElement #logoInputBox type="text" id="logo"
+                      formControlName="logo" placeholder=" " [class.filled]="applicationForm.get('logo')?.value"/>
+                      <label for="logo" class="floating-label">Logo: <span class="required">*</span></label>
+                    </div>
+
+                    @if (showErrors && applicationForm.get("logo")?.invalid) {
+                    <p class="error-message">Please enter logo.</p>
+                    }
+                  </div>
+                  <div class="form-group"
+                    [class.error]='showErrors && applicationForm.get("sortOrder")?.invalid'
+                    (click)="sortOrderInputBox.focus()">
+                    <div class="input-wrapper lg">
+                      <input #inputElement #sortOrderInputBox formControlName="sortOrder"
+                        type="number" min="1" id="sortOrder" placeholder="Enter days"
+                        [class.filled]="applicationForm.get('sortOrder')?.value" />
+                      <label for="sortOrder" class="floating-label">Sort Order:<span
+                          class="required">*</span></label>
+                    </div>
+
+                    @if (showErrors && applicationForm.get("sortOrder")?.invalid) {
+                      <p class="error-message">Please enter sort order.</p>
+                    }
+                  </div>
+                  <div class="form-group">
+                    <div class="input-wrapper lg">
+                      <input [class.filled]="applicationForm.get('description')?.value" type="text" id="description" formControlName="description" placeholder="description"/>
+                      <label for="description" class="floating-label">Description:</label>
+                    </div>
+                  </div>
+                  @if (applicationId) {
+                    <div class="form-group" (click)="toggleCheckbox('isActive')"
+                    [class.error]='showErrors && applicationForm.get("isActive")?.invalid'>
+                      <div class="input-wrapper lg">
+                        <div class="switch-label">
+                          <label
+                            for="isActive"
+                            class="floating-label"
+                            [class.active]="applicationForm.get('isActive')?.value !== null"
+                          >
+                            Status:<span class="important">*</span>
+                          </label>
+  
+                          <p class="toggle-text">
+                            {{applicationForm.get("isActive")?.value ? "Active" : "Inactive"}}
+                          </p>
+  
+                          <div class="switchBox">
+                            <label class="switch">
+                              <input
+                                type="checkbox"
+                                id="isActive"
+                                formControlName="isActive"
+                                class="toggle-input"
+                              />
+                              <span class="slider" (click)="toggleCheckbox('isActive')"></span>
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+                      @if (showErrors && applicationForm.get("sortOrder")?.invalid) {
+                        <p class="error-message">Please select if the application is active.</p>
+                      }
+                    </div>
+                  }
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

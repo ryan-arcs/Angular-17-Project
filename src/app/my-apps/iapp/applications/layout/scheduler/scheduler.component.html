@@ -1,0 +1,153 @@
+<ng-template #actionRow let-row="row" let-value="value" let-i="index">
+  <span class="action-row">
+    @if (areActionsPermitted()) {
+    <div ngbDropdown container="body" class="ag-grid-more-outer">
+      <button type="button" class="d-btn d-btn--circle vs" id="dropdownBasic1" title="options" ngbDropdownToggle>
+        <span class="material-symbols-rounded more-icon">more_horiz</span>
+      </button>
+      <div class="dropdown-menu" ngbDropdownMenu aria-labelledby="dropdownBasic1">
+        @if (row.schedule === 'Disabled' && isActionPermitted(row, 'enable_schedule')) {
+        <button ngbDropdownItem class="d-btn d-btn--tertiary sm" (click)="onCellClicked(row, 'Enable')">
+          <i style="font-size: 17px; cursor: pointer;line-height:24px;" class="fa fa-check-circle btn-icon"></i>
+          <P> Enable Schedule</P>
+        </button>
+        }
+        @if (!(row.schedule === 'Disabled') && isActionPermitted(row, 'disable_schedule')) {
+        <button ngbDropdownItem class="d-btn d-btn--tertiary sm" (click)="onCellClicked(row, 'Disable')">
+          <i style="font-size: 17px; cursor: pointer;line-height:24px;" class="fa fa fa-ban btn-icon"></i>
+          <p>Disable Schedule</p>
+        </button>
+        }
+        @if (isActionPermitted(row, 'run_schedule')) {
+        <button ngbDropdownItem class="d-btn d-btn--tertiary sm" (click)="onCellClicked(row, 'Run')">
+          <i style="font-size: 17px; cursor: pointer;line-height:24px;" class="fa fa-play-circle btn-icon"></i>
+          <p>Run Schedule</p>
+        </button>
+        }
+        <!-- <button ngbDropdownItem class="d-btn d-btn--tertiary sm" (click)="onCellClicked(row, 'VIEWLOGS')">
+          <i style="font-size: 17px; cursor: pointer;line-height:24px;" class="fa fa-history btn-icon"></i>
+          <p class="">Action Logs</p>
+        </button> -->
+      </div>
+    </div>
+    } @else {
+    <span> - </span>
+    }
+  </span>
+</ng-template>
+
+<ng-template #idleTemplate let-value="value">
+  @if(value === "IDLE"){
+  <div class="sell-outer">
+    <div class="circul-status status-deployed"></div>
+    <span>{{value}}</span>
+  </div>
+  }
+  @if(value === "QUEUED" || value === "RUNNING") {
+  <div class="sell-outer">
+    <span class="material-symbols-rounded loader">cycle</span>
+    <span>{{value || '-'}}</span>
+  </div>
+  }
+</ng-template>
+
+<ng-template #schedularTemplate let-row="row" let-value="value">
+  @if(value?.toLowerCase() === 'enabling' || value?.toLowerCase() === 'disabling'){
+  <div class="sell-outer"><span class="material-symbols-rounded loader">cycle</span><span>{{value || ''}}</span></div>
+  }
+  @else{
+  <p class="schedule-utc-p" title="Please contact to administration to change the expression">{{value}}</p>
+  }
+</ng-template>
+
+<ng-template #applicationNameTemplate let-row="row" let-value="value">
+  <div class="sell-outer">
+    <div class="circul-in" [class]="getAvatarClass(row.id)">{{ value.charAt(0) }}</div>
+    <span class="sell-outer-span" title="{{value}}">
+      {{ value }}
+    </span>
+  </div>
+</ng-template>
+
+<ng-template #scheduleHeaderTemplate let-value="value">
+  <span style="cursor: pointer;">
+    Scheduale (UTC) <i class="fa fa-info-circle" aria-hidden="true" click=''></i>
+  </span>
+</ng-template>
+
+<div class="breadcrumbs-outer">
+  <ul>
+    <li><a (click)="navigateToApplications()" class="label medium"> Projects </a></li>
+    <li><span>/</span></li>
+    <li class="label medium">Schedules</li>
+  </ul>
+</div>
+
+<div class="application-container">
+  <div class="application-container-inner">
+    <!-- left-subheader -->
+    <div class="subheader-container">
+      <div class="tc-manage-screen">
+        <div class="heading">
+          <button class="d-btn d-btn--circle sm white-bg-circle _cp" (click)="navigateToApplications()">
+            <span class="res-menu-btn-hide back-button icon-leftarrow icon--sm"></span>
+          </button>
+          <div class="application-text">
+            <h2>Schedules</h2>
+          </div>
+        </div>
+        <div class="right right-panel">
+          <div class="listing-page-buttons-manage-screen">
+          <div class="search-n-btn">
+            <div class="search-bar search-bar--rounded">
+              <span class="material-symbols-outlined btn-icon">
+                search
+              </span>
+              <div class="search-outer">
+                <input type="text" [(ngModel)]="searchTerm" placeholder="Search here..."
+                  (input)="onSearchChange($event)"
+                  title="This search will be performed on all displayed and hidden columns." />
+              </div>
+            </div>
+          </div>
+          </div>
+          <div class="sh-buttons">
+            <!-- <button class="d-btn d-btn--secondary sm tooltip-btn" (click)="viewLogs()" placement="start"
+              [ngbTooltip]="isMobileScreen() ? 'Action Logs' : ''">
+              <span class="material-symbols-rounded btn-icon">history</span>
+              <p class="">Action Logs</p>
+            </button> -->
+            <div class="btns-res-divider">
+            <button class="d-btn d-btn--secondary sm tooltip-btn" (click)="getSchedules()"
+              [disabled]="isloadingSchedules" placement="start" [ngbTooltip]="isMobileScreen() ? 'Refresh' : ''"
+              triggers="hover">
+              <span class="material-symbols-rounded btn-icon">refresh</span>
+              <p class="">Refresh</p>
+            </button>
+            @if (columnFilters.length || searchTerm) {
+            <button class="d-btn d-btn--secondary sm tooltip-btn" (click)="clearFilters()" placement="start"
+              [ngbTooltip]="isMobileScreen() ? 'Clear Filter' : ''">
+              <span class="material-symbols-rounded btn-icon">filter_list_off</span>
+              <p class="">Clear Filter</p>
+            </button>
+            }
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- grid -->
+    <div class="panel-and-table">
+      <div class="logs-container logs-cell-padding inner-pages-footer breadcrumb-grid-container">
+        <app-data-grid [gridName]="'iapp-schedule-grid'" [gridColumns]="columns" [gridRows]="schedulerList"
+          [pagination]="pagination" [columnFilters]="columnFilters" [pageSizes]="paginationPageSizeSelector"
+          [selectedPageSize]="defaultSize" [actionRowTemplate]="actionRow" [externalSorting]="false"
+          [gridSorts]="gridSort.prop ? [gridSort] : []" [errorMessage]="errorMessage" (onGridSort)="onSort($event)"
+          (onGridPageSizeChange)="onGridPageSizeChange($event)" (onGridPageChange)="onGridPageChange($event)"
+          (onColumnFilterChange)="onColumnFilterChange($event)" (onGridActivate)="onRowClick($event)"
+          [enableInlineSearch]="true"></app-data-grid>
+      </div>
+    </div>
+  </div>
+</div>

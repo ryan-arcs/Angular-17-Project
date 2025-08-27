@@ -1,0 +1,27 @@
+<div class="logs-container logs-modal">
+  <div class="modal-header">
+    @if (title) {
+    <h2>{{ title }}</h2>
+    }
+    <!-- <button type="button" class="d-btn d-btn--circle sm" (click)="activeModal.close('CANCEL')">
+      <span class="material-symbols-rounded btn-icon">
+        close
+      </span>
+    </button> -->
+
+     <button type="button" class="d-btn d-btn--circle sm white-bg-circle _cp" (click)="activeModal.close('CANCEL')">
+        <span class="material-symbols-rounded btn-icon">close</span>
+      </button>
+  </div>
+
+
+
+  <div class="modal-body">
+    <app-data-grid [gridName]="'view-log-grid'" [gridColumns]="columns" [gridRows]="mulesoftApiLogs || []"
+      [pagination]="pagination" [pageSizes]="paginationPageSizeSelector" [selectedPageSize]="defaultSize"
+      [errorMessage]="errorMessage" (onGridSort)="onSort($event)" (onGridPageSizeChange)="onGridPageSizeChange($event)"
+      (onGridPageChange)="onGridPageChange($event)" (onColumnFilterChange)="onColumnFilterChange($event)"
+      [enableInlineSearch]="true">
+    </app-data-grid>
+  </div>
+</div>

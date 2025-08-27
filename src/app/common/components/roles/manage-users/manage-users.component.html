@@ -1,0 +1,199 @@
+<div class="main-manage-roles">
+  <div class="breadcrumbs-outer">
+    <ul>
+      @if (roleDetails?.role_name) {
+      <li><a (click)="navigateToRoles()" class="label medium"> Roles </a></li>
+      <li><span>/</span></li>
+      <li><a (click)="navigateToRoles()" class="label medium"> {{ roleDetails?.role_name || "" }} </a></li>
+      <li><span>/</span></li>
+      <li class="label medium">Manage Users</li>
+      }
+    </ul>
+  </div>
+
+
+  <div class="application-container">
+    <div class="application-container-inner">
+
+      <div class="subheader-container">
+        <div class="tc-manage-screen">
+          <div class="heading">
+            <button class="d-btn d-btn--circle sm white-bg-circle _cp" (click)="navigateToRoles()">
+              <span class="res-menu-btn-hide back-button icon-leftarrow icon--sm"></span>
+            </button>
+            <div class="application-text">
+              <h2>{{ roleDetails?.role_name || "" }}</h2>
+            </div>
+          </div>
+
+          <div class="right">
+            <!-- search bar -->
+            <div class="listing-page-buttons-manage-screen">
+              <div class="search-n-btn">
+                <div class="search-bar search-bar--rounded ">
+                  <span class="material-symbols-outlined btn-icon">
+                    search
+                  </span>
+                  <form>
+                    <input type="text" placeholder="Search here..." (input)="searchUsers($event)"
+                      title="This search will be performed on all displayed and hidden columns." />
+                  </form>
+                </div>
+              </div>
+            </div>
+
+
+
+            <div class="sh-buttons">
+              <div class="btns-res-divider">
+                <div ngbDropdown class="d-inline-block nav-dropdown" [autoClose]="'outside'" #dropdown1="ngbDropdown">
+                  <button type="button" class="dropdown-btn d-btn d-btn--secondary sm tooltip-btn" id="dropdownBasic1"
+                    [ngbTooltip]="selectedManager.manager_name" placement="bottom" ngbDropdownToggle triggers="hover">
+                    <span class="material-symbols-rounded btn-icon">filter_list</span>
+                    <p class="manage-user-el-sm">Manager: {{selectedManager.manager_name}}</p>
+                  </button>
+
+                  <div class="dropdown-menu" ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                    <ul>
+                      <div class="search-bar search-bar--rounded">
+                        <span class="material-symbols-outlined btn-icon">
+                          search
+                        </span>
+                        <input type="text" placeholder="Search here..." [(ngModel)]="managerListSearchText"
+                          (input)="searchManagerList($event)" />
+                      </div>
+
+                      <li>
+                        <button ngbDropdownItem
+                          [ngClass]="{ 'dropdown__active-manager-and-department': 'All' == selectedManager.worker_id }"
+                          (click)="setManager({manager_name: 'All', worker_id: 'All'}); dropdown1.close()">
+                          <p> All</p>
+                        </button>
+                        @for (item of getManagerFilterList(filteredManagerArray, managerListSearchText); track $index) {
+                        <button
+                          [ngClass]="{ 'dropdown__active-manager-and-department': item.worker_id == selectedManager.worker_id }"
+                          ngbDropdownItem (click)="setManager(item); dropdown1.close()">
+                          <p>{{ item.manager_name }}</p>
+                        </button>
+                        }
+                      </li>
+                    </ul>
+
+                  </div>
+                </div>
+
+                <div ngbDropdown class="d-inline-block nav-dropdown" [autoClose]="'outside'" #dropdown2="ngbDropdown">
+                  <button type="button" class="dropdown-btn d-btn d-btn--secondary sm tooltip-btn" id="dropdownBasic1"
+                    [ngbTooltip]="selectedDepartment.cost_center_description" placement="bottom" ngbDropdownToggle
+                    triggers="hover">
+                    <span class="material-symbols-rounded btn-icon">filter_list</span>
+                    <p class="manage-user-el-sm">Department: {{selectedDepartment.cost_center_description}}</p>
+                  </button>
+
+                  <div class="dropdown-menu" ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                    <ul>
+                      <div class="search-bar search-bar--rounded">
+                        <span class="material-symbols-outlined btn-icon">
+                          search
+                        </span>
+                        <input type="text" placeholder="Search here..." [(ngModel)]="departmentListSearchText"
+                          (input)="searchDepartmentList($event)" />
+                      </div>
+                      <li>
+                        <button ngbDropdownItem
+                          [ngClass]="{ 'dropdown__active-manager-and-department': 'All' == selectedDepartment.cost_center_description }"
+                          (click)="setDepartment({cost_center_code: 'All', cost_center_description: 'All'}); dropdown2.close()">
+                          <p>All</p>
+                        </button>
+                        @for (item of getDepartmentFilterList(filteredDepartmentArray, departmentListSearchText); track
+                        $index){
+                        <button ngbDropdownItem
+                          [ngClass]="{ 'dropdown__active-manager-and-department': item.cost_center_description == selectedDepartment.cost_center_description }"
+                          (click)="setDepartment(item); dropdown2.close()">
+                          <p> {{ item.cost_center_description }}</p>
+                        </button>
+                        }
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="btns-res-divider">
+                <button class="d-btn d-btn--secondary sm tooltip-btn" (click)="refreshManageUser()" placement="start" triggers="hover">
+                  <span class="material-symbols-rounded btn-icon">refresh</span>
+                  <p class="">Refresh</p>
+                </button>
+
+                <button class="d-btn d-btn--secondary sm" type="button" (click)="navigateToRoles()">
+                  <span class="material-symbols-outlined btn-icon">close</span>
+                  <p class=""> Cancel</p>
+                </button>
+                <!-- save -->
+                <button class="d-btn d-btn--primary sm" type="submit" (click)="submitAssignedUser()">
+                  <span class="material-symbols-outlined btn-icon">check</span>
+                  <p class="">Save</p>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="content d-flex justify-content-between">
+        <div class="left d-flex flex-column">
+          <div class="innerbox">
+            <div class="heading-row">
+              <h3>Select Users</h3>
+              <div (click)="assignAllUsers()" class="assign-all">
+                <span class="icon-add">+ </span>
+                <span class="text-add">Assign all</span>
+              </div>
+            </div>
+            <ul class="select-box">
+              <li *ngFor="
+              let user of unassignedUsers();
+              let userIndex = index
+            " class="d-flex align-items-center justify-content-between" (click)="selectUser(user)"
+                (dblclick)="manageUser(user, true)" [ngClass]="{ 'selected-user': user.isSelected }">
+                <span>
+                  {{ user?.displayName || '-'}}
+                </span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="center">
+          <button class="d-btn d-btn--circle md">
+            <img (click)="moveSelectedUsers(true)" src="assets/images/right-arrow.svg" alt="" />
+          </button>
+          <button class="d-btn d-btn--circle md">
+            <img (click)="moveSelectedUsers(false)" src="assets/images/left-arrow.svg" alt="" />
+          </button>
+        </div>
+        <!-- right side -->
+        <div class="right d-flex flex-column">
+          <div class="innerbox">
+            <div class="heading-row">
+              <h3>Selected Users</h3>
+              <div (click)="removeAllUsers()" class="remove-all">
+                <span class="icon-remove">- </span>
+                <span class="text-remove">Remove all</span>
+              </div>
+            </div>
+            <ul class="select-box">
+              <li *ngFor="
+              let user of assignedUsers();
+              let userIndex = index
+             " (click)="selectUser(user)" (dblclick)="manageUser(user, false)"
+                [ngClass]="{ 'selected-user': user.isSelected, 'user-terminated': (user?.empl_status?.toLowerCase() == 'terminated') }">
+                <span>{{user?.displayName || '-'}}</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

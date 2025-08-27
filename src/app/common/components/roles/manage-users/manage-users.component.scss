@@ -1,0 +1,19 @@
+.user-terminated {
+  opacity: 0.3;
+}
+
+.dropdown__active-manager-and-department{
+  background-color: var(--primary-selected-color) !important;
+  &:hover {
+    background-color: var(--primary-selected-hover-color);
+  }
+}
+
+@media screen and (max-width: 657px) {
+  .subheader-container .top-container .right {
+
+    flex-direction: row !important;
+    align-items: end !important;
+    flex-wrap: wrap !important;
+  }
+}

@@ -1,0 +1,190 @@
+<div class="subheader-container">
+  <div class="top-container row">
+    <!-- left -->
+    <div class="left .col-12 col-sm-6">
+      @if (isDropdown && tableauPersonas?.length) {
+      <div ngbDropdown class="d-inline-block">
+        <button type="button" class="d-btn d-btn--secondary sm dp-down tooltip-btn" id="dropdownBasic1"
+          ngbDropdownToggle placement="start" [ngbTooltip]="isMobileScreen() ? selectedTableauPersona : ''"
+          [placement]="isMobileScreen() ? 'bottom' : ''" triggers="hover">
+          <p class="">{{ selectedTableauPersona }}</p>
+        </button>
+        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+          <ul class="_mb-0">
+            <li>
+              <button ngbDropdownItem (click)="setTableauPersona('Home')">
+                <p>Home</p>
+                <label class="custom-radio radio-vs">
+                  <input type="radio" name="cards-count" [value]="selectedTableauPersona"
+                    [(ngModel)]="selectedTableauPersona" />
+                  <div class="radio-box">
+                    <div class="radio-dot"></div>
+                  </div>
+                </label>
+              </button>
+            </li>
+
+            @for (tableauPersona of tableauPersonas; track $index) {
+            @if (tableauPersona?.name) {
+            <li>
+              <button ngbDropdownItem (click)="setTableauPersona(tableauPersona?.name)">
+                <p>{{ tableauPersona?.name }}</p>
+                <label class="custom-radio radio-vs">
+                  <input type="radio" name="cards-count" [value]="tableauPersona?.name"
+                    [(ngModel)]="selectedTableauPersona" />
+                  <div class="radio-box">
+                    <div class="radio-dot"></div>
+                  </div>
+                </label>
+              </button>
+            </li>
+            }
+            }
+          </ul>
+        </div>
+      </div>
+      }
+    </div>
+    <!-- right -->
+    <div class="right .col-12 col-sm-6">
+      <div class="listing-page-buttons">
+        <!-- @if (expandCollapseFeat) {
+        <button class="d-btn d-btn--secondary sm tooltip-btn" (click)="setHeaderValue('expandAll')" placement="start"
+          [ngbTooltip]="isMobileScreen() ? 'Expand All' : ''">
+          <span class="material-symbols-outlined btn-icon">
+            expand_content
+          </span>
+          <p class="">Expand All</p>
+        </button>
+        <button class="d-btn d-btn--secondary sm tooltip-btn" (click)="setHeaderValue('collapseAll')" placement="start"
+          [ngbTooltip]="isMobileScreen() ? 'Collapse All' : ''">
+          <span class="material-symbols-outlined btn-icon">
+            close_fullscreen
+          </span>
+          <p class="">Collapse All</p>
+        </button>
+        } -->
+
+        <!-- <div class="cards-count-dropdown">
+          <div ngbDropdown class="d-inline-block">
+            <button type="button" class="d-btn d-btn--secondary sm tooltip-btn" id="dropdownBasic1" ngbDropdownToggle
+              placement="start" [ngbTooltip]="isMobileScreen() ? 'Item Count' : ''">
+              <span class="material-symbols-outlined btn-icon">
+                format_list_bulleted
+              </span>
+              <p class="">Item Count</p>
+            </button>
+            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+              <ul class="_mb-0">
+                <li class="cards-count-2">
+                  <button ngbDropdownItem (click)="cardWidth(2)">
+                    <p>02 Cards</p>
+                    <label class="custom-radio radio-vs">
+                      <input type="radio" name="cards_count" [checked]="viewTileCount == 2" />
+                      <div class="radio-box">
+                        <div class="radio-dot"></div>
+                      </div>
+                    </label>
+                  </button>
+                </li>
+                <li class="cards-count-4">
+                  <button ngbDropdownItem (click)="cardWidth(4)">
+                    <p>04 Cards</p>
+                    <label class="custom-radio radio-vs">
+                      <input type="radio" name="cards_count" [checked]="viewTileCount == 4" />
+                      <div class="radio-box">
+                        <div class="radio-dot"></div>
+                      </div>
+                    </label>
+                  </button>
+                </li>
+                <li class="cards-count-6">
+                  <button ngbDropdownItem (click)="cardWidth(6)">
+                    <p>06 Cards</p>
+                    <label class="custom-radio radio-vs">
+                      <input type="radio" name="cards_count" [checked]="viewTileCount == 6" />
+                      <div class="radio-box">
+                        <div class="radio-dot"></div>
+                      </div>
+                    </label>
+                  </button>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div> -->
+
+        <div ngbDropdown class="d-inline-block">
+          <button type="button" class="tableau-buttons" id="dropdownBasic1" ngbDropdownToggle
+            [placement]="isMobileScreen() ? 'bottom' : ''" [ngbTooltip]="isMobileScreen() ? 'Sort By' : ''"
+            triggers="hover">
+            <span class="material-symbols-outlined icon">
+              {{
+              sortBy.order === 'asc' ? 'arrow_upward' :
+              sortBy.order === 'desc' ? 'arrow_downward' :
+              'filter_list'
+              }}
+            </span>
+            <p class="">{{sortBy.order == 'desc' ? "Descending" : "Ascending"}}</p>
+          </button>
+
+          <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+            <!-- Order Section -->
+            <ul class="_mb-0">
+              <p class="fw-bold">Order</p>
+              <li>
+                <button ngbDropdownItem (click)="setOrder('asc')">
+                  <p>Ascending</p>
+                  <span class="material-symbols-outlined">arrow_upward</span>
+                </button>
+              </li>
+              <li>
+                <button ngbDropdownItem (click)="setOrder('desc')">
+                  <p>Descending</p>
+                  <span class="material-symbols-outlined">arrow_downward</span>
+                </button>
+              </li>
+            </ul>
+
+            <!-- <hr /> -->
+
+            <!-- Sort Section -->
+            <!-- <ul class="_mb-0">
+              <p class="fw-bold">Sort</p>
+              @for (sortOption of sortOptions; track $index) {
+              <li>
+                <button ngbDropdownItem (click)="setSort(sortOption.prop)">
+                  <p>{{ sortOption.title }}</p>
+                  <label class="custom-radio radio-vs">
+                    <input type="radio" name="fav_languages" [checked]="sort === sortOption.prop" />
+                    <div class="radio-box">
+                      <div class="radio-dot"></div>
+                    </div>
+                  </label>
+                </button>
+              </li>
+              }
+            </ul> -->
+          </div>
+
+        </div>
+        @if (isRefresh) {
+        <button class="tableau-buttons tableau__refresh-button" (click)="refreshPage()" placement="bottom"
+          [ngbTooltip]="isMobileScreen() ? 'Refresh' : ''" triggers="hover">
+          <span class="material-symbols-rounded btn-icon">refresh</span>
+          <p class="">Refresh</p>
+        </button>
+        }
+        <div class="search-n-btn">
+          <div class="search-bar search-bar--rounded">
+            <span class="material-symbols-outlined btn-icon">
+              search
+            </span>
+            <input type="text" placeholder="Search here..." [ngModel]="globalSearch" (input)="onSearchFilter($event)" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

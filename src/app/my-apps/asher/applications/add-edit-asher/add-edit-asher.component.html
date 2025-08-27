@@ -1,0 +1,452 @@
+<div class="main-manage-roles">
+  <div class="breadcrumbs-outer">
+    <ul>
+      <li><a (click)="navigateToAsher()" class="label medium"> Applications</a></li>
+      <li><span>/</span></li>
+      <li class="label medium">{{asherDetails?.id ? applicationName + ' &nbsp;&nbsp;/&nbsp;&nbsp; Edit' : 'Add'}}
+      </li>
+    </ul>
+  </div>
+
+
+  <div class="application-container">
+    <div class="application-container-inner">
+      <div class="subheader-container">
+        <div class="top-container ">
+          <div class="heading">
+            <button class="d-btn d-btn--circle sm white-bg-circle _cp">
+              <span (click)="navigateToAsher()" class="res-menu-btn-hide back-button icon-leftarrow icon--sm">
+              </span>
+              <!-- {{asherDetails?.id ? 'Edit' : 'Add'}} -->
+            </button>
+            <div class="application-text">
+              <h2>Application</h2>
+              
+            </div>
+          </div>
+
+          <div class="right right-for-add-edit-responsive">
+            <button class="d-btn d-btn--secondary sm" (click)="navigateToAsher()" type="button">
+              <span class="material-symbols-outlined btn-icon">close</span>
+              <p class=""> Cancel</p>
+            </button>
+            <button class="d-btn d-btn--primary sm" type="submit" (click)="submitAsher()">
+              <span class="material-symbols-outlined btn-icon">check</span>
+              <p class=""> Save</p>
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="main-box">
+        <div class="filled-important-div">
+          <p class="small">Fields marked with &nbsp;<span class="required">*</span>&nbsp; are required.</p>
+        </div>
+        <form [formGroup]="addApplicationForm">
+          <!-- open close class for toggle accordian -->
+          <div class="outer-box accordian-box-wrapper">
+            <div class="heading-wrapper">
+              <!-- <span class="icon-Vector-Stroke-15"></span> -->
+              <h3>Basic Information</h3>
+            </div>
+            <div class="inner-box">
+              <div class="only-feilds">
+                <!-- input field column class used when we want to show 3 div in one row -->
+                <div class="input-feild-columns ">
+
+                  <div class="form-group"
+                    [class.error]='showErrors && addApplicationForm.get("applicationName")?.invalid'
+                    (click)="applicationInputBox.focus()">
+
+                    <div class="input-wrapper lg">
+                      <input #inputElement #applicationInputBox type="text" id="applicationName"
+                        formControlName="applicationName" placeholder=" "
+                        [class.filled]="addApplicationForm.get('applicationName')?.value" />
+                      <label for="applicationName" class="floating-label">Name: <span class="required">*</span></label>
+                    </div>
+
+                    @if (showErrors && addApplicationForm.get("applicationName")?.invalid) {
+                    <p class="error-message">Please enter name.</p>
+                    }
+                  </div>
+
+                  <div class="form-group" [class.error]='showErrors && addApplicationForm.get("systemAlias")?.invalid'
+                    (click)="aliasesInputBox.focus()">
+                    <div class="input-wrapper lg">
+                      @if(!addApplicationForm.value?.systemAlias){
+                      <span class="set-default-alias" type="button" (click)="setDefaultValueAsNa('systemAlias')"
+                        ngbTooltip="Set as NA">NA</span>
+                      }
+                      <input #inputElement #aliasesInputBox type="text" id="systemAlias" formControlName="systemAlias"
+                        placeholder=" " [class.filled]="addApplicationForm.get('systemAlias')?.value" />
+                      <label for="systemAlias" class="floating-label">Aliases: <span class="required">*</span></label>
+                    </div>
+                    @if (showErrors && addApplicationForm.get("systemAlias")?.invalid) {
+                    <p class="error-message">Please enter aliases.</p>
+                    }
+                  </div>
+
+                  <div
+                    [class.active-upper]="(ngSelectClass==='lifecycle' || addApplicationForm.value?.lifecycle) && activeField==='lifecycle'"
+                    [class.error]='showErrors && addApplicationForm.get("lifecycle")?.invalid'
+                    class="form-group drop-down select-box" (click)="lifecycleDropdown.open()">
+                    <div class="input-wrapper lg">
+                      <ng-select #inputElement #lifecycleDropdown id="lifecycle" class="custom-select"
+                        formControlName="lifecycle" [typeahead]="lifecycleSearchTerm$" (input)="setLoader('lifecycle')"
+                        [loading]="ngselectLoaders['lifecycle']" (focus)="intitializeLifecycles('lifecycle')"
+                        (open)="setClassToLabel('lifecycle')" (close)="reinitializeLifecyles()"
+                        (change)="lifecycleDropdown.close()"
+                        [class.filled]="addApplicationForm.get('lifecycle')?.value" placeholder=" " appendTo="body">
+                        @for(lifecycle of lifecycles; track lifecycle?.code) {
+                        <ng-option [value]="lifecycle?.code">{{lifecycle?.name}}</ng-option>
+                        }
+                      </ng-select>
+                      <label [class.active]="(ngSelectClass==='lifecycle' || addApplicationForm.value?.lifecycle)"
+                        for="lifecycle" class="floating-label">Life Cycle: <span class="required">*</span></label>
+                    </div>
+                    @if (showErrors && addApplicationForm.get("lifecycle")?.invalid) {
+                    <p class="error-message">Please select life cycle.</p>
+                    }
+                  </div>
+
+                </div>
+
+                <div class="form-group" [class.error]='showErrors && addApplicationForm.get("description")?.invalid'
+                  (click)="descriptionInputBox.focus()">
+                  <div class="input-wrapper">
+                    <textarea #inputElement #descriptionInputBox id="description" formControlName="description"
+                      placeholder=" " [class.filled]="addApplicationForm.get('description')?.value"></textarea>
+                    <label for="description" class="floating-label">Description: <span class="required">*</span></label>
+                  </div>
+                  @if (showErrors && addApplicationForm.get("description")?.invalid) {
+                  <p class="error-message">Please enter description.</p>
+                  }
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+          <!-- open close class for toggle accordian -->
+          <div class="outer-box accordian-box-wrapper">
+            <div class="heading-wrapper">
+              <!-- <span class="icon-Vector-Stroke-15"></span> -->
+              <h3>Ownership & Roles</h3>
+            </div>
+            <div class="inner-box">
+              <div class="only-feilds">
+                <div class="input-feild-columns ">
+
+                  <div
+                    [class.active-upper]="(ngSelectClass==='productManagerId' || addApplicationForm.value?.productManagerId?.length > 0) && activeField==='productManagerId'"
+                    [class.error]='showErrors && addApplicationForm.get("productManagerId")?.invalid'
+                    class="form-group drop-down select-box" (click)="productManagerIdDropdown.open()">
+                    <div class="input-wrapper lg">
+                      <ng-select class="ng-multi-select custom-select" #inputElement #productManagerIdDropdown
+                        id="productManagerId" formControlName="productManagerId" [typeahead]="searchTerm$"
+                        [loading]="ngselectLoaders['productManagerId']" (input)="setLoader('productManagerId')"
+                        (focus)="intitializeUsers('productManagerId')" (close)="reinitializeUsersOptions()"
+                        (open)="setClassToLabel('productManagerId')" [multiple]="true" [selectableGroup]="true"
+                        [closeOnSelect]="false" [clearSearchOnAdd]="true"
+                        (change)="productManagerIdDropdown.close()"
+                        [class.filled]="addApplicationForm.get('productManagerId')?.value?.length > 0" appendTo="body"
+                        placeholder=" ">
+                        @for(user of (usersListOptions || []); track user?.id) {
+                        <ng-option [value]="user?.id">{{formatUserInfo(user)}}</ng-option>
+                        }
+                      </ng-select>
+                      <label
+                        [class.active]="(ngSelectClass==='productManagerId' || addApplicationForm.value?.productManagerId?.length > 0)"
+                        for="productManagerId" class="floating-label">Product Manager(s):</label>
+                    </div>
+                    @if (showErrors && addApplicationForm.get("productManagerId")?.invalid) {
+                    <p class="error-message">Please select atleast one product manager.</p>
+                    }
+                  </div>
+
+                  <div
+                    [class.active-upper]="(ngSelectClass==='product' || addApplicationForm.value?.productOwnerId?.length > 0) && activeField==='product'"
+                    [class.error]='showErrors && addApplicationForm.get("productOwnerId")?.invalid'
+                    class="form-group drop-down select-box" (click)="productOwnerDropdown.open()">
+                    <div class="input-wrapper lg">
+                      <ng-select class="ng-multi-select custom-select" #inputElement #productOwnerDropdown
+                        id="productOwnerId" formControlName="productOwnerId" [multiple]="true" [selectableGroup]="true"
+                        [closeOnSelect]="false" [clearSearchOnAdd]="true" [typeahead]="searchTerm$"
+                        [loading]="ngselectLoaders['product']" (input)="setLoader('product')"
+                        (focus)="intitializeUsers('product')" (close)="reinitializeUsersOptions()"
+                        (open)="setClassToLabel('product')"
+                        (change)="productOwnerDropdown.close()"
+                        [class.filled]="addApplicationForm.get('productOwnerId')?.value?.length > 0" appendTo="body"
+                        placeholder=" ">
+                        @for(user of (usersListOptions || []); track user?.id) {
+                        <ng-option [value]="user?.id">{{formatUserInfo(user)}}</ng-option>
+                        }
+                      </ng-select>
+                      <label
+                        [class.active]="(ngSelectClass==='product' || addApplicationForm.value?.productOwnerId?.length > 0)"
+                        for="productOwnerId" class="floating-label">Product Owner(s):</label>
+                    </div>
+                    @if (showErrors && addApplicationForm.get("productOwnerId")?.invalid) {
+                    <p class="error-message">Please select atleast one product owner.</p>
+                    }
+                  </div>
+
+                  <div
+                    [class.active-upper]="(ngSelectClass==='business' || addApplicationForm.value.businessOwnerId?.length > 0) && activeField==='business'"
+                    [class.error]='showErrors && addApplicationForm.get("businessOwnerId")?.invalid'
+                    class="form-group drop-down select-box" (click)="businessOwnerDropdown.open()">
+                    <div class="input-wrapper lg">
+                      <ng-select #businessOwnerDropdown #inputElement class="ng-multi-select custom-select"
+                        id="businessOwnerId" formControlName="businessOwnerId" [typeahead]="searchTerm$"
+                        [loading]="ngselectLoaders['business']" [multiple]="true" [selectableGroup]="true"
+                        [closeOnSelect]="false" [clearSearchOnAdd]="true" (input)="setLoader('business')"
+                        (close)="reinitializeUsersOptions()" (focus)="intitializeUsers('business')"
+                        (open)="setClassToLabel('business')" (change)="onOwnerChange($event, 'business'); businessOwnerDropdown.close()"
+                        [class.filled]="addApplicationForm.get('businessOwnerId')?.value?.length > 0" appendTo="body"
+                        placeholder=" ">
+                        @for(user of (usersListOptions || []); track user?.id) {
+                        <ng-option [value]="user?.id">{{formatUserInfo(user)}}</ng-option>
+                        }
+                      </ng-select>
+                      <label
+                        [class.active]="(ngSelectClass==='business' || addApplicationForm.value.businessOwnerId?.length > 0)"
+                        for="businessOwnerId" class="floating-label">Business Owner(s): <span
+                          class="required">*</span></label>
+                    </div>
+                    @if (showErrors && addApplicationForm.get("businessOwnerId")?.invalid) {
+                    <p class="error-message">Please select atleast one business owner.</p>
+                    }
+                  </div>
+
+                  <div
+                    [class.active-upper]="(ngSelectClass==='system' || addApplicationForm.value?.systemOwnerId?.length > 0 ) && activeField==='system'"
+                    [class.error]='showErrors && addApplicationForm.get("systemOwnerId")?.invalid'
+                    class="form-group drop-down select-box" (click)="systemOwnerDropdown.open()">
+                    <div class="input-wrapper lg">
+                      <ng-select #systemOwnerDropdown #inputElement class="ng-multi-select custom-select"
+                        id="systemOwnerId" formControlName="systemOwnerId" [typeahead]="searchTerm$"
+                        [loading]="ngselectLoaders['system']" (input)="setLoader('system')"
+                        (focus)="intitializeUsers('system')" (open)="setClassToLabel('system')"
+                        (close)="reinitializeUsersOptions()" [multiple]="true" [selectableGroup]="true"
+                        [closeOnSelect]="false" [clearSearchOnAdd]="true" (change)="onOwnerChange($event, 'system'); systemOwnerDropdown.close()"
+                        [class.filled]="addApplicationForm.get('systemOwnerId')?.value?.length > 0" appendTo="body"
+                        placeholder=" ">
+                        @for(user of (usersListOptions || []); track user?.id) {
+                        <ng-option [value]="user?.id">{{formatUserInfo(user)}}</ng-option>
+                        }
+                      </ng-select>
+                      <label
+                        [class.active]="(ngSelectClass==='system' || addApplicationForm.value?.systemOwnerId?.length > 0)"
+                        for="systemOwnerId" class="floating-label">System Owner(s): <span
+                          class="required">*</span></label>
+                    </div>
+                    @if (showErrors && addApplicationForm.get("systemOwnerId")?.invalid) {
+                    <p class="error-message">Please select atleast one system owner.</p>
+                    }
+                  </div>
+
+                  <div
+                    [class.active-upper]="(ngSelectClass==='it' || addApplicationForm.value?.itContactId?.length > 0) && activeField==='it'"
+                    [class.error]='showErrors && addApplicationForm.get("itContactId")?.invalid'
+                    class="form-group drop-down select-box" (click)="itContactDropdown.open()">
+                    <div class="input-wrapper lg">
+                      <ng-select #itContactDropdown #inputElement class="ng-multi-select custom-select" id="itContactId"
+                        formControlName="itContactId" [typeahead]="itSearchTerm$" [loading]="ngselectLoaders['it']"
+                        (input)="setLoader('it')" (focus)="intitializeITUsers('it')"
+                        (change)="itContactDropdown.close()"
+                        (close)="reinitializeITUsersOptions()" (open)="setClassToLabel('it')" [multiple]="true"
+                        [selectableGroup]="true" [closeOnSelect]="false" [clearSearchOnAdd]="true"
+                        [class.filled]="addApplicationForm.get('itContactId')?.value?.length > 0" appendTo="body"
+                        placeholder=" ">
+                        @for(user of (itListOptions || []); track user?.id) {
+                        <ng-option [value]="user?.id">{{formatUserInfo(user)}}</ng-option>
+                        }
+                      </ng-select>
+                      <label
+                        [class.active]="(ngSelectClass==='it' || addApplicationForm.value?.itContactId?.length > 0)"
+                        for="itContactId" class="floating-label">IT Contact(s):
+                        @if(!hasITOwner){
+                        <span class="required">*</span>
+                        }
+                      </label>
+                    </div>
+                    @if (showErrors && addApplicationForm.get("itContactId")?.invalid) {
+                    <p class="error-message">Please select atleast one IT Contact.</p>
+                    }
+                  </div>
+
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- open close class for toggle accordian -->
+          <div class="outer-box accordian-box-wrapper">
+            <div class="heading-wrapper">
+              <!-- <span class="icon-Vector-Stroke-15"></span> -->
+              <h3>Hosting & Vendors</h3>
+            </div>
+            <div class="inner-box">
+              <div class="only-feilds">
+                <div class="input-feild-columns ">
+
+                  <div
+                    [class.active-upper]="(ngSelectClass==='hostingLocation' || addApplicationForm.value?.hostingLocation ) && activeField==='hostingLocation'"
+                    [class.error]='showErrors && addApplicationForm.get("hostingLocation")?.invalid'
+                    class="form-group drop-down select-box" (click)="hostingLocationDropdown.open()">
+                    <div class="input-wrapper lg">
+                      <ng-select #hostingLocationDropdown #inputElement class="custom-select" id="hostingLocation"
+                        formControlName="hostingLocation" (open)="setClassToLabel('hostingLocation')"
+                        (close)="reinitializeUsersOptions()"
+                        (change)="hostingLocationDropdown.close()"
+                        [class.filled]="addApplicationForm.get('hostingLocation')?.value" appendTo="body"
+                        placeholder=" ">
+                        @for (option of hostingLocationOption; track option) {
+                        <ng-option [value]="option.code">{{option.option}}</ng-option>
+                        }
+                      </ng-select>
+                      <label
+                        [class.active]="(ngSelectClass==='hostingLocation' || addApplicationForm.value?.hostingLocation )"
+                        for="hostingLocation" class="floating-label">Hosting Location: <span
+                          class="required">*</span></label>
+                    </div>
+                    @if (showErrors && addApplicationForm.get("hostingLocation")?.invalid) {
+                    <p class="error-message">Please select hosting location.</p>
+                    }
+                  </div>
+
+                  <div
+                    [class.active-upper]="(ngSelectClass==='vendor' || addApplicationForm.value?.vendor ) && activeField==='vendor'"
+                    [class.error]='showErrors && addApplicationForm.get("vendor")?.invalid'
+                    class="form-group drop-down select-box" (click)="vendorDropdown.open()">
+                    <div class="input-wrapper lg">
+                      <ng-select #vendorDropdown #inputElement class="custom-select" id="vendor"
+                        formControlName="vendor" [typeahead]="vendorSearchTerm$" [loading]="ngselectLoaders['vendor']"
+                        (input)="setLoader('vendor')" (focus)="intitializeVendors('vendor')"
+                        (open)="setClassToLabel('vendor')" (close)="reinitializeVendors()"
+                        (change)="vendorDropdown.close()"
+                        [class.filled]="addApplicationForm.get('vendor')?.value" appendTo="body" placeholder=" ">
+                        @for(vendor of (vendors || []); track vendor?.id) {
+                        <ng-option [value]="vendor?.id">{{vendor?.name}}</ng-option>
+                        }
+                      </ng-select>
+                      <label [class.active]="(ngSelectClass==='vendor' || addApplicationForm.value?.vendor )"
+                        for="vendor" class="floating-label">Vendor:
+                        <span class="required">*</span></label>
+                    </div>
+                    @if (showErrors && addApplicationForm.get("vendor")?.invalid) {
+                    <p class="error-message">Please select vendor.</p>
+                    }
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- open close class for toggle accordian -->
+          <div class="outer-box accordian-box-wrapper">
+            <div class="heading-wrapper">
+              <!-- <span class="icon-Vector-Stroke-15"></span> -->
+              <h3>Additional Details</h3>
+            </div>
+            <div class="inner-box">
+              <div class="only-feilds">
+
+                <div class="input-feild-columns ">
+                  <div
+                    [class.active-upper]="(ngSelectClass==='fundingDepartment' || addApplicationForm.value?.fundingDepartment ) && activeField==='fundingDepartment'"
+                    [class.error]='showErrors && addApplicationForm.get("fundingDepartment")?.invalid'
+                    class="form-group drop-down select-box" (click)="fundingDepartmentDropdown.open()">
+                    <div class="input-wrapper lg">
+                      <ng-select #fundingDepartmentDropdown #inputElement id="fundingDepartment" class="custom-select"
+                        formControlName="fundingDepartment" [typeahead]="fundingDepartmentSearchTerm$"
+                        [loading]="ngselectLoaders['fundingDepartment']" (input)="setLoader('fundingDepartment')"
+                        (focus)="intitializeDepartments('fundingDepartment')"
+                        (change)="fundingDepartmentDropdown.close()"
+                        (open)="setClassToLabel('fundingDepartment')" (close)="reinitializeDepartments()"
+                        [class.filled]="addApplicationForm.get('fundingDepartment')?.value" appendTo="body"
+                        [dropdownPosition]="'top'" placeholder=" ">
+                        @for(fundingDepartment of (fundingDepartments || []); track fundingDepartment?.costcenterCode) {
+                        <ng-option [value]="fundingDepartment?.costcenterCode">{{fundingDepartment?.name}}</ng-option>
+                        }
+                      </ng-select>
+                      <label
+                        [class.active]="(ngSelectClass==='fundingDepartment' || addApplicationForm.value?.fundingDepartment )"
+                        for="fundingDepartment" class="floating-label">Funding Department:</label>
+                    </div>
+                    @if (showErrors && addApplicationForm.get("fundingDepartment")?.invalid) {
+                    <p class="error-message">Please select funding departments.</p>
+                    }
+                  </div>
+
+
+                  <div class="form-group" (click)="versionInputBox.focus()">
+                    <div class="input-wrapper lg">
+                      @if(!addApplicationForm.value?.version){
+                      <span class="set-default-alias" type="button" (click)="setDefaultValueAsNa('version')"
+                        ngbTooltip="Set as NA">NA</span>
+                      }
+                      <input #versionInputBox type="text" id="version" formControlName="version" placeholder=" "
+                        [class.filled]="addApplicationForm.get('version')?.value" />
+                      <label for="version" class="floating-label">Version: </label>
+                    </div>
+                  </div>
+
+
+                  <div class="form-group" (click)="toggleCheckbox('gxp')">
+                    <div class="input-wrapper lg">
+                      <div class="switch-label">
+                        <label for="gxp" class="floating-label"
+                          [class.active]="addApplicationForm.get('gxp')?.value !== null">
+                          GXP:
+                        </label>
+
+                        <p class="toggle-text">
+                          {{ addApplicationForm.get("gxp")?.value ? "Yes" : "No" }}
+                        </p>
+
+                        <div class="switchBox">
+                          <label class="switch">
+                            <input type="checkbox" id="gxp" formControlName="gxp" class="toggle-input" />
+                            <span class="slider" (click)="toggleCheckbox('gxp')"></span>
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+
+                  <div class="form-group" (click)="toggleCheckbox('sox')">
+                    <div class="input-wrapper lg">
+                      <div class="switch-label">
+                        <label for="sox" class="floating-label"
+                          [class.active]="addApplicationForm.get('sox')?.value !== null">
+                          SOX:
+                        </label>
+
+                        <p class="toggle-text">
+                          {{ addApplicationForm.get("sox")?.value ? "Yes" : "No" }}
+                        </p>
+
+                        <div class="switchBox">
+                          <label class="switch">
+                            <input type="checkbox" id="sox" formControlName="sox" class="toggle-input" />
+                            <span class="slider" (click)="toggleCheckbox('sox')"></span>
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

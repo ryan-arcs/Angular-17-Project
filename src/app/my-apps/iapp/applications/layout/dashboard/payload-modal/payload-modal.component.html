@@ -1,0 +1,19 @@
+<div class="modal-header">
+  <div class="mh-inner payload-header">
+    <h2>Payload Data</h2>
+    <button
+      class="modal-close-btn d-btn d-btn--circle sm white-bg-circle _cp"
+      (click)="copyToClipboard(payloadContent)"
+    >
+      <span class="material-symbols-rounded"> file_copy </span>
+    </button>
+  </div>
+  <button
+    type="button"
+    class="modal-close-btn d-btn d-btn--circle sm white-bg-circle _cp"
+    (click)="activeModal.close()"
+  >
+    <span class="material-symbols-rounded"> close </span>
+  </button>
+</div>
+<p class="payload-content">{{ payloadContent }}</p>

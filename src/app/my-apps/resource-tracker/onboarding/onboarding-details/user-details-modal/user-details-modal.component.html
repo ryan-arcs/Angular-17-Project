@@ -1,0 +1,171 @@
+<div class="user-details-popup">
+  <div class="modal-header">
+    <div class="mh-inner">
+      <h2>User Details</h2>
+    </div>
+    <button
+      type="button"
+      class="circul-btn modal-close-btn"
+      (click)="activeModal.close('CANCEL')"
+    >
+      <span class="material-symbols-rounded"> close </span>
+    </button>
+  </div>
+
+  <div class="modal-body">
+    <!-- <p class="user-dtls-header">User details</p> -->
+    <div class="credentials-wrapper">
+      @if (onboardingResource?.parentTicket?.id) {
+        <div class="data-row">
+          <div class="data-column">
+            <span class="data-label">Employee Id:</span>
+            {{ onboardingResource?.employeeId || "-" }}
+          </div>
+          <div class="data-column">
+            <span class="data-label">Name:</span>
+            {{ onboardingResource?.firstName || "-" }}
+            {{ onboardingResource?.lastName || "-" }}
+          </div>
+        </div>
+
+        <div class="data-row">
+          <div class="data-column">
+            <span class="data-label">Preferred Name:</span>
+            {{ onboardingResource?.preferredName || "-" }}
+          </div>
+          <div class="data-column">
+            <span class="data-label">Start Date:</span>
+            {{ onboardingResource?.startDate | date: "MMM dd, yyyy" || "-" }}
+          </div>
+        </div>
+
+        <div class="data-row">
+          <div class="data-column">
+            <span class="data-label">Job Title:</span>
+            {{ onboardingResource?.jobTitle || "-" }}
+          </div>
+          <div class="data-column">
+            <span class="data-label">Department Name:</span>
+            {{ onboardingResource?.departmentName || "-" }}
+          </div>
+        </div>
+
+        <div class="data-row">
+          <div class="data-column">
+            <span class="data-label">Supervisor Name:</span>
+            {{ onboardingResource?.supervisorName || "-" }}
+          </div>
+          <div class="data-column">
+            <span class="data-label">Supervisor Email:</span>
+            {{ onboardingResource?.supervisorEmail || "-" }}
+          </div>
+        </div>
+
+        <div class="data-row">
+          <div class="data-column">
+            <span class="data-label">Worker Type:</span>
+            {{ onboardingResource?.workerType || "-" }}
+          </div>
+          <div class="data-column">
+            <span class="data-label">Employment Type:</span>
+            {{ onboardingResource?.employmentType || "-" }}
+          </div>
+        </div>
+
+        <div class="data-row">
+          <div class="data-column">
+            <span class="data-label">Job Grade:</span>
+            {{ onboardingResource?.jobGrade || "-" }}
+          </div>
+          <div class="data-column">
+            <span class="data-label">Hr Business Partner:</span>
+            {{ onboardingResource?.hrBusinessPartner || "-" }}
+          </div>
+        </div>
+
+        <div class="data-row">
+          <div class="data-column">
+            <span class="data-label">Is Returning Employee:</span>
+            {{ onboardingResource?.isReturningEmployee || "-" }}
+          </div>
+          <div class="data-column">
+            <span class="data-label">Contract End Date:</span>
+            {{ onboardingResource?.contractEndDate || "-" }}
+          </div>
+        </div>
+
+        <div class="data-row">
+          <div class="data-column">
+            <span class="data-label">Work Location:</span>
+            {{ onboardingResource?.workLocation || "-" }}
+          </div>
+          <div class="data-column">
+            <span class="data-label">Work State:</span>
+            {{ onboardingResource?.workState || "-" }}
+          </div>
+        </div>
+
+        <div class="data-row">
+          <div class="data-column">
+            <span class="data-label">Work State Name:</span>
+            {{ onboardingResource?.workStateName || "-" }}
+          </div>
+          <div class="data-column">
+            <span class="data-label">Primary Address:</span>
+            {{ onboardingResource?.primaryAddress || "-" }}
+          </div>
+        </div>
+
+        <div class="data-row">
+          <div class="data-column">
+            <span class="data-label">Zip Code:</span>
+            {{ onboardingResource?.zipCode || "-" }}
+          </div>
+          <div class="data-column">
+            <span class="data-label">Is Backfill:</span>
+            {{ onboardingResource?.isBackfill || "-" }}
+          </div>
+        </div>
+
+        <div class="data-row">
+          <div class="data-column">
+            <span class="data-label">Company Code:</span>
+            {{ onboardingResource?.companyCode || "-" }}
+          </div>
+          <div class="data-column">
+            <span class="data-label">Requisition No:</span>
+            {{ onboardingResource?.requisitionNo || "-" }}
+          </div>
+        </div>
+
+        <div class="data-row">
+          <div class="data-column">
+            <span class="data-label">Created Date:</span>
+            {{
+              onboardingResource?.formattedCreatedDate
+                | date: "MMM dd, yyyy hh:mm a" || "-"
+            }}
+          </div>
+          <div class="data-column">
+            <span class="data-label">Created By:</span>
+            {{ onboardingResource?.createdBy || "-" }}
+          </div>
+        </div>
+
+        <div class="data-row">
+          <div class="data-column">
+            <span class="data-label">Updated Date:</span>
+            {{
+              onboardingResource?.formattedUpdatedDate
+                | date: "MMM dd, yyyy hh:mm a" || "-"
+            }}
+          </div>
+          <div class="data-column">
+            <span class="data-label">Updated By:</span>
+            {{ onboardingResource?.updatedBy || "-" }}
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</div>

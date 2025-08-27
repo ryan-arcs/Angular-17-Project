@@ -1,0 +1,144 @@
+// .app-header{
+//     background-color: var(--main-header-bg-color);
+//     position: sticky;
+//     width: 100%;
+//     z-index: 2;
+//     box-shadow: 2px 2px 6px #d0d4e4;
+//     .logo{
+//         img{
+//             max-height: 34px;
+//             @media screen and (max-width: 1366px) {
+//                 max-height: 28px;
+//             }
+//         }
+//         .subapp-title{
+//             color: var(--primary-text-color);
+//         }
+//     }
+//     .right-header{
+//         .rh-dropdown-outer{
+//             span{
+//                 color: var(--primary-text-color);
+//             }
+//             label{
+//                 color: var(--primary-text-color);
+//             }
+//         }
+//         .d-inline-block{
+//             &.xapps-env{
+//                 position: absolute;
+//                 right: 40px;
+//                 padding: 3px 20px 3px 10px;
+//                 border-radius: 8px 15px 15px 8px;
+//                 top: 6px;
+//                 height: 34px !important;
+//                 .drop-text{
+//                     color: var(--t-primary-text-color) !important;
+//                 }
+//                 background-color: var(--t-grey-background-color) !important;
+//             }
+//             .button-heading{
+//                 .drop-text{
+//                     color: var(--primary-text-color);
+//                 }
+//             }
+//         }
+//     }
+//     .app-sub-header {
+//         display: flex;
+//         align-items: center;
+//         height: 32px;
+//         width: 32px;
+//         justify-content: center;
+//         margin-right: 8px;
+//         border-radius: 50%;
+//         .app-toggle-icon {
+//             color: var(--primary-text-color);
+//         }
+//         &:hover {
+//             background-color: var(--all-apps-btn-bg-color);
+//         }
+//         &.active{
+//             background-color: var(--all-apps-btn-bg-color);
+//         }
+//     }
+// }
+
+// ::ng-deep{
+//     .right-header{
+//         .rh-dropdown-outer{
+//             span{
+//                 color: var(--primary-text-color);
+//             }
+//             label{
+//                 color: var(--primary-text-color);
+//             }
+//             .rh-do-block{
+//                 label{
+//                     color: var(--primary-text-color) !important;
+//                 }
+//             }
+//         }
+//         .d-inline-block{
+//             .button-heading{
+//                 .drop-text{
+//                     color: var(--primary-text-color);
+//                 }
+//             }
+//         }
+//     }
+// }
+
+
+
+.profile_icon{
+    position: relative;
+    .sq-n-circle{
+        position: relative;
+        margin-right: 16px;
+        .square{
+            height: 32px;
+            width: 58px;
+            background-color: #CCE5FF;
+            border-radius: 4px;
+            padding: 0 9px;
+            display: flex;
+            align-items: center;
+            // @media screen and (max-width:576px){
+            //     padding: 0 3px;
+            // }
+            span{
+                font-size: 13px;
+                font-weight: 500;
+                line-height: 16px;
+                color: #172b4d;
+            }  
+        }
+        .circle{
+            position: absolute;
+            top: -16px;
+            right: -16px;
+            height: 32px;
+            width: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #0073EA;
+            color: #ffffff;
+            font-size: 12px;
+            font-weight: 500;
+            line-height: 20px;
+            border-radius: 50%;
+            overflow: hidden;
+            &.img-circle{
+                img{
+                    max-width: 32px;
+                }
+            }
+        }
+    }
+}
+
+.remove-logo-pad{
+    padding: 4px !important;
+}

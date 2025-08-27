@@ -1,0 +1,12 @@
+@if (isMobile) {
+<div [class.overlay-sidebar]="sidebarOpen" (click)="toggleSidebar()"></div>
+<div class="burgur-menu" (click)="toggleSidebar()">
+    <span class="material-symbols-outlined">
+        menu
+    </span>
+</div>
+} @else {
+<div class="d-btn d-btn--circle white-bg-circle vs cp" [class.sidebar-open]="!sidebarOpen" (click)="toggleSidebar()">
+    <span class="icon-rightarrow icon--vvs"></span>
+</div>
+}

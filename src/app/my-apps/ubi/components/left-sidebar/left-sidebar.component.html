@@ -1,0 +1,94 @@
+<div [class.overlay-sidebar]="sidebarOpen" (click)="toggleSidebarMobile()"></div>
+<!-- hamburger menu -->
+<div class="burgur-menu" (click)="toggleSidebar()">
+    <span class="material-symbols-outlined">
+        menu
+    </span>
+</div>
+<!-- main container -->
+<div class="left-sidebar-large large" [class.small]="!sidebarOpen" [class.hideSidebar]="sidebarOpen">
+    <div class="d-btn d-btn--circle white-bg-circle vs cp" (click)="toggleSidebar()">
+        <span class="icon-rightarrow icon--vvs"></span>
+    </div>
+
+
+    <ul class="upper-icons">
+        @if (hasAccessToModule('recents')) {
+        <li class="list" (click)="toggleSidebarMobile()">
+            <a class="icon-div  tooltip-btn" routerLink="/ubi/recents" routerLinkActive="active">
+                <div class="logo tooltip-btn" [ngbTooltip]="!sidebarOpen?'Recents':''">
+                    <span class="material-symbols-outlined nav-icon">history</span>
+
+                </div>
+                <p class="text">Recently Viewed</p>
+            </a>
+
+        </li>
+        }
+        @if (hasAccessToModule('favorites')) {
+        <li class="list" (click)="toggleSidebarMobile()">
+            <a class="icon-div tooltip-btn" routerLink="/ubi/favorites" routerLinkActive="active">
+                <div class="logo tooltip-btn" [ngbTooltip]="!sidebarOpen?'Favorites':''">
+                    <span class="material-symbols-outlined nav-icon">stars</span>
+
+                </div>
+                <p class="text">Favorites</p>
+            </a>
+        </li>
+        }
+        @if (hasAccessToModule('home')) {
+        <li class="list" (click)="toggleSidebarMobile(); changeHomeOptionState();">
+            <a class="icon-div tooltip-btn" routerLink="/ubi/home" routerLinkActive="active">
+                <div class="logo tooltip-btn" [ngbTooltip]="!sidebarOpen?'Home':''">
+                    <span class="material-symbols-outlined nav-icon">home</span>
+
+                </div>
+                <p class="text">Home</p>
+            </a>
+        </li>
+        @if(isHomeExanded && !isPersonaSelected()){
+        <ul class="listing">
+            @for (project of (environmentProjects || {}) | keyvalue; track $index) {
+            <li class="list" (click)="toggleSidebarMobile()">
+                <a class="icon-div tooltip-btn" routerLink="/ubi/projects/{{project.value.id}}"
+                    routerLinkActive="active">
+                    <div class="logo tooltip-btn">
+                        <span class="material-symbols-outlined nav-icon">folder</span>
+
+                    </div>
+                    <p class="text">{{project.key}}</p>
+                </a>
+            </li>
+            }
+        </ul>
+        }
+        }
+        @if(hasAccessToModule('roles')){
+        <li class="list" (click)="changeConfigOptionState()">
+            <a class="icon-div tooltip-btn" routerLink="/ubi/roles">
+                <div class="logo tooltip-btn" placement="end" [ngbTooltip]="!sidebarOpen?'Setup':''">
+                    <span class="material-symbols-rounded nav-icon ni-20">
+                        settings
+                    </span>
+                </div>
+                <p class="text">Setup</p>
+            </a>
+        </li>
+        <ul class="listing">
+            @if(isConfigExpanded){
+            @if(hasAccessToModule('roles')){
+            <li class="list">
+                <a class="icon-div tooltip-btn" routerLink="/ubi/roles" routerLinkActive="active">
+                    <div class="logo">
+                        <span class="material-symbols-outlined nav-icon">account_tree</span>
+
+                    </div>
+                    <p class="text">Roles</p>
+                </a>
+            </li>
+            }
+            }
+        </ul>
+        }
+    </ul>
+</div>

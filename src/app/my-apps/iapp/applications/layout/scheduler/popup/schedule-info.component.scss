@@ -1,0 +1,49 @@
+table {
+  text-align: center;
+  th {
+    background-color: #f5f5f5;
+    color: var(--main-text-color) !important;
+  }
+  tr{
+    &:hover{
+      td{
+        background-color: var(--rt-left-sidebar-hover-bg-color);
+        color: var(--main-text-color);
+      }
+    }
+    td{
+      color: var(--note-outer-color);
+    }
+  }
+}
+
+.cs-more-details{
+  background-color: var(--main-header-bg-color);
+  color: var(--primary-text-color);
+  p{
+    color: var(--primary-text-color);
+  }
+}
+
+.modal-header{
+  border-top-left-radius: 10px !important;
+  border-top-right-radius: 10px !important;
+
+  .mh-inner{
+    h2{
+      color: var(--primary-text-color) !important;
+    }
+  }
+}
+
+.modal-content{
+  border: 0 !important;
+}
+
+.modal-body{
+  .mb-text{
+    p{
+      color: var(--main-text-color) !important;
+    }
+  }
+}

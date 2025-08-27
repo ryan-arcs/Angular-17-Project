@@ -1,0 +1,194 @@
+<ng-template #actionRow let-row="row" let-value="value" let-i="index">
+  <span class="action-row">
+    <div ngbDropdown container="body" class="ag-grid-more-outer">
+      <button type="button" class="circul-btn small grid-more-btn" id="dropdownBasic1" title="options"
+        ngbDropdownToggle>
+        <span class="material-symbols-rounded more-icon">more_horiz</span>
+      </button>
+      <div class="dropdown-menu" ngbDropdownMenu aria-labelledby="dropdownBasic1">
+        <!-- @if (isActionPermitted('edit')) (click)="editRow(row)"{ -->
+        <button ngbDropdownItem>
+          <i style="font-size: 17px; margin-right: 10px; cursor: pointer" class="fa fa-edit edit-icon"></i>Edit
+        </button>
+        
+        <!-- } -->
+      </div>
+    </div>
+  </span>
+</ng-template>
+
+
+<ng-template #statusTemplate let-row="row" let-value="value" let-i="index">
+  <span class="action-row">
+    @if(row?.status?.toLowerCase()=="in progress"){
+    <div class="onboarding-status in-progress">
+      <img src="assets/images/in-progress-icon.svg">
+      <span class="status-text">{{row.status}}</span>
+    </div>
+    }
+    @else if(row?.status?.toLowerCase()=="completed"){
+    <div class="onboarding-status completed">
+      <img src="assets/images/completed-icon.svg">
+      <span class="status-text">{{row.status}}</span>
+    </div>
+    }
+    @else if(row?.status?.toLowerCase()=="invalid"){
+    <div class="onboarding-status invalid">
+      <img src="assets/images/invalid-icon.svg">
+      <span class="status-text">{{row.status}}</span>
+    </div>
+    }
+    @else if(row?.status?.toLowerCase()=="not started"){
+    <div class="onboarding-status not-started">
+      <img src="assets/images/not-started-icon.svg">
+      <span class="status-text">{{row.status}}</span>
+    </div>
+    }
+  </span>
+</ng-template>
+
+
+
+<ng-template #progessTemplate let-row="row" let-value="value" let-i="index">
+  <div class="onboarding-progress" style="width: 100%; height: 13px; display: flex; justify-content: start; gap: 4px;">
+    <div class="percentage-bar" style="width: calc(100% - 34px); height: 13px;">
+      <div [style.background-color]="getColorCodeForProgressBar(row.status.toLowerCase()).empty_color" class="out-of"
+        style="width: 100%; height: 13px; border-radius: 2px;">
+        <div [style.background-color]="getColorCodeForProgressBar(row.status.toLowerCase()).filled_color"
+          [style.width]="row.completed_percentage + '%'" class="inner-percentage"
+          style="height: 13px;border-radius: 2px;"></div>
+      </div>
+    </div>
+    <div class="percentage-digits" style="width: 30px;">
+      <span class="percent-count"
+        style="display: flex; color: var(--grid-row-text-color); font-size: 12px; font-weight: 700; line-height: 1;">{{row.completed_percentage}}%</span>
+    </div>
+  </div>
+</ng-template>
+
+<div class="application-container">
+  <div class="application-container-inner ">
+    <div class="sub-header-outer">
+      <div class="sub-heading">
+        <h2>Onboarding</h2>
+      </div>
+      <div class="sh-right">
+        <div class="sh-search">
+          <form class="search-form" [formGroup]="searchForm" (ngSubmit)="shootSearch()">
+            <input id="search" class="search-icon" type="text" placeholder="Search here..." formControlName="filter"
+              autocomplete="off" title="This search will be performed on all displayed and hidden columns." />
+            <button type="submit" class="search-btn">Search</button>
+          </form>
+        </div>
+        <div class="drop-n-btn-wrapper">
+          <div ngbDropdown class="d-inline-block gap-in mr-vvs ht-lg-screen">
+            <button type="button" class="common-btn secondary-btn small logs-dl-btn" id="dropdownBasic1"
+              title="Change Resources" ngbDropdownToggle>
+              <span class="icon-btn material-symbols-rounded">
+                filter_list
+              </span>
+              <span class="ml-vvs">{{ selectedResourceFilter }}</span>
+            </button>
+            <div class="dropdown-menu" ngbDropdownMenu aria-labelledby="dropdownBasic1">
+              @for (option of resourceFilterOption; track $index) {
+              <button ngbDropdownItem (click)="filterGridData(option)">
+                {{ option }}
+              </button>
+              }
+            </div>
+          </div>
+
+          <div class="sh-right-res">
+            <div class="sh-btns ml-vvs">
+              <button (click)="getOnboardingParentTickets()"
+                class="common-btn secondary-btn small refresh-btn logs-dl-btn" type="button">
+                <span class="icon-btn material-symbols-rounded"> refresh </span>
+                <span class="ml-vvs">Refresh</span>
+              </button>
+            </div>
+            @if (isColumnFilterActive || statusFilters.length || searchText || columnFilters.length) {
+            <div class="sh-btns ml-vvs">
+              <button (click)="clearFilters()" class="common-btn secondary-btn small refresh-btn logs-dl-btn"
+                type="button">
+                <span class="icon-btn material-symbols-rounded"> filter_list_off </span>
+                <p class="">Clear Filter</p>
+              </button>
+            </div>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="the-cards">
+      <div (click)="setStatusFilter('invalid')" [class]="{ active: statusFilters.includes('invalid') }"
+        class="inner-cards invalid-card" [title]="onboardingRowCountByStatus?.invalid?.legend || ''">
+        <div class="image-box">
+          <img src="assets/images/invalid-icon.svg" alt="" />
+        </div>
+        <div class="content">
+          <span class="status">Invalid</span>
+          @if (onboardingRowCountByStatus?.invalid?.count !== undefined) {
+          <span class="value">{{
+            onboardingRowCountByStatus?.invalid?.count
+            }}</span>
+          }
+        </div>
+      </div>
+      <div (click)="setStatusFilter('notstarted')" [class]="{ active: statusFilters.includes('notstarted') }"
+        class="inner-cards not-started-card" [title]="onboardingRowCountByStatus?.notstarted?.legend || ''">
+        <div class="image-box">
+          <img src="assets/images/not-started-icon.svg" alt="" />
+        </div>
+        <div class="content">
+          <span class="status">Not started</span>
+          @if (onboardingRowCountByStatus?.notstarted?.count !== undefined) {
+          <span class="value">{{
+            onboardingRowCountByStatus?.notstarted?.count
+            }}</span>
+          }
+        </div>
+      </div>
+      <div (click)="setStatusFilter('inprogress')" [class]="{ active: statusFilters.includes('inprogress') }"
+        class="inner-cards in-progress-card" [title]="onboardingRowCountByStatus?.inprogress?.legend || ''">
+        <div class="image-box">
+          <img src="assets/images/in-progress-icon.svg" alt="" />
+        </div>
+        <div class="content">
+          <span class="status">In progress</span>
+          @if (onboardingRowCountByStatus?.inprogress?.count !== undefined) {
+          <span class="value">{{
+            onboardingRowCountByStatus?.inprogress?.count
+            }}</span>
+          }
+        </div>
+      </div>
+      <div (click)="setStatusFilter('completed')" [class]="{ active: statusFilters.includes('completed') }"
+        class="inner-cards completed-card" [title]="onboardingRowCountByStatus?.completed?.legend || ''">
+        <div class="image-box">
+          <img src="assets/images/completed-icon.svg" alt="" />
+        </div>
+        <div class="content">
+          <span class="status">Completed</span>
+          @if (onboardingRowCountByStatus?.completed?.count !== undefined) {
+          <span class="value">{{
+            onboardingRowCountByStatus?.completed?.count
+            }}</span>
+          }
+        </div>
+      </div>
+    </div>
+
+    <div class="panel-and-table">
+      <div class="logs-container logs-cell-padding inner-pages-footer">
+
+        <app-data-grid [gridName]="gridName" [gridColumns]="columns" [gridRows]="onboardingParentTickets"
+          [pagination]="pagination" [pageSizes]="paginationPageSizeSelector" [selectedPageSize]="defaultSize"
+          [columnFilters]="columnFilters" [errorMessage]="errorMessage" [gridSorts]="gridSort.prop ? [gridSort] : []"
+          (onGridActivate)="viewOnboardingDetails($event)" (onGridSort)="onSort($event)"
+          (onGridPageSizeChange)="onGridPageSizeChange($event)" (onGridPageChange)="onGridPageChange($event)"
+          (onColumnFilterChange)="onColumnFilterChange($event)" [enableInlineSearch]="true"></app-data-grid>
+      </div>
+    </div>
+  </div>
+</div>

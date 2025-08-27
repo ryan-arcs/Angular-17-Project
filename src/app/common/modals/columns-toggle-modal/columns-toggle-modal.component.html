@@ -1,0 +1,49 @@
+<div class="modal-header">
+  <div class="mh-inner">
+    <h2>Columns</h2>
+    <button class="link-btn" (click)="checkAllColumns()">
+      {{ checkedAll ? "Unselect All" : "Select All" }}
+    </button>
+  </div>
+  <button
+    type="button"
+    class="circul-btn modal-close-btn"
+    (click)="activeModal.close('CANCEL')"
+  >
+    <span class="material-symbols-rounded"> close </span>
+  </button>
+</div>
+@if (applicationColumnDefs) {
+  <div class="modal-body">
+    <div class="cloumn-hide-show">
+      @for (col of applicationColumnDefs; track $index) {
+        @if (col.headerName !== "Action") {
+          <div class="columns-outer">
+            <div class="container">
+              <input
+                type="checkbox"
+                [checked]="!col.hide"
+                (change)="toggleColumns($event, col.headerName)"
+              />
+              {{ col.headerName }}
+              <span class="checkmark">
+                <span class="material-symbols-outlined">
+                  check
+                </span>
+              </span>
+            </div>
+          </div>
+        }
+        <!-- @if(col.headerName == "Payload"){
+    <div class="columns-outer outer-disabled">
+      <div class="container">
+        <input disabled type="checkbox" [checked]="true" />
+        {{ col.headerName }}
+        <span class="checkmark-disabled disabled"></span>
+      </div>
+    </div>
+    } -->
+      }
+    </div>
+  </div>
+}

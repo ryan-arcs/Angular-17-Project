@@ -1,0 +1,35 @@
+# Query: No-records-found.svg
+# Flags: CaseSensitive
+# ContextLines: 1
+
+6 results - 6 files
+
+src/app/common/components/data-grid/data-grid.component.ts:
+  642        <div class="no-data-avl-data">
+  643:         <img src="assets/images/no-records-found.svg" />
+  644          <h4 style="margin-top: 24px;">${message}</h4>
+
+src/app/common/components/no-data-found/no-data-found.component.html:
+  2    <div class="no-data-avl">
+  3:     <img src="assets/images/no-records-found.svg" />
+  4      @if (message) {
+
+src/app/common/services/ui.service.ts:
+  132        <div class="no-data-avl" style="text-align: center;">
+  133:         <img src="assets/images/no-records-found.svg" />
+  134          <h4 style="margin-top: 24px;">${message}</h4>
+
+src/app/my-apps/asher/components/common/error/error.component.html:
+  2      <div class="no-data-avl">
+  3:       <img src="assets/images/no-records-found.svg" />
+  4        <h1>
+
+src/app/my-apps/iapp/applications/layout/dashboard/dashboard.component.ts:
+  638            <div class="no-data-avl" style="text-align: center;">
+  639:             <img src="assets/images/no-records-found.svg" />
+  640              <h6 style="margin-top: 24px;">No Data Available For Charts. Select another Duration!</h6>
+
+src/app/my-apps/iapp/components/error/error.component.html:
+  3      <div class="no-data-avl">
+  4:       <img src="assets/images/no-records-found.svg" />
+  5        <h1>

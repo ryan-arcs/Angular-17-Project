@@ -1,0 +1,40 @@
+<div class="subheader-container">
+    <div class="top-container">
+        <h2>Applications</h2>
+        <div class="right">
+            <button class="d-btn d-btn--secondary sm" (click)="refreshApplication()" placement="top">
+                <span class="material-symbols-rounded btn-icon">refresh</span>
+                <p class="">Refresh</p>
+            </button>
+            @if (applications.length) {
+            <button class="d-btn d-btn--secondary sm" (click)="downloadTableData()" placement="top">
+                <span class="material-symbols-rounded btn-icon">download</span>
+                <p class="">Download</p>
+            </button>
+            }
+            <div class="search-bar search-bar--rounded " (keypress)="shootSearch()">
+                <span class="material-symbols-outlined btn-icon">
+                    search
+                </span>
+                <input type="text" placeholder="Search here..." />
+            </div>
+
+            <button class="d-btn d-btn--primary desktop sm" placement="top" (click)="navigateToAddApplication()">
+                <span class="material-symbols-outlined btn-icon">
+                    add
+                </span>
+                <p class="add">Add</p>
+            </button>
+        </div>
+    </div>
+    <!-- <div class="mobile-right">
+        <div class="search-bar search-bar--rounded " (keypress)="shootSearch()">
+                <span class="icon-Vector-12 "></span>
+                <input type="text" placeholder="Search here..." />
+            </div>
+        <button class="d-btn d-btn--primary sm" placement="top">
+            <span class="icon-Icon-Stroke-2 icom-sm"></span>
+            <p class="add">Add</p>
+        </button>
+    </div> -->
+</div>

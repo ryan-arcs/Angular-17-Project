@@ -1,0 +1,26 @@
+<!-- app.component.html or main layout -->
+@if (showLoader || forceLoader) {
+<app-loader></app-loader>
+}
+
+<app-header></app-header>
+
+<div class="lr-wrapper">
+  <div class="left-sidebar-main-wrapper" [class]="{ 'left-panel-wrapper': isTableau, 'tableau-reports-sidebar': sidebarOpen.isSidebarOpenReport && isViewDetailsPage, 'tableau-reports-sidebar-hide': !sidebarOpen.isSidebarOpenReport && isViewDetailsPage}">
+    @if (leftPanelContent) {
+      <app-left-panel />
+    }
+  </div>
+  @if (isViewDetailsPage) {
+    <app-toggle-button />
+  }
+  <div class="right-content-main-wrapper" [ngClass]="{
+      'without-tableau': !isTableau,
+      'right-panel-wrapper': isTableau,
+      'right-panel-advance-wrapper': isTableau && tableauSliderState,
+      'tableau-report-right-panel': sidebarOpen.isSidebarOpenReport && isViewDetailsPage,
+      'tableau-report-right-panel-hide': !sidebarOpen.isSidebarOpenReport && isViewDetailsPage,
+    }" [class.sidebar-open]="sidebarOpen.isSidebarOpen">
+    <router-outlet />
+  </div>
+</div>

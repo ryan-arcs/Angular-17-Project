@@ -1,0 +1,16 @@
+<div class="iframe-container">
+    <iframe
+   style="display: none;"
+   [src]="signedURL" width="200" height="100"
+  sandbox="allow-scripts allow-same-origin"
+  (load)="onIframeLoad()"
+  >
+</iframe>
+
+@if(contentUrl){
+    <iframe [src]="contentUrl" width="100%"
+        allow="fullscreen" 
+        allowfullscreen
+        ></iframe>
+    }
+</div>

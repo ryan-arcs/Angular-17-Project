@@ -1,0 +1,34 @@
+// .wrapper-no-data {
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   margin-top: 0;
+
+//   .no-data-avl {
+//     text-align: center;
+//     height: 100%;
+//   }
+// }
+@import "../../../../assets/style/App.scss";
+// @import "../../../assets/style/xapps-design-system/Foundations/foundation";
+// @import "../../../assets/style/xapps-design-system/fonts/medium";
+// @import "../../../assets/style/xapps-design-system/Foundations/typography";
+// @import "../../../assets/style/xapps-design-system/Components/buttons";
+// @import "../../../assets/style/xapps-design-system/Themes/light/blue";
+// @import "../../../assets/style/xapps-design-system/Themes/dark/blue";
+
+
+.bottom-img{
+  @include dimensions(100%, 450);
+  @include flex-box(column, center, na, na, na);
+  h4{
+      margin-top: $medium-m;
+      margin-bottom: $vvs-m ;
+  }
+  button{
+      margin: $small-m auto 100px auto;
+  }
+  @include max-width(495){
+    width: 100%;
+  }
+}

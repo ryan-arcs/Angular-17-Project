@@ -1,0 +1,23 @@
+.modal-header {
+  padding: 24px 24px 0px;
+  .modal-title {
+    font-size: 27px !important;
+  }
+}
+
+.modal-body {
+  p {
+    font-size: 16px !important;
+  }
+}
+
+.form {
+  .errors {
+    margin: 0px;
+    color: #d83a52;
+    font-size: 12px !important;
+    transition: opacity 0.2s;
+    position: absolute;
+    bottom: -20px;
+  }
+}

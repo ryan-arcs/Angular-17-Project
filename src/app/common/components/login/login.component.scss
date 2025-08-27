@@ -1,0 +1,123 @@
+@import "src/assets/style/xapps-design-system/Foundations/_foundation.scss";
+@import "src/assets/style/xapps-design-system/fonts/_medium.scss";
+@import "src/assets/style/xapps-design-system/Abstract/_mixins.scss";
+
+.application-container {
+    display: flex;
+    padding: unset;
+    height: 100%;
+    .login-image {
+        width: 50%;
+        background: url('/assets/images/login-bg.jpg') no-repeat center center;
+        background-size: cover;
+    }
+  .right-login-content {
+    width: 50%;
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+// //ng select box in add edit page
+::ng-deep {
+    .right-content-main-wrapper{
+        width: 100% !important;
+    }
+  ng-dropdown-panel .ng-dropdown-panel-items {
+    background-color: var(--primary-background-color) !important;
+    border-radius: $border-radius-small;
+    padding: $vvs-p;
+    border: $border-thin solid var(--ui-border-color);
+    box-shadow: $box-shadow-medium;
+    .ng-option {
+      background-color: var(--primary-background-color);
+      border-radius: $border-radius-small;
+      height: 43px;
+      display: flex !important;
+      padding-left: $small-m;
+      @include typography(var(--fs-large) !important, na, var(--font-bold) !important, var(--secondary-text-color));
+      @include flex-box(na, start, center, na, na);
+
+      .ng-option-label {
+        width: 100%;
+        @include flex-box(na, na, center, na, na);
+        @include typography(var(--fs-large),
+          na,
+          var(--font-bold),
+          var(--secondary-text-color));
+      }
+
+      &:hover {
+        background-color: var(--primary-background-hover-color);
+
+        .ng-option-label {
+          color: var(--primary-text-color);
+        }
+      }
+    }
+  }
+}
+
+
+// this select box css is for chips where the multiple chips available
+::ng-deep {
+  .ng-select {
+    .ng-spinner-loader {
+      margin-right: 24px !important;
+    }
+
+    &.ng-select-multiple {
+      .ng-select-container {
+        @include flex-box(na, na, center, na, 4);
+
+        .ng-value-container {
+          @include flex-box(na, na, center, na, 4);
+          overflow-y: auto;
+          height: 30px;
+
+          .ng-value {
+            @include flex-box(na, na, center, na, 4);
+            border-radius: $border-radius-small;
+            background-color: var(--primary-background-color);
+            padding: $tiny-p $vvvs-m;
+            width: auto;
+            height: 22px;
+            @include typography(var(--fs-large),
+              na,
+              var(--font-regular),
+              var(--secondary-text-color));
+
+            .ng-value-icon {
+              border-radius: $border-radius-small;
+              padding: $vvvs-m;
+              @include dimensions(18, 18);
+              @include flex-box(na, center, center, na, na);
+              background-color: transparent;
+              order: 2;
+              margin-left: $vvvs-m;
+              transition: all .2s ease-in;
+
+              &:hover {
+                background-color: var(--primary-background-color);
+                transform: rotate(90deg);
+              }
+            }
+
+            &:hover {
+              background-color: var(--grey-background-color);
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.toggle-password {
+  border: none;
+  background: transparent;
+  position: absolute;
+  top: 8px;
+  right: 3px;
+}

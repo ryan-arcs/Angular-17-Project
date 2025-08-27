@@ -1,0 +1,311 @@
+@import "../../../../../../../assets/style/xapps-design-system/Foundations/foundation";
+@import "../../../../../../../assets/style/xapps-design-system/Abstract/mixins";
+@import "../../../../../../../assets/style/xapps-design-system/fonts/medium";
+@import "../../../../../../../assets/style/xapps-design-system/Foundations/typography";
+@import "../../../../../../../assets/style/xapps-design-system/Components/buttons";
+@import "../../../../../../../assets/style/xapps-design-system/Themes/light/blue";
+@import "../../../../../../../assets/style/xapps-design-system/Themes/dark/blue";
+
+.search-icon {
+  background-size: 16px;
+  background-position: left 6px bottom 11px;
+  padding-left: 28px !important;
+  padding-right: 8px;
+  color: var(--input-text-color);
+}
+
+.lfs-btns {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: $small-m;
+}
+
+.link-btn {
+  text-decoration: underline;
+}
+
+.sidebar-small .modal-dialog {
+  width: 380px !important;
+}
+
+#endTime {
+  color: var(--sub-heading-text-color);
+  background-color: var(--primary-background-color);
+
+}
+
+.ngb-tp-input {
+  color: var(--sub-heading-text-color) !important;
+}
+
+.ngb-tp-meridian {
+  @include flex-box(row, space-around, center, na, na);
+}
+
+.time-piker {
+  ngb-timepicker {
+    .ngb-tp {}
+  }
+}
+
+
+::ng-deep {
+  .time-piker {
+    ngb-timepicker {
+      .ngb-tp {
+        width: 100%;
+        @include flex-box(row, space-around, center, na, na);
+
+        .ngb-tp-hour,
+        .ngb-tp-minute {
+          position: relative;
+          width: calc(50% - 6px);
+          @include flex-box(row, space-between, center, na, na);
+
+          input {
+            background-color: var(--primary-background-color);
+            color: var(--primary-text-color);
+          }
+
+          button {
+            transform: rotate(90deg);
+            width: 10px;
+            padding: $zero-p;
+            @include absolute(6, na, na, na);
+            right: 147px;
+            @include max-width(495){
+              right: 120px;
+            }
+
+            span {
+              &::before {
+                color: var(--secondary-text-color);
+              }
+            }
+          }
+
+          button:nth-of-type(1) {
+            @include absolute(6, na, na, na);
+            left: 147px;
+            @include max-width(495){
+              left: 120px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .select-box-container {
+    position: relative;
+    display: flex;
+    width: 100%;
+    background-color: var(--primary-background-color);
+    color: var(--primary-text-color);
+
+    .select-box-icon {
+      color: var(--primary-text-color);
+      margin: auto;
+      height: 24px;
+      @include absolute(0, 10, 0, na);
+
+      span {
+        color: var(--primary-text-color);
+      }
+    }
+
+    select {
+      background-color: var(--primary-background-color) !important;
+      color: var(--primary-text-color) !important;
+      height: 38px;
+      width: 100%;
+      float: left;
+      padding-left: $vvs-p;
+      border-radius: $border-radius-small;
+      font-size: var(--fs-small);
+      border: $border-thin solid var(--layout-border-color);
+      margin-bottom: $small-m;
+
+      option {
+        padding: $vvs-p;
+      }
+    }
+  }
+
+  .lfs-search-btn {
+    width: 100%;
+    margin-bottom: $vvs-m;
+
+    button {
+      width: 100%;
+    }
+  }
+
+  .clear-filter-wrapper {
+    button {
+      padding: $zero-p;
+    }
+  }
+
+  .date-picker-outer {
+    display: flex;
+    width: 100%;
+    position: relative;
+
+    .date-picker {
+      width: 100%;
+      border: $border-thin solid var(--layout-border-color);
+      height: 38px;
+      border-radius: $border-radius-small;
+      padding-left: $vvs-p;
+      font-size: var(--fs-small);
+      color: var(--primary-text-color);
+      background-color: var(--primary-background-color);
+
+      input {
+        color: var(--primary-text-color);
+      }
+    }
+
+    .dropdown-menu{
+      &.show{
+        width: 232px !important;
+      }
+    }
+
+    ngb-datepicker {
+      width: 232px !important;
+      border: none !important;
+      padding: $zero-p !important;
+      box-shadow: var(--bs-var);
+      background-color: var(--primary-background-color) !important;
+      overflow: hidden;
+
+      .ngb-dp-header {
+        height: 38px;
+        border: 0;
+        padding: 0;
+        background-color: var(--secondary-background-color) !important;
+
+        ngb-datepicker-navigation {
+          height: 100%;
+          .ngb-dp-arrow {
+            button {
+              @include flex-box(row, center, center, na, na);
+              font-size: var(--fs-small) !important;
+              font-weight: var(--font-regular);
+              height: 100%;
+              padding: $vvvs-p $vvs-p;
+              color: var(--secondary-text-color);
+            }
+          }
+
+          .ngb-dp-navigation-select {
+            gap: 8px;
+
+            .form-select {
+              background-color: var(--primary-background-color);
+              color: var(--primary-text-color);
+              border: none !important;
+              option{
+                &:hover{
+                  background-color: var(--primary-color) !important;
+                }
+              }
+            }
+          }
+        }
+      }
+
+      .ngb-dp-content {
+        &.ngb-dp-months {
+          background-color: var(--primary-background-color) !important;
+
+          ngb-datepicker-month {
+            .ngb-dp-weekdays {
+              border-bottom: $border-thin solid var(--layout-border-color);
+              background-color: var(--primary-background-color) !important;
+              color: var(--primary-text-color);
+
+              .ngb-dp-weekday {
+                font-size: var(--fs-large) !important;
+                font-style: normal;
+                font-weight: 500;
+                color: var(--primary-color) !important;
+              }
+            }
+
+            .ngb-dp-week {
+              .ngb-dp-day {
+                &.ngb-dp-today{
+                  .btn-light{
+                    color: var(--primary-text-color);
+                    background-color: var(--secondary-background-color);
+                  }
+                }
+                .btn-light {
+                  font-size: var(--fs-small);
+                  color: var(--primary-text-color);
+                  &:hover{
+                    color: var(--primary-reverse-text-color);
+                    background-color: var(--primary-color);
+                  }
+                  &.text-muted {
+                    &.outside {
+                      color: var(--disabled-text-color) !important;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+}
+
+.time-piker {
+  display: flex;
+  width: 100%;
+  margin-bottom: 18px;
+
+  .ng-untouched {
+    width: 100%;
+  }
+}
+
+.input-container {
+  padding-bottom: 18px;
+}
+
+
+.modal-header {
+  .mh-inner {
+    h2 {
+      color: var(--primary-text-color) !important;
+    }
+  }
+}
+
+.modal-body {
+  ul {
+    li {
+      color: var(--grid-header-heading-text-color);
+    }
+  }
+}
+
+.select-box-container {
+  select {
+    background-color: var(--primary-background-color);
+    color: var(--main-text-color);
+  }
+
+  .select-box-icon {
+    span {
+      color: var(--main-text-color);
+    }
+  }
+}

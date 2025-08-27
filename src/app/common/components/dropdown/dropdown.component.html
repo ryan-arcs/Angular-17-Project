@@ -1,0 +1,46 @@
+<ul class="unordered-list profile_edit">
+  <li class="list-item common-list profile-info">
+    <button class="d-btn--circle md">
+      {{
+      userData != null
+      ? userData.firstName.substring(0, 1) +
+      "" +
+      userData.lastName.substring(0, 1)
+      : ""
+      }}
+    </button>
+    <div class="user-info">
+      <p class="large">{{ userData ? userData.firstName + " " + userData.lastName : "" }}</p>
+      <p class="small">{{ userData?.email }}</p>
+    </div>
+  </li>
+  <div class="line"></div>
+  <p class="large">Theme</p>
+  <div class="light-dark-div">
+    <li class="list-item common-list" [class.active]="activeTheme === 'dark'" (click)="setTheme('dark')">
+      <span class="material-symbols-outlined btn-icon">
+        dark_mode
+      </span>
+      <p class="large">Dark</p>
+    </li>
+    <li class="list-item common-list" [class.active]="activeTheme === 'light'" (click)="setTheme('light')">
+      <span class="material-symbols-outlined btn-icon">
+        sunny
+      </span>
+      <p class="large">Light</p>
+    </li>
+  </div>
+  <!-- <li class="list-item common-list" (click)="openThemeModal()">
+    <button class="d-btn vs">
+      <span class="icon-paint icon--vs" style="color: rgb(126, 126, 126);"></span>
+    </button>
+    <p class="large">Theme and fonts</p>
+  </li> -->
+  <div class="line"></div>
+  <li class="list-item common-list" (click)="logOut()">
+    <span class="material-symbols-outlined btn-icon">
+      move_item
+    </span>
+    <p class="large">Log Out</p>
+  </li>
+</ul>

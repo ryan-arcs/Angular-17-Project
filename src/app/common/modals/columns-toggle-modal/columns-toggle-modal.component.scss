@@ -1,0 +1,25 @@
+.outer-disabled {
+  pointer-events: none;
+}
+
+.modal-header{
+  border-radius: none;
+  .mh-inner{
+    h2{
+      color: var(--primary-text-color);
+    }
+    .link-btn{
+      color: var(--rt-right-sidebar-text-color);
+    }
+  }
+}
+
+.modal-body{
+  .cloumn-hide-show{
+    .columns-outer{
+      .container{
+          color: var(--rt-right-sidebar-text-color);
+      }
+    }
+  }
+}

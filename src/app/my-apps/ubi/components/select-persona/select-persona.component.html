@@ -1,0 +1,28 @@
+@if(tableauPersonas?.length){
+  <div class="persona-select-wrapper">
+
+    <div ngbDropdown class="d-inline-block gap-in">
+      <button type="button" class="sh-common-drop sh-dev" id="dropdownBasic" ngbDropdownToggle>
+        <span class="button-heading">
+          <span class="drop-text"> {{(selectedTableauPersona) ? selectedTableauPersona : "Home"}} </span>
+         <span class="icon-18 drop-text material-symbols-rounded">
+            keyboard_arrow_down
+            </span>
+          </span>
+      </button>
+        <div class="dropdown-menu" ngbDropdownMenu aria-labelledby="dropdownBasic">
+          <button ngbDropdownItem (click)="setTableauPersona('Home')">
+            Home
+          </button>
+          @for (tableauPersona of tableauPersonas; track $index) {
+            @if(tableauPersona?.name){
+              <button ngbDropdownItem (click)="setTableauPersona(tableauPersona?.name || '')">
+                {{tableauPersona?.name || ''}}
+              </button>
+            }
+          }
+        </div>
+    </div>
+
+  </div>
+  }

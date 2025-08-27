@@ -1,0 +1,38 @@
+@import "../../../assets/style/xapps-design-system/Abstract/mixins";
+@import "../../../assets/style/xapps-design-system/Foundations/foundation";
+@import "../../../assets/style/xapps-design-system/fonts/medium";
+@import "../../../assets/style/xapps-design-system/Foundations/typography";
+@import "../../../assets/style/xapps-design-system/Components/buttons";
+@import "../../../assets/style/xapps-design-system/Themes/light/blue";
+@import "../../../assets/style/xapps-design-system/Themes/dark/blue";
+
+.leftsidebar-container {
+    height: calc(100vh - 48px);
+    @include flex-box(column, space-between, center, na, na);
+    &.small-sidebar {
+        width: 48px;
+        padding: $vvvs-p;
+        border-right: $border-thin solid var(--layout-border-color);
+    }
+}
+
+.sidebar-II-wrapper {
+    overflow: hidden;
+    width: 272px;
+    transform: translateX(0);
+    transition: transform 0.3s ease;
+    .large-sidebar {
+        padding: $vvs-p $zero-p;
+        border-right: $border-thin solid var(--layout-border-color);
+        @include dimensions(100%, 272);
+    }
+}
+
+.tableau-wrapper {
+    position: relative;
+    @include dimensions(calc(100vh - 50px), 100%);
+    @include max-width(992){
+        position: fixed;
+        left: 0;
+    }
+}

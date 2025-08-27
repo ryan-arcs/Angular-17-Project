@@ -1,0 +1,60 @@
+<div class="modal-body _p-0">
+    <div class="themes-popup">
+        <div class="modal-header popup-header">
+            <h5 class="modal-title heading">Themes</h5>
+            <button class="d-btn d-btn--circle md btn-close" aria-label="Close" (click)="themePopup.dismiss()">
+                <span class="material-symbols-outlined btn-icon">
+                    close
+                </span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <p class="popup-content ">
+
+                Contrary to popular belief, Lorem Ipsum is not simply random text. It has
+
+                roots in a piece of classical Latin literature
+            </p>
+            <div class="light-grid">
+                @for (item of ['blue', 'murrey', 'orange', 'red', 'green', 'yellow']; track $index) {
+                <div class="primary-colors" [ngClass]="{'active': item === color}" (click)="setThemeColor(item)">
+                    <label class="custom-checkbox checkbox-sm">
+                        <input type="checkbox" [checked]="item === color" [name]="item" />
+                        <div class="checkbox-box" [ngClass]="'checkbox-box-' + item">
+                            <div class="checkmark"></div>
+                        </div>
+                    </label>
+                    <p class="text-capitalize">{{ item }}</p>
+                </div>
+                }
+            </div>
+            <div class="light-dark">
+                <div class="theme" [ngClass]="{'active': mode === 'nds-light'}" (click)="setThemeMode('nds-light')">
+                    <span class="icon-sun2"></span>Light
+                </div>
+                <div class="theme" [ngClass]="{'active': mode === 'nds-dark'}" (click)="setThemeMode('nds-dark')"><span
+                        class="icon-moon"></span>Dark</div>
+            </div>
+        </div>
+        <div class="modal-footer w-100 fonts">
+            <div class="popup-header mb-8">
+                <p class="heading">Fonts</p>
+            </div>
+            <p class="popup-content ">
+
+                Contrary to popular belief, Lorem Ipsum is not simply random text. It has
+
+                roots in a piece of classical Latin literature
+            </p>
+            <div class="light-dark">
+                @for (item of ['A+', 'A', 'A-']; track $index) {
+                <div class="theme" [ngClass]="{'active': font === fontClassMap[item]}"
+                    (click)="setThemeFont(fontClassMap[item])">
+                    {{item}}
+                </div>
+                }
+            </div>
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,109 @@
+<div class="modal-header">
+  <div class="mh-inner">
+    <h2>Schedule Expression</h2>
+  </div>
+  <button
+    type="button"
+    class="circul-btn modal-close-btn"
+    (click)="activeModal.close('CANCEL')"
+  >
+    <span class="material-symbols-rounded"> close </span>
+  </button>
+</div>
+<div class="modal-body">
+  <div class="mb-text">
+    <p>
+      Cron expressions consist of time interval values and special characters.
+      The special characters allow you to define complex schedules more
+      concisely instead of typing lengthy value strings.
+    </p>
+  </div>
+
+  <div class="common-star-outer">
+    <div class="common-star light-bg-1">
+      <h2>*</h2>
+      <h5>Second</h5>
+      <h5>(0-59)</h5>
+    </div>
+    <div class="common-star light-bg-2">
+      <h2>*</h2>
+      <h5>Minute</h5>
+      <h5>(0-59)</h5>
+    </div>
+    <div class="common-star light-bg-3">
+      <h2>*</h2>
+      <h5>Hour</h5>
+      <h5>(0-23)</h5>
+    </div>
+    <div class="common-star light-bg-4">
+      <h2>*</h2>
+      <h5>Day of Month</h5>
+      <h5>(1-31)</h5>
+    </div>
+    <div class="common-star light-bg-5">
+      <h2>*</h2>
+      <h5>Month</h5>
+      <h5>(1-12)</h5>
+    </div>
+    <div class="common-star light-bg-6">
+      <h2>*</h2>
+      <h5>Day of Week</h5>
+      <h5>(0-6)</h5>
+    </div>
+    <div class="common-star light-bg-7">
+      <h2>*</h2>
+      <h5>Year</h5>
+      <h5>(Optional)</h5>
+    </div>
+  </div>
+
+  <div class="common-table mt-vs">
+    <table>
+      <thead>
+        <tr>
+          <th scope="col">Cron expression</th>
+          <th scope="col">Schedule</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>* * * * *</td>
+          <td>Every minute</td>
+        </tr>
+        <tr>
+          <td>0 * * * *</td>
+          <td>Every hour</td>
+        </tr>
+        <tr>
+          <td>00 * * *</td>
+          <td>Every day at 12:00AM</td>
+        </tr>
+        <tr>
+          <td>00 * * FRI</td>
+          <td>At 12:00 AM, only on Friday</td>
+        </tr>
+        <tr>
+          <td>001 * *</td>
+          <td>At 12:00 AM, on day 1 of the month</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="cs-more-details">
+    <p>For more details:</p>
+    <a (click)="openScheduleDoc()" class="">Click here</a>
+  </div>
+</div>
+
+<!-- <div class="modal-footer">
+  <div class="mf-inner">
+    <button
+      type="button"
+      class="common-btn secondary-btn"
+      (click)="activeModal.close('CANCEL')"
+    >
+      Close
+    </button>
+  </div>
+</div> -->

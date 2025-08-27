@@ -1,0 +1,48 @@
+// /* Target the scrollbar */
+// ::-webkit-scrollbar {
+//     width: 4px;
+//     /* or height: 6px for horizontal scrollbars */
+// }
+
+// /* Track (background) */
+// ::-webkit-scrollbar-track {
+//     background: #f1f1f1;
+//     /* Light background color */
+//     border-radius: 10px;
+// }
+
+// /* Thumb (the draggable part) */
+// ::-webkit-scrollbar-thumb {
+//     background: #dadcdf;
+//     /* Scroll thumb color */
+//     border-radius: 10px;
+// }
+
+// /* Thumb on hover */
+// ::-webkit-scrollbar-thumb:hover {
+//     background: #e6e9ef;
+// }
+
+
+
+// .left {
+//     .dp-down {
+//         background-color: #ffffff;
+//     }
+// }
+
+
+
+
+
+.view-tile-icon{
+    color: var(--icon-color-secondary);
+    font-size: var(--fs-forth);
+    font-weight: var(--font-medium);
+    &.star-icon {
+        font-size: var(--fs-secondary);
+    }
+    &:hover{
+        color: var(--icon-active-color);
+    }
+}

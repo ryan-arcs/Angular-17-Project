@@ -1,0 +1,74 @@
+<div class="main-manage-roles">
+  <div class="breadcrumbs-outer">
+    <ul>
+      <li><a (click)="navigateToRoles()" class="label medium"> Roles </a></li>
+      <li><span>/</span></li>
+      <li>
+        <a class="label medium"> {{ roleName }} </a>
+      </li>
+      <li><span>/</span></li>
+      <li class="label medium">Edit role</li>
+    </ul>
+  </div>
+
+  <div class="header d-flex justify-content-between">
+    <p class="heading">
+      <span (click)="navigateToRoles()" class="back-button"
+        ><span class="material-symbols-rounded"> chevron_left </span></span>
+      Edit Role
+    </p>
+  </div>
+
+  <div class="main-box">
+    <form [formGroup]="roleForm" (ngSubmit)="onSubmit()">
+      <div class="label-and-input d-flex flex-column">
+        <label for="name">Name: <span class="important">*</span></label>
+        <input type="text" id="name" formControlName="name" />
+        @if (showErrors && roleForm.get("name")?.invalid) {
+          <p class="errors">Please enter role name.</p>
+        }
+      </div>
+      <div class="label-and-input d-flex flex-column">
+        <label for="application">Application: </label>
+        <select id="application" formControlName="application">
+          <option [ngValue]="null">Select an application</option>
+          <option [ngValue]="'n/a'">N/A</option>
+          <option *ngFor="let app of applications" [ngValue]="app.slug">
+            {{ app.name }}
+          </option>
+        </select>
+      </div>
+      <div class="label-and-input d-flex flex-column">
+        <label for="isActive">Status: <span class="important">*</span></label>
+        <div class="toggle-container">
+          <input
+            type="checkbox"
+            id="isActive"
+            formControlName="isActive"
+            class="toggle-input"
+          />
+          <label for="isActive" class="toggle-label">
+            <span class="toggle-text">{{
+              roleForm.get("isActive")?.value ? "Active" : "Inactive"
+            }}</span>
+          </label>
+        </div>
+        @if (showErrors && roleForm.get("isActive")?.invalid) {
+          <p class="errors">Check if role is active or not.</p>
+        }
+      </div>
+      <div class="button-group">
+        <button
+          class="common-btn small btn btn-secondary"
+          (click)="navigateToRoles()"
+          type="button"
+        >
+          <span class="material-symbols-rounded btn-icon"> cancel </span>Cancel
+        </button>
+        <button class="common-btn primary-btn small" type="submit">
+          <span class="material-symbols-rounded btn-icon"> save </span>Save
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

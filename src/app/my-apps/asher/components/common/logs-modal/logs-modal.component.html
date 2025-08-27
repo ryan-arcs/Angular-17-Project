@@ -1,0 +1,52 @@
+<ng-template #renderTemplate let-rowIndex="rowIndex" let-column="column" let-row="row" let-value="value">
+  <div class="sell-outer">
+    <span class="sell-outer-span" title="{{getValue(value, column?.prop)}}" [class.min-width]="!getValue(value, column?.prop)">
+      @if(['created_at', 'last_modified_at'].includes(column?.prop)){
+      <div>{{ value | date: defaultDateFormat}}</div>
+      }
+      @else if(['last_modified_by_preferred_name', 'created_by_preferred_name'].includes(column?.prop)){
+      <div>{{value}}</div>
+      }
+      @else{
+      <div [ngClass]="{ 'highlight-yellow': isDifferent(rowIndex, column?.prop) }"> {{ getValue(value, column?.prop) }}
+      </div>
+      }
+    </span>
+  </div>
+</ng-template>
+
+<div class="logs-container logs-modal">
+
+  <div class="modal-header">
+    <h2>Logs: {{row?.app_name}}</h2>
+
+
+    <div class="right-cross-check">
+      <label for="duplicatelogs" class="duplicatelogs-label">
+        <div class="custom-checkbox checkbox-vs">
+          <input id="duplicatelogs" type="checkbox" (change)="onShowDifference()" [checked]="!showDifferece" />
+          <div class="checkbox-box">
+            <div class="checkmark"></div>
+          </div>
+        </div>
+
+        Show Data Change Only
+      </label>
+
+      <button type="button" class="d-btn d-btn--circle white-bg-circle vs" (click)="activeModal.close('CANCEL')">
+        <span class="material-symbols-rounded btn-icon">close</span>
+      </button>
+    </div>
+  </div>
+
+
+
+  <div class="modal-body">
+    <app-data-grid [gridName]="'asher-action-logs'" [gridColumns]="columns" [gridRows]="applicationsHistoryRows || []"
+      [pagination]="pagination" [pageSizes]="paginationPageSizeSelector" [selectedPageSize]="defaultSize"
+      [errorMessage]="errorMessage" (onGridSort)="onSort($event)" (onGridPageSizeChange)="onGridPageSizeChange($event)"
+      (onGridPageChange)="onGridPageChange($event)" (onColumnFilterChange)="onColumnFilterChange($event)"
+      [enableInlineSearch]="true">
+    </app-data-grid>
+  </div>
+</div>

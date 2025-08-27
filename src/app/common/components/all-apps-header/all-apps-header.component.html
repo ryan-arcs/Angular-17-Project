@@ -1,0 +1,19 @@
+
+  <div class="popup_container" #popupContainer>
+    <div class="pop-up-container-wrapper">
+    <div class="profile_edit">
+        <ul class="app-ul">
+            @for (app of apps; track $index) {
+              <li class="app-li" (click)="navigateToApps(app)">
+                <div class="ao-logo" style="cursor: pointer;">
+                  <img class="app-img" [src]="'assets/images/' + app.logo" alt="" />
+                </div>
+                <div class="ao-content" [class.char-length]="isNameIsLarger(app)">
+                  <span class="app-name">{{ app.name}}</span>
+                </div>
+              </li>
+            }
+        </ul>
+    </div>
+  </div>
+</div>

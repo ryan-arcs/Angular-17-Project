@@ -1,0 +1,74 @@
+.nds-dark-murrey {
+    // dark theme 
+    // ==================semantic colors ==================//
+    --primary-color: #5F1358;
+    --primary-hover-color: #7F4279;
+    --primary-selected-color: #EFE7EE;
+    --primary-selected-hover-color: #AF89AC;
+    --primary-highlighted-color: #BFA1BC;
+    --positive-color: #099138;
+    --positive-hover-color: #07742D;
+    --positive-selected-color: #05491C;
+    --positive-selected-hover-color: #043A16;
+    --negative-color: #D72300;
+    --negative-hover-color: #AC1C00;
+    --negative-selected-color: #811500;
+    --negative-selected-hover-color: #6C1200;
+    --warning-color: #FAAD14;
+    --warning-hover-color: #E19C12;
+    --warning-selected-color: #AF790E;
+    --warning-selected-hover-color: #C88A10;
+    --private-color: #F65F7C;
+    --shareable-color: #5F1358;
+    --inverted-background-color: #FFFFFF;
+    --icon-color: #C2C2C4;
+    --icon-active-color: #F2F3F5;
+    --icon-color-secondary: #797a7b;
+    --icon-color-on-dark-bg: #303131;
+    --fixed-light-color: #DADBDD;
+    --fixed-dark-color: #060606;
+
+    //=======================background-colors==================//
+    --primary-background-color: #202020;
+    --primary-reverse-text-color: #202020;
+    --fixed-dark-text-color: #202020;
+    --secondary-background-color: #424649;
+    --primary-background-hover-color: #636363;
+    --inverted-background-color: #F2F3F5;
+    --grey-background-color: #323537;
+    --light-grey-background-color: #424649;
+    --dark-grey-background: #2A2C2E;
+    --dark-background: #636363;
+    --dark-background-hover: #363636;
+    // =======================text colors ========================//
+
+    --primary-text-color: #F2F3F5;
+    --secondary-text-color: #eeeeee;
+    --secondary-text-on-secondary-color: #FFFFFF;
+    --text-color-on-inverted: #FFFFFF;
+    --text-color-on-primary: #202020;
+    --disabled-text-color: #3A3E40;
+    --placeholder-color: #A9AAAC;
+    --link-color: #1A8ABE;
+    // ==================border colors =======================//
+    --ui-border-color: #636363;
+    --layout-border-color: #808080;
+    --light-border: #636363;
+    --input-hover-color: #53585B;
+    --welcome-page-overlay-background-gradient:
+        --bs-var: 0px 3px 8px 0px #FFFFFF66;
+
+    // ===========avatar colors===============================//
+
+
+    --avatar_bg_1: #c95c76;
+    --avatar_bg_2: #339ecd;
+    --avatar_bg_3: #6645a9;
+    --avatar_bg_4: #457b82;
+    --avatar_bg_5: #ca9a8b;
+    --avatar_bg_6: #71d6d1;
+    --avatar_bg_7: #936fda;
+    --box-shadow-large: 0 4px 2px -2px #0003;;
+    --box-shadow-medium:0px 15px 50px 0px #FFFFFF4D;
+
+}

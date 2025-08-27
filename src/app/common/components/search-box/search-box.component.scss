@@ -1,0 +1,62 @@
+.search-div{
+  position: relative;
+  .cancel-btn-container{
+    cursor: pointer;
+    position: absolute;
+    top: 3.5px;
+    right: 3.5px;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    svg{
+      fill: var(--searchbar-cross-btn-color);
+    }
+      &:hover{
+        background-color: var(--searchbar-cross-btn-hover-bg-color);
+        svg{
+          fill: var(--searchbar-cross-btn-hover-color);
+        }
+      }
+  }
+}
+
+.view-left-panel-search{
+  &.search-div{
+    padding-left: 10px;
+    .search-icon{
+      background-position: 5px 6px;
+    }
+    input{
+      width: 240px;
+      color: var(--t-primary-text-color);
+      background-color: var(--t-grey-background-color) !important;
+      font-size: 12px;
+      padding: 8px 32px ;
+      &::placeholder{
+        font-size: 12px;
+      }
+    }
+  }
+}
+
+.search-icon {
+  &:-webkit-autofill,
+  &:-webkit-autofill:hover,
+  &:-webkit-autofill:focus,
+  &:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px var(--t-primary_background_color) inset !important;
+    /* Change 'white' to match your desired background color */
+    -webkit-text-fill-color: var(--input-text-color) !important; 
+    caret-color: var(--sub-heading-text-color) !important;
+    -webkit-background-clip: text;
+  }
+  
+  /* For Firefox */
+  &:-moz-autofill {
+    background-color: transparent !important;
+  }
+  
+  /* For other browsers */
+  &:autofill {
+    background-color: transparent !important;
+  }
+}

@@ -1,0 +1,94 @@
+// .main-row {
+//   margin-bottom: 0 !important;
+//   padding: 0 !important;
+//   .logo-n-text {
+//     .folder-icon {
+//       color: var(--primary_color);
+//     }
+//   }
+// }
+
+// .tab {
+//   margin: 0 0 4px 30px;
+//   border-left: 3px solid transparent;
+//   border-radius: 4px;
+//   cursor: pointer;
+//   height: 42px;
+//   background-color: transparent;
+//   display: flex;
+//   align-items: center;
+//   padding: 0 2px;
+//   .rh-dropdown-outer {
+//     span {
+//       color: var(--primary-text-color);
+//     }
+//     label {
+//       color: var(--primary-text-color);
+//       @media screen and (max-width: 495px) {
+//         display: none;
+//       }
+//     }
+//   }
+//   .d-inline-block {
+//     .button-heading {
+//       .drop-text {
+//         color: var(--primary-text-color);
+//       }
+//     }
+//   }
+//   &:not(:last-child) {
+//     margin-bottom: 4px;
+//   }
+//   &:hover {
+//     background-color: var(--t-primary-background-hover-color);
+//     .logo {
+//       background-color: var(--primary_color) !important;
+//     }
+//     .logo-symbol {
+//       color: var(--t-icon-color) !important;
+//     }
+//     .text {
+//       color: var(--t-primary-text-color) !important;
+//     }
+//   }
+//   &.active {
+//     border-radius: 4px !important;
+//     background-color: var(--t-primary_selected_color);
+//     .text {
+//       color: var(--tab-sidebar-selected-text-color) !important;
+//     }
+//     .logo {
+//       background-color: var(--primary_color) !important;
+//     }
+//     .logo-symbol {
+//       color: var(--t-icon-color-active) !important;
+//     }
+//     .text {
+//       color: var(--primary_color);
+//     }
+//   }
+//   .logo-n-text {
+//     display: flex;
+//     display: flex;
+//     align-items: center;
+//     gap: 15px;
+//     .logo {
+//       height: 30px;
+//       width: 30px;
+//       display: flex;
+//       align-items: center;
+//       justify-content: center;
+//       background-color: var(--tab-sidebar-logo-bg-color);
+//       border-radius: 8px;
+//       .logo-symbol {
+//         margin: 0 !important;
+//         color: var(--primary_color);
+//       }
+//     }
+//     .text {
+//       color: var(--rt-left-sidebar-text-color);
+//       font-size: 13px;
+//       font-weight: 500;
+//     }
+//   }
+// }

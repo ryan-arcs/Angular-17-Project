@@ -1,0 +1,43 @@
+<!-- Card Modal -->
+
+<div class="modal-body _p-0">
+    <div class="pdf-wrapper">
+        <div class="pdf-header">
+            <div class="left">{{view.name}}</div>
+            <div class="right">
+                <div class="refresh-div" (click)="reloadView()">
+                    <button class="d-btn d-btn--secondary vs" placement="bottom" ngbTooltip="Reload" triggers="hover">
+                        <span class="icon-refresh icon--vs"></span>
+                    </button>
+                </div>
+
+                <div class="line-div"></div>
+
+                <button [disabled]="disableNextPrevBtn" [hidden]="viewIndex<=0" (click)="handleClick('prev')"
+                    class="d-btn d-btn--circle tertiary-circle tooltip-btn vs" [class.disabled-btn]="viewIndex<=0 || disableNextPrevBtn" 
+                    placement="bottom" ngbTooltip="Prev" triggers="hover">
+                    <span class="icon-leftarrow icon--sm"></span>
+                </button>
+
+                <button [disabled]="disableNextPrevBtn" [hidden]="viewIndex>=allViews.length-1" (click)="handleClick('next')"
+                    class="d-btn d-btn--circle tertiary-circle tooltip-btn vs" [class.disabled-btn]="viewIndex>=allViews.length-1 || disableNextPrevBtn" 
+                    placement="bottom" ngbTooltip="Next"
+                    triggers="hover">
+                    <span class="icon-rightarrow icon--sm"></span>
+                </button>
+
+                <div class="line-div"></div>
+
+                <button class="d-btn d-btn--circle tertiary-circle vs" (click)="cardModal.close('close')">
+                    <span class="icon-x icon--sm"></span>
+                </button>
+            </div>
+        </div>
+
+        <div class="pdf-body">
+            @for (selectedView of allViews; track view.id) {
+            <div id="{{selectedView.id}}" class="executive-container" [hidden]="$index != this.viewIndex"></div>
+            }
+        </div>
+    </div>
+</div>

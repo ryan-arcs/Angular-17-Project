@@ -1,0 +1,174 @@
+<div class="home-outer-wrapper">
+  <!-- banner -->
+  
+
+  <div class="content-wrapper" [style.height]="'calc(100% - ' + calwindowheight + 'px)'"
+    [class.hide-banner]="!isBannerExpanded">
+    @if(isBannerExpanded && userProfile?.firstName){
+      <div
+      class="welcome-back"
+      [class]="isBannerExpanded ? 'expanded' : 'collapsed'"
+    >
+      <button
+        (click)="getBannerState()"
+        class="close-button"
+      >
+        <span class="material-symbols-outlined"> close </span>
+      </button>
+      <p class="heading">
+        Welcome back, {{ userProfile?.firstName }}
+        <img src="assets/images/wb-wavy.svg" alt="" />
+      </p>
+      <p class="content">
+        Explore your data insights in real time with Tableau. Our platform
+        gives you easy access to your personalized dashboards, ensuring you
+        stay informed and make data-driven decisions quickly.
+      </p>
+      <img
+        class="many-stars"
+        src="assets/images/wb-many-stars.svg"
+        alt=""
+      />
+      <img
+        class="shade-star"
+        src="assets/images/wb-shade-star.svg"
+        alt=""
+      />
+      <img
+        class="sm-wave"
+        src="assets/images/wb-sm-wave.svg"
+        alt=""
+      />
+      <img
+        class="white-star"
+        src="assets/images/wb-white-star.svg"
+        alt=""
+      />
+      <img
+        class="yellow-star"
+        src="assets/images/wb-yellow-star.svg"
+        alt=""
+      />
+      <img
+        class="star-left"
+        src="assets/images/wb-star-left.svg"
+        alt=""
+      />
+    </div>
+  }
+    <!-- headear -->
+    <div class="header-wrapper _pb-16">
+      <filter-app-header
+        (filter)="filter($event)" [expandCollapseFeat]="false" [isDropdown]="true" (refresh)="refreshHome()" [headerConfig]="envProjectFilterState">
+      </filter-app-header>
+    </div>
+    
+    <!-- listing -->
+    <div class="cards-listing-wrapper">
+      @if (isPersonaSelected()) {
+      <div class="sub-dev-header">
+        <div class="sub-dev-header-inner-content w-full">
+          <div class="acc-header-name _m-0 _p-0">
+            <span class="_mr-4"></span>
+            <h5 class="dev-name _mt-0 _mb-0 _mr-4">{{ selectedTableauPersonaFull?.reports?.length ?selectedTableauPersonaFull?.name:"" }}</h5>
+            <h5 class="_mr-2 h5-secondary _mt-0 _mb-0"> {{
+              selectedTableauPersonaFull?.reports?.length
+              ? "(" + selectedTableauPersonaFull?.reports?.length + ")"
+              : ""
+              }}</h5>
+          </div>
+        </div>
+      </div>
+      
+      <div class="card-listing">
+        @if (selectedTableauPersonaFull?.reports?.length) {
+        <div class="cards persona-unique">
+          @for (view of selectedTableauPersonaFull?.fullReports; track $index) {
+          <div class="card" [ngClass]="'item-count-' + viewCount">
+            <app-view-tile style="height: 100%;" [view]="view" [allViews]="selectedTableauPersonaFull?.fullReports"
+              loadedFrom="personas"></app-view-tile>
+          </div>
+          }
+        </div>
+        }
+        @if (personaErrorMessage) {
+          <div class="bottom-img _mlr-auto">
+            <div class="img _tx-center"><img src="\assets\images\no-records-found.svg" alt="" /></div>
+
+            <div class="text _tx-center">
+              <h4>{{personaErrorMessage}}</h4>
+              <p>No matching reports found or available to you.</p>
+
+              <!-- <button class="d-btn d-btn--primary md" (click)="navigateTo('/ubi/home')">Go To Home</button> -->
+            </div>
+          </div>
+        }
+      </div>
+      } @else {
+      @for (item of environmentProjects || {} | keyvalue; track item?.key) {
+        <!-- commented expanded functionality -->
+      <!-- <div [id]="item.key" class="sub-dev-header" [class.cards-closed]="!item.value.showViews"
+        (click)="toggleExpand(item.key)"> -->
+        <div class="sub-dev-header">
+        <div class="sub-dev-header-inner-content _w-full">
+          <div class="acc-header-name _m-0 _p-0">
+            <!-- commented expanded functionality -->
+            <!-- <div class="_mr-4 icons-exp-coll">
+              @if(item.value.showViews){
+              <span class="icon-Vector-Stroke-15"></span>
+              }@else {
+              <span class="icon-Vector-Stroke1"></span>
+              }
+            </div> -->
+            <h5 class="_mt-0 _mb-0 _mr-4 dev-name">{{ item.key }}</h5>
+            <h5 class="_m-0 h5-secondary number-of-cards"> ({{ item.value.views?.length || 0 }})</h5>
+          </div>
+          @if(item.value.showViews && getLengthofView(item?.value?.views)){
+          <div class="v-all"  (click)="handleCanSeeAll($event, item.key)">
+            <p class="d-btn d-btn--link vs see-all-btn"> {{
+              environmentProjects?.[item.key]?.seeAll
+              ? "See Less"
+              : "See All"
+              }}</p>
+          </div>
+          }
+        </div>
+
+      </div>
+      @if (item.value.showViews) {
+      <!-- [@expandCollapse] -->
+      <div class="card-listing">
+        <div class="cards" [class.view-all]="environmentProjects?.[item.key]?.seeAll">
+          @for (view of environmentProjects?.[item.key]?.seeAll ? item.value.views : item.value.views?.slice(0,
+          viewCount);
+          track view.id) {
+          <div class="card" [ngClass]="'item-count-' + viewCount">
+            <app-view-tile style="height: 100%;" [view]="view" [allViews]="item.value.views || []"
+              loadedFrom="home"></app-view-tile>
+          </div>
+          }
+        </div>
+      </div>
+      }
+      }
+      @if (errorMessage) {
+      <!-- <div class="container-nothing"> -->
+        <div class="bottom-img _mlr-auto">
+          <div class="img _tx-center"><img src="\assets\images\no-records-found.svg" alt="" /></div>
+
+          <div class="text _tx-center">
+            <h4>{{errorMessage}}</h4>
+            <p>
+              No matching reports found or available to you.
+            </p>
+
+            <!-- <button class="d-btn d-btn--primary md" (click)="navigateTo('/ubi/home')">Go To Home</button> -->
+          </div>
+        </div>
+      <!-- </div> -->
+
+      }
+      }
+    </div>
+  </div>
+</div>

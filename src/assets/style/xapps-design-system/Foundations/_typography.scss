@@ -1,0 +1,212 @@
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: $zero-m !important;
+}
+
+h1,
+.primary-heading {
+  text-transform: capitalize !important;
+  @include typography(var(--fs-primary), na, var(--font-extra-bold), na);
+  color: var(--primary-text-color) !important;
+  font-weight: 700 !important;
+
+  @include max-width(1366px) {
+    font-size: var(--fs-secondary) !important;
+  }
+
+  @include max-width(768px) {
+    font-size: var(--fs-forth) !important;
+  }
+
+  @include max-width(375px) {
+    font-size: var(--fs-xl) !important;
+  }
+}
+
+h2,
+.secondary-heading {
+  text-transform: capitalize !important;
+  @include typography(var(--fs-forth),
+    var(--lh-secondary),
+    var(--font-bolder),
+    na
+  );
+  font-weight: 700 !important;
+  color: var(--primary-text-color) !important;
+
+  @include max-width(1366px) {
+    font-size: var(--fs-forth) !important;
+  }
+
+  @include max-width(768px) {
+    font-size: var(--fs-xl) !important;
+  }
+
+  @include max-width(375px) {
+    font-size: var(--fs-large) !important;
+  }
+}
+
+h3,
+.tertiary-heading {
+  text-transform: capitalize !important;
+  @include typography(var(--fs-xl), na, var(--font-light), na);
+  color: var(--primary-text-color) !important;
+}
+
+h4,
+.fourth-heading {
+  text-transform: capitalize !important;
+  @include typography(var(--fs-xxl),
+    var(--lh-tertiary),
+    var(--font-bolder),
+    na);
+  color: var(--primary-text-color) !important;
+}
+
+h5,
+.subtitle-1 {
+  text-transform: capitalize !important;
+  @include typography(var(--fs-xl), var(--lh-forth), var(--font-bolder), na);
+  color: var(--primary-text-color) !important;
+}
+
+h6,
+.subtitle-2 {
+  text-transform: capitalize !important;
+  @include typography(var(--fs-large), var(--lh-xxl), var(--font-medium), na);
+  color: var(--primary-text-color) !important;
+}
+
+p,
+.normal-text {
+  @include typography(var(--fs-medium), na, var(--font-regular), na);
+  color: var(--primary-text-color) !important;
+  margin: 0 !important;
+
+  .required {
+    color: var(--negative-color);
+  }
+
+  &.large {
+    @include typography(var(--fs-xl), var(--lh-forth), var(--font-regular), na);
+    color: var(--primary-text-color) !important;
+  }
+
+  &.medium {
+    @include typography(var(--fs-large),
+      var(--lh-xxl),
+      var(--font-regular),
+      na);
+    color: var(--primary-text-color) !important;
+
+    @include max-width(1366px) {
+      font-size: var(--fs-medium) !important;
+    }
+
+    @include max-width(768px) {
+      font-size: var(--fs-medium) !important;
+    }
+
+    @include max-width(375px) {
+      font-size: var(--fs-medium) !important;
+    }
+  }
+
+  &.small {
+    font-size: var(--fs-small) !important;
+  }
+}
+
+a,
+.link-text {
+  text-transform: capitalize !important;
+  @include typography(na, var(--lh-xxl), var(--font-medium), na);
+  color: var(--primary-text-color) !important;
+
+  &.large {
+    font-size: var(--fs-large) !important;
+  }
+
+  &.medium {
+    font-size: var(--fs-medium) !important;
+  }
+}
+
+button,
+.common-btn {
+  text-transform: capitalize !important;
+  @include typography(var(--fs-medium), na, var(--font-medium), na);
+
+  &.small {
+    font-size: var(--fs-small) !important;
+  }
+
+  &.large {
+    font-size: var(--fs-large) !important;
+
+    @include max-width(375px) {
+      font-size: var(--fs-medium) !important;
+    }
+  }
+
+  &.x-large {
+    @include typography(var(--fs-xl), var(--lh-forth), var(--font-bolder), na);
+    color: var(--primary-text-color) !important;
+  }
+}
+
+label,
+.label {
+  // text-transform: capitalize !important;
+  @include typography(var(--fs-medium), na, var(--font-medium), var(--primary-text-color));
+
+  &.x-large {
+    font-size: var(--fs-xl) !important;
+
+    @include max-width(1366px) {
+      font-size: var(--fs-large) !important;
+    }
+  }
+
+  &.large {
+    font-size: var(--fs-large) !important;
+
+    @include max-width(1366px) {
+      font-size: var(--fs-medium) !important;
+    }
+  }
+
+  &.medium {
+    font-size: var(--fs-medium) !important;
+
+    @include max-width(1366px) {
+      font-size: var(--fs-small) !important;
+    }
+  }
+}
+
+.caption {
+  text-transform: capitalize !important;
+  @include typography(var(--fs-small), var(--lh-xl), na, na);
+  color: var(--primary-text-color) !important;
+
+  &.medium {
+    @include typography(var(--fs-small), var(--lh-xl), var(--font-medium), na);
+    color: var(--primary-text-color) !important;
+  }
+
+  &.bold {
+    @include typography(var(--fs-small), var(--lh-xl), var(--font-bolder), na);
+    color: var(--primary-text-color) !important;
+
+    @include max-width(1366px) {
+      @include typography(var(--fs-small), var(--lh-xl), var(--font-bold), na);
+      color: var(--primary-text-color) !important;
+    }
+  }
+}

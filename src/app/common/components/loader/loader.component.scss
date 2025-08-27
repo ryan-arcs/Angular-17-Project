@@ -1,0 +1,67 @@
+@use "sass:math";
+.loader-container {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  place-items: center;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  opacity: 0.5;
+  background: #ffffff;
+  z-index: 10;
+}
+
+$circle-color: #000000;
+$circle-shadow-blur: 0px;
+$circle-width: 7px;
+$list-width: $circle-width * 10;
+$item-position: calc($list-width / 2);
+
+.list {
+  width: $list-width;
+  aspect-ratio: 1 / 1;
+  position: relative;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.item {
+  position: absolute;
+  transform-origin: 0 $item-position;
+  translate: $item-position;
+  rotate: calc(var(--i) * -30deg);
+  animation: color 1.2s infinite;
+}
+
+.circle {
+  width: $circle-width;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  background-color: $circle-color;
+  filter: drop-shadow(0 0 $circle-shadow-blur $circle-color)
+    drop-shadow(0 0 ($circle-shadow-blur * 3) $circle-color)
+    drop-shadow(0 0 ($circle-shadow-blur * 6) $circle-color);
+  animation: scale 1.2s calc(var(--i) * -0.1s) infinite;
+}
+
+@keyframes color {
+  0% {
+    filter: hue-rotate(0deg);
+  }
+
+  100% {
+    filter: hue-rotate(360deg);
+  }
+}
+
+@keyframes scale {
+  0% {
+    scale: 1;
+  }
+
+  100% {
+    scale: 0;
+  }
+}

@@ -1,0 +1,171 @@
+<ng-template #actionRow let-row="row" let-value="value" let-i="index">
+  <span class="action-row">
+    @if (isActionPermitted("edit") || isActionPermitted("delete")) {
+    <div ngbDropdown container="body" class="ag-grid-more-outer">
+      <button type="button" class="d-btn d-btn--circle vs" id="dropdownBasic1" title="options" ngbDropdownToggle>
+        <span class="material-symbols-rounded more-icon">more_horiz</span>
+      </button>
+      <div class="dropdown-menu" ngbDropdownMenu aria-labelledby="dropdownBasic1">
+        @if (isActionPermitted("edit")) {
+        <button ngbDropdownItem class="d-btn d-btn--tertiary sm" (click)="editRow(row)">
+          <i style="font-size: 17px; cursor: pointer;line-height:24px;" class="fa fa-edit btn-icon"></i>
+          <p>Edit</p>
+        </button>
+        }
+        @if (isActionPermitted("delete")) {
+        <button ngbDropdownItem class="d-btn d-btn--tertiary sm" (click)="deleteRow(row)">
+          <i style="font-size: 17px; cursor: pointer;line-height:24px;" class="fa fa-trash btn-icon"></i>
+          <p>Delete</p>
+        </button>
+        }
+      </div>
+    </div>
+    } @else {
+    <span> - </span>
+    }
+  </span>
+</ng-template>
+
+<ng-template #nameTemplate let-value="value">
+  <span>{{ value || "" }}</span>
+</ng-template>
+
+<ng-template #dateTemplate let-value="value">
+  <span>{{ value | date: defaultDateFormat }}</span>
+</ng-template>
+
+<ng-template #statusTemplate let-value="value">
+  <div class="sell-outer" style="
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
+    ">
+    <div class="circul-status" [style.background-color]="value ? 'green' : 'red'"
+      style="height: 10px; width: 10px; border-radius: 50%"></div>
+    <span class="top-1">
+      {{ value ? "Active" : "Inactive" }}
+    </span>
+  </div>
+</ng-template>
+
+<div class="application-container grid-scroll-handling">
+  <div class="application-container-inner">
+    <div class="subheader-container">
+      <div class="tc-manage-screen">
+        <div class="heading">
+        <h2>Submodules</h2>
+        </div>
+        <div class="right">
+          <div class="listing-page-buttons-manage-screen">
+          <div class="search-n-btn">
+            <div class="search-bar search-bar--rounded">
+              <span class="material-symbols-outlined btn-icon">
+                search
+              </span>
+              <form [formGroup]="searchForm" (ngSubmit)="shootSearch()">
+                <div class="search-outer">
+
+                  <input type="text" formControlName="filter" placeholder="Search here..."
+                    title="This search will be performed on all displayed and hidden columns." />
+                  <button class="d-btn d-btn--primary sm search-btn" type="submit">Search</button>
+                </div>
+              </form>
+            </div>
+          </div>
+          </div>
+          <div class="sh-buttons">
+            <div class="btns-res-divider">
+            @if (applications?.length) {
+            <div ngbDropdown class="d-inline-block nav-dropdown" [autoClose]="'outside'" #dropdown1="ngbDropdown">
+              <button type="button" class="dropdown-btn d-btn d-btn--secondary sm tooltip-btn" id="dropdownBasic1"
+                [ngbTooltip]="selectedApplication?.application_name" ngbDropdownToggle placement="bottom" triggers="hover">
+                <span class="material-symbols-rounded btn-icon">filter_list</span>
+                <p class="ellipsis-sm-screen">Application: {{ selectedApplication?.application_name || "" }}</p>
+              </button>
+
+              <div class="dropdown-menu" ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                <ul>
+                  <li>
+                    <button ngbDropdownItem
+                      (click)="onApplicationChange({id: 'all', application_name: 'All',}); dropdown1.close()">
+                      <p> All</p>
+                    </button>
+                    @for (application of applications; track $index) {
+                    <button ngbDropdownItem (click)="onApplicationChange(application); dropdown1.close()">
+                      <p class="ellipsis-sm-screen">{{ application.application_name }}</p>
+                    </button>
+                    }
+                  </li>
+                </ul>
+              </div>
+            </div>
+            }
+            @if (modules?.length && selectedApplication?.id !== "all") {
+            <div ngbDropdown class="d-inline-block nav-dropdown" [autoClose]="'outside'" #dropdown2="ngbDropdown">
+              <button type="button" class="dropdown-btn d-btn d-btn--secondary sm tooltip-btn" id="dropdownBasic1"
+                [ngbTooltip]="selectedModule.module_name" placement="bottom" ngbDropdownToggle triggers="hover">
+                @if (selectedModule.id) {
+                <span class="material-symbols-rounded btn-icon">filter_list</span>
+                <p class="">Module: {{ selectedModule.module_name || "" }}</p>
+                }
+              </button>
+
+              <div class="dropdown-menu" ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                <ul>
+                  <li>
+                    <button ngbDropdownItem
+                      (click)=" onModuleChange({ id: 'all', module_name: 'All' }); dropdown2.close()">
+                      <p> All</p>
+                    </button>
+                    @for (module of modules; track $index) {
+                    <button ngbDropdownItem (click)="onModuleChange(module); dropdown2.close()">
+                      <p>{{ module.module_name }}</p>
+                    </button>
+                    }
+                  </li>
+                </ul>
+              </div>
+            </div>
+            }
+            </div>
+            <div class="btns-res-divider">
+            <button class="d-btn d-btn--secondary sm tooltip-btn" (click)="refreshSubModulesList()" placement="start"
+              [ngbTooltip]="isMobileScreen() ? 'Refresh' : ''" triggers="hover">
+              <span class="material-symbols-rounded btn-icon">refresh</span>
+              <p class="">Refresh</p>
+            </button>
+            @if (searchTerm || columnFilters.length) {
+            <button class="d-btn d-btn--secondary sm tooltip-btn" (click)="clearFilters()" placement="start"
+              [ngbTooltip]="isMobileScreen() ? 'Clear Filter' : ''">
+              <span class="material-symbols-rounded btn-icon">filter_list_off</span>
+              <p class="">Clear Filter</p>
+            </button>
+            }
+            @if (isActionPermitted("add")) {
+            <button class="d-btn d-btn--primary desktop sm tooltip-btn" (click)="navigateToAddSubmodule()"
+              placement="start" [ngbTooltip]="isMobileScreen() ? 'Add' : ''" triggers="hover">
+              <span class="material-symbols-outlined btn-icon">
+                add_2
+              </span>
+              <p class="">Add</p>
+            </button>
+            }
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel-and-table">
+    <div class="logs-container logs-cell-padding inner-pages-footer">
+      <app-data-grid [gridName]="gridName" [gridColumns]="columns" [gridRows]="usersList"
+        [actionRowTemplate]="actionRow" [pagination]="pagination" [pageSizes]="paginationPageSizeSelector"
+        [enableInlineSearch]="false" [selectedPageSize]="defaultSize" [errorMessage]="errorMessage"
+        [gridSorts]="gridSort.prop ? [gridSort] : []" [columnFilters]="columnFilters" (onGridSort)="onSort($event)"
+        (onGridPageSizeChange)="onGridPageSizeChange($event)" (onGridPageChange)="onGridPageChange($event)"
+        (onColumnFilterChange)="onColumnFilterChange($event)"></app-data-grid>
+    </div>
+  </div>
+</div>

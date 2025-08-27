@@ -1,0 +1,36 @@
+@import "../assets/style/xapps-design-system/Foundations/_foundation";
+@import "../assets/style/xapps-design-system/Abstract/mixins";
+
+.right-content-main-wrapper {
+    width: calc(100% - 48px);
+    // background-color: var(--grey-background-color);
+    background-color: var(--secondary-background-color);
+    transition: all 0.3s ease;
+    &.tableau-report-right-panel {
+        width: calc(100% - 272px);
+    }
+    &.tableau-report-right-panel-hide{
+        width: 100% !important;
+    }
+
+    &.sidebar-open {
+        width: calc(100% - 272px);
+
+        @include max-width(992) {
+            width: 100%;
+        }
+    }
+
+    @include max-width(992) {
+        width: 100%;
+        position: fixed;
+        left: 0;
+    }
+
+}
+
+::ng-deep {
+    app-toggle-button{
+        position: relative;
+    }
+}

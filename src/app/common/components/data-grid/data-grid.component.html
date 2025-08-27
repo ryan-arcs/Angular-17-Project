@@ -1,0 +1,197 @@
+<ng-template #actionHeader let-column="column">
+  <div class="datatable-header-cell action-header-cell">
+    <div class="datatable-header-cell-template-wrap">
+      <span title="Preferences" (click)="toggleColumns()" class="action-header">
+        <i class="fa fa-cog gear-icon"></i>
+      </span>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #actionRow let-column="column">
+  <span class="no-action"> - </span>
+</ng-template>
+
+<ng-template #filterHeader let-column="column" let-sort="sortFn">
+  <div class="datatable-header-cell-wrapper">
+    <span class="datatable-header-cell-label draggable common-icon" (click)="sort()">{{
+      column.name
+      }}</span>
+    @if (filterVisible && currentFilterColumn === column.prop) {
+    <div class="column-filter-dropdown">
+      <div class="filter-content">
+        <!-- Filter1 start -->
+        <div class="filters filter-1">
+          <div class="filter-operator">
+            <app-ng-select mode="dropdown" class="filter-select" [items]="operatorOptions" bindLabel="name"
+              bindValue="code" [focus]="true" [(model)]="selectedOperators.filter1" />
+          </div>
+          @if (!hiddenInputBox.includes(selectedOperators.filter1)) {
+          @if (filterType === "multi-text") {
+          <app-ng-select mode="multitag" class="inline-filter" [placeholder]="''" [(model)]="searchValues[0]"
+            [multiple]="true" [focus]="true" [isInvalidClassActive]="isInvalidClassActive"
+            (clear)="clearLastInputValues(0)" (input)="storeLastInput($event, 0)" />
+          } @else {
+          <input autofocus class="inline-input-box" id="filter-input" placeholder="Search here..."
+            [(ngModel)]="lastInputValues[0]" [class.input-error]="isInvalidClassActive"
+            (input)="storeLastInput($event, 0)" />
+          }
+          @if (isInvalidClassActive) {
+          <p class="errors">Please enter text</p>
+          }
+          }
+        </div>
+        <!-- Filter1 end -->
+        @if (isOperatorEnabled(column)) {
+        <!-- Main Operator start -->
+        <div class="radio-buttons">
+          @for (option of mainFilters; track option.name) {
+          @if (!isAndOperatorDisabled(option)) {
+          <label class="radio-button">
+            <input type="radio" name="main-filter" [value]="option.code" [(ngModel)]="selectedOperators.main" />
+            <div class="radio-circle"></div>
+            <span class="radio-label">{{ option.name }}</span>
+          </label>
+          }
+          }
+        </div>
+        <!-- Main Operator end -->
+
+        <!-- Filter2 start -->
+        <div class="filters filter-2">
+          <div class="filter-operator">
+            <app-ng-select mode="dropdown" class="filter-select" [items]="operatorOptions"
+              [(model)]="selectedOperators.filter2" [multiple]="true" bindLabel="name" bindValue="code" />
+          </div>
+          @if (!hiddenInputBox.includes(selectedOperators.filter2)) {
+          @if (filterType === "multi-text") {
+          <app-ng-select mode="multitag" class="inline-filter" [placeholder]="''" [(model)]="searchValues[1]"
+            (clear)="clearLastInputValues(1)" (input)="storeLastInput($event, 1)" />
+          } @else {
+          <input class="inline-input-box" id="filter-input" placeholder="Search here..."
+            [(ngModel)]="lastInputValues[1]" (input)="storeLastInput($event, 1)" />
+          }
+          }
+        </div>
+        <!-- Filter2 end -->
+        }
+
+        <div class="button-group">
+          @if (isColumnFiltered(column.prop)) {
+          <button class="d-btn d-btn--secondary sm w-100" (click)="clearFilterForColumn(column.prop)">
+            <span class="material-symbols-rounded btn-icon">filter_list_off</span>
+            <p>Clear Filter</p>
+          </button>
+          }
+
+          <button class="d-btn d-btn--primary desktop sm w-100" [class.full-width]="!isColumnFiltered(column.prop)"
+            (click)="applyFilter(currentFilterColumn, column)">
+            <span class="material-symbols-outlined btn-icon">
+              search
+            </span>
+            Search
+          </button>
+        </div>
+      </div>
+    </div>
+    }
+  </div>
+  @if (column.searchable !== false) {
+  <ng-template #searchContent>
+    <div class="tooltip-content-wrapper">
+      <div class="heading-content">
+        <span class="heading">Searched text:</span>
+        <span class="content"> {{ getFilterValue(column.prop) }}</span>
+      </div>
+    </div>
+  </ng-template>
+  <i class="filter-icon" [ngbTooltip]="isColumnFiltered(column.prop) ? searchContent : ''"
+    [class.filtered]="isColumnFiltered(column.prop)" [class.active]="currentFilterColumn === column.prop"
+    (click)="toggleFilter($event, column.prop)">
+    @if (!isColumnFiltered(column.prop)) {
+    <span class="material-symbols-outlined fillter-icon-span">filter_list</span>
+    } @else {
+    <span class="material-symbols-rounded fillter-icon-span applied-fillter-icon">filter_alt</span>
+    }
+  </i>
+  }
+</ng-template>
+
+<ng-template #creatorRow let-row="row" let-value="value" let-i="index">
+  <span>
+    {{ value.firstName }}
+  </span>
+</ng-template>
+
+<ngx-datatable #ngxTable [class]="gridClass" [rows]="gridRows" [columns]="columns" [columnMode]="ColumnMode.force"
+  [footerHeight]="40" [rowClass]="rowClass" [reorderable]="true" [scrollbarH]="true" [scrollbarV]="true"
+  [count]="validateNumber(pagination?.totalCount)" [virtualization]="false" [class.single-column]="!hasMultipleColumns"
+  [offset]="validateNumber(pagination?.pageNumber)" [limit]="validateNumber(pagination?.pageSize)"
+  [selectionType]="SelectionType.checkbox" [selected]="selected || []" (activate)="onActivate($event)"
+  (reorder)="onColumnReOrder($event)" (page)="onPage($event)" (sort)="onSort($event)" (select)="onRowSelect($event)"
+  [sorts]="gridSorts || []" [externalSorting]="externalSorting" [externalPaging]="externalPagination" [messages]="{
+    emptyMessage: noRecordMessage,
+    loadingMessage: 'Loading data, please wait...',
+    selectedMessage: 'selected',
+  }">
+  <ngx-datatable-footer>
+    <ng-template let-rowCount="rowCount" let-pageSize="pageSize" let-curPage="curPage" ngx-datatable-footer-template>
+      <div class="page-size-dropdown">
+        <p class="copyright-message">&#169; {{ instanceCopyright || "" }}</p>
+        @if (pagination?.totalCount) {
+        <div class="pag-last-part">
+          <label for="page-size-select" class="row-selectbox">Page Size:</label>
+          <div class="total-pages">
+            <div class="select-box" (click)="toggleDropdown()">
+              <span>{{ pagination?.pageSize }}</span>
+              @if (activatedTheme != "light") {
+              <img src="assets/images/down-arrow-pagination-white.svg" alt="" />
+              } @else {
+              <img src="assets/images/down-arrow-pagination.svg" alt="" />
+              }
+            </div>
+
+            @if (isDropdownOpen) {
+            <ul class="pages-selector">
+              @for (size of pageSizes; track $index) {
+              <li class="pages" [class.selected]="pagination?.pageSize === size" (click)="onPageSizeChange(size)">
+                {{ size }}
+              </li>
+              }
+              <li>
+                <form class="page-size-form" (ngSubmit)="onPageSizeInput()">
+                  <input class="page-size-input" [formControl]="customPageSize" (input)="setValidation()" type="number"
+                    placeholder="Custom" ngbTooltip="Maximum page size allowed is 500" placement="end" container="body"
+                    triggers="manual" tooltipClass="tooltip-global-class"
+                    #pageSizeInputValidationTooltip="ngbTooltip" />
+                </form>
+              </li>
+            </ul>
+            }
+          </div>
+          <span class="row-count">
+            {{
+            (validateNumber(pagination?.pageNumber) - 1) *
+            validateNumber(pagination?.pageSize) +
+            1
+            }}-{{
+            validateNumber(pagination?.pageNumber) *
+            validateNumber(pagination?.pageSize) >
+            validateNumber(pagination?.totalCount)
+            ? validateNumber(pagination?.totalCount)
+            : validateNumber(pagination?.pageNumber) *
+            validateNumber(pagination?.pageSize)
+            }}
+            of {{ validateNumber(pagination?.totalCount) }}
+          </span>
+        </div>
+        }
+      </div>
+
+      <datatable-pager [pagerLeftArrowIcon]="'fa fa-angle-left'" [pagerRightArrowIcon]="'fa fa-angle-right'"
+        [pagerPreviousIcon]="'fa fa-angle-double-left'" [pagerNextIcon]="'fa fa-angle-double-right'"
+        [page]="validateNumber(pagination?.pageNumber)" [size]="validateNumber(pagination?.pageSize)"
+        [count]="validateNumber(pagination?.totalCount)" (change)="onFooterPage($event)"></datatable-pager>
+    </ng-template>
+  </ngx-datatable-footer>
+</ngx-datatable>

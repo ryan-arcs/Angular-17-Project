@@ -1,0 +1,51 @@
+.highlight-yellow {
+  padding:3px;
+  border-radius: 4px;
+  background-color: yellow;
+  color: #212529;
+}
+
+.ngx-datatable .datatable-body datatable-selection .un-scroll-horizantal .datatable-row-wrapper .datatable-body-row .datatable-row-right .datatable-body-cell {
+    width: 80% !important;
+}
+
+ngb-modal-backdrop{
+    backdrop-filter: blur(10px);
+}
+
+::ng-deep{
+    .iapp-application-logs{
+        backdrop-filter: blur(10px);
+        .modal-dialog{
+            height: calc(100% - 60px);
+            margin: 30px;
+            width: 100%;
+            .modal-content{
+                width: calc(100vw - 60px);
+                height: calc(100%);
+                box-shadow: none;
+                .logs-container{
+                    height: 100%;
+                    .modal-header{
+                        border: 0 !important;
+                    }
+                    .modal-body {
+                        padding: 7px !important;
+                        .ngx-datatable {
+                            .datatable-body {
+                                height: calc(100vh - 211px) !important;
+                                @media screen and (max-width: 1366px) {
+                                    height: calc(100vh - 201px) !important;
+                                }
+                                @media screen and (max-width: 600px) {
+                                    height: calc(100vh - 189px) !important;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    } 
+}
+

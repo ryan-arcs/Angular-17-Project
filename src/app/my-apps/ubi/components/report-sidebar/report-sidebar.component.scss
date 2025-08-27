@@ -1,0 +1,153 @@
+@import "../../../../../assets/style/xapps-design-system/Abstract/mixins";
+@import "../../../../../assets/style/xapps-design-system/Foundations/foundation";
+@import "../../../../../assets/style/xapps-design-system/fonts/medium";
+@import "../../../../../assets/style/xapps-design-system/Foundations/typography";
+@import "../../../../../assets/style/xapps-design-system/Components/buttons";
+
+.report-sidebar {
+    position: relative;
+    transition: all 0.3s ease;
+    border-right: 1px solid var(--layout-border-color);
+
+    .search-n-btn{
+        .search-bar{
+            input{
+                min-width: unset !important;
+            }
+        }
+    }
+
+    .card-name {
+        width: 130px !important;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        cursor: pointer;
+    }
+
+    .search-n-btn {
+        @include flex-box(na, space-between, na, na, 8);
+        padding: 0px 8px;
+
+        .search-bar {
+            width: calc(100% - 40px);
+            background: var(--secondary-background-color);
+            min-width: unset !important;
+            input{
+                background: var(--secondary-background-color);
+            }
+        }
+    }
+
+    .logo {
+        margin-bottom: $vvs-m;
+        padding-bottom: $vvs-p;
+        border-bottom: 1px solid var(--layout-border-color);
+        padding: 6px 8px;
+        cursor: pointer;
+        @include max-width(992) {
+            padding-left: $xxl-p;
+        }
+
+        img {
+            width: 28px;
+            margin-right: $vvs-p;
+        }
+
+        span {
+            font-size: var(--fs-xl) !important;
+            line-height: var(--lh-forth) !important;
+            font-weight: var(--font-bolder) !important;
+            color: var(--primary-text-color) !important;
+        }
+    }
+
+    .title-n-total-count {
+        overflow-y: auto;
+        height: calc(100vh - 89px);
+        margin-top: $vvs-m;
+        padding: 0 $vvs-p $vvs-p $vvs-p;
+        position: relative;
+
+        .main-content {
+            // background-color: var(--secondary-background-color);
+            border-radius: 12px;
+            // padding: 6px 10px;
+            padding-top: 44px;
+
+            &.main-content-projects{
+                padding-top: 0 !important;
+                border-radius: 0 !important;
+                .cards{
+                    .card{
+                        width: 93%;
+                    }
+                }
+            }
+
+            .header-n-cards{
+                border-radius: $border-radius-large;
+                background-color: var(--secondary-background-color);
+                margin-top: $vvs-m;
+                padding-bottom: $vs-p;
+                &:first-child{
+                    margin-top: 0;
+                }
+                .sub-dev-header{
+                    border-radius: $border-radius-large $border-radius-large 0 0;
+                    position: sticky;
+                    top: 0;
+                    z-index: 9999;
+                    width: calc(100% + 0px); 
+                    .acc-header-name{
+                        border-radius: $border-radius-large $border-radius-large 0 0;
+                        position: unset !important;
+                        width: 100% !important;
+                    }
+                }
+            }
+
+            .sub-dev-header {
+                .acc-header-name {
+                    padding: $vvvs-p $vvvs-p $vvs-p $zero-p;
+                    @include flex-box(na, space-between, center, na, na);
+                    position: fixed;
+                    top: 89px;
+                    width: 244px;
+                    left: 8px;
+                    z-index: 9;
+                    background: var(--secondary-background-color);
+                    padding: 8px 10px;
+
+                    .icons-exp-coll {
+                        span {
+                            font-size: 22px;
+                            position: relative;
+                            top: 2px;
+                        }
+                    }
+
+                    .title {
+                        @include flex-box(na, na, center, na, na);
+                    }
+
+                    .projects-title {
+                        max-width: 130px;
+                    }
+
+                    h5.total-count {
+                        color: var(--secondary-text-color) !important;
+                    }
+                }
+            }
+        }
+    }
+
+    .sidebar-open {
+        display: none;
+    }
+
+    .sidebar-hide {
+        display: none;
+    }
+}

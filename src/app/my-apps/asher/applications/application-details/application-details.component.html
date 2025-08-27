@@ -1,0 +1,690 @@
+<div class="main-manage-roles">
+  <div>
+    <div class="breadcrumbs-outer">
+      @if(applicationDetails?.app_name){
+      <ul>
+        <li><a (click)="navigateToAsherList()"> Applications </a></li>
+        <li><span>/</span></li>
+        <li>{{applicationDetails?.app_name}}</li>
+        <li><span>/</span></li>
+        <li>Application Information</li>
+      </ul>
+      }
+    </div>
+
+    <div class="sub-header-outer">
+      <div class="header sh-heading">
+        <div class="heading">
+          <span class="res-menu-btn-hide material-symbols-rounded" (click)="navigateToAsherList()">
+            chevron_left
+          </span>
+          Application Information
+        </div>
+        @if(hasPermission('edit', 'applications')){
+        <button ngbDropdownItem class="d-btn d-btn--primary sm" (click)="navigateToAsherEdit(applicationDetails?.id)">
+          <i style="font-size: 17px; cursor: pointer;line-height:24px;" class="fa fa-edit btn-icon"></i>
+          <p>Edit</p>
+        </button>
+        }
+      </div>
+    </div>
+
+    <div class="outer-box">
+      <div class="user-dtls-wrapper">
+        <div class="user-dtls">
+          @if( applicationDetails?.app_name) {
+          <div class="upper-part">
+            <div class="left-part">
+              <p class="heading">Details</p>
+              <div class="emp-status-wrapper">
+                <div class="emp-detail">
+                  <div class="profile-pic">
+                    <span class="material-symbols-outlined sb-icon"> grid_view </span>
+                  </div>
+                  <div class="name-n-mail">
+                    <p class="name">
+                      {{applicationDetails?.app_name || '-'}}
+                    </p>
+                    <p class="mail text">
+                      <span class="aliase">Aliases: </span>{{applicationDetails?.aliases || "Unknown"}}
+                    </p>
+                  </div>
+                </div>
+                <div class="emp-status">
+                  @if(applicationDetails?.is_gxp !== undefined) {
+                  <div class="tab gox" [class]="applicationDetails?.is_gxp === true ? 'active' : 'not-active'">
+                    <p class="title">GXP:</p>
+                    <div class="status">
+                      <span>{{applicationDetails?.is_gxp ? 'Yes' : 'No'}}</span>
+                    </div>
+                  </div>
+                  }
+                  @if(applicationDetails?.is_sox !== undefined) {
+                  <div class="tab sox" [class]="applicationDetails?.is_sox === true ? 'active' : 'not-active'">
+                    <p class="title">SOX:</p>
+                    <div class="status">
+                      <span>{{applicationDetails?.is_sox ? 'Yes' : 'No'}}</span>
+                    </div>
+                  </div>
+                  }
+                </div>
+              </div>
+              <ul class="employee-details">
+                <li class="app-id-box">
+                  <span class="title">App ID</span>
+                  <span class="value">
+                    {{applicationDetails?.app_id}}
+                    <span title="Copy App ID" class="material-symbols-outlined copy-text"
+                      (click)="copyText(applicationDetails?.app_id)">
+                      {{ isTextCopied ? 'check' : 'content_copy' }}
+                    </span>
+                  </span>
+                </li>
+                <li>
+                  <span class="title">Lifecycle</span>
+                  <span class="value">
+                    {{applicationDetails?.lc_name}}
+                  </span>
+                </li>
+                <li>
+                  <span class="title">Vendor</span>
+                  <span class="value" [class.hyperlink-class]="hasPermission('details', 'vendors')"
+                    (click)="goToVendor(applicationDetails?.vendor_id)">
+                    {{applicationDetails?.vendor_name}}
+                  </span>
+                </li>
+                <li>
+                  <span class="title">Funding Department</span>
+                  <span class="value">
+                    {{applicationDetails?.funding_department_name ? applicationDetails?.funding_department_name :
+                    "Unknown"}}
+                  </span>
+                </li>
+                <li>
+                  <span class="title">Hosting Location</span>
+                  <span class="value">
+                    {{applicationDetails?.hosting_location}}
+                  </span>
+                </li>
+                <li>
+                  <span class="title">Version</span>
+                  <span class="value">
+                    {{applicationDetails?.version ? applicationDetails?.version : "Unknown"}}
+                  </span>
+                </li>
+              </ul>
+              <div class="description-wrapper">
+                <p class="description-heading">Description</p>
+                <p class="description-text">
+                  {{applicationDetails?.app_desc}}
+                </p>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="middle-part">
+            <div class="description-wrapper">
+              <p class="authorities-heading">Ownership & Roles</p>
+              <div class="business-owner">
+
+                <!-- Single User in Ownership and Roles -->
+
+                @if(applicationDetails?.product_managers?.length === 1){
+                  <div class="emp-dtl-wrapper">
+                    <p class="emp-heading">Product Manager</p>
+                    <div class="emp-detail">
+                      @if(applicationDetails?.product_managers?.[0]?.email){
+                      <div class="profile-pic" [class.hyperlink]="hasPermission('details', 'users')"
+                        (click)="navigateToUserDetails(applicationDetails?.product_managers?.[0]?.email)">
+                        @if(applicationDetails?.product_managers?.[0]?.profileImage){
+                        <img [src]="applicationDetails?.product_managers?.[0]?.profileImage"
+                          [alt]="applicationDetails?.product_managers?.[0]?.email">
+                        }
+                        @else {
+                        <span
+                          class="profile-initials">{{uiService.getNameInitials(applicationDetails?.product_managers?.[0]?.fullname_preferred)}}</span>
+                        }
+                      </div>
+                      <div class="name-n-mail">
+                        <p class="name" [class.hyperlink]="hasPermission('details', 'users')"
+                          (click)="navigateToUserDetails(applicationDetails?.product_managers?.[0]?.email)">
+                          {{applicationDetails?.product_managers?.[0]?.fullname_preferred || '-'}}
+                        </p>
+                        <p class="mail text">
+                          {{applicationDetails?.product_managers?.[0]?.email || '-'}}
+                        </p>
+                      </div>
+                      }
+                      @else {
+                      <div class="name-n-mail">
+                        <p class="not-available">
+                          Unknown
+                        </p>
+                      </div>
+                      }
+                    </div>
+                  </div>
+                  } @else if (!applicationDetails?.product_managers?.length) {
+                  <div class="emp-dtl-wrapper">
+                    <p class="emp-heading">Product Manager</p>
+                    <div class="emp-detail">
+                      <div class="name-n-mail">
+                        <p class="not-available">
+                          Unknown
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  }
+
+                @if(applicationDetails?.product_owners?.length === 1){
+                <div class="emp-dtl-wrapper">
+                  <p class="emp-heading">Product Owner</p>
+                  <div class="emp-detail">
+                    @if(applicationDetails?.product_owners?.[0]?.email){
+                    <div class="profile-pic" [class.hyperlink]="hasPermission('details', 'users')"
+                      (click)="navigateToUserDetails(applicationDetails?.product_owners?.[0]?.email)">
+                      @if(applicationDetails?.product_owners?.[0]?.profileImage){
+                      <img [src]="applicationDetails?.product_owners?.[0]?.profileImage"
+                        [alt]="applicationDetails?.product_owners?.[0]?.email">
+                      }
+                      @else {
+                      <span
+                        class="profile-initials">{{uiService.getNameInitials(applicationDetails?.product_owners?.[0]?.fullname_preferred)}}</span>
+                      }
+                    </div>
+                    <div class="name-n-mail">
+                      <p class="name" [class.hyperlink]="hasPermission('details', 'users')"
+                        (click)="navigateToUserDetails(applicationDetails?.product_owners?.[0]?.email)">
+                        {{applicationDetails?.product_owners?.[0]?.fullname_preferred || '-'}}
+                      </p>
+                      <p class="mail text">
+                        {{applicationDetails?.product_owners?.[0]?.email || '-'}}
+                      </p>
+                    </div>
+                    }
+                    @else {
+                    <div class="name-n-mail">
+                      <p class="not-available">
+                        Unknown
+                      </p>
+                    </div>
+                    }
+                  </div>
+                </div>
+                } @else if (!applicationDetails?.product_owners?.length) {
+                <div class="emp-dtl-wrapper">
+                  <p class="emp-heading">Product Owner</p>
+                  <div class="emp-detail">
+                    <div class="name-n-mail">
+                      <p class="not-available">
+                        Unknown
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                }
+
+                @if(applicationDetails?.business_owners?.length === 1){
+                  <div class="emp-dtl-wrapper">
+                    <p class="emp-heading">Business Owner</p>
+                    <div class="emp-detail">
+                      @if(applicationDetails?.business_owners?.[0]?.email){
+                      <div class="profile-pic" [class.hyperlink]="hasPermission('details', 'users')"
+                        (click)="navigateToUserDetails(applicationDetails?.business_owners?.[0]?.email)">
+                        @if(applicationDetails?.business_owners?.[0]?.profileImage){
+                        <img [src]="applicationDetails?.business_owners?.[0]?.profileImage"
+                          [alt]="applicationDetails?.business_owners?.[0]?.email">
+                        }
+                        @else {
+                        <span
+                          class="profile-initials">{{uiService.getNameInitials(applicationDetails?.business_owners?.[0]?.fullname_preferred)}}</span>
+                        }
+                      </div>
+                      <div class="name-n-mail">
+                        <p class="name" [class.hyperlink]="hasPermission('details', 'users')"
+                          (click)="navigateToUserDetails(applicationDetails?.business_owners?.[0]?.email)">
+                          {{applicationDetails?.business_owners?.[0]?.fullname_preferred || '-'}}
+                        </p>
+                        <p class="mail text">
+                          {{applicationDetails?.business_owners?.[0]?.email || '-'}}
+                        </p>
+                      </div>
+                      }
+                      @else {
+                      <div class="name-n-mail">
+                        <p class="not-available">
+                          Unknown
+                        </p>
+                      </div>
+                      }
+                    </div>
+                  </div>
+                  } @else if (!applicationDetails?.business_owners?.length) {
+                  <div class="emp-dtl-wrapper">
+                    <p class="emp-heading">Business Owner</p>
+                    <div class="emp-detail">
+                      <div class="name-n-mail">
+                        <p class="not-available">
+                          Unknown
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  }
+
+
+                @if(applicationDetails?.system_owners?.length === 1){
+                <div class="emp-dtl-wrapper">
+                  <p class="emp-heading">System Owner</p>
+                  <div class="emp-detail">
+                    @if(applicationDetails?.system_owners?.[0]?.email){
+                    <div class="profile-pic" [class.hyperlink]="hasPermission('details', 'users')"
+                      (click)="navigateToUserDetails(applicationDetails?.system_owners?.[0]?.email)">
+                      @if(applicationDetails?.system_owners?.[0]?.profileImage){
+                      <img [src]="applicationDetails?.system_owners?.[0]?.profileImage"
+                        [alt]="applicationDetails?.system_owners?.[0]?.email">
+                      }
+                      @else {
+                      <span
+                        class="profile-initials">{{uiService.getNameInitials(applicationDetails?.system_owners?.[0]?.fullname_preferred)}}</span>
+                      }
+                    </div>
+                    <div class="name-n-mail">
+                      <p class="name" [class.hyperlink]="hasPermission('details', 'users')"
+                        (click)="navigateToUserDetails(applicationDetails?.system_owners?.[0]?.email)">
+                        {{applicationDetails?.system_owners?.[0]?.fullname_preferred || '-'}}
+                      </p>
+                      <p class="mail text">
+                        {{applicationDetails?.system_owners?.[0]?.email || '-'}}
+                      </p>
+                    </div>
+                    }
+                    @else {
+                    <div class="name-n-mail">
+                      <p class="not-available">
+                        Unknown
+                      </p>
+                    </div>
+                    }
+                  </div>
+                </div>
+                } @else if (!applicationDetails?.system_owners?.length) {
+                <div class="emp-dtl-wrapper">
+                  <p class="emp-heading">System Owner</p>
+                  <div class="emp-detail">
+                    <div class="name-n-mail">
+                      <p class="not-available">
+                        Unknown
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                }
+
+                @if(applicationDetails?.it_contacts?.length === 1){
+                <div class="emp-dtl-wrapper">
+                  <p class="emp-heading">IT Contact</p>
+                  <div class="emp-detail">
+                    @if(applicationDetails?.it_contacts?.[0]?.email){
+                    <div class="profile-pic" [class.hyperlink]="hasPermission('details', 'users')"
+                      (click)="navigateToUserDetails(applicationDetails?.it_contacts?.[0]?.email)">
+                      @if(applicationDetails?.it_contacts?.[0]?.profileImage){
+                      <img [src]="applicationDetails?.it_contacts?.[0]?.profileImage"
+                        [alt]="applicationDetails?.it_contacts?.[0]?.email">
+                      }
+                      @else {
+                      <span
+                        class="profile-initials">{{uiService.getNameInitials(applicationDetails?.it_contacts?.[0]?.fullname_preferred)}}</span>
+                      }
+                    </div>
+                    <div class="name-n-mail">
+                      <p class="name" [class.hyperlink]="hasPermission('details', 'users')"
+                        (click)="navigateToUserDetails(applicationDetails?.it_contacts?.[0]?.email)">
+                        {{applicationDetails?.it_contacts?.[0]?.fullname_preferred || '-'}}
+                      </p>
+                      <p class="mail text">
+                        {{applicationDetails?.it_contacts?.[0]?.email || '-'}}
+                      </p>
+                    </div>
+                    }
+                    @else {
+                    <div class="name-n-mail">
+                      <p class="not-available">
+                        Unknown
+                      </p>
+                    </div>
+                    }
+                  </div>
+                </div>
+                } @else if (!applicationDetails?.it_contacts?.length) {
+                <div class="emp-dtl-wrapper">
+                  <p class="emp-heading">IT Contact</p>
+                  <div class="emp-detail">
+                    <div class="name-n-mail">
+                      <p class="not-available">
+                        Unknown
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                }
+
+
+                <div class="emp-dtl-wrapper">
+                  <p class="emp-heading">First Approver</p>
+                  <div class="emp-detail">
+                    @if (applicationDetails?.approver1_email) {
+                    <div class="profile-pic" [class.hyperlink]="hasPermission('details', 'users')"
+                      (click)="navigateToUserDetails(applicationDetails?.approver1_email)">
+                      @if(this.applicationDetails?.approver1ProfileImage){
+                      <img [src]="this.applicationDetails?.approver1ProfileImage"
+                        [alt]="applicationDetails?.approver1_preferred_name">
+                      }
+                      @else {
+                      <span
+                        class="profile-initials">{{uiService.getNameInitials(applicationDetails?.approver1_preferred_name)}}</span>
+                      }
+                    </div>
+                    <div class="name-n-mail">
+                      <p class="name" [class.hyperlink]="hasPermission('details', 'users')"
+                        (click)="navigateToUserDetails(applicationDetails?.approver1_email)"
+                        routerLinkActive="active-user-link">
+                        {{applicationDetails?.approver1_preferred_name || '-'}}
+                      </p>
+                      <p class="mail text">
+                        {{applicationDetails?.approver1_email || '-'}}
+                      </p>
+                    </div>
+                    }
+                    @else {
+                    <div class="name-n-mail">
+                      <p class="not-available">
+                        Unknown
+                      </p>
+                    </div>
+                    }
+                  </div>
+                </div>
+
+                <div class="emp-dtl-wrapper">
+                  <p class="emp-heading">Second Approver</p>
+                  <div class="emp-detail">
+                    @if (applicationDetails?.approver2_email){
+                    <div class="profile-pic" [class.hyperlink]="hasPermission('details', 'users')"
+                      (click)="navigateToUserDetails(applicationDetails?.approver2_email)">
+                      @if(this.applicationDetails?.approver2ProfileImage){
+                      <img [src]="this.applicationDetails?.approver2ProfileImage"
+                        [alt]="applicationDetails?.approver2_preferred_name">
+                      }
+                      @else {
+                      <span
+                        class="profile-initials">{{uiService.getNameInitials(applicationDetails?.approver2_preferred_name)}}</span>
+                      }
+                    </div>
+                    <div class="name-n-mail">
+                      <p class="name" [class.hyperlink]="hasPermission('details', 'users')"
+                        (click)="navigateToUserDetails(applicationDetails?.approver2_email)">
+                        {{applicationDetails?.approver2_preferred_name || '-'}}
+                      </p>
+                      <p class="mail text">
+                        {{applicationDetails?.approver2_email || '-'}}
+                      </p>
+                    </div>
+                    }
+                    @else {
+                    <div class="name-n-mail">
+                      <p class="not-available">
+                        Unknown
+                      </p>
+                    </div>
+                    }
+                  </div>
+                </div>
+              </div>
+              <!-- Multiple User in Authorities -->
+              @if(applicationDetails?.product_owners?.length > 1){
+              <p class="emp-headingg">Product Owners</p>
+              <div class="business-ownerr">
+                @for (product_owner of applicationDetails?.product_owners; track $index) {
+                <div class="emp-dtl-wrapper">
+                  <div class="emp-detail">
+                    @if(product_owner?.email){
+                    <div class="profile-pic" [class.hyperlink]="hasPermission('details', 'users')"
+                      (click)="navigateToUserDetails(product_owner?.email)">
+                      @if(product_owner?.profileImage){
+                      <img [src]="product_owner?.profileImage" [alt]="product_owner?.email">
+                      }
+                      @else {
+                      <span
+                        class="profile-initials">{{uiService.getNameInitials(product_owner?.fullname_preferred)}}</span>
+                      }
+                    </div>
+                    <div class="name-n-mail">
+                      <p class="name" [class.hyperlink]="hasPermission('details', 'users')"
+                        (click)="navigateToUserDetails(product_owner?.email)">
+                        {{product_owner?.fullname_preferred || '-'}}
+                      </p>
+                      <p class="mail text">
+                        {{product_owner?.email || '-'}}
+                      </p>
+                    </div>
+                    }
+                    @else {
+                    <div class="name-n-mail">
+                      <p class="not-available">
+                        Unknown
+                      </p>
+                    </div>
+                    }
+                  </div>
+                </div>
+                }
+              </div>
+              }
+
+              @if(applicationDetails?.product_managers?.length > 1){
+              <p class="emp-headingg">Product Managers</p>
+              <div class="business-ownerr">
+                @for (product_manager of applicationDetails?.product_managers; track $index) {
+                <div class="emp-dtl-wrapper">
+                  <div class="emp-detail">
+                    @if(product_manager?.email){
+                    <div class="profile-pic" [class.hyperlink]="hasPermission('details', 'users')"
+                      (click)="navigateToUserDetails(product_manager?.email)">
+                      @if(product_manager?.profileImage){
+                      <img [src]="product_manager?.profileImage" [alt]="product_manager?.email">
+                      }
+                      @else {
+                      <span
+                        class="profile-initials">{{uiService.getNameInitials(product_manager?.fullname_preferred)}}</span>
+                      }
+                    </div>
+                    <div class="name-n-mail">
+                      <p class="name" [class.hyperlink]="hasPermission('details', 'users')"
+                        (click)="navigateToUserDetails(product_manager?.email)">
+                        {{product_manager?.fullname_preferred || '-'}}
+                      </p>
+                      <p class="mail text">
+                        {{product_manager?.email || '-'}}
+                      </p>
+                    </div>
+                    }
+                    @else {
+                    <div class="name-n-mail">
+                      <p class="not-available">
+                        Unknown
+                      </p>
+                    </div>
+                    }
+                  </div>
+                </div>
+                }
+              </div>
+              }
+
+              @if(applicationDetails?.system_owners?.length > 1){
+              <p class="emp-headingg">System Owners</p>
+              <div class="business-ownerr">
+                @for (system_owner of applicationDetails?.system_owners; track $index) {
+                <div class="emp-dtl-wrapper">
+                  <div class="emp-detail">
+                    @if(system_owner?.email){
+                    <div class="profile-pic" [class.hyperlink]="hasPermission('details', 'users')"
+                      (click)="navigateToUserDetails(system_owner?.email)">
+                      @if(system_owner?.profileImage){
+                      <img [src]="system_owner?.profileImage" [alt]="system_owner?.email">
+                      }
+                      @else {
+                      <span
+                        class="profile-initials">{{uiService.getNameInitials(system_owner?.fullname_preferred)}}</span>
+                      }
+                    </div>
+                    <div class="name-n-mail">
+                      <p class="name" [class.hyperlink]="hasPermission('details', 'users')"
+                        (click)="navigateToUserDetails(system_owner?.email)">
+                        {{system_owner?.fullname_preferred || '-'}}
+                      </p>
+                      <p class="mail text">
+                        {{system_owner?.email || '-'}}
+                      </p>
+                    </div>
+                    }
+                    @else {
+                    <div class="name-n-mail">
+                      <p class="not-available">
+                        Unknown
+                      </p>
+                    </div>
+                    }
+                  </div>
+                </div>
+                }
+              </div>
+              }
+
+              @if(applicationDetails?.it_contacts?.length > 1){
+              <p class="emp-headingg">IT Contacts</p>
+              <div class="business-ownerr">
+                @for (it_contact of applicationDetails?.it_contacts; track $index) {
+                <div class="emp-dtl-wrapper">
+                  <div class="emp-detail">
+                    @if(it_contact?.email){
+                    <div class="profile-pic" [class.hyperlink]="hasPermission('details', 'users')"
+                      (click)="navigateToUserDetails(it_contact?.email)">
+                      @if(it_contact?.profileImage){
+                      <img [src]="it_contact?.profileImage" [alt]="it_contact?.email">
+                      }
+                      @else {
+                      <span
+                        class="profile-initials">{{uiService.getNameInitials(it_contact?.fullname_preferred)}}</span>
+                      }
+                    </div>
+                    <div class="name-n-mail">
+                      <p class="name" [class.hyperlink]="hasPermission('details', 'users')"
+                        (click)="navigateToUserDetails(it_contact?.email)">
+                        {{it_contact?.fullname_preferred || '-'}}
+                      </p>
+                      <p class="mail text">
+                        {{it_contact?.email || '-'}}
+                      </p>
+                    </div>
+                    }
+                    @else {
+                    <div class="name-n-mail">
+                      <p class="not-available">
+                        Unknown
+                      </p>
+                    </div>
+                    }
+                  </div>
+                </div>
+                }
+              </div>
+              }
+
+              @if(applicationDetails?.business_owners?.length > 1){
+              <p class="emp-headingg">Business Owners</p>
+              <div class="business-ownerr">
+                @for (business_owner of applicationDetails?.business_owners; track $index) {
+                <div class="emp-dtl-wrapper">
+                  <div class="emp-detail">
+                    @if(business_owner?.email){
+                    <div class="profile-pic" [class.hyperlink]="hasPermission('details', 'users')"
+                      (click)="navigateToUserDetails(business_owner?.email)">
+                      @if(business_owner?.profileImage){
+                      <img [src]="business_owner?.profileImage" [alt]="business_owner?.email">
+                      }
+                      @else {
+                      <span
+                        class="profile-initials">{{uiService.getNameInitials(business_owner?.fullname_preferred)}}</span>
+                      }
+                    </div>
+                    <div class="name-n-mail">
+                      <p class="name" [class.hyperlink]="hasPermission('details', 'users')"
+                        (click)="navigateToUserDetails(business_owner?.email)">
+                        {{business_owner?.fullname_preferred || '-'}}
+                      </p>
+                      <p class="mail text">
+                        {{business_owner?.email || '-'}}
+                      </p>
+                    </div>
+                    }
+                    @else {
+                    <div class="name-n-mail">
+                      <p class="not-available">
+                        Unknown
+                      </p>
+                    </div>
+                    }
+                  </div>
+                </div>
+                }
+              </div>
+              }
+
+            </div>
+          </div>
+
+          <div class="lower-part">
+            <div class="more-info-part" (click)="isInformationPanelExpanded = !isInformationPanelExpanded">
+              <p class="other-information heading">More Information</p>
+              <button class="expanded-icon">
+                <span class="material-symbols-rounded"> {{isInformationPanelExpanded ? 'keyboard_arrow_up' :
+                  'keyboard_arrow_down' }} </span>
+              </button>
+            </div>
+            <ul class="user-dtls-listing"
+              [class]="!isInformationPanelExpanded ? 'information-panel-collapsed' : 'information-panel-expanded'">
+              <div class="user-dtls-inner-div">
+                <li>
+                  <span class="user-name">Created Date</span>
+                  <span class="phno">{{ applicationDetails?.created_at | date: defaultDateFormat}}</span>
+                </li>
+              </div>
+              <div class="user-dtls-inner-div">
+                <li>
+                  <span class="user-name">Created By</span>
+                  <span class="phno">{{applicationDetails?.created_by_preferred_name || '-'}}</span>
+                </li>
+              </div>
+              <div class="user-dtls-inner-div">
+                <li>
+                  <span class="user-name">Modified Date</span>
+                  <span class="phno">{{ applicationDetails?.last_modified_at | date: defaultDateFormat}}</span>
+                </li>
+              </div>
+              <div class="user-dtls-inner-div">
+                <li>
+                  <span class="user-name">Modified By</span>
+                  <span class="phno">{{applicationDetails?.last_modified_by_preferred_name || '-'}}</span>
+                </li>
+              </div>
+            </ul>
+          </div>
+          }
+        </div>
+      </div>
+    </div>
+  </div>

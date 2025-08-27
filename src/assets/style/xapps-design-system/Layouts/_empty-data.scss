@@ -1,0 +1,12 @@
+
+.bottom-img{
+    @include dimensions(calc(100% - 48px), na);
+    @include flex-box(column, center, na, na, na);
+    overflow-y: auto;
+    h4{
+        margin-top: $medium-m;
+        margin-bottom: $vvs-m ;
+    }
+   
+     padding-bottom: 20px !important;
+}

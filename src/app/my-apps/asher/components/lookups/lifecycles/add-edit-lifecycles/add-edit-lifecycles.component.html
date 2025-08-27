@@ -1,0 +1,106 @@
+<div class="write-popup">
+  <div class="popup-header">
+    <h3>{{getTitle()}}</h3>
+    <div class="d-btn d-btn--circle white-bg-circle vs" (click)="activeModal.close('CANCEL')">
+      <span class="material-symbols-rounded btn-icon">
+        close
+      </span>
+    </div>
+  </div>
+
+
+
+  <div class="popup-body">
+    @if (mode !== 'details') {
+    <p class="require-label">Fields marked with <span class="required">*</span>&nbsp;&nbsp; are required.</p>
+    }
+    @if (lifeCycleDetails?.name && mode === 'details') {
+    <form action="">
+      <div class="outer-box">
+        <div class="inner-box">
+          <div class="only-feilds">
+            <div class="input-feild-columns">
+              <div class="form-group">
+                <div class="input-wrapper lg">
+                  <p class="small _pl-16">{{lifeCycleDetails?.name}}</p>
+                  <label class="floating-label top-label">Name</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="outer-box">
+        <div class="inner-box">
+          <div class="only-feilds">
+            <div class="form-group">
+              <div class="input-wrapper lg">
+                <p class="small _pl-16">{{lifeCycleDetails?.description}}</p>
+                <label class="floating-label top-label">Description</label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </form>
+    @if (isActionPermitted('edit')) {
+    <div class="outer-button">
+      <button class="d-btn d-btn--primary md _w-full" (click)="editLifeCycle()">
+         <i style="font-size: 17px; cursor: pointer;line-height:24px;" class="fa fa-edit btn-icon"></i>
+        Edit</button>
+    </div>
+    }
+
+
+    } @else {
+    <form [formGroup]="addLifeCycleForm" (ngSubmit)="submitLifeCycle()">
+      <div class="outer-box">
+        <div class="inner-box">
+          <div class="only-feilds">
+            <div class="input-feild-columns">
+              <div class="form-group" [class.error]='showErrors && addLifeCycleForm.get("lifeCycleName")?.invalid'
+                (click)="lifeCycleInputBox.focus()">
+
+                <div class="input-wrapper lg">
+                  <input #inputElement #lifeCycleInputBox type="text" id="lifeCycleName" formControlName="lifeCycleName"
+                    placeholder=" " [class.filled]="addLifeCycleForm.get('lifeCycleName')?.value" />
+                  <label for="lifeCycleName" class="floating-label">Name: <span class="required">*</span></label>
+                </div>
+
+                @if (showErrors && addLifeCycleForm.get("lifeCycleName")?.invalid) {
+                <p class="error-message">Please enter name.</p>
+                }
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="outer-box">
+        <div class="inner-box">
+          <div class="only-feilds">
+            <div class="input-feild-columns">
+              <div class="form-group" (click)="descriptionInputBox.focus()">
+                <div class="input-wrapper">
+                  <textarea #inputElement #descriptionInputBox id="description" formControlName="description"
+                    placeholder=" " [class.filled]="addLifeCycleForm.get('description')?.value"></textarea>
+                  <label for="description" class="floating-label">Descriptionn: </label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+
+    <div class="outer-button">
+      <button type="submit" (click)="submitLifeCycle()" class="d-btn d-btn--primary md _w-full">
+        <span class="material-symbols-outlined">
+         check
+        </span>Save</button>
+    </div>
+    }
+  </div>
+</div>

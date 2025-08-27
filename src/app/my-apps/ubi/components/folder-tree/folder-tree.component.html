@@ -1,0 +1,25 @@
+<li class="tab" routerLink="/ubi/projects/{{project.id}}" routerLinkActive="active">
+  <div class="main-row">
+    @if(project.childProjects?.length){
+    <span class="material-symbols-rounded arrow-btn" (click)="getChildProjectsByProject(project)">
+      {{project.isMenuExpanded ? 'arrow_drop_down' : 'arrow_right' }} </span>
+    }
+
+    <!-- <div class="logo">
+        
+      </div> -->
+    <div class="sidebar-nav-left-icon">
+      <span class="material-symbols-outlined logo-symbol folder-icon">folder</span>
+    </div>
+    <div class="logo-n-text">
+      <span class="text">{{project.name}}</span>
+    </div>
+  </div>
+  @if(project.isMenuExpanded){
+  <ul class="hr2 listing-outer">
+    @for (childProject of project.childProjects; track $index) {
+    <app-folder-tree [project]="childProject"></app-folder-tree>
+    }
+  </ul>
+  }
+</li>

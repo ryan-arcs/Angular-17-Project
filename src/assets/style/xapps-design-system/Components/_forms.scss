@@ -1,0 +1,950 @@
+.form-group {
+  @include flex-box(column, na, na, na, na);
+  position: relative;
+
+  label {
+    &.d-none {
+      display: none;
+    }
+
+    &.d-flex {
+      display: flex;
+    }
+  }
+
+  &.label {
+    .important {
+      color: var(--negative-color);
+    }
+  }
+
+  .input-wrapper {
+    position: relative;
+    border: 1px solid var(--ui-border-color);
+    border-radius: $border-radius-small;
+    background-color: var(--primary-background-color);
+    transition:
+      border-color 0.3s,
+      box-shadow 0.3s;
+    @include flex-box(na, space-between, center, na, na);
+
+    &.vs {
+      height: 28px;
+    }
+
+    &.sm {
+      height: 32px;
+    }
+
+    &.md {
+      height: 38px;
+    }
+
+    &.lg {
+      height: 42px;
+    }
+
+    &.xl {
+      height: 48px;
+    }
+
+    &.xxl {
+      height: 54px;
+    }
+
+    &.left-icon {
+      .icon-1 {
+        order: 0;
+        margin-right: 8px;
+        font-size: var(--fs-forth);
+        @include flex-box(na, na, center, na, na);
+      }
+
+      input {
+        order: 1;
+      }
+    }
+
+    &.right-icon {
+      .icon-2 {
+        order: 1;
+        margin-left: 8px;
+        font-size: 13px;
+        @include flex-box(na, na, center, na, na);
+      }
+
+      input {
+        order: 0;
+      }
+    }
+
+    &.both-icon {
+      .icon-1 {
+        order: 1;
+        margin-right: 8px;
+        font-size: var(--fs-forth);
+        @include flex-box(na, na, center, na, na);
+      }
+
+      .icon-2 {
+        order: 3;
+        margin-left: 8px;
+        font-size: 13px;
+        @include flex-box(na, na, center, na, na);
+      }
+
+      input {
+        order: 2;
+      }
+    }
+
+    .icon {
+      display: none;
+      font-size: var(--fs-forth);
+    }
+
+    input {
+      border: none !important;
+      outline: none !important;
+      padding: $zero-p $vs-p;
+      flex: 1;
+      @include typography(var(--fs-large),
+        var(--lh-xl),
+        var(--font-regular),
+        var(--primary-text-color));
+      background: transparent;
+      width: 100%;
+      height: 100%;
+      border-radius: $border-radius-small;
+      box-sizing: border-box;
+
+      &::placeholder {
+        color: var(--secondary-text-color);
+      }
+    }
+
+    &:focus-within {
+      border-color: var(--primary-color);
+      // box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+    }
+
+  }
+
+  .custom-select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 100%;
+    height: 100%;
+    // height: 38px;
+    border-radius: $border-radius-small;
+    background-color: var(--primary-background-color);
+    padding: $zero-p $vs-p;
+    position: relative;
+    background-image: url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L5 5L9 1' stroke='%23676879' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 10px 6px;
+    border: none !important;
+    // border: 1px solid var(--ui-border-color);
+    // padding: 0 $vs-m;
+    @include flex-box(na, na, center, na, 10);
+    @include typography(var(--fs-medium),
+      na,
+      var(--font-regular),
+      var(--secondary-text-color));
+
+    option {
+      padding: 12px;
+      width: 100%;
+      position: absolute;
+      @include typography(var(--fs-medium),
+        na,
+        var(--font-regular),
+        var(--secondary-text-color));
+    }
+
+    // &:focus-within {
+    //   border-color: var(--primary-color);
+    //   box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+    // }
+  }
+
+  .switchBox {
+    @include flex-box(na, na, center, na, 4);
+    @include typography(var(--fs-medium),
+      na,
+      var(--font-medium),
+      var(--secondary-text-color));
+
+    .switch {
+      position: relative;
+      display: inline-block;
+      @include dimensions(14, 24);
+      margin: $zero-p;
+
+      input {
+        display: none;
+      }
+
+      .slider {
+        cursor: pointer;
+        background-color: var(--grey-background-color);
+        transition: 0.4s;
+        border-radius: 100px;
+        @include absolute(0, 0, 0, 0);
+
+        &::before {
+          content: "";
+          background-color: var(--primary-background-color);
+          transition: 0.4s;
+          border-radius: 100px;
+          @include dimensions(10, 10);
+          @include absolute(na, na, 2, 2);
+        }
+      }
+
+      input:checked+.slider {
+        background-color: var(--primary-color);
+      }
+
+      input:checked+.slider::before {
+        transform: translateX(10px);
+      }
+    }
+  }
+
+  .error-message {
+    @include typography(var(--fs-small), na, var(--font-medium), var(--negative-color) !important);
+    height: 16px;
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s, opacity 0.3s ease;
+    @include absolute(na, na, -16, na);
+  }
+
+  &.error {
+
+    input,
+    textarea,
+    ng-select {
+      border-color: var(--negative-color) !important;
+    }
+
+    .input-wrapper {
+      border-color: var(--negative-color);
+      // box-shadow: 0 0 0 2px rgba(229, 57, 53, 0.2);
+
+      .floating-label {
+        color: var(--negative-color) !important;
+      }
+    }
+
+    textarea {
+      border-color: var(--negative-color) !important;
+      // box-shadow: 0 0 0 2px rgba(229, 57, 53, 0.2) !important;
+    }
+
+    .custom-select {
+      border-color: var(--negative-color) !important;
+      // box-shadow: 0 0 0 2px rgba(229, 57, 53, 0.2) !important;
+    }
+
+
+    .error-message {
+      visibility: visible;
+      opacity: 1;
+    }
+
+  }
+
+
+}
+
+
+//add-edit page css there  all the input with floating label css is this
+
+.main-box {
+  width: 100%;
+  @include flex-box(column, na, center, na, na);
+  // margin-top: $small-m;
+
+  .filled-important-div {
+    width: 100%;
+    @include flex-box(na, end, center, na, na);
+    // padding-right: $medium-p;
+
+    // .filled-text {
+    //   @include absolute(0, 10, na, na);
+
+    // }
+  }
+
+  form {
+    margin-top: $zero-m;
+    width: 100%;
+    @include flex-box(column, na, na, na, 16);
+    overflow-x: hidden;
+    height: calc(100vh - 140px) !important;
+
+    .outer-box {
+      position: relative;
+      border-radius: $border-radius-medium;
+      width: 100%;
+      margin-top: $vvs-m;
+
+      .heading-wrapper {
+        @include absolute(-11, na, na, 24);
+        width: 100%;
+        z-index: 3;
+        @include flex-box(na, na, center, na, na);
+        height: 27px;
+
+        h3 {
+          font-weight: var(--font-bold) !important;
+          background-color: var(--secondary-background-color);
+          border-radius: $border-radius-small;
+          padding: $zero-p $vvs-p;
+        }
+      }
+
+      .inner-box {
+        padding: $large-p $small-p;
+        // background-color: var(--secondary-background-dark-color);
+        border-radius: $border-radius-medium;
+        width: 100%;
+        transition: all 0.5s ease;
+        border: 1px solid var(--ui-border-color);
+
+
+      }
+
+      .only-feilds {
+        @include flex-box(column, na, na, na, 24);
+        // margin-top: $vs-m;
+        /*********************** Floating Label *********************/
+
+        .input-feild-columns {
+          display: grid;
+          grid-template-columns: repeat(3, calc(33.33% - 16px));
+          gap: 24px;
+          justify-content: space-between;
+
+          @media screen and (max-width: 768px) {
+            grid-template-columns: repeat(2, calc(50% - 10px));
+          }
+
+          @media screen and (max-width: 576px) {
+            grid-template-columns: repeat(1, 100%);
+            gap: 20px;
+          }
+        }
+
+        .form-group {
+          .input-wrapper {
+
+            // this is for NA inside the input field
+            .set-default-alias {
+              @include absolute(3, 8, na, na);
+              padding: $vvs-p;
+              border-radius: 50%;
+              @include typography(var(--fs-small), na, var(--font-bold), var(--primary-text-color));
+              background-color: var(--secondary-background-color);
+              cursor: pointer
+            }
+
+            .floating-label {
+              @include absolute(10, na, na, 12);
+              // background: var(--primary-background-color);
+              background-color: transparent;
+              // background-color: var(--secondary-background-color);
+              @include typography(var(--fs-large), na, var(--font-medium), var(--secondary-text-color));
+              // color: var(--secondary-text-color);
+              padding: $zero-p $vvs-m;
+              border-radius: $border-radius-small;
+              transition: transform .2s ease;
+              pointer-events: none;
+              transform-origin: left;
+              translate: -0.3em;
+              z-index: 1;
+              height: 22px;
+
+              .required {
+                color: var(--negative-color);
+              }
+
+              &.active {
+                transform: translateY(-1.2rem) scale(0.85);
+                color: var(--primary-text-color);
+                background-color: var(--primary-background-color) !important;
+                @include typography(var(--fs-medium), na, var(--font-medium), var(--primary-text-color));
+              }
+            }
+
+            .switch-label {
+              cursor: pointer;
+              width: 100%;
+              @include flex-box(na, space-between, na, na, na);
+              padding: $zero-p $vs-p;
+
+              .toggle-text {
+                @include typography(na,
+                  na,
+                  var(--font-medium),
+                  na);
+              }
+
+              .switchBox {
+                .switch {
+                  @include dimensions(18, 33);
+
+                  input:checked+.slider::before {
+                    transform: translateX(15px);
+                  }
+
+                  .slider::before {
+                    @include dimensions(14, 14);
+                  }
+                }
+              }
+            }
+
+            input {
+
+              &::placeholder {
+                color: transparent;
+              }
+
+              // &:focus {
+              //   background-color: var(--secondary-background-color) !important;
+              // }
+
+              &:focus+.floating-label,
+              &.filled+.floating-label {
+                transform: translateY(-1.2rem) scale(0.85);
+                background-color: var(--primary-background-color) !important;
+                @include typography(var(--fs-large), na, var(--font-medium), var(--primary-text-color));
+                z-index: 2;
+              }
+            }
+
+            textarea {
+              border: 0;
+              outline: none;
+              border-radius: $border-radius-small;
+              background-color: var(--primary-background-color);
+              padding: $vs-p;
+              transition:
+                border-color 0.3s,
+                box-shadow 0.3s;
+              @include flex-box(na, na, center, na, na);
+              flex: 1;
+              @include typography(var(--fs-large),
+                var(--lh-xl),
+                var(--font-regular),
+                var(--primary-text-color) !important);
+
+              &:focus-within {
+                border-color: var(--primary-color);
+                // box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+              }
+
+              &:focus+.floating-label,
+              &.filled+.floating-label {
+                transform: translateY(-1.2rem) scale(0.85);
+                background-color: var(--primary-background-color) !important;
+                @include typography(var(--fs-large), na, var(--font-medium), var(--primary-text-color));
+                z-index: 2;
+              }
+            }
+
+          }
+
+        }
+      }
+    }
+  }
+}
+
+
+//search bar css
+.search-bar {
+  @include flex-box(na, start, center, na, 8);
+  border: $border-medium solid var(--ui-border-color);
+  border-radius: $border-radius-small;
+  background-color: var(--primary-background-color);
+  height: 32px;
+  box-sizing: border-box;
+  min-width: 220px;
+  // width: 100%;
+  padding-left: $vvs-p;
+  position: relative;
+
+  @include max-width(768) {
+    width: 100%;
+  }
+  form {
+    @include max-width(1220) {
+      width: 100%;
+    }
+  }
+   .btn-icon {
+      color: var(--placeholder-color);
+    }
+
+  .search-outer {
+    
+
+    input {
+      padding-right: 77px;
+    }
+
+    .search-btn {
+      @include absolute(-2, -2, 0, na);
+      padding: $zero-p $vs-p;
+      /* border: 2px solid var(--primary-color); */
+      border-top-right-radius: 16px;
+      border-bottom-right-radius: 16px;
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+  }
+
+  &--rounded {
+    border-radius: $border-radius-large;
+  }
+
+  span {
+    &::before {
+      color: var(--icon-color-secondary);
+      font-size: var(--fs-xl);
+    }
+  }
+
+  &:focus-within {
+    border: $border-medium solid var(--primary-color);
+  }
+
+  input {
+    border: none;
+    outline: none;
+    flex: 1;
+    padding: $zero-p;
+    background-color: var(--primary-background-color);
+    width: 100% !important;
+    // min-width: 220px;
+    width: 100%;
+    height: 28px;
+    padding-right: 5px;
+    display: flex;
+    // border-top: $border-medium solid var(--ui-border-color);
+    // border-bottom: $border-medium solid var(--ui-border-color);
+    border-top-right-radius: 16px;
+    border-bottom-right-radius: 16px;
+    @include typography(var(--fs-medium),
+      na,
+      var(--font-medium),
+      var(--primary-text-color));
+
+    &:focus {
+      border-color: var(--primary-color);
+    }
+
+    &::placeholder {
+      @include typography(var(--fs-medium),
+        na,
+        var(--font-medium),
+        var(--placeholder-color));
+    }
+  }
+
+  &.active {
+    border: $border-thin solid var(--primary-color);
+
+    span {
+      &::before {
+        color: var(--icon-active-color);
+      }
+    }
+
+    .btn-icon {
+      color: var(--icon-active-color);
+    }
+
+    input {
+      &::placeholder {
+        color: var(--secondary-text-color);
+      }
+    }
+  }
+}
+
+//checkbox css
+.custom-checkbox {
+  cursor: pointer;
+  padding: 6px $vvs-p;
+  // margin-right: $vvs-m;
+  @include flex-box(na, na, center, na, 8);
+  @include typography(var(--fs-medium),
+    na,
+    var(--font-medium),
+    var(--secondary-text-color));
+
+  input[type="checkbox"] {
+    display: none;
+  }
+
+  &--outer-circle-border {
+    border: 1px solid var(--layout-border-color);
+    border-radius: 100px;
+  }
+
+  &--outer-rectangle-border {
+    border: 1px solid var(--layout-border-color);
+    border-radius: $border-radius-small;
+  }
+
+  .checkbox-box {
+    border: 1px solid var(--ui-border-color);
+    border-radius: $border-radius-small;
+    padding-bottom: 3px;
+    transition:
+      border-color 0.3s ease,
+      background-color 0.3s ease;
+    @include flex-box(na, center, center, na, na);
+    @include dimensions(16, 16);
+
+    &--cicle-checkbox {
+      border-radius: 50%;
+    }
+
+    .checkmark {
+      @include dimensions(12, 6);
+      border-right: 2px solid var(--primary-reverse-text-color);
+      border-bottom: 2px solid var(--primary-reverse-text-color);
+      transition: transform 0.2s ease;
+      transform: rotate(0) scale(0);
+    }
+  }
+
+  input[type="checkbox"]:checked~.checkbox-box {
+    border-color: var(--primary-color);
+    background-color: var(--primary-color);
+  }
+
+  input[type="checkbox"]:checked~.checkbox-box .checkmark {
+    transform: rotate(45deg) scale(1);
+  }
+
+  &.checkbox-green {
+    input[type="checkbox"]:checked~.checkbox-box {
+      background-color: var(--positive-color);
+      border-color: var(--positive-color);
+    }
+  }
+
+  &.checkbox-yellow {
+    input[type="checkbox"]:checked~.checkbox-box {
+      background-color: var(--warning-color);
+      border-color: var(--warning-color);
+    }
+  }
+
+  &.checkbox-red {
+    input[type="checkbox"]:checked~.checkbox-box {
+      background-color: var(--negative-color);
+      border-color: var(--negative-color);
+    }
+  }
+
+  &.checkbox-indigo {
+    input[type="checkbox"]:checked~.checkbox-box {
+      background-color: var(--shareable-color);
+      border-color: var(--shareable-color);
+    }
+  }
+
+  &.checkbox-murrey {
+    input[type="checkbox"]:checked~.checkbox-box {
+      background-color: #880e4f;
+      border-color: #880e4f;
+    }
+  }
+
+  &.checkbox-vs {
+    height: 28px;
+
+    .checkbox-box {
+      width: 16px;
+      height: 16px;
+
+      .checkmark {
+        width: 5px;
+        height: 9px;
+      }
+    }
+  }
+
+  &.checkbox-sm {
+    height: 28px;
+
+    .checkbox-box {
+      @include dimensions(18, 18);
+
+      .checkmark {
+        @include dimensions(12, 6);
+      }
+    }
+  }
+
+  &.checkbox-md {
+    height: 32px;
+
+    .checkbox-box {
+      @include dimensions(20, 20);
+
+      .checkmark {
+        @include dimensions(14, 7);
+      }
+    }
+  }
+
+  &.checkbox-lg {
+    height: 32px;
+
+    .checkbox-box {
+      @include dimensions(24, 24);
+
+      .checkmark {
+        @include dimensions(16, 8);
+      }
+    }
+  }
+
+  &.checkbox-xl {
+    height: 38px;
+
+    .checkbox-box {
+      @include dimensions(28, 28);
+
+      .checkmark {
+        @include dimensions(20, 10);
+      }
+    }
+  }
+}
+
+
+//radio css
+.custom-radio {
+  cursor: pointer;
+  padding: 6px 0;
+  @include flex-box(na, na, center, na, na);
+  @include typography(var(--fs-medium),
+    na,
+    var(--font-medium),
+    var(--secondary-text-color));
+
+  &--outer-circle-border {
+    border: 1px solid var(--layout-border-color);
+    border-radius: 100px;
+  }
+
+  &--outer-rectangle-border {
+    border: 1px solid var(--layout-border-color);
+    border-radius: $border-radius-small;
+  }
+
+  input[type="radio"] {
+    display: none;
+  }
+
+  .radio-box {
+    border: 2px solid var(--secondary-text-color);
+    border-radius: 50%;
+    margin-right: 0;
+    transition: border-color 0.3s ease;
+    @include flex-box(na, center, center, na, na);
+    @include dimensions(20, 20);
+  }
+
+  .radio-dot {
+    @include dimensions(12, 12);
+    background-color: var(--primary-color);
+    border-radius: 50%;
+    transform: scale(0);
+    transition: transform 0.3s ease;
+  }
+
+  input[type="radio"]:checked~.radio-box .radio-dot {
+    transform: scale(1);
+  }
+
+  input[type="radio"]:checked~.radio-box {
+    border-color: var(--primary-color);
+  }
+
+  &.radio-vs {
+    height: 28px;
+
+    .radio-box {
+      @include dimensions(16, 16);
+
+      .radio-dot {
+        @include dimensions(8, 8);
+      }
+    }
+  }
+
+  &.radio-sm {
+    height: 28px;
+
+    .radio-box {
+      @include dimensions(18, 18);
+
+      .radio-dot {
+        @include dimensions(10, 10);
+      }
+    }
+  }
+
+  &.radio-md {
+    height: 32px;
+
+    .radio-box {
+      @include dimensions(20, 20);
+
+      .radio-dot {
+        @include dimensions(10, 10);
+      }
+    }
+  }
+
+  &.radio-lg {
+    height: 32px;
+
+    .radio-box {
+      @include dimensions(22, 22);
+
+      .radio-dot {
+        @include dimensions(12, 12);
+      }
+    }
+  }
+
+  &.radio-xl {
+    height: 38px;
+
+    .radio-box {
+      @include dimensions(24, 24);
+
+      .radio-dot {
+        @include dimensions(14, 14);
+      }
+    }
+  }
+}
+
+
+
+// popup css
+.floating-label {
+  @include absolute(8, na, na, 15);
+  background: var(--primary-background-color);
+  // background-color: var(--secondary-background-color);
+  color: var(--primary-text-color);
+  padding: $zero-p $vvs-m;
+  border-radius: $border-radius-small;
+  transition: transform .2s ease;
+  pointer-events: none;
+  transform-origin: left;
+  translate: -0.3em;
+  z-index: 1;
+  height: 22px;
+
+  .required {
+    color: var(--negative-color);
+  }
+}
+
+
+
+input {
+  // .floating-label {
+  //   @include absolute(10, na, na, 15);
+  //   // background: var(--primary-background-color);
+  //   background-color: transparent;
+  //   // background-color: var(--secondary-background-color);
+  //   @include typography(var(--fs-large), na, var(--font-medium), var(--secondary-text-color));
+  //   // color: var(--secondary-text-color);
+  //   padding: $zero-p $vvs-m;
+  //   border-radius: $border-radius-small;
+  //   transition: transform .2s ease;
+  //   pointer-events: none;
+  //   transform-origin: left;
+  //   translate: -0.3em;
+  //   z-index: 1;
+  //   height: 22px;
+  //   .required{
+  //     color: var(--negative-color);
+  //   }
+  // }
+
+  &:focus+.floating-label,
+  &.filled+.floating-label {
+    transform: translateY(-1.2rem) scale(0.85);
+    background-color: var(--primary-background-color) !important;
+    @include typography(var(--fs-large), na, var(--font-medium), var(--primary-text-color));
+    z-index: 2;
+  }
+}
+
+// .floating-label{
+//   transform: translateY(-1.4rem) scale(0.85);
+//   background-color: var(--primary-background-color) !important;
+//   @include typography(var(--fs-small), na, var(--font-medium), var(--primary-text-color));
+//   z-index: 2;
+// }
+
+
+textarea {
+  border: 0;
+  outline: none;
+  border-radius: $border-radius-small;
+  background-color: var(--primary-background-color);
+  padding: $vs-p;
+  transition:
+    border-color 0.3s,
+    box-shadow 0.3s;
+  @include flex-box(na, na, center, na, na);
+  flex: 1;
+  @include typography(var(--fs-medium),
+    na,
+    var(--font-medium),
+    var(--primary-text-color) !important);
+
+  &:focus-within {
+    border-color: var(--primary-color);
+    // box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+  }
+
+  &:focus+.floating-label,
+  &.filled+.floating-label {
+    transform: translateY(-1.2rem) scale(0.85);
+    background-color: var(--primary-background-color) !important;
+    @include typography(var(--fs-large), na, var(--font-medium), var(--primary-text-color));
+    z-index: 2;
+  }
+}
+
+
+
+
+.floating-label {
+  &.top-label {
+    transform: translateY(-1.2rem) scale(0.85);
+    background-color: var(--primary-background-color) !important;
+    @include typography(var(--fs-large), na, var(--font-medium), var(--primary-text-color));
+    z-index: 2;
+  }
+}
