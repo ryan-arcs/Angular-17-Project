@@ -1,0 +1,31 @@
+<div class="modal-header">
+  <div class="mh-inner">
+    <h2>Deployments</h2>
+  </div>
+  <button type="button" class="modal-close-btn d-btn d-btn--circle sm white-bg-circle _cp" (click)="activeModal.close('CANCEL')">
+    <span class="material-symbols-outlined btn-icon">
+      close
+    </span>
+  </button>
+</div>
+<div class="modal-body">
+  <ul>
+    <li>
+      Summary of all deployments for {{ applicationName }}, along with the
+      respective dates and times.
+    </li>
+    <li>
+      Deployment date represents self restart of the application as well, not
+      just a represatation of updates/deployments only.
+    </li>
+    <li>
+      A <b>Worker</b> within one date would hold the logs from the time of it's
+      deployment till the next deployment date as listed. Most recent deployment
+      date worker would hold the logs untill next deployment date.
+    </li>
+    <li>
+      <b>Worker</b> is a dedicated instance of Mule that runs the application.
+    </li>
+    <li>Please click on a worker from the list below to view its logs.</li>
+  </ul>
+</div>

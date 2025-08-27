@@ -1,0 +1,77 @@
+<div class="write-popup">
+  <div class="popup-header">
+
+    <h3>{{getTitle()}}</h3>
+    <button class="d-btn d-btn--circle white-bg-circle vs" (click)="activeModal.close('CANCEL')">
+      <span class="material-symbols-rounded btn-icon">
+        close
+      </span>
+    </button>
+
+  </div>
+
+  <div class="popup-body">
+    @if (mode !== 'details') {
+    <p class="require-label">Fields marked with <span class="required">*</span>&nbsp;&nbsp; are required.</p>
+    }
+    @if (vendorDetails?.vendor_id && mode === 'details') {
+    <form action="">
+      <div class="outer-box">
+        <div class="inner-box">
+          <div class="only-feilds">
+            <div class="input-feild-columns">
+
+              <div class="form-group">
+                <div class="input-wrapper lg">
+                  <p class="small _pl-16">{{vendorDetails?.vendor_name}}</p>
+                  <label class="floating-label top-label">Name</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+    @if (isActionPermitted('edit')) {
+    <div class="outer-button">
+
+         <button ngbDropdownItem class="d-btn d-btn--primary md _w-full" (click)="editVendor()">
+          <i style="font-size: 17px; cursor: pointer;line-height:24px;" class="fa fa-edit btn-icon"></i>
+          Edit
+        </button>
+    </div>
+    }
+    } @else if(mode !== 'details') {
+    <form [formGroup]="addVendorForm" (ngSubmit)="submitVendor()">
+      <div class="outer-box">
+        <div class="inner-box">
+          <div class="only-feilds">
+            <div class="input-feild-columns">
+              <div class="form-group" [class.error]='showErrors && addVendorForm.get("vendor_name")?.invalid'
+                (click)="lifeCycleInputBox.focus()">
+
+                <div class="input-wrapper lg">
+                  <input #inputElement #lifeCycleInputBox type="text" id="vendor_name" formControlName="vendor_name"
+                    placeholder=" " [class.filled]="addVendorForm.get('vendor_name')?.value" />
+                  <label for="vendor_name" class="floating-label">Name: <span class="required">*</span></label>
+                </div>
+
+                @if (showErrors && addVendorForm.get("vendor_name")?.invalid) {
+                <p class="error-message">Please enter name.</p>
+                }
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+    <div class="outer-button">
+      <button type="submit" class="d-btn d-btn--primary sm _w-full" (click)="submitVendor()">
+        <span class="material-symbols-outlined">
+         check
+        </span>Save</button>
+    </div>
+
+    }
+  </div>
+</div>

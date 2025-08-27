@@ -1,0 +1,292 @@
+@import "../../../../assets/style/xapps-design-system/Foundations/foundation";
+@import "../../../../assets/style/xapps-design-system/Abstract/mixins";
+@import "../../../../assets/style/xapps-design-system/fonts/medium";
+@import "../../../../assets/style/xapps-design-system/Foundations/typography";
+@import "../../../../assets/style/xapps-design-system/Components/buttons";
+@import "../../../../assets/style/xapps-design-system/Themes/light/blue";
+@import "../../../../assets/style/xapps-design-system/Themes/dark/blue";
+
+
+// left-panel CSS
+.left-sidebar-large {
+  padding: $vs-p;
+  position: relative;
+  @include dimensions(na, 272);
+  border-right: $border-thin solid var(--layout-border-color);
+  background-color: var(--primary-background-color);
+  @include flex-box(column, space-between, center, na, na);
+  height: 100%;
+  transition: all 0.3s ease; // 👈 Smooth transition
+  box-shadow: var(--bs-var);
+  z-index: 8;
+
+  @include max-width(992) {
+    width: 0 !important;
+    overflow: hidden;
+    left: -16px;
+  }
+
+  &.hideSidebar {
+
+    .upper-icons {
+
+      .list {
+
+        .icon-div {
+
+          .logo {
+            left: 5px;
+          }
+        }
+      }
+    }
+  }
+
+  .child-list-item {
+    color: var(--primary-text-color);
+
+  }
+
+  .d-btn--circle {
+    z-index: 100;
+    position: absolute;
+    box-shadow: var(--bs-var);
+    @include dimensions(35, 35);
+    top: 47%;
+    left: 100%;
+    background-color: var(--grey-background-color);
+
+    transform: translate(-50%, -50%) rotate(0deg);
+    cursor: pointer;
+
+    span {
+      transform: rotate(180deg);
+    }
+
+    @include max-width(992) {
+      display: none;
+    }
+
+  }
+
+  &.small {
+    @include dimensions(na, 48);
+    padding: $vvvs-p;
+    // @include max-width(992) {
+    //   display: none;
+    // }
+
+    .d-btn--circle {
+      span {
+        transform: rotate(0deg);
+      }
+    }
+
+    .upper-icons {
+      .list {
+        .icon-div {
+          // gap: 0;
+          padding: $vvvs-p $vvs-p;
+
+          &.active {
+            // background-color: transparent;
+            // border-left: transparent;
+          }
+
+          &:hover {
+            background-color: transparent;
+          }
+
+          .text {
+            opacity: 0;
+            display: none;
+          }
+        }
+      }
+
+      .listing {
+        // opacity: 0;
+        width: 100%;
+        display: none;
+      }
+    }
+  }
+
+  .upper-icons {
+    width: 100%;
+    padding: $zero-p;
+    margin: $zero-m;
+    overflow-y: visible;
+    @include flex-box(column, start, start, na, 2);
+
+    .list {
+      list-style-type: none;
+      width: 100%;
+      cursor: pointer;
+
+      .icon-div {
+        padding: $vvs-p;
+        min-width: 30px;
+        @include dimensions(42, 30);
+        // background-color: var(--primary-background-color);
+        border-radius: $border-radius-small;
+        // float: left;
+        width: 100%;
+        position: relative;
+        // padding-left: $large-p;
+        border-left: 3px solid transparent;
+        @include flex-box(na, start, center, na, 15);
+
+        .text {
+          transition: all 0.3s ease;
+          float: left;
+          padding-left: 38px;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          cursor: pointer;
+          @include typography(var(--fs-medium),
+            na,
+            var(--font-medium),
+            var(--sidebar-label) !important);
+        }
+
+        .logo {
+          @include dimensions(30, 30);
+          @include flex-box(na, center, center, na, na);
+          border-radius: 8px;
+          float: left;
+          background-color: var(--light-grey-background-color);
+          position: absolute;
+          left: 3px;
+          transition: all 0.5s ease;
+          -webkit-transition: all 0.5s ease;
+          -moz-transition: all 0.5s ease;
+
+          .nav-icon {
+            font-size: 22px;
+            color: var(--primary-color);
+
+            &.ni-20 {
+              font-size: 18px;
+              font-weight: 700;
+            }
+          }
+        }
+
+        &.active {
+          background-color: var(--primary-selected-color);
+          border-left: 3px solid var(--primary-color);
+          border-radius: $border-radius-small;
+
+          &:hover {
+            border-radius: $border-radius-small;
+            background-color: var(--primary-selected-color);
+
+
+            .text {
+              color: var(--inverted-text-color) !important;
+            }
+
+            .logo {
+              background-color: var(--primary-color);
+
+              .nav-icon {
+                color: var(--primary-background-color);
+              }
+            }
+          }
+
+          .text {
+            color: var(--inverted-text-color) !important;
+            font-weight: var(--font-medium);
+          }
+
+          .logo {
+            background-color: var(--primary-color);
+
+            .nav-icon {
+              color: var(--primary-background-color);
+
+            }
+          }
+        }
+
+        &:hover {
+          background-color: var(--primary-background-hover-color);
+          border-radius: $border-radius-small;
+
+          .text {
+            color: var(--primary-text-color) !important;
+          }
+
+          .logo {
+            background-color: var(--primary-color);
+
+            .nav-icon {
+              color: var(--primary-background-color);
+
+            }
+
+          }
+        }
+      }
+    }
+
+
+    .listing {
+      margin-top: 3px;
+      padding-left: 28px;
+      width: 100%;
+      @include flex-box(column, start, start, na, 1);
+      //   @include max-width(1200) {
+      //     display: none;
+      //   }
+
+      .list {
+        width: 100%;
+        height: 32px;
+
+        .icon-div {
+          height: 100% !important;
+
+          .logo {
+            @include dimensions(26, 26);
+          }
+        }
+      }
+    }
+  }
+}
+
+.burgur-menu {
+  position: fixed;
+  top: 14px;
+  left: 16px;
+  z-index: 9;
+  display: none;
+  cursor: pointer;
+  // @include dimensions(32, 32);
+
+  @include max-width(992) {
+    @include flex-box(row, center, center, na, na);
+    top: 9px;
+    left: 9px;
+  }
+
+  span {
+    font-size: 28px;
+    color: var(--icon-color);
+  }
+}
+
+
+@media screen and (max-width: 992px) {
+  .hideSidebar {
+    display: block;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 272px !important;
+  }
+}

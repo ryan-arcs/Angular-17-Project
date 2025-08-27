@@ -1,0 +1,54 @@
+<!-- routing -->
+<div class="tableau-wrapper">
+  <router-outlet></router-outlet>
+</div>
+
+<!-- sidebar -->
+<ng-template #leftPanelContent>
+  @if (hasAccessToModule("home")) {
+    @if (subLeftPanelState != "view") {
+      <app-ubi-left-sidebar></app-ubi-left-sidebar>
+    }
+  }
+  <!-- sidebar scroll -->
+  @if (subLeftPanelState == "view") {
+    <div class="sidebar-II-wrapper">
+      <app-report-sidebar></app-report-sidebar>
+    </div>
+  }
+</ng-template>
+
+<!-- persona -->
+<ng-template #personaSelectionDropdown>
+  <p>Environment:</p>
+  <div ngbDropdown class="_d-flex">
+    <button type="button" class="d-btn env-btn sm" id="dropdownBasic1" ngbDropdownToggle>
+      <p>{{selectedEnvironment}}</p>
+    </button>
+    <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+      <ul class="_mb-0">
+        @for (environment of environments; track $index) {
+          <li>
+            <button
+              ngbDropdownItem
+              (click)="tableauGlobalDataService.changeEnvironment(environment)"
+            >
+              <p>{{ environment }}</p>
+              <label class="custom-radio radio-vs">
+                <input
+                  type="radio"
+                  name="enviroments"
+                  [value]="environment"
+                  [checked]="environment == selectedEnvironment"
+                />
+                <div class="radio-box">
+                  <div class="radio-dot"></div>
+                </div>
+              </label>
+            </button>
+          </li>
+        }
+      </ul>
+    </div>
+  </div>
+</ng-template>

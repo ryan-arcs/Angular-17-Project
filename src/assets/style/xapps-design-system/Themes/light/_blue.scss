@@ -1,0 +1,114 @@
+.light {
+    // blue theme 
+    // ==================semantic colors ==================//
+    --primary-color: #0073ea;
+    --primary-hover-color: #006493;
+    --primary-selected-color: #E6F2F8;
+    --primary-selected-hover-color: #CCE5F1;
+    --primary-highlighted-color: #99CBE3;
+    --positive-color: #099138;
+    --positive-hover-color: #07742D;
+    --positive-selected-color: #9DD3AF;
+    --positive-selected-hover-color: #CEE9D7;
+    --negative-color: #D72300;
+    --negative-hover-color: #C22000;
+    --negative-selected-color: #f24726;
+    --negative-selected-hover-color: #EFA799;
+    --warning-color: #FAAD14;
+    --warning-hover-color: #E19C12;
+    --warning-selected-color: #FEEFD0;
+    --warning-selected-hover-color: #FDDEA1;
+    --private-color: #F65F7C;
+    --shareable-color: #8F5A8A;
+    --inverted-background-color: #060606;
+    --inverted-icon-color: #ffffff;
+    --icon-color: #676879;
+    --icon-active-color: #363636;
+    --icon-color-secondary: #344563;
+    --icon-color-on-dark-bg: #E9E9E9;
+    --fixed-light-color: #FFFFFF;
+    --fixed-dark-color: #1A1A1A;
+
+    //=======================background-colors==================//
+
+    --primary-background-color: #FFFFFF;
+    --secondary-background-color: #f1f2f4;
+    --secondary-background-dark-color: #e9eaeb;
+    --primary-background-hover-color: #DDDEDE;
+    --inverted-background-color: #060606;
+    --grey-background-color: #EEEEEF;
+    --light-grey-background-color: #D0D4E4;
+    --dark-grey-background: #989B9D;
+    --dark-background: #111212;
+    --dark-background-hover: #323537;
+
+    //============user-details-page====================//
+    --back-btn-bg-color: #f6f7fb;
+    --user-dtls-wrapper-bg-color:#e9eaeb;
+    --light-profile-pic-bg-color: #dadade;
+    --profile-icon-color: #212529;
+    --note-outer-color: #676879;
+    --main-border-top-color: #D0D4E4;
+    --fixed_light_color: #ffffff;
+    --primary_color_hover: #0060b9;
+    --profile-pic-bg-color: #dadae1;
+    --section-heading-text-color: #333452;
+
+    --secondary-background-dark1-color: #e9eaeb;
+    // =======================text colors ========================//
+    --primary-text-color: #202020;
+    --primary-reverse-text-color: #F2F3F5;
+    --fixed-dark-text-color: #202020;
+    --secondary-text-color: #676879;
+    --secondary-text-on-secondary-color: #FFFFFF;
+    --text-color-on-inverted: #FFFFFF;
+    --text-color-on-primary: #FFFFFF;
+    --disabled-text-color: #CBCDCE;
+    --placeholder-color: #A9ACAD;
+    --link-color: #3397C6;
+    --sidebar-label: #676879;
+
+
+    // ==================border colors =======================//
+    --ui-border-color: #BABCBD;
+    --layout-border-color: #DDDEDE;
+    --light-border: #EEEEEF;
+    --input-hover-color: #202020;
+    --bs-var: 0px 3px 8px 0px #00000033;
+    --inverted-layout-border: #ffffff;
+
+    --welcome-page-overlay-background-gradient: linear-gradient(to bottom,
+            #F1EAEC 0%,
+            #F8E3E7 15.29%,
+            #F7E1F8 41.5%,
+            #EBEEFF 64.56%,
+            #f2f3f5 100%);
+
+    // ================== grid colors =======================//
+    --grid-header-bg-color: #e5e9ec;
+    --grid-footer-bg-color: #e5e9ec;
+    --grid-row-bg-color: #ffffff;
+    --grid-header-text-bg-color: #323238;
+    --grid-row-text-color: #676879;
+
+    --tableau-btn-hover-bg-color: #DCDFEC;
+
+
+
+
+    --avatar_bg_1: #c95c76;
+    --avatar_bg_2: #339ecd;
+    --avatar_bg_3: #6645a9;
+    --avatar_bg_4: #457b82;
+    --avatar_bg_5: #ca9a8b;
+    --avatar_bg_6: #71d6d1;
+    --avatar_bg_7: #936fda;
+
+    --box-shadow-large : 0 5px 11px #0003, 0 20px 45px #0003;
+
+    --box-shadow-medium : 0px 15px 50px 0px #0000004D;
+    // back buton
+    --back-button-bg-color: #e4e4e4;
+    --back-button-hover-bg-color: #dddfe9;
+
+}

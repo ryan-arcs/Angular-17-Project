@@ -1,0 +1,461 @@
+.d-btn {
+  padding: $vvs-p $small-p;
+  border-radius: $border-radius-small;
+  @include flex-box(na, na, center, nowrap, 4);
+  @include typography(var(--fs-large), na, var(--font-medium), na);
+  font-family: "Roboto", sans-serif;
+  box-sizing: border-box;
+  background-color: var(--grey-background-color);
+
+  @include max-width(992) {
+    gap: 4px !important;
+  }
+
+  &--secondary-dotted {
+    border: $border-medium dotted var(--primary-color);
+    color: var(--primary-color);
+    background-color: var(--primary-background-color);
+
+    &:hover {
+      background-color: var(--primary-hover-color);
+      color: var(--text-color-on-primary);
+      border: $border-medium dotted var(--primary-hover-color);
+    }
+  }
+
+  &--circle {
+    border-radius: 50px !important;
+    background-color: transparent;
+    outline: none;
+    border: none;
+    padding: $zero-p !important;
+    @include flex-box(na, center, center, na, na);
+    @include typography(var(--fs-small),
+      na,
+      var(--font-medium),
+      var(--fixed-light-color));
+
+    .btn-icon {
+      white-space: nowrap;
+      font-size: var(--fs-forth);
+      // font-weight: var(--font-bolder);
+      color: var(--secondary-text-color);
+    }
+
+    &:hover {
+      background-color: var(--primary-background-hover-color);
+
+      .btn-icon {
+        color: var(--icon-active-color);
+      }
+    }
+
+    &.dotted-circle {
+      border: $border-medium dotted var(--primary-color);
+
+      &:hover {
+        background-color: var(--primary-hover-color);
+        color: var(--text-color-on-primary);
+        border: $border-thin solid var(--primary-hover-color);
+      }
+    }
+
+    &.solid-circle {
+      border: $border-thin solid var(--primary-color);
+
+      &:hover {
+        background-color: var(--primary-hover-color);
+        color: var(--text-color-on-primary);
+        border: $border-thin solid var(--primary-hover-color);
+      }
+    }
+
+    &.primary-bg-circle {
+      background-color: var(--primary-color);
+      border: $border-medium solid var(--primary-color);
+
+      &:hover {
+        background-color: var(--primary-hover-color);
+        color: var(--text-color-on-primary);
+        border: $border-thin solid var(--primary-hover-color);
+      }
+    }
+
+    &.danger-bg-cicle {
+      background-color: #f65f7c;
+    }
+
+    &.tertiary-circle {
+      &:hover {
+        background-color: var(--primary-background-hover-color);
+      }
+    }
+
+    &.white-bg-circle {
+      background-color: var(--primary-background-color);
+
+      &:hover {
+        background-color: var(--primary-background-hover-color);
+      }
+    }
+
+    &.gray-bg-circle {
+      background-color: var(--grey-background-color);
+      @include typography(var(--fs-small),
+        na,
+        var(--font-medium),
+        var(--primary-text-color));
+
+      &:hover {
+        background-color: var(--primary-background-hover-color);
+      }
+    }
+
+    &.brown-bg-circle {
+      background-color: var(--grey-background-color);
+
+      &:hover {
+        background-color: var(--primary-background-hover-color) !important;
+      }
+    }
+
+    &.light-bg {
+      font-weight: var(--font-bold);
+
+      &--danger {
+        background-color: #f4dee4;
+        color: var(--secondary-text-color);
+      }
+
+      &--purple {
+        background-color: #e0daee;
+        color: var(--secondary-text-color);
+      }
+
+      &--success {
+        background-color: #d6ecf5;
+        color: var(--secondary-text-color);
+      }
+
+      &--primary {
+        background-color: var(--primary-color);
+        @include typography(var(--fs-tertiary),
+          na,
+          var(--font-bolder),
+          var(--text-color-on-primary));
+      }
+    }
+
+    &.dark-bg {
+      @include typography(var(--fs-small),
+        na,
+        var(--font-medium),
+        var(--fixed-light-color) !important);
+
+      p {
+        @include typography(var(--fs-small),
+          na,
+          var(--font-medium),
+          var(--fixed-light-color) !important);
+      }
+
+      &--purple {
+        background-color: #6242a5;
+      }
+
+      &--green {
+        background-color: #447b80;
+
+      }
+
+      &--blue {
+        background-color: var(--primary-color);
+      }
+
+      &--red {
+        background-color: #d83a52;
+      }
+
+      &--orange {
+        background-color: #ff8358;
+      }
+
+      &--brown {
+        background-color: #ca9a8b;
+      }
+    }
+
+    &.vvs {
+      @include dimensions(24, 24);
+    }
+
+    &.vs {
+      @include dimensions(28, 28);
+      padding: 0px !important
+    }
+
+    &.sm {
+      @include dimensions(32, 32);
+    }
+
+    &.md {
+      @include dimensions(38, 38);
+    }
+
+    &.lg {
+      @include dimensions(42, 42);
+    }
+
+    &.xl {
+      @include dimensions(48, 48);
+    }
+
+    &.xxl {
+      @include dimensions(54, 54);
+    }
+
+    &.xxxl {
+      @include dimensions(80, 80);
+    }
+  }
+
+  .icon {
+    &--vs {
+      font-size: 18px !important;
+    }
+
+    &--sm {
+      font-size: 20px !important;
+    }
+
+    &--md {
+      font-size: 22px !important;
+    }
+
+    &--lg {
+      font-size: 28px;
+    }
+
+    &--xl {
+      font-size: 32px;
+    }
+
+    &--cross-vs {
+      font-size: 18px;
+    }
+
+    &--cross-sm {
+      font-size: 20px;
+    }
+
+    &--cross-md {
+      font-size: 22px;
+    }
+
+    &--cross-lg {
+      font-size: 24px;
+    }
+
+    &--cross-xl {
+      font-size: 24px;
+    }
+
+    &--cross-xxl {
+      font-size: 28px;
+    }
+
+    &--more-vs {
+      font-size: 18px;
+    }
+
+    &--more-sm {
+      font-size: 20px;
+    }
+
+    &--more-md {
+      font-size: 22px;
+    }
+
+    &--more-lg {
+      font-size: 24px;
+    }
+
+    &--more-xl {
+      font-size: 24px;
+    }
+
+    &--more-xxl {
+      font-size: 28px;
+    }
+
+    &--back-vs {
+      font-size: 18px;
+    }
+
+    &--back-sm {
+      font-size: 20px;
+    }
+
+    &--back-md {
+      font-size: 22px;
+    }
+
+    &--back-lg {
+      font-size: 24px;
+    }
+
+    &--back-xl {
+      font-size: 24px;
+    }
+
+    &--back-xxl {
+      font-size: 28px;
+    }
+
+    &--search-vs {
+      font-size: 18px;
+    }
+
+    &--search-sm {
+      font-size: 18px;
+    }
+
+    &--search-md {
+      font-size: 22px;
+    }
+
+    &--search-lg {
+      font-size: 24px;
+    }
+
+    &--search-xl {
+      font-size: 24px;
+    }
+
+    &--search-xxl {
+      font-size: 28px;
+    }
+
+    &--edit-vs {
+      font-size: 14px;
+    }
+
+    &--edit-sm {
+      font-size: 14px;
+    }
+
+    &--edit-md {
+      font-size: 15px;
+    }
+
+    &--edit-lg {
+      font-size: 16px;
+    }
+
+    &--edit-xl {
+      font-size: 19px;
+    }
+
+    &--edit-xxl {
+      font-size: 20px;
+    }
+
+    &--edit-vvs {
+      font-size: 18px;
+    }
+
+    &--edit-ssm {
+      font-size: 20px;
+    }
+
+    &--edit-mmd {
+      font-size: 24px;
+    }
+
+    &--edit-llg {
+      font-size: 24px;
+    }
+
+    &--edit-xll {
+      font-size: 24px;
+    }
+
+    &--edit-xxll {
+      font-size: 28px;
+    }
+
+    &--delete-vs {
+      font-size: 14px;
+    }
+
+    &--delete-sm {
+      font-size: 14px;
+    }
+
+    &--delete-md {
+      font-size: 15px;
+    }
+
+    &--delete-lg {
+      font-size: 16px;
+    }
+
+    &--delete-xl {
+      font-size: 19px;
+    }
+
+    &--delete-xxl {
+      font-size: 20px;
+    }
+
+    &--delete-vvs {
+      font-size: 18px;
+    }
+
+    &--delete-ssm {
+      font-size: 20px;
+    }
+
+    &--delete-mmd {
+      font-size: 24px;
+    }
+
+    &--delete-llg {
+      font-size: 24px;
+    }
+
+    &--delete-xll {
+      font-size: 24px;
+    }
+
+    &--delete-xxll {
+      font-size: 28px;
+    }
+  }
+}
+
+.add {
+  &--vs {
+    font-size: 14px;
+  }
+
+  &--sm {
+    font-size: 16px;
+  }
+
+  &--md {
+    font-size: 16px;
+  }
+
+  &--lg {
+    font-size: 16px;
+  }
+
+  &--xl {
+    font-size: 18px !important;
+  }
+
+  &--xxl {
+    font-size: 18px;
+  }
+}

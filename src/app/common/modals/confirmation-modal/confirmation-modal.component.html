@@ -1,0 +1,43 @@
+<!-- delete modal -->
+<div class="write-popup">
+  <div class="popup-header">
+    <h3>{{app_name ? 'Delete' : 'Confirmation'}}</h3>
+    <button class="d-btn d-btn--circle white-bg-circle vs" (click)="activeModal.close('CANCEL')">
+      <span class="material-symbols-rounded btn-icon">
+        close
+      </span>
+    </button>
+  </div>
+
+  <div class="popup-body text-container">
+    <div class="text-container-only">
+      @if (message) {
+      <p class="popup-text">Are you sure, you want to <span class="message-header">{{ message }}</span> ?</p>
+      } @else if (app_name) {
+      <p class="popup-text">Are you sure you want to delete <span class="message-header">{{app_name}}</span> ?</p>
+      } @else {
+      <p class="popup-text">
+        Are you sure, you want to {{ action || "delete" }} this
+        {{ entity || "entry" }}?
+      </p>
+      }
+    </div>
+
+    <div class="outer-button d-flex justify-content-end">
+      <button class="d-btn d-btn--secondary" (click)="activeModal.close('CANCEL')">
+        <span class="material-symbols-rounded btn-icon">  close </span>
+        <p>Close</p>
+      </button>
+      <button type="button" class="d-btn md" [class]="message ? 'd-btn--primary' : 'd-btn--danger'"
+        [class.confirmation-btn]="message" (click)="activeModal.close('CONFIRM')">
+        @if (message) {
+          <span class="material-symbols-outlined btn-icon"> check</span>
+        } @else {
+          <i style="font-size: 17px; cursor: pointer;line-height:24px;" class="fa fa-trash btn-icon"></i>
+        }
+        
+        {{app_name ? 'Delete' : 'Confirm'}}
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,270 @@
+<ng-template #userNameTemplate let-row="row" let-value="value">
+  @if (value?.length) {
+  <span class="datatable-body-cell-span" (click)="goToUser(value[0]?.email)">{{ value[0]?.fullname_preferred || ""
+    }}</span>
+  @if (value.length > 1) {
+  <div ngbDropdown container="body" class="user-list-outer">
+    <button type="button" class="d-btn d-btn--circle vs" id="dropdownBasic1" ngbDropdownToggle>
+      <span class="datatable-body-cell-span">+{{ value.length - 1 }}</span>
+    </button>
+    <div class="user-list-dropdown" ngbDropdownMenu aria-labelledby="dropdownBasic1">
+      @for (owner of value.slice(1); track $index) {
+      <span class="datatable-body-cell-span" [class.hyperlink-cell-span]="
+                isActionPermitted('details', 'users')
+              " ngbDropdownItem (click)="goToUser(owner.email)">
+        {{ owner.fullname_preferred || "" }}
+      </span>
+      }
+    </div>
+  </div>
+  }
+  } @else {
+  <span>Unknown</span>
+  }
+</ng-template>
+
+<ng-template #applicationNameTemplate let-row="row" let-value="value">
+  <div class="sell-outer" (click)="goToApplication(row.id)">
+    <div class="circul-in" [class]="'avatar' + (row.id % 6)">
+      {{ value.charAt(0) }}
+    </div>
+    <span class="sell-outer-span" title="{{ value }}">
+      {{ value }}
+    </span>
+  </div>
+</ng-template>
+
+<ng-template #applicationIdTemplate let-row="row" let-value="value">
+  <span (click)="goToApplication(row.id)">{{ value }}</span>
+</ng-template>
+
+<ng-template #hostingLocationTemplate let-value="value">
+  <span>{{ changeHostingLocationCodetoOption(value) }}</span>
+</ng-template>
+
+<ng-template #gxpSoxTemplate let-value="value">
+  <span>{{ value ? "Yes" : "No" }}</span>
+</ng-template>
+
+<ng-template #staleTerminatedTemplate let-value="value" let-column="column">
+  <span>{{ value ? "True" : "False" }}</span>
+</ng-template>
+
+<ng-template #dateTemplate let-value="value">
+  <span>{{ value | date: defaultDateFormat }}</span>
+</ng-template>
+
+<ng-template #userApprover1Template let-row="row" let-value="value">
+  @if (value) {
+  <span (click)="goToUser(row.approver1_email)">{{ value || "" }}</span>
+  } @else {
+  <span>Unknown</span>
+  }
+</ng-template>
+
+<ng-template #userApprover2Template let-row="row" let-value="value">
+  @if (value) {
+  <span (click)="goToUser(row.approver2_email)">{{ value || "" }}</span>
+  } @else {
+  <span>Unknown</span>
+  }
+</ng-template>
+
+<ng-template #vendorIdTemplate let-row="row" let-value="value">
+  @if (value) {
+  <span (click)="goToVendor(row.vendor_id)">{{ value }}</span>
+  } @else {
+  <span>Unknown</span>
+  }
+</ng-template>
+
+<ng-template #defaultValueTemplate let-row="row" let-value="value">
+  @if (value) {
+  <span>{{ value }}</span>
+  } @else {
+  <span>Unknown</span>
+  }
+</ng-template>
+
+<div class="application-container dashboard">
+  <div class="application-outer-wrapper">
+    <div class="application-container-inner">
+      <div class="subheader-container">
+        <div class="tc-manage-screen">
+          <h2>Dashboard</h2>
+          <div class="right right-panel">
+            <div class="listing-page-buttons-manage-screen">
+              <div class="search-n-btn">
+                <div class="search-bar search-bar--rounded">
+                  <span class="material-symbols-outlined btn-icon">
+                    search
+                  </span>
+                  <form [formGroup]="searchForm" (ngSubmit)="shootSearch()">
+                    <div class="search-outer">
+
+                      <input type="text" formControlName="filter" placeholder="Search here..."
+                        title="This search will be performed on all displayed and hidden columns." />
+                      <button class="d-btn d-btn--primary sm search-btn" type="submit">Search</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div class="sh-buttons">
+              <div class="btns-res-divider">
+                <div ngbDropdown class="d-inline-block nav-dropdown" [autoClose]="'outside'" #dropdown1="ngbDropdown">
+                  <button type="button" class="d-btn d-btn--secondary sm tooltip-btn" id="dropdownBasic1"
+                    ngbDropdownToggle [ngbTooltip]="isMobileScreen() ? 'Filter' : ''"
+                    triggers="hover">
+                    <span class="material-symbols-rounded btn-icon">filter_list</span>
+                    <p class="">Filter</p>
+                  </button>
+
+                  <div class="dropdown-menu" ngbDropdownMenu aria-labelledby="dropdownBasic">
+                    <ul class="_mb-0">
+                      <p class="fw-bold _mb-8">Filter By Stale Records</p>
+                      <li>
+                        <button class="dropdown-item" (click)="onSelectedFilter('All', 'stale'); dropdown1.close()">
+
+                          <p>All</p>
+                          <label class="custom-radio radio-vs">
+                            <input type="radio" name="fav_language" [checked]="'All'===staleRecordsFilter" />
+                            <div class="radio-box">
+                              <div class="radio-dot"></div>
+                            </div>
+                          </label>
+
+                        </button>
+                      </li>
+                      <li>
+                        @for (option of staleFilterOptions; track $index) {
+
+                        <button class="dropdown-item"
+                          (click)="onSelectedFilter(option.code, 'stale');  dropdown1.close()">
+                          <p>{{ option.label }}</p>
+                          <label class="custom-radio radio-vs">
+                            <input type="radio" name="fav_language" [checked]="option.code === staleRecordsFilter" />
+                            <div class="radio-box">
+                              <div class="radio-dot"></div>
+                            </div>
+                          </label>
+
+                        </button>
+                        }
+                      </li>
+                      <hr />
+                      <p class="fw-bold _mb-8">Filter by Term. Users</p>
+                      <li>
+                        <button class="dropdown-item" (click)="onSelectedFilter('All', 'user'); dropdown1.close()">
+                          <p>All</p>
+                          <label class="custom-radio radio-vs">
+                            <input type="radio" name="fav_language1" [checked]="'All' === userRecordsFilter" />
+                            <div class="radio-box">
+                              <div class="radio-dot"></div>
+                            </div>
+                          </label>
+                        </button>
+                      </li>
+                      <li>
+                        @for (option of userFilterOptions; track $index) {
+                        <button class="dropdown-item"
+                          (click)="onSelectedFilter(option.code, 'user'); dropdown1.close()">
+                          <p>{{ option.label }}</p>
+                          <label class="custom-radio radio-vs">
+                            <input type="radio" name="fav_language1" [checked]="option.code === userRecordsFilter" />
+                            <div class="radio-box">
+                              <div class="radio-dot"></div>
+                            </div>
+                          </label>
+                        </button>
+                        }
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="btns-res-divider">
+                <button class="d-btn d-btn--secondary sm tooltip-btn" (click)="refreshDashboardData()"
+                  [ngbTooltip]="isMobileScreen() ? 'Refresh' : ''" triggers="hover">
+                  <span class="material-symbols-rounded btn-icon">refresh</span>
+                  <p class="">Refresh</p>
+                </button>
+                @if (
+                isActionPermitted("download", 'dashboard') &&
+                applicationsData?.length
+                ) {
+                <button class="d-btn d-btn--secondary sm tooltip-btn" (click)="downloadTableData()"
+                  [ngbTooltip]="isMobileScreen() ? 'Download' : ''" triggers="hover">
+                  <span class="material-symbols-rounded btn-icon">download</span>
+                  <p class="">Download</p>
+                </button>
+                }
+
+                @if (
+                searchTerm ||
+                columnFilters.length ||
+                staleRecordsFilter != "All" ||
+                userRecordsFilter != "All"
+                ) {
+                <div class="sh-btns ml-vvs">
+                  <button (click)="clearFilters()" class="d-btn d-btn--secondary sm tooltip-btn" type="button"
+                    [ngbTooltip]="isMobileScreen() ? 'Clear Filter' : ''" triggers="hover">
+                    <span class="material-symbols-rounded btn-icon">filter_list_off</span>
+                    <p class="">Clear Filter</p>
+                  </button>
+                </div>
+                }
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+      <div class="chart-container">
+        <div class="chart-outer-pie res-margin-top">
+          <div class="chart donut">
+            @if (isChartLoading) {
+            <!-- <app-loader></app-loader> -->
+            } @else {
+            @if (applicationsData?.length) {
+            <ag-charts-angular [options]="pieChartStaleRecordsOptions"
+              style="width: 100%; height: 350px; display: block"></ag-charts-angular>
+            } @else {
+            <app-error></app-error>
+            }
+            }
+          </div>
+        </div>
+
+        <div class="chart-outer-bar">
+          <div class="chart bar">
+            @if (isChartLoading) {
+            <!-- <app-loader></app-loader> -->
+            } @else {
+            @if (applicationsData?.length) {
+            <ag-charts-angular [options]="pieChartUsersRecordsOptions"
+              style="width: 100%; height: 350px; display: block"></ag-charts-angular>
+            } @else {
+            <app-error></app-error>
+            }
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="content-wrapper">
+      <div class="panel-and-table">
+        <div class="logs-container logs-cell-padding inner-pages-footer">
+          <!-- [footerHeight]="0"  -->
+          <app-data-grid [gridName]="'application-dashboard'" [gridColumns]="columns"
+            [gridRows]="applicationsData || []" [pagination]="pagination" [columnFilters]="columnFilters"
+            [pageSizes]="paginationPageSizeSelector" [selectedPageSize]="defaultSize"
+            [gridSorts]="gridSort.prop ? [gridSort] : []" [errorMessage]="errorMessage" (onGridSort)="onSort($event)"
+            (onGridPageSizeChange)="onGridPageSizeChange($event)" (onGridPageChange)="onGridPageChange($event)"
+            (onColumnFilterChange)="onColumnFilterChange($event)" [enableInlineSearch]="true"></app-data-grid>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

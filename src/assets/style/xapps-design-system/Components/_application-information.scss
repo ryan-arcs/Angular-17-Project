@@ -1,0 +1,320 @@
+.main-box {
+  height: calc(100vh - 140px);
+  overflow: auto;
+
+  @include max-width(580) {
+    height: calc(100vh - 182px);
+  }
+
+  .inner-box {
+    padding: $small-m;
+    .multiple-users{
+      margin-top: 14px !important
+    }
+    .medium {
+      @include typography(na, na, var(--font-bold), na);
+      @include max-width(1100) {
+        display: inline-block;
+        width: 100%;
+      }
+    }
+    .emp-status-wrapper {
+      @include flex-box(row, space-between, center, na, na);
+      // border-bottom: $border-thin solid var(--ui-border-color);
+      background-color: var(--secondary-background-dark-color);
+      padding: 12px;
+      border-radius: 10px;
+      .emp-detail {
+        @include flex-box(row, na, center, na, 8);
+
+        .name-n-mail {
+          .name {
+            @include typography(na, na, var(--font-medium), var(--primary-text-color) !important);
+
+          }
+
+          .mail {
+            @include typography(na, na, var(--font-medium), var(--secondary-text-color) !important);
+          }
+        }
+      }
+
+      .emp-status {
+        @include flex-box(row, na, center, na, 8);
+
+        p {
+          font-weight: 900 !important;
+        }
+
+        .tab {
+          height: 32px;
+          @include flex-box(row, center, center, na, na);
+          border-radius: $border-radius-large;
+          padding: $zero-p $small-p;
+
+          &.gox {
+            p{
+              color: white !important;
+              span{
+                margin-left: $vvs-p;
+
+              }
+            }
+            &.active {
+              background-color: var(--positive-color);
+
+              span {
+                color: white !important;
+                font-weight: var(--font-medium);
+              }
+            }
+
+            &.not-active {
+              background-color: var(--negative-selected-color);
+
+              span {
+                color: white;
+                font-weight: var(--font-medium);
+              }
+            }
+
+            &.on-leave {
+              background-color: var(--warning-hover-color);
+
+              .title {
+                color: var(--fixed-light-color) !important;
+              }
+
+              span {
+                color: var(--fixed-light-color);
+              }
+            }
+
+
+          }
+        }
+      }
+    }
+
+    .employee-details {
+      margin: $zero-m;
+      padding: $zero-p;
+      padding-top: $small-p;
+      @include flex-box(row, space-between, center, na, na);
+
+      @include max-width(1100) {
+        display: inline-block;
+        width: 100%;
+      }
+
+      li {
+        width: calc(100%/6 - 10px);
+        list-style-type: none;
+        position: relative;
+        @include flex-box(column, na, na, na, 4);
+        .id-wrapper{
+          display: inline-block;
+          width: fit-content;
+          padding-right: $xxl-p;
+          p{
+            width: fit-content !important;
+          }
+          &:hover{
+            .value{
+              .copy-text{
+                display: block;
+              }
+            }
+          }
+        }
+
+        @include max-width(1100) {
+          display: inline-block;
+          width: 46%;
+          padding-right: 6%;
+          margin: 6px 0px;
+          vertical-align: top;
+        }
+
+        @include max-width(550) {
+          width: 100%;
+        }
+
+        .medium {
+          @include typography(na, na, var(--font-bold), na);
+
+          @include max-width(1100) {
+            display: inline-block;
+            width: 100%;
+          }
+        }
+
+        .value {
+          @include typography(na, na, var(--font-medium), var(--secondary-text-color) !important);
+
+          .copy-text {
+            @include absolute(na, na, 3, 48);
+            cursor: pointer;
+            display: none;
+          }
+        }
+      }
+    }
+
+    .description-wrapper {
+      border-top: $border-thin solid var(--ui-border-color);
+      padding: $small-p $zero-p $zero-p $zero-p;
+
+      .description-heading {
+        @include typography(var(--fs-large), na, var(--font-bold), var(--primary-text-color));
+      }
+
+      .description-text {
+        @include typography(var(--fs-small), na, var(--font-medium), na);
+        color: var(--secondary-text-color) !important;
+      }
+    }
+
+    .business-owner {
+      @include flex-box(row, start, start, wrap, 30);
+
+      @include max-width (1100) {
+        // display: inline-block;
+        width: 100%;
+      }
+
+      &.two-cards {
+        margin-top: 3px;
+
+        @include max-width(1100) {
+          // display: inline-block;
+          width: 48%;
+          margin-top: $large-m;
+
+        }
+      }
+
+      .emp-dtl-wrapper {
+        @include flex-box(column, na, na, na, 8);
+        width: 30%;
+        background-color: var(--secondary-background-dark-color);
+        padding: 10px;
+        border-radius: 10px;
+        @include max-width(1100) {
+          // display: inline-block;
+          width: 48%;
+          margin: $vs-m $zero-m;
+        }
+
+        @include max-width(550) {
+          width: 100%;
+        }
+
+        .medium {
+          @include typography(na, na, var(--font-bold), na);
+
+          @include max-width(1100) {
+            display: inline-block;
+            width: 100%;
+          }
+        }
+
+        .emp-detail {
+          @include flex-box(row, na, center, na, 8);
+
+          .name-n-mail {
+            .name {
+              @include typography(na, na, var(--font-medium), var(--primary-text-color) !important);
+              &.hyperlink {
+
+                cursor: pointer;
+              
+                &:hover {
+                  color: var(--primary-color) !important;
+                  text-decoration: underline
+                }
+              }
+
+            }
+
+            .mail {
+              @include typography(na, na, var(--font-medium), var(--secondary-text-color) !important);
+            }
+          }
+        }
+      }
+    }
+
+
+    &.user-dtls-listing {
+      @include flex-box(row, space-between, center, wrap, 28);
+
+      .user-dtls-inner-div {
+        width: 30%;
+      }
+
+      @include max-width(1100) {
+        display: inline-block;
+      }
+
+      .user-dtls-inner-div {
+        @include max-width(1100) {
+          display: inline-block;
+          width: 48%;
+          margin: $vs-m $zero-m;
+
+        }
+
+        @include max-width(550) {
+          display: inline-block;
+          width: 100%;
+          margin: $vs-m $zero-m;
+
+        }
+      }
+
+      li {
+        @include flex-box(column, na, na, na, na);
+
+        .medium {
+          @include typography(na, na, var(--font-bold), na);
+
+          @include max-width(1100) {
+            display: inline-block;
+            width: 100%;
+          }
+        }
+
+        .phno {
+          @include typography(na, na, var(--font-medium), var(--secondary-text-color) !important);
+        }
+      }
+    }
+  }
+}
+
+.user-list-dropdown {
+    padding: $zero-p !important;
+    &.dropdown-menu {
+        background-color: var(--primary-background-color) !important;
+
+        .dropdown-item {
+            font-size: var(--fs-medium);
+            font-weight: var(--font-medium);
+            color: var(--secondary-text-color);
+            border-bottom: $border-thin solid var(--ui-border-color);
+            padding: $vvs-p;
+            border-radius: 0 !important;
+            &:last-child{
+                border: none;
+            }
+            &:focus,
+            &:hover {
+                color: var(--primary-color);
+                text-decoration: underline;
+                background-color: var(--primary-background-color) !important;
+                cursor: pointer;
+            }
+        }
+    }
+}

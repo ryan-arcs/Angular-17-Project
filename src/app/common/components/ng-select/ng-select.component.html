@@ -1,0 +1,33 @@
+@switch (mode) {
+  <!-- DROPDOWN SELECT -->
+  @case('dropdown') {
+    <ng-select
+      class="{{class}}"
+      [items]="items"
+      [bindLabel]="bindLabel"
+      [bindValue]="bindValue"
+      [(ngModel)]="model"
+      (ngModelChange)="modelChange.emit($event)"
+      [hideSelected]="hideSelected"
+      [clearable]="clearable"
+      class="filter-select"
+    ></ng-select>
+  }
+
+  <!-- MULTI-TAG SELECT -->
+  @case('multitag') {
+    <ng-select
+      #NGCustomSelect
+      class="{{class}}"
+      [addTag]="addTagFn"
+      [multiple]="multiple"
+      [isOpen]="false"
+      [placeholder]="placeholder"
+      [(ngModel)]="model"
+      (ngModelChange)="modelChange.emit($event)"
+      [class.input-error]="isInvalidClassActive"
+      (clear)="onClear()"
+      (input)="onInputChange($event)"
+    ></ng-select>
+  }
+}

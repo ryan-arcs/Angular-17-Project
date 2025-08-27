@@ -1,0 +1,67 @@
+<div class="logs-container">
+  <div class="modal-header">
+    <div class="popup-header">
+      <h2>Advanced Filters</h2>
+    </div>
+    <button type="button" class="cross-btn" (click)="activeModal.close({action: 'CANCEL'})">
+      <span class="material-symbols-rounded"> close </span>
+    </button>
+  </div>
+
+  <div class="modal-body">
+    <div class="column-hide-show">
+      @if (this.getAdvanceFilterForm().length) {
+      <button (click)="clearFilters()" class="add-filter-btn">
+        <span class="material-symbols-outlined"> clear_all </span>
+        <span class="btn-text">Clear All</span>
+      </button>
+      }
+      <button (click)="addForm()" class="add-filter-btn">
+        <span class="material-symbols-outlined add-logo"> add </span>
+        <span class="btn-text">Add a filter</span>
+      </button>
+    </div>
+
+    <div class="middle-box" [formGroup]="advanceFilterForm">
+      <div formArrayName="filters">
+        @for (control of getAdvanceFilterForm().controls; track control) {
+        <div class="col-val-wrapper">
+          <div [formGroupName]="$index">
+            <div class="heading-wrapper">
+              <div class="del-logo-wrapper">
+                <span (click)="deleteFilter($index)" class="material-symbols-outlined del-logo">
+                  delete
+                </span>
+              </div>
+            </div>
+
+            <div class="adv-filter-inner-content">
+              <div class="form-group">
+                <ng-select (change)="onColumnChange($index)" formControlName="columnName"
+                  placeholder="Select column name">
+                  @for (item of allColumns; track $index) {
+                  <ng-option [value]="item.prop">{{ item.name }}</ng-option>
+                  }
+                </ng-select>
+                @if (showErrors && control.get("columnName")?.invalid) {
+                <p class="errors">Please select column name.</p>
+                }
+              </div>
+              <ng-select id="filter-input" class="inline-filter-advance" [addTag]="true" [multiple]="true"
+                [isOpen]="false" placeholder="Search here..." formControlName="searchTags" [addTag]="addTagFn"
+                (clear)="clearSearchTag($index)" [hideSelected]="true" (input)="storeLastInput($event, $index)"
+                (change)="checkInvalidFormError($event, $index)"> </ng-select>
+              @if (showErrors && (!control.get("searchTags")?.value?.length && lastInputValues[$index].showError) ) {
+              <p class="errors">Please select search text.</p>
+              }
+            </div>
+          </div>
+        </div>
+        }
+      </div>
+    </div>
+    @if (this.getAdvanceFilterForm().length) {
+    <button class="apply-btn" (click)="applyFilter()">Apply</button>
+    }
+  </div>
+</div>

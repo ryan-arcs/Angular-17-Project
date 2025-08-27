@@ -1,0 +1,17 @@
+<ng-template #leftPanelContent>
+  <app-iapp-left-sidebar
+    (slidebar)="hideLeftBar($event)"
+  ></app-iapp-left-sidebar>
+</ng-template>
+
+<div class="iApp-wrapper">
+  <router-outlet></router-outlet>
+</div>
+
+<!-- <ng-template #leftPanelContent>
+  <app-iapp-left-sidebar (slidebar)="hideLeftBar($event)" [ngClass]="sidebar ? 'show' : 'hide'"></app-iapp-left-sidebar>
+</ng-template>
+
+<div class="asher-wrapper">
+  <router-outlet></router-outlet>
+</div> -->

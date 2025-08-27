@@ -1,0 +1,944 @@
+<div class="main-manage-roles">
+  <div>
+    <div class="breadcrumbs-outer">
+      <ul>
+        <li><a (click)="navigateBack()" class="label medium"> Offboarding </a></li>
+        <li><span>/</span></li>
+        <li>
+          <a class="c-auto"
+            >{{ offboardingResource?.firstName }}
+            {{ offboardingResource?.lastName }}</a
+          >
+        </li>
+        <li><span>/</span></li>
+        <li class="details">Details</li>
+      </ul>
+    </div>
+
+    <div class="header d-flex justify-content-between">
+      <p class="heading">
+        <span class="res-menu-btn-hide material-symbols-rounded" (click)="navigateBack()">
+          chevron_left
+        </span>
+        Offboarding Details
+      </p>
+      @if (offboardingResource?.parentTicket?.childTickets?.length) {
+        <div class="status-percentage">
+          <p class="total-completed">Total Completed</p>
+          <div class="percentage">{{ tasksByStatus[0].percentage }}%</div>
+        </div>
+      }
+    </div>
+
+    @if (offboardingResource?.parentTicket?.id) {
+      <div class="user-details-wrapper">
+        <div class="header-emp-details">
+          <span class="emp-dtl-heading">Employee Details</span>
+          <a class="view-dtls" (click)="openUserDetailsModal()">View details</a>
+        </div>
+
+        <div class="outer-box" style="display: none;">
+          <div class="user-dtls-wrapper">
+            <div class="user-dtls">
+              <!-- @if(userDetails?.fullname_preferred) { -->
+              <div class="upper-part">
+                <div class="left-part">
+                  <p class="heading">Personel Information</p>
+                  <div class="emp-status-wrapper">
+                    <div class="emp-detail">
+                      <div class="profile-pic">
+                        <span class="material-symbols-rounded">person</span>
+                      </div>
+                      <div class="name-n-mail">
+                        <p class="name">
+                          Someone
+                        </p>
+                        <p class="mail text">
+                          someone.gmail.com
+                        </p>
+                      </div>
+                    </div>
+                    <div class="emp-status">
+                      <p class="emp-s-title">Employment Status</p>
+                      <div class="emp-status-value">
+                        <span>
+                          <!-- {{userDetails?.empl_status}} -->
+                          Active
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <ul class="employee-details">
+                    <li>
+                      <span class="title">First Name</span>
+                      <span class="value">
+                        Ravi Raj
+                        <!-- {{userDetails?.firstname}} -->
+                      </span>
+                    </li>
+                    <li>
+                      <span class="title">Last Name</span>
+                      <span class="value">
+                        Sharma
+                        <!-- {{userDetails?.lastname}} -->
+                      </span>
+                    </li>
+                    <li>
+                      <span class="title">Worker ID</span>
+                      <span class="value">
+                        8055
+                        <!-- {{userDetails?.worker_id}} -->
+                      </span>
+                    </li>
+                    <li>
+                      <span class="title">Network ID</span>
+                      <span class="value">
+                        5509
+                        <!-- {{userDetails?.network_id}} -->
+                      </span>
+                    </li>
+                    <li>
+                      <span class="title">Job Title</span>
+                      <span class="value">
+                        <!-- {{userDetails?.job_title}} -->
+                      </span>
+                    </li>
+                  </ul>
+                </div>
+        
+                <div class="right-part">
+                  <p class="heading">Manager Details</p>
+                  <div class="emp-detail">
+                    <div class="profile-pic light-bg-profile-pic">
+                      <span class="material-symbols-rounded">
+                        person
+                      </span>
+                    </div>
+                    <div class="name-n-mail">
+                      <p class="name">
+                        Someone 
+                      </p>
+                      <p class="mail text">
+                        someone.gmail.com
+                      </p>
+                    </div>
+                  </div>
+        
+                  <ul class="employee-details">
+                    <li>
+                      <span class="title">Worker ID</span>
+                      <span class="value">
+                        8055
+                        <!-- {{userDetails?.manager_id}} -->
+                      </span>
+                    </li>
+                    <li>
+                      <span class="title">Network ID</span>
+                      <span class="value">
+                        5503
+                        <!-- {{userDetails?.manager_user_id}} -->
+                      </span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+        
+              <div class="lower-part">
+                <div class="more-info-part">
+                  <p class="other-information heading">More Information</p>
+                  <button class="expanded-icon">
+                    <span class="material-symbols-rounded"> keyboard_arrow_down </span>
+                  </button>
+                </div>
+                <ul class="user-dtls-listing"
+                >
+                  <div class="user-dtls-inner-div">
+                    <li>
+                      <span class="user-name">Id</span>
+                      <span class="phno">
+                        Hello from Hell<!-- {{userDetails?.id || "-"}} -->
+                      </span>
+                    </li>
+                  </div>
+                  <div class="user-dtls-inner-div">
+                    <li>
+                      <span class="user-name">Employee Number</span>
+                      <span class="phno">
+                        Hello from Hell<!-- {{userDetails?.employee_number || "-"}} -->
+                      </span>
+                    </li>
+                  </div>
+                  <div class="user-dtls-inner-div">
+                    <li>
+                      <span class="user-name">Location</span>
+                      <span class="phno">
+                        Hello from Hell<!-- {{userDetails?.location || "-"}} -->
+                      </span>
+                    </li>
+                  </div>
+                  <div class="user-dtls-inner-div">
+                    <li>
+                      <span class="user-name">Work State</span>
+                      <span class="phno">
+                        Hello from Hell<!-- {{userDetails?.work_state || "-"}} -->
+                      </span>
+                    </li>
+                  </div>
+                  <div class="user-dtls-inner-div">
+                    <li>
+                      <span class="user-name">Home City</span>
+                      <span class="phno">
+                        Hello from Hell<!-- {{userDetails?.home_city || "-"}} -->
+                      </span>
+                    </li>
+                  </div>
+                  <div class="user-dtls-inner-div">
+                    <li>
+                      <span class="user-name">Home State</span>
+                      <span class="phno">
+                        Hello from Hell<!-- {{userDetails?.home_state || "-"}} -->
+                      </span>
+                    </li>
+                  </div>
+                  <div class="user-dtls-inner-div">
+                    <li>
+                      <span class="user-name">Home Country</span>
+                      <span class="phno">
+                        Hello from Hell<!-- {{userDetails?.home_country || "-"}} -->
+                      </span>
+                    </li>
+                  </div>
+                  <div class="user-dtls-inner-div">
+                    <li>
+                      <span class="user-name">Home ZIP</span>
+                      <span class="phno">
+                        Hello from Hell<!-- {{userDetails?.home_zip || "-"}} -->
+                      </span>
+                    </li>
+                  </div>
+                  <div class="user-dtls-inner-div">
+                    <li>
+                      <span class="user-name">Work City</span>
+                      <span class="phno">
+                        Hello from Hell<!-- {{userDetails?.work_city || "-"}} -->
+                      </span>
+                    </li>
+                  </div>
+                  <div class="user-dtls-inner-div">
+                    <li>
+                      <span class="user-name">Work ZIP</span>
+                      <span class="phno">
+                        Hello from Hell<!-- {{userDetails?.work_zip || "-"}} -->
+                      </span>
+                    </li>
+                  </div>
+                  <div class="user-dtls-inner-div">
+                    <li>
+                      <span class="user-name">Full-Time Equivalent</span>
+                      <span class="phno">
+                        Hello from Hell<!-- {{userDetails?.fulltime_equiv || "-"}} -->
+                      </span>
+                    </li>
+                  </div>
+                  <div class="user-dtls-inner-div">
+                    <li>
+                      <span class="user-name">Employment Status</span>
+                      <span class="phno">
+                        Hello from Hell<!-- {{userDetails?.empl_status || "-"}} -->
+                      </span>
+                    </li>
+                  </div>
+                  <div class="user-dtls-inner-div">
+                    <li>
+                      <span class="user-name">Hire Date</span>
+                      <span class="phno">
+                        Hello from Hell<!-- {{userDetails?.hire_date || "-"}} -->
+                      </span>
+                    </li>
+                  </div>
+                  <div class="user-dtls-inner-div">
+                    <li>
+                      <span class="user-name">Cost Center Code</span>
+                      <span class="phno">
+                        Hello from Hell<!-- {{userDetails?.costcenter_code || "-"}} -->
+                      </span>
+                    </li>
+                  </div>
+                  <div class="user-dtls-inner-div">
+                    <li>
+                      <span class="user-name">Cost Center Description</span>
+                      <span class="phno">
+                        Hello from Hell<!-- {{userDetails?.costcenter_desc || "-"}} -->
+                      </span>
+                    </li>
+                  </div>
+                  <div class="user-dtls-inner-div">
+                    <li>
+                      <span class="user-name">Department</span>
+                      <span class="phno">
+                        Hello from Hell<!-- {{userDetails?.department || "-"}} -->
+                      </span>
+                    </li>
+                  </div>
+                  <div class="user-dtls-inner-div">
+                    <li>
+                      <span class="user-name">Division</span>
+                      <span class="phno">
+                        Hello from Hell<!-- {{userDetails?.division || "-"}} -->
+                      </span>
+                    </li>
+                  </div>
+                  <div class="user-dtls-inner-div">
+                    <li>
+                      <span class="user-name">Work Country</span>
+                      <span class="phno">
+                        Hello from Hell<!-- {{userDetails?.work_country || "-"}} -->
+                      </span>
+                    </li>
+                  </div>
+                  <div class="user-dtls-inner-div">
+                    <li>
+                      <span class="user-name">Is Manager</span>
+                      <span class="phno">
+                        Hello from Hell<!-- {{userDetails?.is_manager || "-"}} -->
+                      </span>
+                    </li>
+                  </div>
+                  <div class="user-dtls-inner-div">
+                    <li>
+                      <span class="user-name">FLSA Code</span>
+                      <span class="phno">
+                        Hello from Hell<!-- {{userDetails?.flsacode || "-"}} -->
+                      </span>
+                    </li>
+                  </div>
+                  <div class="user-dtls-inner-div">
+                    <li>
+                      <span class="user-name">Empl Status Class</span>
+                      <span class="phno">
+                        Hello from Hell<!-- {{userDetails?.empl_status_class || "-"}} -->
+                      </span>
+                    </li>
+                  </div>
+                  <div class="user-dtls-inner-div">
+                    <li>
+                      <span class="user-name">Building</span>
+                      <span class="phno">
+                        Hello from Hell<!-- {{userDetails?.building || "-"}} -->
+                      </span>
+                    </li>
+                  </div>
+                  <div class="user-dtls-inner-div">
+                    <li>
+                      <span class="user-name">Pay Grade</span>
+                      <span class="phno">
+                        Hello from Hell<!-- {{userDetails?.pay_grade || "-"}} -->
+                      </span>
+                    </li>
+                  </div>
+                  <div class="user-dtls-inner-div">
+                    <li>
+                      <span class="user-name">Dept Corp Group</span>
+                      <span class="phno">
+                        Hello from Hell<!-- {{userDetails?.dept_corp_group || "-"}} -->
+                      </span>
+                    </li>
+                  </div>
+                  <div class="user-dtls-inner-div">
+                    <li>
+                      <span class="user-name">Date Entered</span>
+                      <span class="phno">
+                        Hello from Hell<!-- {{userDetails?.date_entered || "-"}} -->
+                      </span>
+                    </li>
+                  </div>
+                  <div class="user-dtls-inner-div">
+                    <li>
+                      <span class="user-name">Home Address Line 1</span>
+                      <span class="phno">
+                        Hello from Hell<!-- {{userDetails?.home_address_line1 || "-"}} -->
+                      </span>
+                    </li>
+                  </div>
+                  <div class="user-dtls-inner-div">
+                    <li>
+                      <span class="user-name">Home Phone</span>
+                      <span class="phno">
+                        Hello from Hell<!-- {{userDetails?.home_phone || "-"}} -->
+                      </span>
+                    </li>
+                  </div>
+                  <div class="user-dtls-inner-div">
+                    <li>
+                      <span class="user-name">Job Position</span>
+                      <span class="phno">
+                        Hello from Hell<!-- {{userDetails?.jobposition || "-"}} -->
+                      </span>
+                    </li>
+                  </div>
+                  <div class="user-dtls-inner-div">
+                    <li>
+                      <span class="user-name">Local Remote</span>
+                      <span class="phno">
+                        Hello from Hell<!-- {{userDetails?.local_remote || "-"}} -->
+                      </span>
+                    </li>
+                  </div>
+                  <div class="user-dtls-inner-div">
+                    <li>
+                      <span class="user-name">Employee Time Type</span>
+                      <span class="phno">
+                        Hello from Hell<!-- {{userDetails?.employee_timetype || "-"}} -->
+                      </span>
+                    </li>
+                  </div>
+                  <div class="user-dtls-inner-div">
+                    <li>
+                      <span class="user-name">Manager Hire Date</span>
+                      <span class="phno">
+                        Hello from Hell<!-- {{userDetails?.manager_hire_date || "-"}} -->
+                      </span>
+                    </li>
+                  </div>
+                  <div class="user-dtls-inner-div">
+                    <li>
+                      <span class="user-name">Emp Position Start Date</span>
+                      <span class="phno">
+                        Hello from Hell<!-- {{userDetails?.emp_position_start_date || "-"}} -->
+                      </span>
+                    </li>
+                  </div>
+                  <div class="user-dtls-inner-div">
+                    <li>
+                      <span class="user-name">Work Address Line 1</span>
+                      <span class="phno">
+                        Hello from Hell<!-- {{userDetails?.work_address_line1 || "-"}} -->
+                      </span>
+                    </li>
+                  </div>
+                  <div class="user-dtls-inner-div">
+                    <li>
+                      <span class="user-name">Emp Active Status Date</span>
+                      <span class="phno">
+                        Hello from Hell<!-- {{userDetails?.emp_active_status_date || "-"}} -->
+                      </span>
+                    </li>
+                  </div>
+                  <div class="user-dtls-inner-div">
+                    <li>
+                      <span class="user-name">Company Code</span>
+                      <span class="phno">
+                        Hello from Hell<!-- {{userDetails?.company_code || "-"}} -->
+                      </span>
+                    </li>
+                  </div>
+                  <div class="user-dtls-inner-div">
+                    <li>
+                      <span class="user-name">Division Corp Group</span>
+                      <span class="phno">
+                        Hello from Hell<!-- {{userDetails?.division_corp_group || "-"}} -->
+                      </span>
+                    </li>
+                  </div>
+                  <div class="user-dtls-inner-div">
+                    <li>
+                      <span class="user-name">Employee Type</span>
+                      <span class="phno">
+                        Hello from Hell<!-- {{userDetails?.employeetype || "-"}} -->
+                      </span>
+                    </li>
+                  </div>
+                  <div class="user-dtls-inner-div">
+                    <li>
+                      <span class="user-name">Nickname</span>
+                      <span class="phno">
+                        Hello from Hell<!-- {{userDetails?.nickname || "-"}} -->
+                      </span>
+                    </li>
+                  </div>
+                  <div class="user-dtls-inner-div">
+                    <li>
+                      <span class="user-name">Original Hire Date</span>
+                      <span class="phno">
+                        Hello from Hell<!-- {{userDetails?.original_hire_date || "-"}} -->
+                      </span>
+                    </li>
+                  </div>
+                  <div class="user-dtls-inner-div">
+                    <li>
+                      <span class="user-name">Full Name</span>
+                      <span class="phno">
+                        Hello from Hell<!-- {{userDetails?.fullname || "-"}} -->
+                      </span>
+                    </li>
+                  </div>
+                  <div class="user-dtls-inner-div">
+                    <li>
+                      <span class="user-name">Home Organization</span>
+                      <span class="phno">
+                        Hello from Hell<!-- {{userDetails?.home_organization || "-"}} -->
+                      </span>
+                    </li>
+                  </div>
+                  <div class="user-dtls-inner-div">
+                    <li>
+                      <span class="user-name">Work Phone</span>
+                      <span class="phno">
+                        Hello from Hell<!-- {{userDetails?.workPhone || "-"}} -->
+                      </span>
+                    </li>
+                  </div>
+                  <div class="user-dtls-inner-div">
+                    <li>
+                      <span class="user-name">Office</span>
+                      <span class="phno">
+                        Hello from Hell<!-- {{userDetails?.office || "-"}} -->
+                      </span>
+                    </li>
+                  </div>
+                  <div class="user-dtls-inner-div">
+                    <li>
+                      <span class="user-name">On Leave</span>
+                      <span class="phno">
+                        Hello from Hell<!-- {{userDetails?.onleave || "-"}} -->
+                      </span>
+                    </li>
+                  </div>
+                  <div class="user-dtls-inner-div">
+                    <li>
+                      <span class="user-name">Contract End Date</span>
+                      <span class="phno">
+                        Hello from Hell<!-- {{userDetails?.contractend_date || "-"}} -->
+                      </span>
+                    </li>
+                  </div>
+                  <div class="user-dtls-inner-div">
+                    <li>
+                      <span class="user-name">Fax</span>
+                      <span class="phno">
+                        Hello from Hell<!-- {{userDetails?.fax || "-"}} -->
+                      </span>
+                    </li>
+                  </div>
+                  <div class="user-dtls-inner-div">
+                    <li>
+                      <span class="user-name">Home Address Line 2</span>
+                      <span class="phno">
+                        Hello from Hell<!-- {{userDetails?.home_address_line2 || "-"}} -->
+                      </span>
+                    </li>
+                  </div>
+                  <div class="user-dtls-inner-div">
+                    <li>
+                      <span class="user-name">ADP Employee Location</span>
+                      <span class="phno">
+                        Hello from Hell<!-- {{userDetails?.adp_employee_location || "-"}} -->
+                      </span>
+                    </li>
+                  </div>
+                  <div class="user-dtls-inner-div">
+                    <li>
+                      <span class="user-name">SIQ Building</span>
+                      <span class="phno">
+                        Hello from Hell<!-- {{userDetails?.siq_building || "-"}} -->
+                      </span>
+                    </li>
+                  </div>
+                  <div class="user-dtls-inner-div">
+                    <li>
+                      <span class="user-name">Work Address Line 2</span>
+                      <span class="phno">
+                        Hello from Hell<!-- {{userDetails?.work_address_line2 || "-"}} -->
+                      </span>
+                    </li>
+                  </div>
+                  <div class="user-dtls-inner-div">
+                    <li>
+                      <span class="user-name">Effective End Date</span>
+                      <span class="phno">
+                        Hello from Hell<!-- {{userDetails?.effective_enddate || "-"}} -->
+                      </span>
+                    </li>
+                  </div>
+                  <div class="user-dtls-inner-div">
+                    <li>
+                      <span class="user-name">Middle Name</span>
+                      <span class="phno">
+                        Hello from Hell<!-- {{userDetails?.middlename || "-"}} -->
+                      </span>
+                    </li>
+                  </div>
+                  <div class="user-dtls-inner-div">
+                    <li>
+                      <span class="user-name">Termination Date</span>
+                      <span class="phno">
+                        Hello from Hell<!-- {{userDetails?.termination_date || "-"}} -->
+                      </span>
+                    </li>
+                  </div>
+                  <div class="user-dtls-inner-div">
+                    <li>
+                      <span class="user-name">Created At</span>
+                      <span class="phno">
+                        Hello from Hell<!-- {{getDateDisplay(userDetails?.created_at) || "-"}} -->
+                      </span>
+                    </li>
+                  </div>
+                  <div class="user-dtls-inner-div">
+                    <li>
+                      <span class="user-name">Created By</span>
+                      <span class="phno">
+                        Hello from Hell<!-- {{userDetails?.created_by || "-"}} -->
+                      </span>
+                    </li>
+                  </div>
+                  <div class="user-dtls-inner-div">
+                    <li>
+                      <span class="user-name">Last Modified At</span>
+                      <span class="phno">
+                        Hello from Hell<!-- {{getDateDisplay(userDetails?.last_modified_at) || "-"}} -->
+                      </span>
+                    </li>
+                  </div>
+                  <div class="user-dtls-inner-div">
+                    <li>
+                      <span class="user-name">Last Modified By</span>
+                      <span class="phno">
+                        Hello from Hell<!-- {{userDetails?.last_modified_by || "-"}} -->
+                      </span>
+                    </li>
+                  </div>
+                </ul>
+              </div>
+              <!-- } -->
+            </div>
+          </div>
+        </div>
+
+        <div class="user-details-outer-box">
+          <ul class="user-dtls">
+            <li>
+              <span class="title">Employee ID</span>
+              <span class="detail-value">{{
+                offboardingResource?.employeeId || "-"
+              }}</span>
+            </li>
+            <li>
+              <span class="title">Name</span>
+              <span class="detail-value"
+                >{{ offboardingResource?.firstName }}
+                {{ offboardingResource?.lastName }}</span
+              >
+            </li>
+            <li>
+              <span class="title">Preferred Name</span>
+              <span class="detail-value">{{
+                offboardingResource?.preferredName || "-"
+              }}</span>
+            </li>
+            <li>
+              <span class="title">Termination Date</span>
+              <span class="detail-value">{{
+                offboardingResource?.formattedTerminationDate || "-"
+              }}</span>
+            </li>
+            <li>
+              <span class="title">Job Title</span>
+              <span class="detail-value">{{
+                offboardingResource?.jobTitle || "-"
+              }}</span>
+            </li>
+            <li>
+              <span class="title">Department Name</span>
+              <span class="detail-value">{{
+                offboardingResource?.departmentName || "-"
+              }}</span>
+            </li>
+            <li>
+              <span class="title">Supervisor Name</span>
+              <span class="detail-value">{{
+                offboardingResource?.supervisorName || "-"
+              }}</span>
+            </li>
+            <li>
+              <span class="title">Supervisor Email</span>
+              <span class="detail-value">{{
+                offboardingResource?.supervisorEmail || "-"
+              }}</span>
+            </li>
+            <li>
+              <span class="title">Worker Type</span>
+              <span class="detail-value">{{
+                offboardingResource?.workerType || "-"
+              }}</span>
+            </li>
+            <li>
+              <span class="title">Employment Type</span>
+              <span class="detail-value">{{
+                offboardingResource?.employmentType || "-"
+              }}</span>
+            </li>
+            <li>
+              <span class="title">Job Grade</span>
+              <span class="detail-value">{{
+                offboardingResource?.jobGrade || "-"
+              }}</span>
+            </li>
+            @if (offboardingResource?.parentTicket?.ticketLink) {
+              <li>
+                <span class="title">Parent Ticket</span>
+                <span class="detail-value"
+                  ><a
+                    target="_blank"
+                    [href]="offboardingResource?.parentTicket?.ticketLink"
+                    >{{ offboardingResource?.parentTicket?.id || "-" }}</a
+                  ></span
+                >
+              </li>
+            }
+          </ul>
+        </div>
+
+      </div>
+    }
+    @if (offboardingResource?.parentTicket?.childTickets?.length) {
+      <div class="ticket-list">
+        <div class="details-n-chart">
+          <div class="donut-chart">
+            <ag-charts-angular [options]="options"></ag-charts-angular>
+          </div>
+
+          <div class="tasks-info-wrapper">
+            <div class="tasks completed-tasks">
+              <div class="count-box">
+                <span class="task-icon">
+                  <img
+                    src="../../../../../assets/images/completed-tasks-icon.svg"
+                    alt="Task"
+                  />
+                </span>
+                <span class="task-count">
+                  
+                  {{ tasksByStatus[0].count }} Tasks
+                </span>
+              </div>
+              <div class="percentage-box">
+                <span class="task-count">
+                  {{ tasksByStatus[0].percentage }}%
+                </span>
+              </div>
+            </div>
+
+            <div class="tasks pending-tasks">
+              <div class="count-box">
+                <span class="task-icon">
+                  <img
+                    src="../../../../../assets/images/pending-tasks-icon.svg"
+                    alt="Task"
+                  />
+                </span>
+                <span class="task-count">
+                  {{ tasksByStatus[1].count }} Tasks
+                </span>
+              </div>
+              <div class="percentage-box">
+                <span class="task-count">
+                  {{ tasksByStatus[1].percentage }}%
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="left">
+          <div class="status-tabs-wrapper">
+            <div class="status-tabs-header">
+              <span class="heading">Tasks</span>
+              <span class="tasks-number"
+                >Total:
+                {{
+                  offboardingResource?.parentTicket?.childTickets?.length
+                }}</span
+              >
+            </div>
+            <ul class="status-tabs">
+              @for (
+                ticket of offboardingResource?.parentTicket?.childTickets;
+                track $index
+              ) {
+                <li
+                  (click)="selectChildTicket(ticket)"
+                  [class]="{
+                    completed: ticket?.status?.toLowerCase() === 'done',
+                    pending: ticket?.status?.toLowerCase() !== 'done',
+                    active: ticket?.id === selectedChildTicket?.id,
+                  }"
+                >
+                  <p class="task-name">{{ ticket?.shortSummary || "-" }}</p>
+                  <p class="status-value active">
+                    {{
+                      ticket?.status?.toLowerCase() === "done"
+                        ? "Completed"
+                        : "Pending"
+                    }}
+                  </p>
+                </li>
+              }
+            </ul>
+          </div>
+
+          @if (selectedChildTicket?.id) {
+            <div class="ticket-details-wrapper">
+              <p class="ticket-details-header">Task Details</p>
+              <div class="ticket-details">
+                <div class="panels">
+                  <div class="left-panel">
+                    <ul class="details">
+                      <li>
+                        <p class="details-heading">Task</p>
+                        <p class="value">
+                          {{ selectedChildTicket?.shortSummary || "-" }}
+                        </p>
+                      </li>
+                      <li>
+                        <p class="details-heading">Priority</p>
+                        <p class="value">
+                          {{ selectedChildTicket?.priority || "-" }}
+                        </p>
+                      </li>
+                      <li>
+                        <p class="details-heading">Assignee</p>
+                        <p class="value">
+                          {{ selectedChildTicket?.assignee || "-" }}
+                        </p>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="right-panel">
+                    <ul class="details">
+                      <li>
+                        <p class="details-heading">Status</p>
+                        <p class="value">
+                          {{ selectedChildTicket?.status || "-" }}
+                        </p>
+                      </li>
+                      <li>
+                        <p class="details-heading">Team Queue</p>
+                        <p class="value">
+                          {{ selectedChildTicket?.teamQueue || "-" }}
+                        </p>
+                      </li>
+                      <li>
+                        <p class="details-heading">Ticket Link</p>
+                        <p class="value">
+                          <a
+                            target="_blank"
+                            [href]="selectedChildTicket?.ticketLink"
+                            >{{ selectedChildTicket?.id || "-" }}</a
+                          >
+                        </p>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div class="summary">
+                  <p class="summary-title">Summary</p>
+                  <p class="summary-content">
+                    {{ selectedChildTicket?.summary || "-" }}
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            @if (selectedChildTicket?.comments?.length) {
+              <div class="ticket-comments">
+                <div class="ticket-comments-header">
+                  <span class="heading">Task Comments</span>
+                  <span class="comments"
+                    >
+                   Total Comments: {{
+                    selectedChildTicket?.comments?.length || 0
+                  }}</span
+                  >
+                </div>
+
+                <div class="comment-panel">
+                  @for (
+                    groupedComment of groupCommentsByDate(
+                      selectedChildTicket?.comments
+                    );
+                    track $index
+                  ) {
+                    <div class="date-heading">
+                      <span class="the-line left-line"></span>
+                      <span class="content">{{
+                        getDateDisplayName(groupedComment.date)
+                      }}</span>
+                      <span class="the-line right-line"></span>
+                    </div>
+
+                    @for (comment of groupedComment.comments; track $index) {
+                      <div class="comment-card">
+                        <span class="commentor-avtar">{{
+                          showInitials(comment?.commentorName || "") ||
+                            comment?.commentedBy
+                              ?.split("@")?.[0]
+                              ?.slice(0, 2)
+                              ?.toUpperCase() ||
+                            ""
+                        }}</span>
+                        <div class="comment-details">
+                          <div class="commentor-n-time">
+                            <span class="commentor-name">{{
+                              comment?.commentorName ||
+                                comment?.commentedBy?.split("@")?.[0] ||
+                                ""
+                            }}</span>
+                            <span class="comment-time">{{
+                              comment?.updatedDate | date: "hh:mm a"
+                            }}</span>
+                          </div>
+                          <p class="comment-message">
+                            {{ comment?.comment || "" }}
+                            @if (
+                              comment?.updatedDate !== comment?.createdDate
+                            ) {
+                              <span
+                                class="edited-comment"
+                                [title]="
+                                  editedCommentTitle(
+                                    comment?.updatedDate,
+                                    comment?.createdDate
+                                  )
+                                "
+                              >
+                                Edited
+                                <span
+                                  class="material-symbols-rounded info-icon"
+                                >
+                                  info
+                                </span>
+                              </span>
+                            }
+                          </p>
+                        </div>
+                      </div>
+                    }
+                  }
+                </div>
+              </div>
+            }
+          }
+        </div>
+      </div>
+    }
+
+    @if (errorMessage) {
+      <app-no-data-found
+        [message]="errorMessage"
+        [description]="errorDescription"
+      ></app-no-data-found>
+    }
+  </div>
+</div>

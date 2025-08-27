@@ -1,0 +1,200 @@
+@use "sass:math";
+
+
+// FLEXBOX ROW AND COLUMN FORMAT **************************************************************************************
+
+@mixin flex-box($flex-direction, $justify-content, $align-items, $flex-wrap, $gap) {
+    display: flex;
+
+    @if $flex-direction !="na" {
+        flex-direction: $flex-direction !important;
+    }
+
+    @if $justify-content !="na" {
+        justify-content: $justify-content;
+    }
+
+    @if $align-items !="na" {
+        align-items: $align-items !important;
+    }
+
+    @if $flex-wrap !="na" {
+        flex-wrap: $flex-wrap !important;
+    }
+
+    @if $gap !="na" {
+        @if type-of($gap)=='number' {
+            gap: #{$gap}px;
+        }
+
+        @else {
+            gap: $gap;
+        }
+    }
+}
+
+
+
+// DIMENSIONS **************************************************************************************
+
+@mixin dimensions($height, $width) {
+    @if $width !="na" {
+        @if type-of($width)==number and unitless($width) {
+            width: #{$width}px;
+        }
+
+        @else {
+            width: #{$width} !important;
+        }
+    }
+
+    @if $height !="na" {
+        @if type-of($height)==number and unitless($height) {
+            height: #{$height}px !important;
+        }
+
+        @else {
+            height: #{$height} !important;
+        }
+    }
+}
+
+
+
+// MEDIA QUERIES FOR RESPONSIVENESS **************************************************************************************
+
+@mixin screen-size($min-size, $max-size) {
+    @media screen and (min-width: #{if(unitless($min-size), $min-size + px, $min-size)}) and (max-width: #{if(unitless($max-size), $max-size + px, $max-size)}) {
+        @content;
+    }
+}
+
+@mixin max-width($max-size) {
+    @media screen and (max-width: #{if(unitless($max-size), $max-size + px, $max-size)}) {
+        @content;
+    }
+}
+
+@mixin min-width($min-size) {
+    @media screen and (min-width: #{if(unitless($min-size), $min-size + px, $min-size)}) {
+        @content;
+    }
+}
+
+
+
+// TYPOGRAPHY **************************************************************************************
+
+// @mixin typography($font-size, $line-height, $font-weight, $color) {
+//     @if $font-size !="na" {
+//         font-size: #{if(unitless($font-size), $font-size + px, $font-size)} !important;
+//     }
+
+//     @if $line-height !="na" {
+//         line-height: #{if(unitless($line-height), $line-height + px, $line-height)} !important;
+//     }
+
+//     @if $font-weight !="na" {
+//         font-weight: $font-weight !important;
+//     }
+
+//     @if $color !="na" {
+//         color: $color;
+//     }
+// }
+
+@mixin typography($font-size, $line-height, $font-weight, $color) {
+    @if $font-size !="na" {
+        font-size: $font-size !important;
+    }
+    
+    @if $line-height !="na" {
+        line-height: $line-height !important;
+    }
+ 
+    @if $font-weight !="na" {
+        font-weight: $font-weight;
+    }
+ 
+    @if $color !="na" {
+        color: $color;
+    }
+}
+
+
+// BUTTON **************************************************************************************
+
+@mixin btn($height, $horizontal-padding, $border-radius, $background-color) {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    cursor: pointer !important;
+    height: #{if(unitless($height), $height + px, $height)} !important;
+    padding: 0 #{if(unitless($horizontal-padding), $horizontal-padding + px, $horizontal-padding)} !important;
+    background-color: $background-color !important;
+    border: none !important;
+    box-sizing: border-box !important;
+
+    @if $border-radius !="na" {
+        border-radius: #{if(unitless($border-radius), $border-radius + px, $border-radius)} !important;
+    }
+}
+
+
+
+// POSITION ABSOLUTE **************************************************************************************
+
+@mixin absolute($top , $right , $bottom , $left) {
+    position: absolute !important;
+
+    @if $top !="na" and str-index(#{$top}, '%')==null {
+        top: #{$top}px !important;
+    }
+
+    @else if $top !="na" {
+        top: $top !important;
+    }
+
+    @if $right !="na" and str-index(#{$right}, '%')==null {
+        right: #{$right}px !important;
+    }
+
+    @else if $right !="na" {
+        right: $right !important;
+    }
+
+    @if $bottom !="na" and str-index(#{$bottom}, '%')==null {
+        bottom: #{$bottom}px !important;
+    }
+
+    @else if $bottom !="na" {
+        bottom: $bottom !important;
+    }
+
+    @if $left !="na" and str-index(#{$left}, '%')==null {
+        left: #{$left}px !important;
+    }
+
+    @else if $left !="na" {
+        left: $left !important;
+    }
+}
+
+
+
+// NAVBAR **************************************************************************************
+
+@mixin navbar($gap) {
+    display: flex !important;
+    list-style-type: none !important;
+    @include flex-box(row, "na", center, "na", $gap);
+}
+
+
+
+// NAVITEMS **************************************************************************************
+
+@mixin nav-items($font-size , $line-height , $font-weight , $color) {
+    @include typography($font-size, $line-height, $font-weight, $color);
+    cursor: pointer !important;
+}

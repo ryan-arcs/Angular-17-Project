@@ -1,0 +1,51 @@
+@use './mixins' as *;
+@use './foundation' as *;
+.chips {
+    border-radius: $border-radius-small;
+    background-color: var(--secondary-background-color);
+    padding: $zero-p $vvvs-p;
+    width: auto;
+    @include flex-box(na, center, center, na, 4);
+    transition: all .2s ease-in;
+
+    &--sm {
+        height: 28px;
+    }
+    &--vs {
+        height: 22px;
+    }
+
+    p {
+        @include typography(var(--fs-large), 16, var(--font-regular), var(--secondary-text-color));
+    }
+
+    .cross-sign {
+        border-radius: $border-radius-small;
+        @include dimensions(18, 18);
+        @include flex-box(na, center, center, na, na);
+        background-color: transparent;
+
+        span {
+            width: 12px;
+            transition: all .2s ease-in;
+
+            &::before {
+                // font-size: 9px;
+                color: var(--icon-color);
+            }
+        }
+
+        &:hover {
+            background-color: var(--primary-background-color);
+
+            span {
+                transform: rotate(90deg);
+            }
+
+        }
+    }
+
+    &:hover {
+        background-color: var(--primary-background-hover-color);
+    }
+}

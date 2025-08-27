@@ -1,0 +1,68 @@
+<div class="card-inner-wrapper">
+  @if(view){
+  <!-- thumbnail -->
+  <div class="card-img" (click)='viewDetails()'>
+    <img [lazyLoadThumbnail]="view" [alt]="view.name" loading="lazy" [src]="view.thumbnail" />
+  </div>
+  <!-- icons -->
+  <div class="card-details">
+    <div class="card-detail-name">
+      <p class="card-name tooltip-btn ellipsis-title" placement="top" [ngbTooltip]="view.name">{{ view.name }}</p>
+    </div>
+    <div class="card-icons">
+      <!-- @if(quickview){
+      <button class="d-btn d-btn--circle white-bg-circle tooltip-btn sm" (click)="openCardModal(view,$event)">
+        <span class="icon-expand-01-1"></span>
+      </button>
+      } -->
+      
+
+      <button class="d-btn d-btn--circle tooltip-btn sm" placement="start" [ngbTooltip]="titleContent"
+        container="body" tooltipClass="tooltip-custom-class">
+        <span class="material-symbols-outlined view-tile-icon">error</span>
+      </button>
+      <button class="d-btn d-btn--circle tooltip-btn sm" (click)="toggleFavorite(view)">
+        <span [class]="view.isFavorite ? 'material-symbols-rounded' : 'material-symbols-outlined'" class="view-tile-icon star-icon">star</span>
+      </button>
+    </div>
+  </div>
+  }
+</div>
+
+<!-- tooltip data -->
+<ng-template #titleContent>
+  <div class="tooltip-content-wrapper">
+    <div class="heading-content">
+      <span class="heading">Project:</span>
+      <span class="content"> {{ view.project.name}}</span>
+    </div>
+    <!-- <div class="heading-content">
+        <span class="heading">Workbook Path:</span>
+        <span class="content"> {{ view.project.prPath || "-" }}</span>
+      </div> -->
+    <div class="heading-content">
+      <span class="heading">Workbook:</span>
+      <span class="content"> {{ view.workbook.name || "-" }}</span>
+    </div>
+    <!-- @if (!isObjectEmpty(view.tags)) {
+    <div class="heading-content">
+      <span class="heading">Tags:</span>
+      <span class="content"> {{ getTagData(view.tags.tag) }}</span>
+    </div>
+    } -->
+    <!-- @if(view.description){
+        <div class="heading-content">
+          <span class="heading">Description</span>
+          <span class="content"> {{ view.description || "-" }}</span>
+        </div>
+      } -->
+    <!-- <div class="heading-content">
+        <span class="heading">Created Date:</span>
+        <span class="content"> {{ view.createdAt | date: defaultDateFormat || "-" }}</span>
+      </div>
+      <div class="heading-content">
+        <span class="heading">Updated Date:</span>
+        <span class="content"> {{ view.updatedAt | date: defaultDateFormat || "-" }}</span>
+      </div> -->
+  </div>
+</ng-template>

@@ -1,0 +1,34 @@
+
+.font-large{
+
+/**************font size variables **************/
+
+--fs-primary: calc(32px + #{$font-changer});
+--fs-secondary: calc(28px + #{$font-changer});
+--fs-tertiary: calc(24px + #{$font-changer});
+--fs-forth: calc(20px + #{$font-changer});
+--fs-xxl: calc(18px + #{$font-changer});
+--fs-xl: calc(16px + #{$font-changer});
+--fs-large: calc(14px + #{$font-changer});
+--fs-medium: calc(13px + #{$font-changer});
+--fs-small: calc(12px + #{$font-changer});
+
+/**************line height variables **************/
+
+--lh-primary: calc(42px + #{$line-height-changer});
+--lh-secondary: calc(30px + #{$line-height-changer});
+--lh-tertiary: calc(26px + #{$line-height-changer});
+--lh-forth: calc(24px + #{$line-height-changer});
+--lh-xxl: calc(22px + #{$line-height-changer});
+--lh-xl: calc(20px + #{$line-height-changer});
+--lh-large: calc(18px + #{$line-height-changer});
+--lh-medium: calc(16px + #{$line-height-changer});
+--lh-small: calc(14px + #{$line-height-changer});
+/**************font weight variables **************/
+--font-light: calc(300 + #{$font-weight-changer});
+--font-regular: calc(400 + #{$font-weight-changer});
+--font-medium: calc(500 + #{$font-weight-changer});
+--font-bold: calc(600 + #{$font-weight-changer});
+--font-bolder: calc(700 + #{$font-weight-changer});
+--font-extra-bold: calc(800 + #{$font-weight-changer});
+}

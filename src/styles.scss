@@ -1,1 +1,477 @@
-/* You can add global styles to this file, and also import other style files */
+@import "./assets/style/App.scss";
+
+* {
+  font-family: "Roboto", sans-serif;
+  user-select: none;
+}
+@font-face {
+  font-family: "icomoon";
+  src:
+  url("./assets/fonts/icomoon.woff") format("woff"),
+  url("./assets/fonts/icomoon.ttf") format("svg"),
+  url("./assets/fonts/icomoon.svg") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+[class^="icon-"],
+[class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: "icomoon" !important;
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  font-size: 14px;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-x-circle:before {
+  content: "\e967";
+  color: #878a8c;
+}
+
+.icon-check-circle:before {
+  content: "\e966";
+  color: #fff;
+}
+.icon-signout:before {
+  content: "\e95d";
+  color: #344563;
+}
+.icon-Vector-Stroke-21:before {
+  content: "\e95c";
+  color: var(--icon-color-secondary);
+}
+.icon-left:before {
+  content: "\e95a";
+  color: var(--icon-color-secondary);
+}
+.icon-right:before {
+  content: "\e95b";
+  color: #e9e9e9;
+}
+.icon-start-vector:before {
+  content: "\e956";
+  color: var(--icon-color-secondary);
+}
+.icon-home1:before {
+  content: "\e957";
+  color: var(--icon-color-secondary);
+}
+.icon-userpng:before {
+  content: "\e958";
+  color: var(--icon-color-secondary);
+}
+.icon-Paper:before {
+  content: "\e952";
+  color: #089137;
+}
+.icon-Close-Square:before {
+  content: "\e953";
+  color: #d72300;
+}
+.icon-timers:before {
+  content: "\e954";
+  color: #fbad15;
+}
+.icon-Time-Circle:before {
+  content: "\e955";
+  color: #007db7;
+}
+.icon-Vector-Stroke-15:before {
+  content: "\e94b";
+  color: var(--primary-text-color);
+}
+.icon-Vector-Stroke1:before {
+  content: "\e94d";
+  color: var(--icon-color-secondary);
+}
+.icon-bothdirarr:before {
+  content: "\e94e";
+  color: var(--icon-color-secondary);
+}
+.icon-moon:before {
+  content: "\e950";
+  color: var(--icon-color);
+}
+.icon-Vector-9:before {
+  content: "\e94f";
+  color: var(--icon-color-secondary);
+}
+.icon-users-01:before {
+  content: "\e95f";
+  color: var(--icon-color-secondary);
+}
+.icon-shopping-cart-02:before {
+  content: "\e960";
+  color: var(--icon-color-secondary);
+}
+.icon-settings-02:before {
+  content: "\e961";
+  color: var(--icon-color-secondary);
+}
+.icon-Graph:before {
+  content: "\e962";
+}
+.icon-Frame-2609065:before {
+  content: "\e963";
+  color: var(--icon-color-secondary);
+}
+.icon-clock-rewind:before {
+  content: "\e964";
+  color: var(--icon-color-secondary);
+}
+.icon-bank:before {
+  content: "\e965";
+  color: var(--icon-color-secondary);
+}
+.icon-paint:before {
+  content: "\e95e";
+  color: var(--icon-color);
+}
+.icon-sun2:before {
+  content: "\e951";
+  color: var(--icon-color);
+}
+.icon-print:before {
+  content: "\e907";
+  color: var(--icon-color-secondary);
+}
+.icon-watch:before {
+  content: "\e959";
+  color: var(--icon-color-secondary);
+}
+.icon-x:before {
+  content: "\e916";
+  color: var(--icon-color-secondary);
+}
+.icon-Vector-8:before {
+  content: "\e917";
+  color: var(--primary-color);
+}
+.icon-threedots:before {
+  content: "\e918";
+  color: var(--icon-color);
+  font-size: 16px;
+}
+.icon-search:before {
+  content: "\e919";
+  color: var(--icon-color);
+}
+.icon-rightarrow:before {
+  content: "\e92f";
+  color: var(--icon-color);
+  font-size: var(--fs-xxl);
+  font-weight: var(--font-bold);
+}
+.icon-refresh:before {
+  content: "\e936";
+  color: var(--icon-color);
+}
+.icon-plus:before {
+  content: "\e946";
+  color: #fff;
+}
+.icon-leftarrow:before {
+  content: "\e947";
+  color: var(--icon-color);
+}
+.icon-expand-01:before {
+  content: "\e948";
+  color: var(--icon-color-secondary);
+}
+.icon-edit:before {
+  content: "\e949";
+  color: #258750;
+}
+.icon-delete:before {
+  content: "\e94a";
+  color: #d83a52;
+}
+.icon-alert-circle:before {
+  content: "\e94c";
+  color: var(--icon-color-secondary);
+}
+.icon-Vector-Stroke-14:before {
+  content: "\e900";
+  color: #53585b;
+}
+.icon-Vector-Stroke-13:before {
+  content: "\e901";
+  color: #53585b;
+}
+.icon-Vector-Stroke-12:before {
+  content: "\e903";
+  color: #344563;
+}
+.icon-Vector-Stroke-11:before {
+  content: "\e904";
+  color: #344563;
+}
+.icon-Vector-Stroke-10:before {
+  content: "\e905";
+  color: #344563;
+}
+.icon-Vector-Stroke-9:before {
+  content: "\e906";
+  color: #344563;
+}
+.icon-Vector-Stroke-7:before {
+  content: "\e90b";
+  color: #53585b;
+}
+.icon-Vector-Stroke-6:before {
+  content: "\e90c";
+  color: #344563;
+}
+.icon-Vector-Stroke-5:before {
+  content: "\e90d";
+  color: #344563;
+}
+.icon-Vector-Stroke-4:before {
+  content: "\e90e";
+}
+.icon-Vector-Stroke-3:before {
+  content: "\e90f";
+  color: #344563;
+}
+.icon-Vector-Stroke-2:before {
+  content: "\e910";
+  color: #344563;
+}
+.icon-Vector-Stroke-1:before {
+  content: "\e911";
+  color: #344563;
+}
+.icon-Vector-Stroke2:before {
+  content: "\e912";
+  color: #344563;
+}
+.icon-Vector-Stroke:before {
+  content: "\e913";
+  color: var(--icon-color-secondary);
+}
+.icon-Vector-13:before {
+  content: "\e914";
+  color: #344563;
+}
+.icon-Vector-12:before {
+  content: "\e915";
+  color: #6c6b7f;
+}
+.icon-Vector-7:before {
+  content: "\e91a";
+  color: var(--icon-color-secondary);
+}
+.icon-Vector-6:before {
+  content: "\e91b";
+  color: var(--icon-color-secondary);
+}
+.icon-Vector-5:before {
+  content: "\e91c";
+  color: var(--icon-color-secondary);
+}
+.icon-Vector-4:before {
+  content: "\e91d";
+  color: #53585b;
+}
+.icon-Vector-31:before {
+  content: "\e91e";
+  color: var(--icon-color-secondary);
+}
+.icon-Vector-2:before {
+  content: "\e91f";
+  color: var(--icon-color-secondary);
+}
+.icon-Vector-1:before {
+  content: "\e920";
+  color: var(--icon-color-secondary);
+}
+.icon-Vector:before {
+  content: "\e921";
+  color: var(--icon-color) !important;
+}
+.icon-microsoft-excel-icon1-1 .path1:before {
+  content: "\e922";
+  color: rgb(24, 92, 55);
+}
+.icon-microsoft-excel-icon1-1 .path2:before {
+  content: "\e923";
+  margin-left: -1em;
+  color: rgb(33, 163, 102);
+}
+.icon-microsoft-excel-icon1-1 .path3:before {
+  content: "\e924";
+  margin-left: -1em;
+  color: rgb(16, 124, 65);
+}
+.icon-microsoft-excel-icon1-1 .path4:before {
+  content: "\e925";
+  margin-left: -1em;
+  color: rgb(0, 0, 0);
+  opacity: 0.1;
+}
+.icon-microsoft-excel-icon1-1 .path5:before {
+  content: "\e926";
+  margin-left: -1em;
+  color: rgb(0, 0, 0);
+  opacity: 0.2;
+}
+.icon-microsoft-excel-icon1-1 .path6:before {
+  content: "\e928";
+  margin-left: -1em;
+  color: rgb(0, 0, 0);
+  opacity: 0.2;
+}
+.icon-microsoft-excel-icon1-1 .path7:before {
+  content: "\e929";
+  margin-left: -1em;
+  color: rgb(0, 0, 0);
+  opacity: 0.2;
+}
+.icon-microsoft-excel-icon1-1 .path8:before {
+  content: "\e92a";
+  margin-left: -1em;
+  color: rgb(0, 0, 0);
+}
+.icon-microsoft-excel-icon1-1 .path9:before {
+  content: "\e92b";
+  margin-left: -1em;
+  color: rgb(255, 255, 255);
+}
+.icon-microsoft-excel-icon1-1 .path10:before {
+  content: "\e92c";
+  margin-left: -1em;
+  color: rgb(51, 196, 129);
+}
+.icon-microsoft-excel-icon1-1 .path11:before {
+  content: "\e92d";
+  margin-left: -1em;
+  color: rgb(16, 124, 65);
+}
+.icon-Icon-Stroke-10:before {
+  content: "\e92e";
+  color: #344563;
+}
+.icon-Icon-Stroke-7:before {
+  content: "\e930";
+  color: var(--icon-color-secondary);
+}
+.icon-Icon-Stroke-6:before {
+  content: "\e931";
+  color: var(--icon-color-secondary);
+}
+.icon-Icon-Stroke-5:before {
+  content: "\e932";
+  color: var(--icon-color-secondary);
+}
+.icon-Icon-Stroke-4:before {
+  content: "\e933";
+  color: var(--icon-color-secondary);
+}
+.icon-Icon-Stroke-3:before {
+  content: "\e934";
+  color: var(--icon-color-secondary);
+}
+.icon-Icon-Stroke-2:before {
+  content: "\e935";
+  color: #fff;
+}
+.icon-Icon-Stroke1:before {
+  content: "\e937";
+}
+.icon-home:before {
+  content: "\e938";
+  color: #344563;
+}
+.icon-Frame-2610516:before {
+  content: "\e939";
+  color: var(--icon-color-secondary);
+}
+.icon-Frame-2609432 .path1:before {
+  content: "\e93a";
+  color: rgb(220, 223, 236);
+}
+.icon-Frame-2609432 .path2:before {
+  content: "\e93b";
+  margin-left: -0.8935546875em;
+  color: rgb(163, 173, 186);
+}
+.icon-Frame-2609432 .path3:before {
+  content: "\e93c";
+  margin-left: -0.8935546875em;
+  color: rgb(50, 50, 56);
+}
+.icon-Frame-2609432 .path4:before {
+  content: "\e93d";
+  margin-left: -0.8935546875em;
+  color: rgb(255, 255, 255);
+}
+.icon-Frame-2609432 .path5:before {
+  content: "\e93e";
+  margin-left: -0.8935546875em;
+  color: rgb(255, 255, 255);
+}
+.icon-filter-lines:before {
+  content: "\e93f";
+  color: var(--icon-color-secondary);
+}
+.icon-filter-funnel-01:before {
+  content: "\e940";
+  color: var(--icon-color-secondary);
+}
+.icon-expand-01-1:before {
+  content: "\e941";
+  color: var(--icon-color-secondary);
+}
+.icon-dotpoints-01:before {
+  content: "\e942";
+  color: var(--icon-color-secondary);
+}
+.icon-circle:before {
+  content: "\e943";
+  color: #344563;
+}
+.icon-chevron-left:before {
+  content: "\e944";
+  color: var(--icon-color-secondary);
+}
+.icon-arrow-narrow-down:before {
+  content: "\e945";
+  color: var(--icon-color-secondary);
+}
+.icon-Icon-Stroke:before {
+  content: "\e927";
+}
+.icon-Frame:before {
+  content: "\e908";
+}
+.icon-Frame-1:before {
+  content: "\e909";
+  color: var(--icon-color-secondary);
+}
+.icon-Frame-2:before {
+  content: "\e90a";
+  color: var(--icon-color-secondary);
+}
+.icon-Vector-3:before {
+  content: "\e902";
+  color: var(--icon-color-secondary);
+}
+.icon-threedots:before {
+  content: "\e918";
+  color: var(--icon-color-secondary);
+}
+
+html,
+body {
+  height: 100% !important;
+  background-color: var(--grey-background-color) !important;
+}

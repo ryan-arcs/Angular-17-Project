@@ -1,0 +1,145 @@
+.layout-grid {
+  display: flex;
+  border-top: 1px solid var(--main-border-top-color);
+  background-color: var(--primary-background-color);
+  // grid-template-columns: 1fr 0fr 5fr;
+  .main{
+    position: absolute;
+    right: 0;
+    transition: all 0.3s ease;
+    border-top: 1px solid var(--primary-background-color);
+    border-left: 1px solid var(--primary-background-color);
+    background-color: var(--primary-background-color) !important;
+  }
+
+  .left-sidebar-panel {
+    @media screen and (max-width: 992px) {
+      position: absolute;
+      z-index: 50;
+      width: 100% !important;
+    }
+    .left-sidebar{
+      background-color: var(--rt-left-sidebar-bg-color);
+    }
+
+    transition:
+      transform 0.3s ease-in-out,
+      opacity 0.3s ease-in-out,
+      width 0.3s ease-in-out; /* Transition for transform and opacity */
+    transform: translateX(0);
+    opacity: 1;
+    &.hide {
+      transform: translateX(-100%);
+      overflow: hidden;
+      // animation: slideOutWidth 0.5s ease-in-out forwards;
+      opacity: 0;
+      @keyframes slideOutWidth {
+        from {
+          width: 20%; /* Start width */
+        }
+        to {
+          width: 24px; /* End width */
+        }
+      }
+    }
+    &.show {
+      // animation: slideInWidth 0.5s ease-in-out forwards;
+      @keyframes slideInWidth {
+        from {
+          width: 0; /* Start width */
+        }
+        to {
+          width: 20%; /* End width */
+        }
+      }
+    }
+  }
+}
+
+// .sidebar-toggle-btn{
+//   left: 17.7%;
+// }
+.sidebar-toggle-btn{
+  left: 242px;
+  background-color: var(--btn-bg-color);
+  transition: all 0.3s ease;
+  span{
+    color: var(--icon-color);
+  }
+}
+
+.sidebar-toggle-btn2 {
+  height: 32px;
+  width: 32px;
+  position: absolute;
+  background-color: var(--btn-bg-color);
+  transition: all 0.5s ease;
+  border: none;
+  top: 50%;
+  z-index: 7;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  left: 16px !important;
+  background-color: var(--btn-bg-color);
+
+  span{
+    color: var(--icon-color);
+  }
+
+  span.material-symbols-rounded {
+    font-size: 22px;
+  }
+
+  @media screen and (max-width: 992px) {
+    background-color: var(--btn-bg-color);
+  }
+
+  i {
+    color: black !important;
+    width: 10px !important;
+    height: 10px !important;
+  }
+  &.move {
+  }
+
+  &.slide {
+  }
+}
+
+@keyframes moveAnimation {
+  from {
+    left: 16.4%;
+  }
+  to {
+    left: 0;
+  }
+}
+
+@keyframes slideAnimation {
+  from {
+    left: 0;
+  }
+  to {
+    left: 16.4%;
+  }
+}
+
+@keyframes moveAnimationMobile {
+  from {
+    left: 95%;
+  }
+  to {
+    left: 0;
+  }
+}
+
+@keyframes slideAnimationMobile {
+  from {
+    left: 0;
+  }
+  to {
+    left: 95%;
+  }
+}

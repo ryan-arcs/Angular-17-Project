@@ -1,0 +1,208 @@
+@import "src/assets/style/xapps-design-system/Abstract/_mixins.scss";
+@import "src/assets/style/xapps-design-system/Foundations/_foundation.scss";
+@import "src/assets/style/xapps-design-system/fonts/_medium.scss";
+@import "src/assets/style/xapps-design-system/Foundations/_typography.scss";
+@import "src/assets/style/xapps-design-system/Themes/light/_blue.scss";
+@import "src/assets/style/xapps-design-system/Themes/dark/_blue.scss";
+
+.unordered-list {
+  background-color: var(--primary-background-color);
+  box-shadow: 0 6px 20px 0 #00000033;
+  border-radius: $border-radius-small;
+  padding: $zero-p;
+  margin: $zero-m;
+  @include absolute(40, 0, na, na);
+  z-index: 1;
+
+  &.search-list {
+    padding: $vvs-p;
+
+    .list-item {
+      padding: 6px 4px;
+      height: 28px;
+
+      &:not(:last-child) {
+        border-bottom: none;
+      }
+    }
+  }
+
+  .list-item {
+    @include dimensions(38, 230);
+    padding: $zero-p $small-p;
+    list-style-type: none;
+    border-radius: $border-radius-small;
+    @include flex-box(na, na, na, na, 8);
+
+    p {
+      @include typography(var(--fs-medium),
+        na,
+        var(--font-medium),
+        var(--primary-text-color));
+    }
+
+    &:first-child {
+      &:focus {
+        background-color: transparent;
+      }
+
+      &.active {
+        background-color: transparent;
+      }
+    }
+
+    &:not(:last-child) {
+      border-bottom: $border-thin solid var(--layout-border-color);
+    }
+
+    &.active {
+      background-color: var(--primary-selected-color) !important;
+
+      &:hover {
+        background-color: var(--primary-selected-hover-color);
+      }
+
+      .large {
+        color: var(--primary-color);
+      }
+
+      .d-btn {
+        span {
+          &::before {
+            color: var(--icon-active-color);
+          }
+        }
+      }
+
+      // button {
+      //     span {
+      //         &::before {
+      //             color: var(--primary-color) !important;
+      //         }
+      //     }
+      // }
+    }
+  }
+
+  &.profile_edit {
+    @include flex-box(column, start, start, na, 8);
+    padding: $vvs-p;
+
+    .line {
+      height: 1px;
+      width: 100%;
+      background-color: var(--layout-border-color);
+    }
+
+    .large {
+      @include typography(var(--fs-medium),
+        var(--fs-xl),
+        var(--font-medium),
+        var(--primary-text-color));
+    }
+
+    .light-dark-div{
+      @include flex-box(column, start, center, na, 4);
+
+    }
+    .common-list {
+      border-bottom: none !important;
+      height: auto;
+      @include flex-box(na, start, center, na, 8);
+      padding: $zero-p $vs-p;
+      border-radius: $border-radius-small !important;
+
+      // .d-btn {
+      //   background-color: transparent;
+
+      //   &:hover {
+      //     background-color: transparent;
+      //   }
+      // }
+
+      .btn-icon {
+        @include typography(var(--fs-tertiary), na,na, var(--icon-color));
+      }
+
+      .user-info {
+        @include flex-box(column, start, start, na, na);
+
+        .large {
+          @include typography(var(--fs-medium),
+            var(--fs-xl),
+            var(--font-medium),
+            na);
+          color: var(--primary-text-color);
+        }
+
+        .small {
+          @include typography(var(--fs-small),
+            var(--lh-xl),
+            var(--font-regular),
+            var(--secondary-text-color));
+        }
+      }
+
+      .large {
+        @include typography(var(--fs-medium),
+          var(--fs-xl),
+          var(--font-medium),
+          var(--secondary-text-color));
+      }
+
+      span {
+        &::before {
+          color: var(--icon-color-secondary);
+        }
+      }
+
+      &:hover {
+        border-radius: $border-radius-small;
+        background-color: var(--primary-background-hover-color);
+
+        span {
+          &::before {
+            color: var(--icon-active-color);
+          }
+        }
+
+        .btn-icon {
+          color: var(--icon-active-color);
+        }
+
+        p {
+          color: var(--primary-text-color);
+        }
+      }
+
+      &.profile-info {
+        height: 32px;
+        padding: 0;
+
+        .d-btn--circle {
+          background-color: var(--avatar_bg_3) !important;
+
+          &:hover {
+            background-color: var(--avatar_bg_3) !important;
+          }
+
+          &.active {
+            background-color: var(--avatar_bg_3);
+          }
+        }
+
+        &:hover {
+          background-color: transparent;
+        }
+
+        &.active {
+          background-color: transparent;
+        }
+
+        &:focus {
+          background-color: transparent;
+        }
+      }
+    }
+  }
+}

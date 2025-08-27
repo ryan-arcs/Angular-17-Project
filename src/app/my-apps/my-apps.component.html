@@ -1,0 +1,44 @@
+<div class="subheader-container">
+  <div class="top-container ">
+    <div class="heading _w-full _tx-center">
+      <h2>My Apps</h2>
+    </div>
+    <div class="right">
+      <div class="search-bar search-bar--rounded">
+        <span class="material-symbols-outlined btn-icon">
+          search
+        </span>
+        <form>
+          <input type="text" formControlName="filter" placeholder="Search here..."
+            title="This search will be performed on all displayed and hidden columns. "
+            (input)="onSearchFilter($event)" />
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="apps-outer" [class.no-data]="info.length">
+  @if (filteredApps.length) {
+  <ul>
+    @for (app of filteredApps; track $index) {
+    <li (click)="navigateToApps(app)">
+      <div class="slider"></div>
+      <div class="ao-logo">
+        <img [src]="'assets/images/' + app.logo" alt="" />
+      </div>
+      <div class="ao-content">
+        <p class="caption bold">{{ app.name}}</p>
+      </div>
+    </li>
+    }
+  </ul>
+  }
+  @if (info.length) {
+  <app-no-data-found [message]="info" [showQuotes]="true" class="no-data-info"></app-no-data-found>
+  }
+</div>
+
+<!-- <button class="review-btn" [routerLink]="'/reviews'">
+    <img src="assets/images/reviews-icon.svg" alt="" />
+    <span>Reviews</span>
+  </button> -->

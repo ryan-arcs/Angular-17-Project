@@ -1,0 +1,188 @@
+<ng-template #actionRow let-row="row" let-value="value" let-i="index">
+  <span class="action-row">
+    <span> - </span>
+  </span>
+</ng-template>
+
+<ng-template #detailsStatusMsgTemplate let-row="row" let-value="value">
+  <div class="sell-outer">
+    <div class="circul-status" [style.background-color]="
+        getColorForStatusCode(row?.details_status_message)
+      "></div>
+    <span class="top-1">{{ row.details_status_message }}</span>
+  </div>
+</ng-template>
+
+<ng-template #statusMsgTemplate let-row="row" let-value="value">
+  <div class="sell-outer">
+    <div class="circul-status" [style.background-color]="getColorForStatusCode(row?.status_message)"></div>
+    <span class="top-1">{{ row.status_message }}</span>
+  </div>
+</ng-template>
+
+<ng-template #payloadTemplate let-row="row" let-value="value">
+  <div class="sell-outer" (click)="onCellClicked(value)">
+    <span class="top-1">{{ value }}</span>
+  </div>
+</ng-template>
+
+<ng-template #dateTemplate let-value="value">
+  <span>{{ value | date: defaultDateFormat }}</span>
+</ng-template>
+
+<div class="breadcrumbs-outer">
+  <ul>
+    <li>
+      <a (click)="navigateToApplications()" class="label medium"> Projects </a>
+    </li>
+    <li><span>/</span></li>
+    <li class="label medium">Dashboard</li>
+  </ul>
+</div>
+
+<div class="application-container">
+  <div class="application-container-inner">
+    <div class="subheader-container">
+      <div class="top-container">
+        <div class="heading">
+          <button class="d-btn d-btn--circle sm white-bg-circle _cp" (click)="navigateToApplications()">
+            <span class="res-menu-btn-hide back-button icon-leftarrow icon--sm"></span>
+          </button>
+          <div class="application-text">
+            <h2>Dashboard</h2>
+            <p class="small mobile">{{ applicationName }}</p>
+          </div>
+        </div>
+        <div class="right right-panel">
+          <div class="listing-page-buttons">
+            <div ngbDropdown class="d-inline-block nav-dropdown">
+              <button type="button" class="d-btn d-btn--secondary sm tooltip-btn" id="dropdownBasic1"
+                title="Change Duration" ngbDropdownToggle placement="start">
+                <span class="material-symbols-rounded btn-icon">avg_pace</span>
+                <p class="">
+                  Duration: {{ selectedMonth }}
+                </p>
+              </button>
+              <div class="dropdown-menu" ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                @for (option of durationOptions; track $index) {
+                <button ngbDropdownItem (click)="filterChartData(option)">
+                  {{ option.option }}
+                </button>
+                }
+              </div>
+            </div>
+            <button class="d-btn d-btn--secondary sm tooltip-btn" (click)="refreshData()" placement="start"
+              [ngbTooltip]="isMobileScreen() ? 'Refresh' : ''" [disabled]="isGridLoading || isChartLoading"
+              triggers="hover">
+              <span class="material-symbols-rounded btn-icon">refresh</span>
+              <p class="">Refresh</p>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="chart-container">
+      <div class="chart-outer-pie res-margin-top" *ngIf="options?.length > 1">
+        <h5>Interface Status</h5>
+        <div class="chart donut">
+          @if (isChartLoading) {
+          <app-loader></app-loader>
+          } @else {
+          @if (dashboardChartData?.length) {
+          <ag-charts-angular [options]="options[1]"
+            style="width: 100%; height: 350px; display: block"></ag-charts-angular>
+          } @else {
+          <app-error [showQuotes]="false" class="error-block"></app-error>
+          }
+          }
+        </div>
+      </div>
+
+      <div class="chart-outer-bar" *ngIf="options?.length > 0">
+        <h5>Error Success Rate Monthly</h5>
+        <div class="chart bar">
+          @if (isChartLoading) {
+          <app-loader></app-loader>
+          } @else {
+          @if (dashboardChartData?.length) {
+          <ag-charts-angular [options]="options[0]"
+            style="width: 100%; height: 350px; display: block"></ag-charts-angular>
+          } @else {
+          <app-error [showQuotes]="false" class="error-block"></app-error>
+          }
+          }
+        </div>
+      </div>
+    </div>
+    
+    <div class="subheader-container">
+      <div class="top-container">
+        <h2>Execution Logs</h2>
+        <div class="right right-panel">
+          <form class="search-label-form" [formGroup]="searchForm" (ngSubmit)="shootSearch()">
+            <label for="includePayload" class="duplicatelogs-label">
+
+              <div class="custom-checkbox checkbox-vs">
+                <input id="includePayload" type="checkbox" formControlName="includePayload"
+                  (change)="getPayloadData($event)" />
+                <div class="checkbox-box">
+                  <div class="checkmark"></div>
+                </div>
+              </div>
+              Include Payload
+            </label>
+
+            <!-- <div class="search-bar search-bar--rounded"  >
+              <span class="material-symbols-outlined btn-icon">
+search
+</span>
+              <input type="text" formControlName="filter" placeholder="Search here..."
+                title="This search will be performed on all displayed and hidden columns." />
+            </div> -->
+
+            <div class="search-n-btn">
+              <div class="search-bar search-bar--rounded">
+                <span class="material-symbols-outlined btn-icon">
+                  search
+                </span>
+                <div class="search-outer">
+                  <input type="text" formControlName="filter" placeholder="Search here..."
+                    title="This search will be performed on all displayed and hidden columns." />
+                  <button class="d-btn d-btn--primary sm search-btn" type="submit">Search</button>
+                </div>
+              </div>
+            </div>
+
+          </form>
+          @if (searchString || columnFilters.length) {
+          <div class="sh-btns ml-vvs">
+            <button (click)="clearFilters()" class="d-btn d-btn--secondary sm" type="button">
+              <span class="material-symbols-rounded btn-icon">filter_list_off</span>
+              <p class="ml-vvs">Clear Filter</p>
+            </button>
+          </div>
+          }
+        </div>
+      </div>
+    </div>
+    <div class="content-wrapper">
+      @if (!isGridLoading) {
+      <div class="panel-and-table">
+        <div class="logs-container logs-cell-padding inner-pages-footer">
+          <!-- [footerHeight]="0"  -->
+          <app-data-grid [gridName]="'iapp-grid'" [gridColumns]="columns" [gridRows]="dashboardGridData"
+            [pagination]="pagination" [columnFilters]="columnFilters" [pageSizes]="paginationPageSizeSelector"
+            [selectedPageSize]="defaultSize" [gridSorts]="gridSort.prop ? [gridSort] : []" [errorMessage]="errorMessage"
+            (onGridSort)="onSort($event)" (onGridPageSizeChange)="onGridPageSizeChange($event)"
+            (onGridPageChange)="onGridPageChange($event)" (onColumnFilterChange)="onColumnFilterChange($event)"
+            [enableInlineSearch]="true"></app-data-grid>
+        </div>
+      </div>
+      } @else {
+      <div class="ag-grid-outer">
+        <app-loader></app-loader>
+      </div>
+      }
+    </div>
+  </div>
+</div>

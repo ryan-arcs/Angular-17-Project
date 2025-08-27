@@ -1,0 +1,418 @@
+// .modal-backdrop{
+//     opacity: 0.8 !important;
+// }
+
+// quick view modal css
+
+::ng-deep .modal-content {
+  border-radius: 20px !important;
+  overflow: hidden;
+}
+.modal-dialog-quick-view {
+  width: 100vw;
+
+  .modal-dialog {
+    margin: 0 $xxxl-m;
+    width: 100vw;
+    height: 100vh;
+
+    @include max-width(576) {
+      width: calc(100vw - 96px);
+    }
+
+    .modal-content {
+      width: 100vw;
+      border-radius: 20px;
+      box-shadow: 0px -2px 23px #b1a5a5;
+      height: calc(100vh - ($xxxl-m*2));
+
+      app-view-modal {
+        width: calc(100vw - ($xxxl-m*2));
+        height: calc(100vh - ($xxxl-m*2));
+        margin: 0;
+
+        .modal-body {
+          height: 100%;
+
+          .executive-container {
+            height: 100%;
+
+            tableau-viz {
+              height: 100%;
+
+              iframe {
+                height: 100%;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.mwl {
+  z-index: 9 !important;
+
+  .modal-dialog {
+    .modal-content {
+
+      border-radius: $border-radius-large !important;
+
+      // box-shadow: 0px 8px 8px -4px rgba(16, 24, 40, 0.03),
+
+      //   0px 20px 24px -4px rgba(16, 24, 40, 0.08);
+
+    }
+  }
+}
+
+
+
+
+
+
+// common modal contatainer css
+.modal-content {
+  border-radius: $border-radius-small;
+  background-color: var(--secondary-background-color);
+  box-shadow: var(--box-shadow-medium);
+  position: relative;
+
+
+  // download css and other small popups css
+  .write-popup {
+    width: 100%;
+    // border-radius: $border-radius-large !im;
+    background-color: var(--secondary-background-color);
+    box-shadow: 0px 3px 8px 0px var(--primary-background-color) !important;
+
+    .popup-header {
+      width: 100%;
+      border-top-right-radius: $border-radius-small;
+      border-top-left-radius: $border-radius-small;
+      background-color: var(--secondary-background-color);
+      @include flex-box(na, space-between, center, na, 20);
+      padding: $vs-p;
+
+      h3 {
+        font-weight: var(--font-bold) !important;
+      }
+
+      .cross-btn {
+        border-radius: $border-radius-small;
+        cursor: pointer;
+        border: none;
+        outline: none;
+        @include dimensions(26, 26);
+        @include flex-box(na, center, center, na, 16);
+        @include absolute(na, 16, na, na);
+
+      }
+    }
+
+    .popup-body {
+      padding: $vs-p;
+      padding-top: $large-p;
+      min-height: 128px;
+      background-color: var(--primary-background-color);
+      position: relative;
+      @include flex-box(column, center, start, na, 24);
+
+      .require-label {
+        @include typography(var(--fs-small), na, var(--font-medium), var(--secondary-text-color) !important);
+        text-align: end !important;
+        width: 100%;
+        @include absolute(4, 16, na, na);
+
+        .required {
+          color: var(--negative-color);
+        }
+
+      }
+
+      .download-image {
+        @include flex-box(na, center, center, na, na);
+        width: 100%;
+      }
+
+      &.text-container {
+        padding: $small-p;
+
+        .text-container-only {
+          @include flex-box(column, center, start, na, 8);
+          width: 100%;
+
+          .app-name {
+            @include typography(var(--fs-xl), na, var(--font-bold), var(--primary-text-color));
+          }
+
+          .popup-text {
+            @include typography(var(--fs-large), na, var(--font-medium), var(--secondary-text-color) !important);
+
+            .message-header {
+              font-weight: var(--font-bolder);
+            }
+          }
+        }
+      }
+
+
+
+
+      .outer-box {
+        width: 100%;
+      }
+
+      h5 {
+        font-weight: var(--font-bold);
+      }
+
+      .x-large {
+        width: 100%;
+      }
+
+      .report-text {
+        @include typography(var(--fs-large), na, var(--font-medium), var(--secondary-text-color) !important);
+      }
+
+      p.error-message {
+        color: var(--negative-color) !important;
+      }
+
+      .outer-button {
+        width: 100%;
+        @include flex-box(na, end, center, na, 12);
+
+        button {
+
+          // span {
+          //   &::before {
+          //     color: #ffffff;
+          //   }
+          // }
+        }
+
+      }
+
+
+      form {
+        width: 100%;
+        @include flex-box(column, center, center, na, 24);
+
+
+        .outer-box {
+          width: 100%;
+          @include flex-box(column, center, center, na, 24);
+
+          .inner-box {
+            width: 100%;
+
+            .only-feilds {
+              .input-wrapper {
+                textarea {
+                  height: 243px;
+                  position: relative;
+                  width: 100%;
+                }
+              }
+
+              .input-feild-columns {
+                width: 100%;
+              }
+            }
+          }
+
+          .outer-button {
+            @include flex-box(na, end, center, na, na);
+            width: 100%;
+
+            button {
+              span {
+                &::before {
+                  color: #ffffff;
+                }
+              }
+            }
+
+          }
+        }
+
+
+      }
+    }
+  }
+
+
+  // logs modal csss
+  .logs-modal {
+    width: 100%;
+    border-radius: $border-radius-large;
+    background-color: var(--primary-background-color);
+    position: relative;
+
+    .modal-header {
+      width: 100%;
+      background-color: var(--secondary-background-color);
+      @include flex-box(na, space-between, center, na, 20);
+      padding: 12px;
+
+      h2 {
+        font-size: var(--fs-forth) !important;
+      }
+
+      .right-cross-check {
+        @include flex-box(na, end, center, na, 16);
+
+        .duplicatelogs-label {
+          .custom-checkbox {
+            padding: 0;
+
+            .checkbox-box {
+              border: 1px solid var(--ui-border-color);
+              background-color: var(--primary-background-color);
+            }
+
+            input[type=checkbox]:checked~.checkbox-box {
+              border-color: var(--primary-color);
+              background-color: var(--primary-color);
+            }
+
+          }
+        }
+      }
+
+      .cross-btn {
+        cursor: pointer;
+        border: none;
+        padding: $vvvs-p;
+        outline: none;
+        @include flex-box(na, center, center, na, 16);
+
+        &:hover {
+          background-color: var(--primary-background-hover-color) !important;
+        }
+      }
+    }
+
+
+    .modal-body {
+
+      padding: $large-p;
+    }
+
+  }
+}
+
+
+.logs-calender-popup,
+.date-filter {
+  .modal-dialog {
+    width: 435px;
+
+    @media screen and (max-width: 495px) {
+      width: 360px;
+    }
+
+    .modal-content {
+      width: 435px;
+      background-color: var(--secondary-background-color);
+
+      @media screen and (max-width: 495px) {
+        width: 360px;
+      }
+
+      .modal-header {
+        background-color: var(--secondary-background-color) !important;
+        border-bottom: $border-thin solid var(--layout-border-color) !important;
+        padding: $vvs-p $vvs-p $vvs-p $small-p !important;
+        @include flex-box(row, space-between, center, na, 8);
+
+        .mh-inner {
+          h2 {
+            color: var(--primary-text-color);
+          }
+        }
+      }
+
+      .modal-body {
+        padding: $small-p;
+        height: calc(100vh - 49px);
+        bottom: 0;
+        overflow-y: auto;
+        width: 100%;
+        background-color: var(--primary-background-color);
+
+        .sh-search {
+          .filter-logs-sidebar-outer {
+            .lfs-btns {
+              margin-bottom: $small-m;
+            }
+
+            form {}
+          }
+        }
+      }
+    }
+  }
+}
+
+.payload-data-popup-iapp {
+  .modal-dialog {
+    .modal-content {
+      background-color: var(--secondary-background-color);
+
+      .modal-header {
+        background-color: var(--secondary-background-color) !important;
+        border-bottom: $border-thin solid var(--layout-border-color) !important;
+        padding: $vvs-p $vvs-p $vvs-p $small-p !important;
+        @include flex-box(row, space-between, center, na, 8);
+
+        button {
+          span {
+            color: var(--icon-color-secondary);
+          }
+        }
+
+        .payload-header {
+          width: 100%;
+          @include flex-box(row, space-between, center, na, 12);
+        }
+
+        .mh-inner {
+          h2 {
+            color: var(--primary-text-color);
+          }
+        }
+      }
+
+      .payload-content {
+        height: calc(100vh - 49px);
+        padding: $small-p;
+        word-break: break-word;
+        background-color: var(--primary-background-color);
+        overflow: auto;
+        color: var(--primary-text-color);
+      }
+    }
+  }
+}
+
+.duplicatelogs-label {
+  @include flex-box(na, na, center, na, 5);
+
+  .custom-checkbox {
+    padding: 0;
+
+    .checkbox-box {
+      border: 1px solid var(--ui-border-color);
+      background-color: var(--primary-background-color);
+    }
+
+    input[type=checkbox]:checked~.checkbox-box {
+      border-color: var(--primary-color);
+      background-color: var(--primary-color);
+    }
+
+  }
+}

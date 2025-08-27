@@ -1,0 +1,48 @@
+<li>
+  <div class="ao-logo" (click)="viewDetails()">
+    <img [lazyLoadThumbnail]="view" [alt]="view.name" loading="lazy" [src]="view.thumbnail" />
+  </div>
+  <div class="ao-content">
+    <h6 class="view-label">{{ view.name }}</h6>
+    <div class="icons">
+      <ng-template #titleContent>
+        <div class="tooltip-content-wrapper">
+          <div class="heading-content">
+            <span class="heading">Project:</span>
+            <span class="content"> {{ view.project.name}}</span>
+          </div>
+          <!-- <div class="heading-content">
+            <span class="heading">Workbook Path:</span>
+            <span class="content"> {{ view.project.prPath || "-" }}</span>
+          </div> -->
+          <div class="heading-content">
+            <span class="heading">Workbook:</span>
+            <span class="content"> {{ view.workbook.name || "-" }}</span>
+          </div>
+          @if(!isObjectEmpty(view.tags)){
+          <div class="heading-content">
+            <span class="heading">Tags:</span>
+            <span class="content"> {{ getTagData(view.tags.tag)}}</span>
+          </div>
+          }
+          <!-- @if(view.description){
+            <div class="heading-content">
+              <span class="heading">Description</span>
+              <span class="content"> {{ view.description || "-" }}</span>
+            </div>
+          } -->
+          <!-- <div class="heading-content">
+            <span class="heading">Created Date:</span>
+            <span class="content"> {{ view.createdAt | date: defaultDateFormat || "-" }}</span>
+          </div>
+          <div class="heading-content">
+            <span class="heading">Updated Date:</span>
+            <span class="content"> {{ view.updatedAt | date: defaultDateFormat || "-" }}</span>
+          </div> -->
+        </div>
+      </ng-template>
+      <span class="material-symbols-outlined" [ngbTooltip]="titleContent" container="body" placement="start" tooltipClass="tooltip-custom-class"> error </span>
+      <span class="star" [class]='view.isFavorite ? "material-symbols-rounded filled-start" : "material-symbols-outlined"' (click)="toggleFavorite(view)"> star </span>
+    </div>
+  </div>
+</li>

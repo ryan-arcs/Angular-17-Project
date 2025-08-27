@@ -1,0 +1,51 @@
+<div class="deployment-table" [class]="{ toggle: toggleClass }">
+  <div class="sidebar-heading">
+    <p class="heading">Deployments</p>
+    <i
+      class="fa fa-info-circle"
+      (click)="openDeploymentPopup()"
+      aria-hidden="true"
+    ></i>
+  </div>
+  <ul class="listing">
+    @for (item of deploymentTime; track $index) {
+      <li class="day">
+        <div (click)="showAndHide($index)" class="day-icon" [class.day-icon-white]="item.show">
+          <span [class]="item.show ? 'icon-Vector-Stroke-15' : 'icon-Vector-Stroke1'"></span>
+
+          <!-- <span class="icon-Vector-Stroke-15"></span> -->
+          <span class="date">{{ item.date }}</span>
+          <!-- <span class="material-symbols-rounded">
+            {{ item.show ? "keyboard_arrow_up" : "keyboard_arrow_down" }}
+          </span> -->
+        </div>
+        @if (item.show) {
+          <div class="ul-list-padding">
+            <ul>
+              @for (time of item.times; track $index) {
+                <li class="deployment-sub-heading">
+                  <span class="material-symbols-rounded"> schedule </span>
+                  {{ time.time }} - Deployment
+                </li>
+                <ul class="dsh-ul">
+                  @for (instance of time.instances; track $index) {
+                    <li
+                      [className]="
+                        instance.instanceId == selectedInstanceId
+                          ? 'time active'
+                          : 'time'
+                      "
+                      (click)="onSelectingInstanceId(instance.instanceId)"
+                    >
+                      {{ instance.displayName }}
+                    </li>
+                  }
+                </ul>
+              }
+            </ul>
+          </div>
+        }
+      </li>
+    }
+  </ul>
+</div>

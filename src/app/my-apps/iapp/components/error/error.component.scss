@@ -1,0 +1,90 @@
+@import "src/assets/style/xapps-design-system/Abstract/_mixins.scss";
+@import "src/assets/style/xapps-design-system/fonts/_medium.scss";
+@import "src/assets/style/xapps-design-system/Foundations/_foundation.scss";
+
+// .wrapper-no-data {
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   height: 100%;
+
+//   .no-data-avl {
+//     text-align: center;
+//   }
+// }
+
+.wrapper-no-data{
+    @include flex-box(row, center, center, na, na);
+    height: 100%;
+    .no-data-avl{
+        text-align: center;
+        width: 100%;
+        @include flex-box(column, center, center, na, na);
+        height: calc(100vh - 199px);
+        img{
+            width: 150px;
+            vertical-align: middle;
+        }
+        h1{
+          font-size: var(--fs-primary);
+          line-height: var(--lh-primary);
+          @include max-width(1366px){
+            margin-top: $small-p;
+            font-size: var(-fs-tertiary);
+            line-height: var(--lh-forth);
+          }
+        }
+        p{
+          font-size: var(--fs-small);
+          font-weight: var(--font-regualar);
+          line-height: var(--lh-xl);
+        }
+        .motination-outer{
+          width: 100%;
+          .mo-heading{
+            width: 100%;
+            float: left;
+            position: relative;
+            border: $border-thin solid var(--layout-border-color);
+            margin-top: $xxxl-m;
+            .mo-heading-inner{
+              @include absolute(-19, 0, na, 0);
+              width: 175px;
+              margin: auto;
+              h6{
+                width: 100%;
+                border: $border-thin solid var(--layout-border-color);
+                margin: 0;
+                border-radius: 50px;
+                color: var(--secondary-text-color);
+                font-weight: var(--font-regualar);
+                padding: $vvs-p 0;
+                background-color: var(--primary-background-color);
+              }
+            }
+          }
+          .mo-content{
+            width: 100%;
+            float: left;
+            margin-top: $xxxl-m;
+            padding: 0 14%;
+            h3{
+              color: var(--secondary-text-color);
+              font-size: var(--fs-xl);
+              font-weight: 300;
+              line-height: 30px;
+            }
+          }
+          .mo-auth{
+            width: 100%;
+            float: left;
+            h6{
+              color: var(--primary-text-color);
+              font-size: var(--fs-large);
+              font-weight: 700;
+              line-height: 22px;
+            }
+          }
+        }
+    }
+}

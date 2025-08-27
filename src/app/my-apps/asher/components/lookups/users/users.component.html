@@ -1,0 +1,90 @@
+<ng-template #actionRow let-row="row" let-value="value" let-i="index">
+  <span class="action-row">
+    @if (isActionPermitted("details")) {
+    <div ngbDropdown container="body" class="ag-grid-more-outer">
+      <button type="button" class="dropdown-toggle d-btn d-btn--circle vs" id="dropdownBasic1" title="options"
+        ngbDropdownToggle>
+        <span class="material-symbols-rounded more-icon">more_horiz</span>
+      </button>
+      <div class="dropdown-menu" ngbDropdownMenu aria-labelledby="dropdownBasic1">
+        <button ngbDropdownItem class="d-btn d-btn--tertiary sm" (click)="viewDetails(row)">
+          <i style="font-size: 17px; cursor: pointer;line-height:24px;" class="fa fa-eye btn-icon"></i>
+          <p>View Details</p>
+        </button>
+      </div>
+    </div>
+    } @else {
+    <span> - </span>
+    }
+  </span>
+</ng-template>
+
+<ng-template #userTemplate let-row="row" let-value="value">
+  <span (click)="goToUserDetails(row.email)">{{ value || "" }}</span>
+</ng-template>
+
+<ng-template #nameTemplate let-value="value">
+  <span>{{ value || "" }}</span>
+</ng-template>
+
+<ng-template #dateTemplate let-value="value">
+  <span>{{ value | date: defaultDateFormat }}</span>
+</ng-template>
+
+<div class="application-container">
+  <div class="application-container-inner">
+    <div class="subheader-container">
+      <div class="tc-manage-screen">
+        <div class="heading">
+        <h2>Users</h2>
+        </div>
+        <div class="right right-panel">
+          <div class="listing-page-buttons-manage-screen">
+          <div class="search-n-btn">
+            <div class="search-bar search-bar--rounded">
+              <span class="material-symbols-outlined btn-icon">
+                search
+              </span>
+              <form [formGroup]="searchForm" (ngSubmit)="shootSearch()">
+                <div class="search-outer">
+
+                  <input type="text" formControlName="filter" placeholder="Search here..."
+                    title="This search will be performed on all displayed and hidden columns." />
+                  <button class="d-btn d-btn--primary sm search-btn" type="submit">Search</button>
+                </div>
+              </form>
+            </div>
+            </div>
+          </div>
+          <div class="sh-buttons">
+            <div class="btns-res-divider">
+            <button class="d-btn d-btn--secondary sm tooltip-btn" (click)="refreshAsherList()" placement="start"
+              [ngbTooltip]="isMobileScreen() ? 'Refresh' : ''" triggers="hover">
+              <span class="material-symbols-rounded btn-icon">refresh</span>
+              <p class="">Refresh</p>
+            </button>
+            @if (searchTerm || columnFilters.length) {
+            <button class="d-btn d-btn--secondary sm tooltip-btn" (click)="clearFilters()" placement="start"
+              [ngbTooltip]="isMobileScreen() ? 'Clear Filter' : ''">
+              <span class="material-symbols-rounded btn-icon">filter_list_off</span>
+              <p class="">Clear Filter</p>
+            </button>
+            }
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel-and-table">
+    <div class="logs-container logs-cell-padding inner-pages-footer">
+      <app-data-grid [gridName]="gridName" [gridColumns]="columns" [gridRows]="usersList"
+        [actionRowTemplate]="actionRow" [pagination]="pagination" [pageSizes]="paginationPageSizeSelector"
+        [selectedPageSize]="defaultSize" [errorMessage]="errorMessage" [gridSorts]="gridSort.prop ? [gridSort] : []"
+        [columnFilters]="columnFilters" (onGridSort)="onSort($event)"
+        (onGridPageSizeChange)="onGridPageSizeChange($event)" (onGridPageChange)="onGridPageChange($event)"
+        (onColumnFilterChange)="onColumnFilterChange($event)"></app-data-grid>
+    </div>
+  </div>
+</div>

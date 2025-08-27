@@ -1,0 +1,112 @@
+@import "src/assets/style/xapps-design-system/Foundations/_foundation.scss";
+::ng-deep {
+  .sell-outer {
+    display: flex;
+    gap: 10px;
+
+    .circul-in {
+      width: 26px;
+      height: 26px;
+      border-radius: 26px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 500;
+      line-height: 16px;
+      color: #FFFFFF;
+      &.avatar1 {
+      background-color: var(--avatar_bg_1);
+      }
+  
+      &.avatar2 {
+      background-color: var(--avatar_bg_2);
+      }
+  
+      &.avatar3 {
+      background-color: var(--avatar_bg_3);
+      }
+  
+      &.avatar4 {
+      background-color: var(--avatar_bg_4);
+      }
+  
+      &.avatar5 {
+      background-color: var(--avatar_bg_5);
+      }
+  
+      &.avatar6 {
+      background-color: var(--avatar_bg_6);
+      }
+  
+      &.avatar0 {
+      background-color: var(--avatar_bg_7);
+      }
+    }
+    .circul-status {
+      height: 12px;
+      width: 12px;
+      border-radius: 100%;
+
+      &.status-deployed {
+      background-color: var(--primary-color);
+      }
+
+      &.status-started {
+        background-color: var(--positive-color);
+      }
+
+      &.status-undeployed {
+        background-color: var(--warning-color);
+      }
+
+      &.status-deploy-failed {
+        background-color: var(--negative-color);
+      }
+
+      &.status-error {
+        background-color: var(--negative-color);
+      }
+
+      &.status-deploying {
+        background-color: var(--negative-color);
+      }
+
+      &.status-exception {
+        background-color: var(--warning-color);
+      }
+
+      &.status-undeploying {
+        background-color: var(--avatar_bg_3);
+      }
+    }
+  }
+}
+
+.top-container{
+    .right{
+        @media screen and (max-width: 667px) {
+            flex-direction: column;
+            align-items: end !important;
+        }
+        @media screen and (max-width: 580px) {
+            display: unset;
+        }
+        .listing-page-buttons{
+            display: flex;
+            @media screen and (max-width: 580px) {
+                margin-bottom: $vvvs-m;
+                justify-content: end;
+            }
+        }
+        .search-n-btn{
+            display: flex;
+            gap: 8px;
+            .search-bar{
+                @media screen and (max-width: 580px) {
+                    display: flex;
+                }
+            }
+        }
+    }
+}

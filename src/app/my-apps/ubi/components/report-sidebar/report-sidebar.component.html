@@ -1,0 +1,57 @@
+<!-- slider button -->
+<!-- <button style="position: absolute;top: 50%;left: 19%;z-index: 99;" class="d-btn d-btn--circle brown-bg-circle sm left-sidebar-hide-n-show fav-rec-toggle-btn" >
+  <span class="res-menu-btn-hide material-symbols-rounded" (click)="toggleSubPanel()">
+    {{isLeftSliderOpen ? "chevron_left" : "chevron_right" }}
+  </span>
+</button> -->
+
+
+<div class="large-sidebar report-sidebar" [class.sidebar-hide]="!sidebarOpen">
+  <div class="logo" (click)="navigateToHomePage()">
+    <img src="/assets/images/ubi.svg" />
+    <span class="app-title">UBI</span>
+  </div>
+  <div class="search-n-btn">
+    <div class="search-bar search-bar--rounded w-100">
+      <span class="material-symbols-outlined btn-icon">
+        search
+      </span>
+      <input type="text" placeholder="Search here..." [(ngModel)]="searchString" (ngModelChange)="filterProjects()"/>
+    </div>
+  </div>
+
+  <div class="title-n-total-count">
+    <div class="main-content main-content-projects">
+      @for (project of projectsToShowBKP | keyvalue; track project) {
+        <div class="header-n-cards">
+        <div class="sub-dev-header">
+          <div class="acc-header-name m-0">
+            <div class="_mr-4 title">
+              <!-- <span class="_mr-4 icons-exp-coll">
+                @if(project.value.showViews){
+                <span class="icon-Vector-Stroke-15"></span>
+                }@else {
+                <span class="icon-Vector-Stroke1"></span>
+                }
+              </span> -->
+              <h5 class="_mr-4 _mb-0 _mt-0 tooltip-btn ellipsis-title projects-title" placement="top"
+                [ngbTooltip]="project.key">{{ project.key }}</h5>
+            </div>
+            <h5 class="_mb-0 _mt-0 h5-secondary total-count">{{ project.value.length || 0 }}</h5>
+          </div>
+        </div>
+        <div class="card-listing">
+          <div class="cards sidebar-cards">
+            @for (view of project.value; track $index) {
+            <div class="card" [class.sidebar-tab-active]="selectedViewId == view.id">
+              <app-view-tile style="height: 100%;" class="report-side" [view]="view"
+                [allViews]="project.value || []" [loadedFrom]="loadedFrom" [quickview]="false"></app-view-tile>
+            </div>
+            }
+          </div>
+        </div>
+        </div>
+      }
+    </div>
+  </div>
+</div>

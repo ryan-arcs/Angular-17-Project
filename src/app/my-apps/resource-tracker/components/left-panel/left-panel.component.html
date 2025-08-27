@@ -1,0 +1,31 @@
+<div
+  class="left-sidebar sidebar-bg"
+  [className]="sidebar ? 'left-sidebar show' : 'left-sidebar hide'"
+>
+  <ul>
+    @if (hasAccessToModule("onboarding")) {
+      <li
+        [className]="currentTab === 'onboarding' ? 'active-tab' : ''"
+        (click)="onTabChange('onboarding')"
+        [routerLink]="'onboarding'"
+      >
+        <a>
+          <span class="sb-icon material-symbols-rounded"> group </span>
+          <span> Onboarding </span>
+        </a>
+      </li>
+    }
+    @if (hasAccessToModule("offboarding")) {
+      <li
+        [className]="currentTab === 'offboarding' ? 'active-tab' : ''"
+        (click)="onTabChange('offboarding')"
+        [routerLink]="'offboarding'"
+      >
+        <a>
+          <span class="sb-icon material-symbols-rounded"> account_tree </span>
+          <span>Offboarding</span>
+        </a>
+      </li>
+    }
+  </ul>
+</div>

@@ -1,0 +1,52 @@
+<!-- slider button -->
+<!-- <button class="d-btn d-btn--circle brown-bg-circle sm left-sidebar-hide-n-show fav-rec-toggle-btn" >
+  <span class="res-menu-btn-hide material-symbols-rounded" (click)="toggleSubPanel()">
+    {{isLeftSliderOpen ? "chevron_left" : "chevron_right" }}
+  </span>
+</button> -->
+
+<div class="inner-page-wrapper">
+  <!-- headear -->
+  <div class="row">
+    <!-- @if (recents.length) { -->
+    <h2 class="col-12 col-sm-6">Recents ({{recents.length}})</h2>
+    <!-- } -->
+    <div class="col-12 col-sm-6">
+      <filter-app-header (expandAndCollapse)="expandAndCollapse($event)" (filter)="filter($event)"
+        (refresh)="refreshRecents()" [expandCollapseFeat]="false" [isRefresh]="true" [headerConfig]="recentFilterState">
+      </filter-app-header>
+    </div>
+  </div>
+
+
+  <!-- card listing -->
+  @if (recents.length) {
+  <div class="tiles-view">
+    <div class="cards recents-cards">
+      @for (recentView of recents; track $index) {
+      <div class="card" [ngClass]="'item-count-' + viewCount">
+        <app-view-tile style="height: 100%" [view]="recentView" [allViews]="recents"
+          loadedFrom="recents"></app-view-tile>
+      </div>
+      }
+    </div>
+  </div>
+  }
+
+  <!-- error message -->
+  @if(errorMessage) {
+
+  <div class="bottom-img _mlr-auto">
+    <div class="img _tx-center"><img src="\assets\images\no-records-found.svg" alt="" /></div>
+
+    <div class="text _tx-center content-center">
+      <h4 class="_tx-center">No reports found!</h4>
+      <p class="_tx-center">
+        No matching reports found or available to you.
+      </p>
+      <button class="d-btn d-btn--primary md mlr-auto" (click)="goToHomePage()">Go To Home</button>
+    </div>
+  </div>
+  }
+
+</div>

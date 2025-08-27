@@ -1,0 +1,141 @@
+.layout-grid {
+  display: flex;
+  height: auto !important;
+  border-top: 1px solid var(--main-border-top-color);
+  background-color: var(--primary-background-color);
+
+  .main{
+    background-color: var(--primary-background-color) !important;
+    border: 0;
+  }
+
+  .left-sidebar-panel {
+    @media screen and (max-width: 992px) {
+      position: absolute;
+      z-index: 50;
+      width: 100% !important;
+    }
+    background-color: var(--rt-left-sidebar-bg-color);
+    transition:
+      transform 0.5s ease-in-out,
+      opacity 0.5s ease-in-out,
+      width 0.5s ease-in-out; /* Transition for transform and opacity */
+    opacity: 1;
+    &.hide {
+      overflow: hidden;
+      opacity: 0;
+      @keyframes slideOutWidth {
+        from {
+          width: 20%; /* Start width */
+        }
+        to {
+          width: 24px; /* End width */
+        }
+      }
+    }
+    &.show {
+      @keyframes slideInWidth {
+        from {
+          width: 0; /* Start width */
+        }
+        to {
+          width: 20%; /* End width */
+        }
+      }
+    }
+  }
+}
+
+.sidebar-toggle-btn{
+  left: 244px;
+}
+
+.sidebar-toggle-btn1{
+  span{
+    background-color: var(--btn-bg-color) !important;
+  color: var(--icon-color) !important; 
+  }
+}
+
+.sidebar-toggle-btn2 {
+  height: 32px;
+  width: 32px;
+  position: absolute;
+  background-color: var(--btn-bg-color);
+  border: none;
+  top: 50%;
+  z-index: 7;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  left: 16px !important;
+  span{
+  color: var(--icon-color) !important; 
+  }
+
+  span.material-symbols-rounded {
+    font-size: 22px;
+  }
+
+  @media screen and (max-width: 992px) {
+    background-color: var(--btn-bg-color);
+  }
+
+  i {
+    color: black !important;
+    width: 10px !important;
+    height: 10px !important;
+  }
+  &.move {
+    // animation: moveAnimation 0.4s ease-in-out forwards;
+
+    @media screen and (max-width: 992px) {
+      // animation: moveAnimationMobile 0.4s ease-in-out forwards !important;
+    }
+  }
+
+  &.slide {
+    // animation: slideAnimation 0.5s ease-in-out forwards;
+
+    @media screen and (max-width: 992px) {
+      // animation: slideAnimationMobile 0.4s ease-in-out forwards !important;
+    }
+  }
+}
+
+@keyframes moveAnimation {
+  from {
+    left: 16.4%;
+  }
+  to {
+    left: 0;
+  }
+}
+
+@keyframes slideAnimation {
+  from {
+    left: 0;
+  }
+  to {
+    left: 16.4%;
+  }
+}
+
+@keyframes moveAnimationMobile {
+  from {
+    left: 95%;
+  }
+  to {
+    left: 0;
+  }
+}
+
+@keyframes slideAnimationMobile {
+  from {
+    left: 0;
+  }
+  to {
+    left: 95%;
+  }
+}

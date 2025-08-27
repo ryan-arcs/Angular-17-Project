@@ -1,0 +1,127 @@
+@import "../../../../../../assets/style/xapps-design-system/Foundations/foundation";
+@import "../../../../../../assets/style/xapps-design-system/Abstract/mixins";
+@import "../../../../../../assets/style/xapps-design-system/fonts/medium";
+@import "../../../../../../assets/style/xapps-design-system/Foundations/typography";
+@import "../../../../../../assets/style/xapps-design-system/Components/buttons";
+@import "../../../../../../assets/style/xapps-design-system/Themes/light/blue";
+@import "../../../../../../assets/style/xapps-design-system/Themes/dark/blue";
+
+.date-picker-outer .date-picker {
+    width: 100%;
+    border: 1px solid var(--layout-border-color);
+    height: 38px;
+    border-radius: 4px;
+    padding-left: 8px;
+    font-size: var(--fs-small);
+    color: var(--primary-text-color);
+    background-color: var(--primary-background-color);
+}
+
+.time-piker {
+    display: flex;
+    width: 100%;
+    margin-bottom: 18px;
+
+    .ng-untouched {
+        width: 100%;
+    }
+}
+
+.input-container {
+    padding-bottom: 18px;
+}
+
+ngb-datepicker {
+    width: 232px !important;
+    border: none !important;
+    padding: $zero-p !important;
+    box-shadow: var(--bs-var);
+    background-color: var(--primary-background-color) !important;
+    overflow: hidden;
+
+    .ngb-dp-header {
+        height: 38px;
+        border: 0;
+        padding: 0;
+        background-color: var(--secondary-background-color) !important;
+
+        ngb-datepicker-navigation {
+            height: 100%;
+
+            .ngb-dp-arrow {
+                button {
+                    @include flex-box(row, center, center, na, na);
+                    font-size: var(--fs-small) !important;
+                    font-weight: var(--font-regular);
+                    height: 100%;
+                    padding: $vvvs-p $vvs-p;
+                    color: var(--secondary-text-color);
+                }
+            }
+
+            .ngb-dp-navigation-select {
+                gap: 8px;
+
+                .form-select {
+                    background-color: var(--primary-background-color);
+                    color: var(--primary-text-color);
+                    border: none !important;
+
+                    option {
+                        &:hover {
+                            background-color: var(--primary-color) !important;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .ngb-dp-content {
+        &.ngb-dp-months {
+            background-color: var(--primary-background-color) !important;
+
+            ngb-datepicker-month {
+                .ngb-dp-weekdays {
+                    border-bottom: $border-thin solid var(--layout-border-color);
+                    background-color: var(--primary-background-color) !important;
+                    color: var(--primary-text-color);
+
+                    .ngb-dp-weekday {
+                        font-size: var(--fs-large) !important;
+                        font-style: normal;
+                        font-weight: 500;
+                        color: var(--primary-color) !important;
+                    }
+                }
+
+                .ngb-dp-week {
+                    .ngb-dp-day {
+                        &.ngb-dp-today {
+                            .btn-light {
+                                color: var(--primary-text-color);
+                                background-color: var(--secondary-background-color);
+                            }
+                        }
+
+                        .btn-light {
+                            font-size: var(--fs-small);
+                            color: var(--primary-text-color);
+
+                            &:hover {
+                                color: var(--primary-reverse-text-color);
+                                background-color: var(--primary-color);
+                            }
+
+                            &.text-muted {
+                                &.outside {
+                                    color: var(--disabled-text-color) !important;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,207 @@
+<!-- NG templates for NGX Data Grid -->
+
+<ng-template #actionRow let-row="row" let-value="value" let-i="index">
+  <span class="action-row">
+    @if (
+    isActionPermitted("logs", "applications") ||
+    isActionPermitted("details", "applications") ||
+    isActionPermitted("edit", "applications") ||
+    isActionPermitted("delete", "applications")
+    ) {
+    <div ngbDropdown container="body" class="ag-grid-more-outer">
+      <button type="button" class="d-btn d-btn--circle vs" id="dropdownBasic1" title="options" ngbDropdownToggle>
+        <span class="material-symbols-rounded more-icon">more_horiz</span>
+      </button>
+      <div class="dropdown-menu" ngbDropdownMenu aria-labelledby="dropdownBasic1">
+        @if (isActionPermitted("details", "applications")) {
+        <button ngbDropdownItem class="d-btn d-btn--tertiary sm" (click)="viewDetails(row)">
+          <i style="font-size: 17px; cursor: pointer;line-height:24px;" class="fa fa-eye btn-icon"></i>
+          <p>View Details</p>
+        </button>
+        }
+        @if (isActionPermitted("edit", "applications")) {
+        <button ngbDropdownItem class="d-btn d-btn--tertiary sm" (click)="editRow(row)">
+          <i style="font-size: 17px; cursor: pointer;line-height:24px;" class="fa fa-edit btn-icon"></i>
+          <p>Edit</p>
+        </button>
+
+        }
+        @if (isActionPermitted("delete", "applications")) {
+        <button ngbDropdownItem class="d-btn d-btn--tertiary sm" (click)="deleteRow(row)">
+          <i style="font-size: 17px; cursor: pointer;line-height:24px;" class="fa fa-trash btn-icon"></i>
+          <p>Delete</p>
+        </button>
+        }
+        @if(row?.history_records_count>0){
+        <button ngbDropdownItem class="d-btn d-btn--tertiary sm" (click)="actionLogs(row)">
+          <i style="font-size: 17px; cursor: pointer;line-height:24px;" class="fa fa-history btn-icon"></i>
+          <p>Logs</p>
+        </button>
+        }
+      </div>
+    </div>
+    } @else {
+    <span> - </span>
+    }
+  </span>
+</ng-template>
+
+<ng-template #userNameTemplate let-row="row" let-value="value">
+  @if (value?.length) {
+  <span class="datatable-body-cell-span" (click)="goToUser(value[0]?.email)">{{value[0]?.fullname_preferred || ''
+    }}</span>
+  @if(value.length > 1){
+  <div ngbDropdown container="body" class="user-list-outer">
+    <button type="button" class="d-btn d-btn--circle vs" id="dropdownBasic1" ngbDropdownToggle>
+      <span class="datatable-body-cell-span">+{{value.length - 1}}</span>
+    </button>
+    <div class="user-list-dropdown" ngbDropdownMenu aria-labelledby="dropdownBasic1">
+      @for (owner of value.slice(1); track $index;) {
+      <button class="datatable-body-cell-span" [class.hyperlink-cell-span]="isActionPermitted('details', 'users')"
+        ngbDropdownItem (click)="goToUser(owner.email)">
+        {{owner.fullname_preferred || '' }}
+      </button>
+      }
+    </div>
+  </div>
+  }
+  } @else {
+  <span>Unknown</span>
+  }
+</ng-template>
+
+<ng-template #applicationNameTemplate let-row="row" let-value="value">
+  <div class="sell-outer" (click)="goToApplication(row.id)">
+    <div class="circul-in hiperlink" [class]="'avatar' + (row.id % 6)">
+      {{ value.charAt(0) }}
+    </div>
+    <span class="sell-outer-span" title="{{ value }}">
+      {{ value }}
+    </span>
+  </div>
+</ng-template>
+
+<ng-template #applicationIdTemplate let-row="row" let-value="value">
+  <span (click)="goToApplication(row.id)">{{ value }}</span>
+</ng-template>
+
+<ng-template #hostingLocationTemplate let-value="value">
+  <span>{{ changeHostingLocationCodetoOption(value) }}</span>
+</ng-template>
+
+<ng-template #gxpSoxTemplate let-value="value">
+  <span>{{ value ? "Yes" : "No" }}</span>
+</ng-template>
+
+<ng-template #dateTemplate let-value="value">
+  <span>{{ value | date: defaultDateFormat }}</span>
+</ng-template>
+
+<ng-template #userApprover1Template let-row="row" let-value="value">
+  @if (value) {
+  <span (click)="goToUser(row.approver1_email)">{{ value || "" }}</span>
+  } @else {
+  <span>Unknown</span>
+  }
+</ng-template>
+
+<ng-template #defaultValueTemplate let-row="row" let-value="value">
+  @if (value) {
+  <span>{{ value }}</span>
+  } @else {
+  <span>Unknown</span>
+  }
+</ng-template>
+
+<ng-template #userApprover2Template let-row="row" let-value="value">
+  @if (value) {
+  <span (click)="goToUser(row.approver2_email)">{{ value || "" }}</span>
+  } @else {
+  <span>Unknown</span>
+  }
+</ng-template>
+
+<ng-template #vendorIdTemplate let-row="row" let-value="value">
+  @if (value) {
+  <span (click)="goToVendor(row.vendor_id)">{{ value }}</span>
+  } @else {
+  <span>Unknown</span>
+  }
+</ng-template>
+
+<div class="application-container">
+  <div class="application-container-inner">
+    <!-- left-subheader -->
+    <div class="subheader-container">
+      <div class="tc-manage-screen">
+        <div class="heading">
+        <h2>Applications</h2>
+        </div>
+        <div class="right right-panel">
+          <div class="listing-page-buttons-manage-screen">
+          <div class="search-n-btn">
+            <div class="search-bar search-bar--rounded">
+              <span class="material-symbols-outlined btn-icon">
+                search
+              </span>
+              <form [formGroup]="searchForm" (ngSubmit)="shootSearch()">
+                <div class="search-outer">
+
+                  <input type="text" formControlName="filter" placeholder="Search here..."
+                    title="This search will be performed on all displayed and hidden columns." />
+                  <button class="d-btn d-btn--primary sm search-btn" type="submit">Search</button>
+                </div>
+              </form>
+            </div>
+
+          </div>
+          </div>
+          <div class="sh-buttons">
+            <div class="btns-res-divider">
+            <button class="d-btn d-btn--secondary sm tooltip-btn" (click)="refreshApplication()" placement="start"
+              [ngbTooltip]="isMobileScreen() ? 'Refresh' : ''" triggers="hover">
+              <span class="material-symbols-rounded btn-icon">refresh</span>
+              <p class="">Refresh</p>
+            </button>
+            @if (applications.length) {
+            <button class="d-btn d-btn--secondary sm tooltip-btn" (click)="downloadTableData()" placement="start"
+              [ngbTooltip]="isMobileScreen() ? 'Download' : ''" triggers="hover">
+              <span class="material-symbols-rounded btn-icon">download</span>
+              <p class="">Download</p>
+            </button>
+            }
+            @if (searchTerm || columnFilters.length) {
+            <button class="d-btn d-btn--secondary sm tooltip-btn" (click)="clearFilters()" placement="start"
+              [ngbTooltip]="isMobileScreen() ? 'Clear Filter' : ''" triggers="hover">
+              <span class="material-symbols-rounded btn-icon">filter_list_off</span>
+              <p class="">Clear Filter</p>
+            </button>
+            }
+            @if (isActionPermitted("add", "applications")) {
+            <button class="d-btn d-btn--primary desktop sm tooltip-btn" (click)="navigateToAddApplication()"
+              placement="start" [ngbTooltip]="isMobileScreen() ? 'Add' : ''" triggers="hover">
+              <span class="material-symbols-outlined btn-icon">
+                add_2
+              </span>
+              <p class="">Add</p>
+            </button>
+            }
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- grid -->
+    <div class="panel-and-table">
+      <div class="logs-container logs-cell-padding inner-pages-footer">
+        <app-data-grid [gridName]="gridName" [gridColumns]="columns" [gridRows]="applications"
+          [columnFilters]="columnFilters" [actionRowTemplate]="actionRow" [pagination]="pagination"
+          [pageSizes]="paginationPageSizeSelector" [selectedPageSize]="defaultSize"
+          [gridSorts]="gridSort.prop ? [gridSort] : []" [errorMessage]="errorMessage" (onGridSort)="onSort($event)"
+          (onGridPageSizeChange)="onGridPageSizeChange($event)" (onGridPageChange)="onGridPageChange($event)"
+          (onColumnFilterChange)="onColumnFilterChange($event)" />
+      </div>
+    </div>
+  </div>
+</div>

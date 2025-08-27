@@ -1,0 +1,223 @@
+<div class="main-manage-roles">
+  <div class="breadcrumbs-outer">
+    <ul>
+      @if (userDetails?.first_name) {
+      <li><a (click)="navigateToUsers()" class="label medium"> Users </a></li>
+      <li><span>/</span></li>
+      <li><a (click)="navigateToUsers()" class="label medium"> {{ userDetails?.first_name || "" }} {{
+          userDetails?.last_name || ""
+          }} </a></li>
+      <li><span>/</span></li>
+      <li class="label medium">Special Permissions</li>
+      }
+    </ul>
+  </div>
+
+
+  <div class="application-container">
+    <div class="application-container-inner">
+
+      <div class="subheader-container">
+        <div class="tc-manage-screen">
+          <div class="heading">
+            <button class="d-btn d-btn--circle sm white-bg-circle _cp" (click)="navigateToUsers()">
+              <span class="res-menu-btn-hide back-button icon-leftarrow icon--sm"></span>
+            </button>
+            <div class="application-text">
+              <h2>{{ userDetails?.first_name || "" }} {{ userDetails?.last_name || ""}}</h2>
+            </div>
+          </div>
+
+          <div class="right">
+            <div class="listing-page-buttons-manage-screen">
+              <!-- search bar -->
+              <div class="search-n-btn">
+                <div class="search-bar search-bar--rounded ">
+                  <span class="material-symbols-outlined btn-icon">
+                    search
+                  </span>
+                  <form>
+                    <input type="text" placeholder="Search here..." (input)="searchPermissions($event)"
+                      title="This search will be performed on all displayed and hidden columns." />
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div class="sh-buttons">
+              <div class="btns-res-divider res-child-full-width">
+                @if (applications.length) {
+                <div ngbDropdown class="d-inline-block nav-dropdown" [autoClose]="'outside'" #dropdown1="ngbDropdown">
+                  <button type="button" class="dropdown-btn d-btn d-btn--secondary sm tooltip-btn" id="dropdownBasic1"
+                    placement="bottom" [ngbTooltip]="selectedApplication?.application_name" ngbDropdownToggle
+                    triggers="hover">
+                    <span class="material-symbols-rounded btn-icon">filter_list</span>
+                    <p>Application: {{ selectedApplication?.application_name || "" }}</p>
+                  </button>
+
+                  <div class="dropdown-menu" ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                    <ul>
+                      <li>
+                        <button ngbDropdownItem
+                          (click)="setSelectedApplication({id: 'all', application_name: 'All',}); dropdown1.close()">
+                          <p> All</p>
+                        </button>
+                        @for (application of applications; track $index) {
+                        <button ngbDropdownItem (click)="setSelectedApplication(application); dropdown1.close()">
+                          <p>{{ application.application_name }}</p>
+                        </button>
+                        }
+                      </li>
+                    </ul>
+
+                  </div>
+                </div>
+                }
+                @if (modules?.length && selectedApplication?.id !== "all") {
+                <div ngbDropdown class="d-inline-block nav-dropdown" [autoClose]="'outside'" #dropdown2="ngbDropdown">
+                  <button type="button" class="dropdown-btn d-btn d-btn--secondary sm tooltip-btn" id="dropdownBasic1"
+                    placement="bottom" ngbDropdownToggle [ngbTooltip]="selectedModule.module_name" triggers="hover">
+                    @if (selectedModule.module_name) {
+                    <span class="material-symbols-rounded btn-icon">filter_list</span>
+                    <p>Module: {{ selectedModule.module_name || "" }}</p>
+                    }
+                  </button>
+
+                  <div class="dropdown-menu" ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                    <ul>
+                      <li>
+                        <button ngbDropdownItem
+                          (click)=" setSelectedModule({ id: 'all', module_name: 'All' }); dropdown2.close()">
+                          <p> All</p>
+                        </button>
+                        @for (module of modules; track $index) {
+                        <button ngbDropdownItem (click)="setSelectedModule(module); dropdown2.close()">
+                          <p>{{ module.module_name }}</p>
+                        </button>
+                        }
+                      </li>
+                    </ul>
+
+                  </div>
+                </div>
+                }
+                @if (submodules?.length && selectedModule.id !== "all") {
+                <div ngbDropdown class="d-inline-block nav-dropdown" (openChange)="onDropdownListToggle($event)"
+                  [autoClose]="'outside'" #dropdown3="ngbDropdown">
+                  <button type="button" class="dropdown-btn d-btn d-btn--secondary sm tooltip-btn" id="dropdownBasic1"
+                    placement="bottom" ngbDropdownToggle [ngbTooltip]="selectedModule.module_name" triggers="hover">
+                    @if (selectedSubmodule.sub_module_name) {
+                    <span class="material-symbols-rounded btn-icon">filter_list</span>
+                    <p class="ellipsis-sm-screen">Submodule: {{ selectedSubmodule.sub_module_name || "" }}</p>
+                    }
+                  </button>
+
+                  <div class="dropdown-menu" ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                    <ul>
+                      <div class="search-bar search-bar--rounded _mb-4">
+                        <input type="text" placeholder="Search here..." [(ngModel)]="dropdownListSearchText"
+                          (input)="searchDropdownList($event)" />
+                      </div>
+                      <li>
+
+                        <button ngbDropdownItem
+                          (click)=" setSelectedSubmodule({ id: 'all', sub_module_name: 'All' }); dropdown3.close()">
+                          <p> All</p>
+                        </button>
+                        <button ngbDropdownItem
+                          (click)=" setSelectedSubmodule({ id: 'sub-na', sub_module_name: 'N/A' }); dropdown3.close()">
+                          <p> N/A</p>
+                        </button>
+                        @for (submodule of filteredDropdownList(submodules,dropdownListSearchText);track $index)
+                        {
+                        <button ngbDropdownItem (click)="setSelectedSubmodule(submodule); dropdown3.close()">
+                          <p>{{ submodule.sub_module_name }}</p>
+                        </button>
+                        }
+                      </li>
+                    </ul>
+
+                  </div>
+                </div>
+                }
+              </div>
+              <div class="btns-res-divider">
+                <button class="d-btn d-btn--secondary sm tooltip-btn" (click)="refreshManageSpecialPermission()" placement="start" triggers="hover">
+                  <span class="material-symbols-rounded btn-icon">refresh</span>
+                  <p class="">Refresh</p>
+                </button>
+                <button class="d-btn d-btn--secondary sm" type="button" (click)="navigateToUsers()">
+                  <span class="material-symbols-outlined btn-icon">close</span>
+                  <p class="sm-screen-visibility"> Cancel</p>
+                </button>
+                <!-- save -->
+                <button class="d-btn d-btn--primary sm" type="submit" (click)="submitAssignedPermission()">
+                  <span class="material-symbols-outlined btn-icon">check</span>
+                  <p class=""> Save</p>
+                </button>
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+
+
+      <div class="content d-flex justify-content-between">
+        <div class="left d-flex flex-column">
+          <div class="innerbox">
+
+            <div class="heading-row">
+              <h3>Select Permissions</h3>
+              <div (click)="assignAllPermissions()" class="assign-all">
+                <span class="icon-add">+ </span>
+                <span class="text-add">Assign all</span>
+              </div>
+            </div>
+            <ul class="select-box">
+              <li *ngFor="
+              let permission of unassignedPermissions();
+              let permissionIndex = index
+            " class="d-flex align-items-center justify-content-between" (click)="selectPermission(permission)"
+                (dblclick)="managePermission(permission, true)" [ngClass]="{ 'selected-user': permission.isSelected }">
+                <span>
+                  {{ getPermissionDisplayName(permission) }}
+                </span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="center">
+          <button class="d-btn d-btn--circle md">
+            <img (click)="moveSelectedPermissions(true)" src="assets/images/right-arrow.svg" alt="" />
+          </button>
+          <button class="d-btn d-btn--circle md">
+            <img (click)="moveSelectedPermissions(false)" src="assets/images/left-arrow.svg" alt="" />
+          </button>
+        </div>
+        <!-- right side -->
+        <div class="right d-flex flex-column">
+          <div class="innerbox">
+            <div class="heading-row">
+              <h3>Selected Permissions</h3>
+              <div (click)="removeAllPermissions()" class="remove-all">
+                <span class="icon-remove">- </span>
+                <span class="text-remove">Remove all</span>
+              </div>
+            </div>
+            <ul class="select-box">
+              <li *ngFor="
+              let permission of assignedPermissions();
+              let permissionIndex = index
+            " (click)="selectPermission(permission)" (dblclick)="managePermission(permission, false)"
+                [ngClass]="{ 'selected-user': permission.isSelected }">
+                <span>{{ getPermissionDisplayName(permission) }}</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

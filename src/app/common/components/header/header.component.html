@@ -1,0 +1,56 @@
+@if(showHeader){
+  <div class="app-header" [class]="{ 'remove-extra-padding': checkRoute() ,'remove-logo-pad':isMyAppsPage}">
+    <div class="logo" (click)="navigateToMainPage()">
+      <img [src]="getSubApplicationLogo(selectedSubApplication?.logo)" />
+      <h5 class="app-title _d-i _mb-0">{{ selectedSubApplication?.name || 'XApps' }}</h5>
+    </div>
+  
+    <div class="right-header">
+      @if(dropdownContent){
+        <ng-container [ngTemplateOutlet]="dropdownContent"></ng-container>
+      }
+    <!-- All XApps app dropdown -->
+    @if(selectedSubApplication?.slug !== 'ubi' && !isMyAppsPage && permittedApplications && permittedApplications.length > 1){
+    <div class="app-sub-header" [class.active]="showAllAppsDropdown" (clickOutside)="onClickOutsideAllAppsDropdown()">
+      <button class="d-btn d-btn--circle sm">
+      <span style="cursor: pointer;" class="material-symbols-outlined app-toggle-icon"
+        (click)="toggleShowAllAppsDropdown()">
+        apps
+      </span>
+      </button>
+      <div class="app-div">
+        @if(showAllAppsDropdown){
+        <app-all-apps-header (click)="toggleShowAllAppsDropdown()"></app-all-apps-header>
+        }
+      </div>
+    </div>
+    }
+
+
+      @if (userData?.fullName) {
+        <div
+          (clickOutside)="onClickOutsideProfileDropdown()"
+          (click)="toggleShowProfileDropdown()"
+          class="profile_icon _ml-20"
+        >
+        <div class="sq-n-circle">
+          @if(userData?.profileImageUrl){
+            <span class="circle img-circle"><img [src]="userData?.profileImageUrl" [alt]="userData?.nameInitials"></span> 
+          }
+          @else {
+            <span class="circle"><p class="admin-in medium">{{userData?.nameInitials}}</p></span>
+          }
+        </div>
+          <div class="admin-main-outer _cp" >
+            <span class="material-symbols-rounded arrow-down"> keyboard_arrow_down </span>
+          </div>
+          <div>
+            @if (showProfileDropdown) {
+              <app-dropdown (toggleDropDown)="toggleShowProfileDropdown()"></app-dropdown>
+            }
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+}

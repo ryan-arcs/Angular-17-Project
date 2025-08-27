@@ -1,0 +1,127 @@
+@import "../../../../../../assets/style/xapps-design-system/Abstract/mixins";
+@import "../../../../../../assets/style/xapps-design-system/Foundations/foundation";
+@import "../../../../../../assets/style/xapps-design-system/fonts/medium";
+@import "../../../../../../assets/style/xapps-design-system/Foundations/typography";
+
+.reports-container {
+    height: 100%;
+
+    .overview-section {
+        position: relative;
+        height: 38px;
+        padding: 8px 6px;
+        @include flex-box(na, start, center, na, 12);
+        @include max-width(992){
+        padding: $vvs-p $small-p $vvs-p $xxxl-p;
+        }
+        .back-button{
+            background-color: var(--back-button-bg-color);
+            &:hover{
+                background-color: var(--back-button-hover-bg-color);
+            }
+        }
+        .ol-wrapper{
+        width: calc(100% - 44px);
+        scrollbar-width: none;
+
+        .overview-left {
+            width: calc(100% - 44px);
+            overflow-x: auto;
+            scrollbar-width: none;
+            @include flex-box(na, na, center, na, na);
+
+            &.with-navigate-btns{
+            width: calc(100% - 98px) !important;
+            }
+
+                p, .d-btn{
+                    position: relative;
+                    top: 2px;
+                }
+
+            .overview {
+                padding: $zero-p $vs-p;
+                border-bottom: 3px solid transparent;
+                height: 38px;
+                @include flex-box(na, na, center, na, na);
+                position: relative;
+
+                button{
+                    border: 0 !important;
+                }
+
+                .overview-text {
+                    width: auto;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    transition: all .5s ease;
+                    margin: $zero-m;
+                }
+
+                .cross-iconHover {
+                    flex-shrink: 0;
+                    padding: $zero-p;
+                    height: 22px !important;
+                    background-color: var(--secondary-background-color);
+                    @include absolute(8, 11 , na, na);
+                    visibility: hidden;
+                    transition: all 0.3s ease;
+                    .md {
+                        height: 0;
+                    }
+                }
+
+                &.active{
+                    border-color: var(--primary-color);
+
+                    .overview-text {
+                        white-space: nowrap;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        width: auto;
+                    }
+                }
+
+                &:hover {
+
+                    .cross-iconHover {
+                        visibility: visible;
+                        transform: rotate(90deg);
+                        .md {
+                            height: 0;
+                        }
+                    }
+                }
+            }
+        }
+    
+        }
+
+        .buttons-wrapper{
+            height: 100%;
+            background-color: var(--primary-background-color);
+            @include flex-box(row, na, center, na, 4);
+            @include absolute(na, 16, na, na);
+        }
+    }
+
+    .executive-container {
+        padding: $vvs-p;
+        overflow: hidden;
+        @include dimensions(calc(100vh - 38px), 100%);
+        padding-top: 0px;
+
+        .img-container {
+            border: $border-medium solid var(--layout-border-color);
+            border-radius: $border-radius-medium;
+            @include dimensions(100%, 100%);
+
+            img {
+                border-radius: $border-radius-medium;
+                object-fit: cover;
+                @include dimensions(100%, 100%);
+            }
+        }
+    }
+}

@@ -1,0 +1,29 @@
+@if (apiResponse.statusCode > 0) {
+  <div class="wrapper-no-data">
+    <div class="no-data-avl">
+      <img src="assets/images/no-records-found.svg" />
+      <h4>
+        @if (apiResponse.statusCode !== 204) {
+          {{ apiResponse.statusCode }}:
+        }
+        {{ apiResponse.statusMessage }}
+      </h4>
+      <p>{{ apiResponse.statusDescription }}</p>
+      @if (showQuotes) {
+        <div class="motination-outer">
+          <div class="mo-heading">
+            <div class="mo-heading-inner">
+              <h6>Motivational Quote</h6>
+            </div>
+          </div>
+          <div class="mo-content">
+            <h3>{{ motivationalQuote }}</h3>
+          </div>
+          <div class="mo-auth">
+            <h6>-{{ motivationalQuoteAuthor }}</h6>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+}

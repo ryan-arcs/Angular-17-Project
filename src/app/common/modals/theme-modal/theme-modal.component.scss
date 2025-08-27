@@ -1,0 +1,327 @@
+@import "../../../../assets/style/xapps-design-system/Abstract/mixins";
+@import "../../../../assets/style/xapps-design-system/Foundations/foundation";
+@import "../../../../assets/style/xapps-design-system/fonts/medium";
+@import "../../../../assets/style/xapps-design-system/Foundations/typography";
+@import "../../../../assets/style/xapps-design-system/Components/buttons";
+@import "../../../../assets/style/xapps-design-system/Themes/light/blue";
+@import "../../../../assets/style/xapps-design-system/Themes/dark/blue";
+
+
+
+.themes-popup {
+
+    @include flex-box(column, na, na, na, na);
+    border-radius: 12px;
+
+    background-color: var(--primary-background-color);
+
+    .modal-header.popup-header {
+
+        padding: $large-p;
+
+        padding-bottom: $zero-p;
+
+        margin: $zero-m;
+
+        margin-bottom: $vvs-m;
+
+        border-bottom: none;
+
+        .heading {
+
+            @include typography(var(--fs-xl), na, var(--font-bolder), var(--primary-text-color));
+
+            text-align: start;
+
+        }
+
+        .d-btn {
+
+            @include absolute(20, 20, na, na);
+
+            padding: $zero-p;
+
+            box-shadow: none;
+
+            &:hover {
+
+                span {
+                    &::before {
+
+                        color: var(--icon-active-color);
+
+                    }
+
+                }
+
+            }
+
+        }
+
+    }
+
+    .modal-body {
+
+        padding: $zero-p $large-p;
+
+        .popup-content {
+            margin-bottom: $vs-m !important;
+            @include typography(var(--fs-medium),
+
+                var(--lh-xl),
+
+                var(--font-regular),
+
+                var(--secondary-text-color !important));
+
+            margin: $zero-m;
+
+            margin-bottom: $vs-m;
+
+        }
+
+        .light-grid {
+
+            display: grid;
+
+            grid-template-columns: repeat(3, 1fr);
+
+            gap: 12px 8px;
+            margin-bottom: $vs-m;
+
+            .primary-colors {
+
+                border: 1px solid var(--ui-border-color);
+
+                border-radius: $border-radius-small;
+
+                background-color: var(--primary-background-color);
+
+                padding: $vvs-p;
+
+                @include dimensions(32, na);
+
+                @include flex-box(na, na, center, na, 8);
+
+                .text-capitalize {
+                    color: var(--primary-text-color) !important;
+                }
+
+                .custom-checkbox {
+
+                    padding: $zero-p;
+
+                    margin: $zero-m;
+
+                    .checkbox-box {
+
+                        border: 0;
+
+                        &.checkbox-box-blue {
+
+                            background-color: #007db8;
+
+                        }
+
+                        &.checkbox-box-green {
+
+                            background-color: #099138;
+
+                        }
+
+                        &.checkbox-box-yellow {
+
+                            background-color: #faad14;
+
+                        }
+
+                        &.checkbox-box-red {
+
+                            background-color: #d72300;
+
+                        }
+
+                        &.checkbox-box-orange {
+
+                            background-color: #ee701b;
+
+                        }
+
+                        &.checkbox-box-murrey {
+
+                            background-color: #5f1358;
+
+                        }
+
+                    }
+
+                }
+
+                &.active {
+
+                    background-color: var(--primary-selected-color);
+
+                    border-color: var(--primary-color);
+
+                    .text-capitalize {
+                        color: var(--fixed-dark-text-color) !important;
+                    }
+
+
+                }
+
+                p {
+
+                    margin: $zero-p;
+
+                    @include typography(var(--fs-small), na, var(--font-medium), var(--secondary-text-color));
+
+                }
+
+            }
+
+        }
+
+        .light-dark {
+
+            @include dimensions(38, na);
+
+            padding: $vvvs-p;
+
+            background-color: var(--secondary-background-color);
+
+            border-radius: $border-radius-small;
+
+            @include flex-box(na, na, na, na, 4);
+
+            width: 100%;
+
+            .theme {
+
+                width: 50%;
+
+                background-color: transparent;
+
+                @include dimensions(30, na);
+
+                border-radius: $border-radius-small;
+
+                @include flex-box(na, center, center, na, 4);
+
+                @include typography(var(--fs-medium),
+
+                    na,
+
+                    var(--font-medium),
+
+                    var(--secondary-text-color));
+
+                &.active {
+
+                    background-color: var(--primary-background-color);
+
+                }
+
+            }
+
+        }
+
+    }
+
+    .modal-footer {
+
+        padding: $large-p;
+
+        border-top: 0;
+
+        .popup-header {
+
+            width: 100%;
+
+            margin: $zero-m;
+
+            margin-bottom: $vvs-p;
+
+            .heading {
+
+                @include typography(var(--fs-xl), na, var(--font-bolder), var(--primary-text-color));
+
+                text-align: start;
+
+            }
+
+        }
+
+        .popup-content {
+            margin-bottom: $vs-m !important;
+            @include typography(var(--fs-medium),
+
+                var(--lh-xl),
+
+                var(--font-regular),
+
+                var(--secondary-text-color !important));
+
+            margin: $zero-m;
+
+            margin-bottom: $vs-m;
+
+        }
+
+        .light-dark {
+
+            @include dimensions(38, na);
+
+            padding: $vvvs-p;
+
+            background-color: var(--secondary-background-color);
+
+            border-radius: $border-radius-small;
+
+            @include flex-box(na, na, na, na, 4);
+
+            width: 100%;
+
+            margin: $zero-m;
+
+            .theme {
+
+                width: 50%;
+
+                background-color: transparent;
+
+                @include dimensions(30, na);
+
+                @include flex-box(na, center, center, na, 4);
+
+                @include typography(var(--fs-medium),
+
+                    na,
+
+                    var(--font-medium),
+
+                    var(--secondary-text-color));
+
+                border-radius: $border-radius-small;
+
+                &.active {
+
+                    background-color: var(--primary-background-color);
+
+                }
+
+            }
+
+        }
+
+    }
+
+}
+
+.modal-dialog {
+
+    max-width: 580px !important;
+
+    width: 100%;
+
+}

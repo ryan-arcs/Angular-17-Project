@@ -1,0 +1,260 @@
+@import "../../../../assets/style/xapps-design-system/Abstract/mixins";
+@import "../../../../assets/style/xapps-design-system/Foundations/foundation";
+@import "../../../../assets/style/xapps-design-system/fonts/medium";
+@import "../../../../assets/style/xapps-design-system/Foundations/typography";
+@import "../../../../assets/style/xapps-design-system/Components/buttons";
+
+.content-wrapper {
+  .subheader-container {
+    .top-container {
+      .left {
+        .home-persona-dropdown {
+          .dropdown {
+            .dropdown-toggle {
+              background-color: var(--primary-background-color);
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+
+.home-outer-wrapper {
+  height: 100%;
+
+  .welcome-back {
+    background-color: #0073EA;
+    border-radius: 12px;
+    height: auto;
+    width: 100%;
+    padding: 20px;
+    position: relative;
+    margin: 0 0 $small-m 0;
+    visibility: visible;
+    transition: 0.3s all ease;
+    overflow: hidden;
+
+    @media screen and (max-width: 576px) {
+      height: auto;
+      display: none !important;
+    }
+
+    &.collapsed {
+      visibility: collapse;
+      transition: 0.3s all ease;
+      height: 0;
+      padding: 0;
+      margin: 0;
+    }
+
+    .close-button {
+      height: 28px;
+      width: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 6px;
+      border: 0;
+      background: rgba(255, 255, 255, 0.3);
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      cursor: pointer;
+
+      span {
+        color: #FFFFFF;
+      }
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.5);
+      }
+    }
+
+    .many-stars {
+      position: absolute;
+      top: 0;
+      right: 111px;
+    }
+
+    .yellow-star {
+      position: absolute;
+      top: 26px;
+      left: 55%;
+
+      @media screen and (max-width: 768px) {
+        display: none;
+      }
+    }
+
+    .white-star {
+      position: absolute;
+      bottom: 8px;
+      left: 50%;
+
+      @media screen and (max-width: 768px) {
+        display: none;
+      }
+    }
+
+    .sm-wave {
+      position: absolute;
+      bottom: 30px;
+      left: 63%;
+
+      @media screen and (max-width: 768px) {
+        display: none;
+      }
+    }
+
+    .shade-star {
+      position: absolute;
+      bottom: 12px;
+      right: 20px;
+    }
+
+    .star-left {
+      position: absolute;
+      top: 15px;
+      right: 70px;
+
+      @media screen and (max-width: 768px) {
+        display: none;
+      }
+    }
+
+    .heading {
+      font-weight: 700 !important;
+      font-size: 35px !important;
+      line-height: 47.66px !important;
+      color: #FFFFFF !important;
+    }
+
+    .content {
+      color: #FFFFFF !important;
+      font-weight: 400 !important;
+      font-size: 13px !important;
+      line-height: 18px !important;
+      margin-top: 5px;
+
+      @media screen and (max-width: 576px) {
+        width: 100%;
+      }
+    }
+
+    .wavy-img {
+      margin-left: 6px;
+    }
+  }
+
+  .content-wrapper {
+   padding: $vvs-p;
+    background-color: var(--secondary-background-color);
+
+    &.hide-banner {
+      height: 100% !important;
+    }
+
+    .cards-listing-wrapper {
+      height: calc(100% - 48px);
+      overflow-y: auto;
+
+      @include max-width(576) {
+        height: calc(100% - 96px);
+      }
+
+      .sub-dev-header {
+        height: 38px;
+        border-radius: $border-radius-medium;
+        @include flex-box(na, na, center, na, na);
+        background-color: transparent;
+        padding: $vvs-p 0 $vvs-p $vvs-p;
+        // cursor: pointer;
+
+        &.cards-closed {
+          background-color: var(--primary-background-color);
+          margin-bottom: $small-m;
+          margin-right: $vvs-m;
+          cursor: pointer;
+        }
+
+        .sub-dev-header-inner-content {
+          .v-all {
+             margin-right: $vvvs-m;
+            .d-btn {
+              padding-right: 0px;
+            }
+          }
+        }
+
+        .acc-header-name {
+          @include flex-box(na, na, center, na, na);
+        }
+
+        .sub-dev-header-inner-content {
+          @include flex-box(na, space-between, center, na, na);
+        }
+      }
+
+      .card-listing {
+        margin: $vvs-m $zero-m $large-m $zero-m;
+      }
+    }
+  }
+
+  // banner css
+  .upper-text-container {
+    @include flex-box(row, space-between, start, na, na);
+    padding: $medium-p $small-p;
+    background: var(--welcome-page-overlay-background-gradient);
+
+    .txt-div {
+      width: 55%;
+
+      h2 {
+        color: var(--fixed-dark-text-color) !important;
+      }
+
+      p {
+        color: var(--fixed-dark-text-color) !important;
+      }
+
+      @include max-width(992px) {
+        width: 100%;
+      }
+
+      h4 {
+        margin: $zero-p;
+        margin-bottom: $vs-m;
+      }
+    }
+
+    .close-btn {
+      @include absolute(8, 8, na, na);
+    }
+  }
+
+  .overlay {
+    @include absolute(0, 0, 0, 0);
+    background: linear-gradient(to bottom,
+        #f1eaec 0%,
+        #f7e1f8 10%,
+        #ebeeff 20%,
+        #f4f5f6 30%,
+        #f4f5f6 100%);
+    z-index: -1;
+    height: 450px;
+  }
+}
+
+.icons-exp-coll {
+  @include dimensions(20, 20);
+  cursor: pointer;
+
+  span {
+    &::before {
+      font-size: var(--fs-forth);
+    }
+  }
+}

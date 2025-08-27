@@ -1,0 +1,53 @@
+<!-- slider button -->
+<!-- <button class="d-btn d-btn--circle brown-bg-circle sm left-sidebar-hide-n-show fav-rec-toggle-btn"
+  (click)="toggleSubPanel()">
+  <span class="res-menu-btn-hide material-symbols-rounded">
+    {{isLeftSliderOpen ? "chevron_left" : "chevron_right" }}
+  </span>
+</button> -->
+
+<div class="inner-page-wrapper">
+  <!-- headear -->
+  <div class="row">
+    @if (project?.id) {
+    <h2 class="col-12 col-sm-6">{{project?.name}}
+      ({{views.length}})
+    </h2>
+    }
+    <div class="col-12 col-sm-6">
+      <filter-app-header (cardCount)="cardCount($event)" (filter)="filter($event)" [expandCollapseFeat]="false"
+        (refresh)="refreshProjects()" [headerConfig]="projectFilterState">
+      </filter-app-header>
+    </div>
+
+  </div>
+
+  <!-- card listing -->
+  @if (views.length) {
+  <div class="tiles-view">
+    <div class="cards projects-cards">
+      @for (view of views; track $index) {
+      <div class="card" [ngClass]="'item-count-' + viewCount">
+        <app-view-tile style="height: 100%" [view]="view" [allViews]="views" loadedFrom="projects"></app-view-tile>
+      </div>
+      }
+    </div>
+  </div>
+  }
+
+  <!-- error message -->
+  @if(errorMessage) {
+  <div class="bottom-img _mlr-auto">
+    <div class="img _tx-center"><img src="\assets\images\no-records-found.svg" alt="" /></div>
+
+    <div class="text">
+      <h4 class="_tx-center">Nothing Here Yet</h4>
+      <p class="_tx-center">
+        This might be because the content hasn’t been added yet or the section
+        you're looking for is currently unavailable.
+      </p>
+    </div>
+  </div>
+  }
+
+</div>

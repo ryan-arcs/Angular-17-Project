@@ -1,0 +1,110 @@
+.credentials {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  gap: 8px;
+  @media screen and (max-width: 768px) {
+    flex-wrap: wrap;
+  }
+  li {
+    display: flex;
+    justify-content: space-between;
+    .title {
+      font-size: 12px;
+      font-weight: 400;
+      color: #676879;
+      font-weight: 600;
+    }
+    .value {
+      color: #676879;
+      font-size: 13px;
+      word-break: break-all;
+      align-items: right;
+    }
+  }
+}
+
+.user-details-popup {
+  .modal-header {
+    height: 39px;
+    padding: 0 15px;
+    display: flex;
+    align-items: center;
+    background-color: var(--secondary-background-color);
+    color: var(--primary-text-color);
+    border-radius: 0;
+    @media screen and (min-width: 1367px) {
+      height: 49px;
+    }
+    .mh-inner {
+      padding: 0;
+      height: 39px;
+      border: 0;
+      align-items: center;
+      @media screen and (min-width: 1367px) {
+        height: 49px;
+      }
+      h2 {
+        color: var(--primary-text-color);
+        font-size: 20px !important;
+        font-weight: 500 !important;
+        line-height: 1 !important;
+      }
+    }
+    .circul-btn {
+      width: 32px;
+      height: 32px;
+      @media screen and (max-width: 1366px) { 
+        width: 24px;
+        height: 24px;
+      }
+      background-color: var(--btn-bg-color);
+      span{
+        color: var(--icon-color);
+      }
+      &:focus-visible{
+        outline: none;
+      }
+      &.modal-close-btn {
+        top: 7px;
+        right: 15px;
+        // background-color: var(--btn-bg-color);
+        // color: var(--icon-color);
+        @media screen and (max-width: 1366px) {
+          top: 7px;
+        }
+      }
+    }
+  }
+  .modal-body {
+    padding: 8px 13px;
+    height: calc(100vh - 41px);
+    width: 100%;
+    @media screen and (min-width: 1367px) {
+      height: calc(100vh - 51px);
+    }
+    .credentials-wrapper {
+      .data-row {
+        width: 100%;
+        float: left;
+        margin-bottom: 20px;
+        .data-column {
+          font-size: 13px;
+          font-weight: 500;
+          color: var(--main-text-color);
+          width: 50%;
+          float: left;
+          word-break: break-all;
+          padding-right: 10px;
+
+          .data-label {
+            width: 100%;
+            float: left;
+            font-size: 12px;
+            color: var(--note-outer-color);
+          }
+        }
+      }
+    }
+  }
+}

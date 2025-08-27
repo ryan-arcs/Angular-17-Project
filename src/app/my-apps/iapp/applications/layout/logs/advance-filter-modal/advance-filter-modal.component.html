@@ -1,0 +1,99 @@
+<div class="modal-header">
+  <div class="mh-inner">
+    <h2>Advanced Filters</h2>
+  </div>
+  <button type="button" class="modal-close-btn d-btn d-btn--circle sm white-bg-circle _cp"
+    (click)="closeModal('cancel')">
+    <span class="material-symbols-outlined btn-icon">
+      close
+    </span>
+  </button>
+</div>
+
+<div class="modal-body">
+  <div class="sh-search">
+    <div class="filter-logs-sidebar-outer">
+      <div class="lfs-btns mb-medium">
+        <button class="d-btn d-btn--link" (click)="setCustomTime(oneHour, currentDate)">
+          Last Hour
+        </button>
+        <button class="d-btn d-btn--link" (click)="setCustomTime(oneDay, currentDate)">
+          Last 24Hour
+        </button>
+        <button class="d-btn d-btn--link" (click)="setCustomTime(oneWeek, currentDate)">
+          Last Week
+        </button>
+        <button class="d-btn d-btn--link" (click)="setCustomTime(oneMonth, currentDate)">
+          Last Month
+        </button>
+      </div>
+      <form [formGroup]="searchForm" (ngSubmit)="shootSearch()">
+        <!-- <div class="input-container select-box-container">
+          <input #swiper id="search" class="common-input small search-icon" type="text" placeholder="Search here..."
+            formControlName="filter" />
+        </div> -->
+
+        <div class="search-bar search-bar--rounded  _mb-16">
+          <span class="material-symbols-outlined btn-icon">
+            search
+          </span>
+          <form [formGroup]="searchForm" (ngSubmit)="shootSearch()">
+            <input #swiper id="search" type="text" formControlName="filter" placeholder="Search here..."
+              title="This search will be performed on all displayed and hidden columns." />
+          </form>
+        </div>
+
+        <!-- <div class="input-container">
+          <input class="common-input small" type="text" id="startTime" formControlName="startTime"
+            placeholder="Start time(mm/dd/yyyy hh/mm)" />
+        </div> -->
+        <!-- <div> -->
+        <div class="input-container date-picker-outer">
+          <input id="datepicker" class="date-picker change-focus-color" placeholder="Start date(mm/dd/yyyy)"
+            [value]="getFormattedStartDate()" name="startDate" formControlName="startDate" [maxDate]="maxDate"
+            ngbDatepicker (click)="d1.toggle()" #d1="ngbDatepicker" />
+          <!-- <button class="btn btn-outline-secondary bi bi-calendar3" (click)="d1.toggle()" type="button"></button> -->
+        </div>
+        <div class="time-piker">
+          <ngb-timepicker formControlName="startTime"></ngb-timepicker>
+        </div>
+        <div class="input-container date-picker-outer">
+          <input id="endDatepicker" class="date-picker" placeholder="End date(mm/dd/yyyy)"
+            [value]="getFormattedEndDate()" name="endDate" (click)="d2.toggle()" formControlName="endDate"
+            [maxDate]="maxDate" ngbDatepicker #d2="ngbDatepicker" />
+        </div>
+        <div class="time-piker">
+          <ngb-timepicker formControlName="endTime"></ngb-timepicker>
+        </div>
+
+        <!-- </div> -->
+        <!-- <div class="input-container">
+          <input class="common-input small" type="text" id="endTime" formControlName="endTime"
+            placeholder="End time(mm/dd/yyyy hh/mm)" />
+        </div> -->
+        <div class="select-box-container">
+          <select class="common-select-box small" formControlName="priority" name="priority" id="priority">
+            <option value="">All Priorities</option>
+            <option value="FATAL">FATAL</option>
+            <option value="ERROR">ERROR</option>
+            <option value="INFO">INFO</option>
+            <option value="SYSTEM">SYSTEM</option>
+            <option value="CONSOLE">CONSOLE</option>
+            <option value="WARN">WARN</option>
+            <option value="DEBUG">DEBUG</option>
+          </select>
+        </div>
+        <div class="lfs-search-btn mt-small">
+          <button type="submit" class="d-btn d-btn--primary">
+            Search
+          </button>
+        </div>
+      </form>
+      <div class="clear-filter-wrapper">
+        <button class="d-btn d-btn--link" (click)="clearFilters()" type="submit">
+          Clear Filters
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

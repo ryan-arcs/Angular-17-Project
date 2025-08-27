@@ -1,0 +1,26 @@
+@import "src/assets/style/xapps-design-system/Foundations/_foundation.scss";
+@import "src/assets/style/xapps-design-system/Abstract/_mixins.scss";
+.heading-wdh {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+
+    span {
+        color: var(--secondary-text-color);
+    }
+}
+
+::ng-deep {
+    .ngx-datatable .datatable-body {
+        @include max-width(1180) {
+            height: calc(100vh - 222px) !important;
+        }
+        @include max-width(992) {
+            height: calc(100vh - 270px) !important;
+        }
+    }
+
+    .datatable-body-cell-label .sell-outer .hiperlink span {
+        color: var(--primary_color) !important;
+    }
+}

@@ -1,0 +1,78 @@
+<div class="write-popup">
+  <div class="popup-header">
+    <h3>{{c4eDetails !== null ? '' : id ? "Edit" : "Add"}} {{tableName}}</h3>
+    <div class="d-btn d-btn--circle sm white-bg-circle _cp" (click)="activeModal.close('CANCEL')">
+      <span class="material-symbols-rounded btn-icon">close</span>
+    </div>
+  </div>
+  <div class="popup-body">
+    @if (c4eDetails === null) {
+    <p class="require-label">Fields marked with <span class="required">*</span>&nbsp;&nbsp; are required.</p>
+    }
+    @if (c4eDetails !== null) {
+    <form action="">
+      <div class="outer-box">
+        <div class="inner-box">
+          <div class="only-feilds">
+            @for (column of c4eDetails| keyvalue; track $index) {
+            <div class="input-feild-columns">
+              <div class="form-group">
+                <div class="input-wrapper lg">
+                  <p class="small _pl-16">{{column.value}}</p>
+                  <label class="floating-label top-label">{{ convertToTitleCase(column.key) }}</label>
+                </div>
+              </div>
+            </div>
+            }
+          </div>
+        </div>
+      </div>
+    </form>
+    <div class="outer-button">
+      <button ngbDropdownItem class="d-btn d-btn--primary md _w-full" (click)="fetchData()">
+        <i style="font-size: 17px; cursor: pointer;line-height:24px;" class="fa fa-edit btn-icon"></i>
+        Edit
+      </button>
+    </div>
+    } @else {
+    <form [formGroup]="dynamicForm" (ngSubmit)="onSubmit()">
+      <div class="outer-box">
+        <div class="inner-box">
+          <div class="only-feilds">
+            @for (column of dynamicForm.controls| keyvalue; track $index) {
+            <div class="input-feild-columns">
+              <div class="form-group" [class.error]='showErrors && dynamicForm.get(column.key)?.invalid'
+                (click)="vendorNameInputBox.focus()">
+                <div class="input-wrapper lg">
+                  <input #inputElement #vendorNameInputBox type="{{getColumnType(column.key)}}"
+                    formControlName="{{ column.key }}" id="{{ column.key }}" placeholder=" "
+                    [class.filled]="dynamicForm.get(column.key)?.value" />
+                  <label for="{{ column.key }}" class="floating-label">{{ convertToTitleCase(column.key) }}:
+                    @if(isColumnRequired(column.key)){
+                    <span class="important">*</span>
+                    }</label>
+                </div>
+                @if (showErrors && dynamicForm.get(column.key)?.hasError('required') &&
+                dynamicForm.get(column.key)?.invalid) {
+                <p class="error-message">Please enter {{ column.key }}.</p>
+                }
+                @if (showErrors && dynamicForm.get(column.key)?.hasError('maxlength') &&
+                dynamicForm.get(column.key)?.invalid) {
+                <p class="error-message">{{ column.key | titlecase }} exceeds the maximum length allowed.</p>
+                }
+              </div>
+            </div>
+            }
+          </div>
+        </div>
+      </div>
+    </form>
+    <div class="outer-button">
+      <button type="submit" class="d-btn d-btn--primary sm _w-full" (click)="onSubmit()">
+        <span class="material-symbols-outlined">
+         check
+        </span>Save</button>
+    </div>
+    }
+  </div>
+</div>

@@ -1,0 +1,64 @@
+
+.nds-light-orange{
+    // blue theme 
+    // ==================semantic colors ==================//
+    --primary-color :#EE701B;
+    --primary-hover-color:#D66518;
+    --primary-selected-color:#FBE9E6;
+    --primary-selected-hover-color:#F7B88D;
+    --primary-highlighted-color:#F8C6A4;
+    --positive-color:#099138;
+    --positive-hover-color:#07742D;
+    --positive-selected-color:#E6F4EB;
+    --positive-selected-hover-color:#CEE9D7;
+    --negative-color:#D72300;
+    --negative-hover-color:#C22000;
+    --negative-selected-color:#F7D3CC;
+    --negative-selected-hover-color:#EFA799;
+    --warning-color:#FAAD14;
+    --warning-hover-color:#E19C12;
+    --warning-selected-color:#FEEFD0;
+    --warning-selected-hover-color:#FDDEA1;
+    --private-color:#F65F7C;
+    --shareable-color:#8F5A8A;
+    --inverted-background-color:#060606;
+    --icon-color:#53585B;
+    --icon-active-color:#363636;
+    --icon-color-secondary:#878A8C;
+    --icon-color-on-dark-bg:#E9E9E9;
+    --fixed-light-color:#FFFFFF;
+    --fixed-dark-color:#1A1A1A;
+    
+    //=======================background-colors==================//
+    
+    --primary-background-color:#FFFFFF;
+    --primary-reverse-text-color:#F2F3F5;
+    --fixed-dark-text-color: #202020;
+    --secondary-background-color:#F2F3F5;
+    --primary-background-hover-color:#DDDEDE;
+    --inverted-background-color:#060606;
+    --grey-background-color:#EEEEEF;
+    --light-grey-background-color:#EEEEEF;
+    --dark-grey-background:#989B9D;
+    --dark-background:#111212;
+    --dark-background-hover:#323537;
+    // =======================text colors ========================//
+    
+    --primary-text-color:#202020;
+    --secondary-text-color:#797979;
+    --secondary-text-on-secondary-color:#FFFFFF;
+    --text-color-on-inverted:#FFFFFF;
+    --text-color-on-primary:#FFFFFF;
+    --disabled-text-color:#CBCDCE;
+    --placeholder-color:#A9ACAD;
+    --link-color:#3397C6;
+    
+    // ==================border colors =======================//
+    --ui-border-color:#BABCBD;
+    --layout-border-color:#DDDEDE;
+    --light-border:#EEEEEF;
+    --input-hover-color:#202020;
+    --bs-var: 0px 3px 8px 0px #00000033;
+    --box-shadow-large : 0 5px 11px #0003, 0 20px 45px #0003;
+--box-shadow-medium : 0px 15px 50px 0px #0000004D;
+    }

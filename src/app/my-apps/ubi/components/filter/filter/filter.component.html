@@ -1,0 +1,104 @@
+<div class="modal-header">
+  <div class="mh-inner">
+    <h2>Filters</h2>
+    @if( !isObjectEmpty(dateFilterForm.value)){
+      <button class="link-btn" (click)="clearFilter()">
+        Clear Filter
+      </button>
+    }
+  </div>
+  <button type="button" class="modal-close-btn d-btn d-btn--circle sm white-bg-circle _cp" (click)="activeModal.close('CANCEL')">
+    <span class="material-symbols-rounded btn-icon"> close </span>
+  </button>
+</div>
+
+<div class="modal-body">
+<div class="sh-search">
+<div class="filter-logs-sidebar-outer">
+<form [formGroup]="dateFilterForm">
+  <div class="filter-container">
+    <div class="filter-item">
+      <label>Created on/before</label>
+      <div class="input-container date-picker-outer">
+        <input
+          id="ctBefDatepicker"
+          class="date-picker change-focus-color"
+          placeholder="Created before date(YYYY-MM-DD)"
+          formControlName="createdBefore"
+          ngbDatepicker
+          (click)="d4.toggle()"
+          #d4="ngbDatepicker"
+        />
+        @if(dateFilterForm.get('createdBefore')?.value){
+          <span class="material-symbols-outlined clear-filter-unique" (click)="clearDate('createdBefore')">close</span>
+        }
+        <span class="material-symbols-outlined toggle-icon" (click)="d4.toggle()">calendar_today</span>
+      </div>
+    </div>
+
+    <div class="filter-item">
+      <label>Created on/after</label>
+      <div class="input-container date-picker-outer">
+        <input
+          id="ctAftDatepicker"
+          class="date-picker change-focus-color"
+          placeholder="Created after date (YYYY-MM-DD)"
+          formControlName="createdAfter"
+          ngbDatepicker
+          (click)="d3.toggle()"
+          #d3="ngbDatepicker"
+        />
+        @if(dateFilterForm.get('createdAfter')?.value){
+          <span class="material-symbols-outlined clear-filter-unique" (click)="clearDate('createdAfter')">close</span>
+        }
+        <span class="material-symbols-outlined toggle-icon" (click)="d3.toggle()">calendar_today</span>
+      </div>
+    </div>
+
+    <div class="filter-item">
+      <label>Modified on/before</label>
+      <div class="input-container date-picker-outer">
+        <input
+          id="mdBefDatepicker"
+          class="date-picker change-focus-color"
+          placeholder="Modified before date(YYYY-MM-DD)"
+          formControlName="modifiedBefore"
+          ngbDatepicker
+          (click)="d2.toggle()"
+          #d2="ngbDatepicker"
+        />
+        @if(dateFilterForm.get('modifiedBefore')?.value){
+          <span class="material-symbols-outlined clear-filter-unique" (click)="clearDate('modifiedBefore')">close</span>
+        }
+        <span class="material-symbols-outlined toggle-icon" (click)="d2.toggle()">calendar_today</span>
+      </div>
+    </div>
+
+    <div class="filter-item">
+      <label>Modified on/after</label>
+      <div class="input-container date-picker-outer">
+        <input
+          id="mdAftDatepicker"
+          class="date-picker change-focus-color"
+          placeholder="Modified after date(YYYY-MM-DD)"
+          formControlName="modifiedAfter"
+          ngbDatepicker
+          (click)="d1.toggle()"
+          #d1="ngbDatepicker"
+        />
+        @if(dateFilterForm.get('modifiedAfter')?.value){
+          <span class="material-symbols-outlined clear-filter-unique" (click)="clearDate('modifiedAfter')">close</span>
+        }
+        <span class="material-symbols-outlined toggle-icon" (click)="d1.toggle()">calendar_today</span>
+      </div>
+    </div>
+    
+  </div>
+</form>
+<button class="apply-btn" (click)="applyFilter()">Apply</button>
+</div>
+</div>
+</div>
+
+
+<!-- <span class="material-symbols-outlined toggle-icon" (click)="d1.toggle()">keyboard_arrow_down</span> -->

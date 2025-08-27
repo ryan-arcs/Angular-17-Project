@@ -1,0 +1,164 @@
+ .cards {
+    @include flex-box(row, start, center, wrap, na);
+    gap: 16px 8px;
+    &.sidebar-cards{
+    flex-direction: column !important;
+    }
+ 
+    .card {
+        border: $border-medium solid var(--light-border);
+        @include dimensions(192, na);
+        border-radius: $border-radius-large;
+        width: 100%;
+        transition: all $transition-duration-medium ease-in-out;
+        transform: scale(1.01);
+        position: relative;
+        box-sizing: border-box;
+        scale: 0.96;
+        @include max-width(576){
+            width: 100% !important;
+        }
+ 
+        &.item-count-2 {
+            @include dimensions(223, calc(50% - 8px));
+            .card-img {
+                height: calc(100% - 44px);
+            }
+            .card-details {
+                height: 44px;
+            }
+            @include max-width(576){
+                width: 100% !important;
+            }
+        }
+ 
+        &.item-count-4 {
+            @include dimensions(192, calc(25% - 6px));
+            .card-img {
+                height: calc(100% - 44px);
+            }
+            .card-details {
+                height: 44px;
+            }
+            @include max-width(768){
+                width: calc(50% - 4px) !important;
+            }
+            @include max-width(576){
+                width: 100% !important;
+            }
+        }
+ 
+        &.item-count-6 {
+            @include dimensions(153, calc(16.66% - 10px));
+            .card-img {
+                height: calc(100% - 26px);
+            }
+            .card-details {
+                height: 36px;
+            }
+            @include max-width(576){
+                width: 100% !important;
+            }
+        }
+ 
+        .card-img {
+            overflow: hidden;
+            @include absolute(0, na, na, na);
+            height: calc(100% - 44px);
+            border-top-left-radius: $border-radius-large;
+            border-top-right-radius: $border-radius-large;
+            cursor: pointer;
+            img{
+                width: 100%;
+                transition: all $transition-duration-large ease;
+            }
+        }
+ 
+        .card-details {
+            width: 100%;
+            height: 44px;
+            @include absolute(na, na, 0, na);
+            @include flex-box(na, space-between, center, na, na);
+            border-top: $border-thin solid var(--light-border);
+            padding: $zero-p $vvs-p;
+            background-color: var(--primary-background-color);
+            border-bottom-left-radius: 14px;
+            border-bottom-right-radius: 14px;
+            .card-detail-name{
+                width: calc(100% - 100px);
+                .card-name {
+                    margin: $zero-m;
+                    @include typography(var(--fs-large), na, var(--font-medium), var(--primary-text-color));
+                    max-width: 100%;
+                    width: fit-content;
+                }
+            }
+ 
+            .card-icons {
+                transition: all $transition-duration-medium ease-in;
+                @include flex-box(na, space-between, center, na, 1);
+                button {
+                    .icon-Vector-9 {
+                        font-size: var(--fs-xxl);
+                        &::before {
+                            color: var(--icon-color); // Default icon color on hover of parent
+                        }
+                    }
+ 
+                    &:hover {
+                        span {
+                            &::before {
+                                color: var(--icon-active-color); // Icon color when button is hovered
+                            }
+                        }
+                        .icon-Vector-9 {
+                            font-size: var(--fs-xxl);
+                            &::before {
+                                color: var(--icon-color); // Default icon color on hover of parent
+                            }
+                        }
+                    }
+                }
+            }
+        }
+ 
+        &.sidebar-tab-active{
+            border-color: var(--primary-color);
+            box-shadow: 0 12px 28px 0 #0000001f;
+            scale: 0.99;
+            .card-img{
+                img{
+                    scale: 1.1;
+                }
+            }
+            .card-details {
+                .card-icons{
+                    visibility: visible;
+                }
+            }
+        }
+ 
+        &:hover {
+            border: $border-medium solid var(--primary-color);
+            box-shadow: 0 12px 28px 0 #0000001f;
+            scale: 0.99;
+            .card-img{
+                img{
+                    scale: 1.1;
+                }
+            }
+            .card-details {
+                .card-icons{
+                    visibility: visible;
+                }
+            }
+        }
+    }
+}
+ 
+.tooltip-content-wrapper{
+    span{
+        color: var(--fixed-light-color) !important;
+        font-size: var(--fs-small) !important;
+    }
+}

@@ -1,0 +1,33 @@
+<div class="modal-header">
+  <h4 class="modal-title">Conversation</h4>
+</div>
+
+<form [formGroup]="moreInfoForm" (ngSubmit)="sendMsg()" class="form">
+  <div class="mb-3">
+    <label for="moreInfo" class="">Message</label>
+    <textarea
+      formControlName="message"
+      placeholder="Send message..."
+      id="moreInfo"
+      rows="3"
+    ></textarea>
+    @if (
+      moreInfoForm.get("reason")?.touched &&
+      moreInfoForm.get("message")?.invalid
+    ) {
+      <p class="errors">Message is required.</p>
+    }
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="close()">
+      Close
+    </button>
+    <button
+      type="submit"
+      class="btn btn-success"
+      [disabled]="moreInfoForm.invalid"
+    >
+      Send
+    </button>
+  </div>
+</form>

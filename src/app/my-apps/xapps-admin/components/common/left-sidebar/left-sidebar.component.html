@@ -1,0 +1,80 @@
+<div [class.overlay-sidebar]="sidebarOpen" (click)="toggleSidebarMobile()"></div>
+<div class="burgur-menu" (click)="toggleSidebar()">
+    <span class="material-symbols-outlined">
+        menu
+    </span>
+</div>
+<div class="left-sidebar-large large" [class.small]="!sidebarOpen" [class.hideSidebar]="sidebarOpen">
+    <div class="d-btn d-btn--circle white-bg-circle vs cp" (click)="toggleSidebar()">
+        <span class="icon-rightarrow icon--vvs"></span>
+    </div>
+
+
+    <ul class="upper-icons">
+        @if(hasAccessToModule("users")){
+        <li class="list" (click)="toggleSidebarMobile()">
+            <a class="icon-div" routerLink="/xapps-admin/users" routerLinkActive="active">
+                <div class="logo tooltip-btn" placement="end" ngbTooltip="Users">
+                    <span class="material-symbols-outlined nav-icon">group</span>
+
+                </div>
+                <p class="text">Users</p>
+            </a>
+        </li>
+        }
+        @if(hasAccessToModule("roles")){
+        <li class="list" (click)="toggleSidebarMobile()">
+            <a class="icon-div" routerLink="/xapps-admin/roles" routerLinkActive="active">
+                <div class="logo tooltip-btn" placement="end" [ngbTooltip]="!sidebarOpen?'Roles':''">
+                    <span class="material-symbols-rounded nav-icon">account_tree</span>
+
+                </div>
+                <p class="text">Roles</p>
+            </a>
+        </li>
+        }
+        @if(hasAccessToModule("applications")){
+        <li class="list" (click)="toggleSidebarMobile()">
+            <a class="icon-div" routerLink="/xapps-admin/applications" routerLinkActive="active">
+                <div class="logo tooltip-btn" placement="end" ngbTooltip="Applications">
+                    <span class="material-symbols-rounded nav-icon">apps</span>
+                </div>
+                <p class="text">Applications</p>
+            </a>
+        </li>
+        }
+        @if(hasAccessToModule("modules")){
+        <li class="list" (click)="toggleSidebarMobile()">
+            <a class="icon-div" routerLink="/xapps-admin/modules" routerLinkActive="active">
+                <div class="logo tooltip-btn" placement="end" [ngbTooltip]="!sidebarOpen?'Modules':''">
+                    <span class="material-symbols-rounded nav-icon">view_module</span>
+
+                </div>
+                <p class="text">Modules</p>
+            </a>
+        </li>
+        }
+        @if(hasAccessToModule("submodules")){
+        <li class="list" (click)="toggleSidebarMobile()">
+            <a class="icon-div" routerLink="/xapps-admin/submodules" routerLinkActive="active">
+                <div class="logo tooltip-btn" placement="end" [ngbTooltip]="!sidebarOpen?'SubModules':''">
+                    <span class="material-symbols-rounded nav-icon">view_module</span>
+
+                </div>
+                <p class="text">Submodules</p>
+            </a>
+        </li>
+        }
+        @if(hasAccessToModule("permissions")){
+        <li class="list" (click)="toggleSidebarMobile()">
+            <a class="icon-div" routerLink="/xapps-admin/permissions" routerLinkActive="active">
+                <div class="logo tooltip-btn" placement="end" [ngbTooltip]="!sidebarOpen?'Permissions':''">
+                    <span class="material-symbols-rounded nav-icon">folder_managed</span>
+
+                </div>
+                <p class="text">Permissions</p>
+            </a>
+        </li>
+        }
+    </ul>
+</div>

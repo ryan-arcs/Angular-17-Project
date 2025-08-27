@@ -1,0 +1,292 @@
+@use "sass:math";
+@use '../Abstract/mixins' as *;
+
+// FONT VARIABLE
+
+$font-changer: 2px;
+$line-height-changer: 2px;
+$font-weight-changer: 100;
+
+// BORDER-VARIABLES
+
+$border-thin: 1px;
+$border-medium: 2px;
+$border-thick: 4px;
+
+// SPACING VARIABLES AND CLASSES  ************************************
+
+// margin 
+$zero-m:0;
+$tiny-m :1px;
+$vvvs-m  :4px;
+$vvs-m :8px;
+$vs-m :12px;
+$small-m  :16px;
+$medium-m :20px;
+$large-m :24px;
+$xl-m :32px;
+$xxl-m :40px;
+$xxxl-m :48px;
+
+// padding
+$zero-p:0;
+$tiny-p :1px;
+$vvvs-p  :4px ;
+$vvs-p :8px;
+$vs-p :12px;
+$small-p :16px;
+$medium-p :20px;
+$large-p :24px;
+$xl-p :32px;
+$xxl-p :40px;
+$xxxl-p:48px;
+
+$spacing-properties: (
+m: margin,
+mt: margin-top,
+mr: margin-right,
+mb: margin-bottom,
+ml: margin-left,
+p: padding,
+pt: padding-top,
+pr: padding-right,
+pb: padding-bottom,
+pl: padding-left,
+br: border-radius,
+);
+
+$spacing-values: 0, 1, 4, 8, 12, 16, 20, 24, 32, 40, 48;
+
+@each $class, $property in $spacing-properties {
+  @each $value in $spacing-values {
+    ._#{$class}-#{$value} {
+      #{$property}: #{$value}px !important;
+    }
+  }
+}
+
+._mlr-auto{
+  margin-right: auto;
+  margin-left: auto;
+}
+
+._mx-auto{
+  margin: 0 auto;
+}
+
+
+// BUTTON-SIZES  **************************************************
+
+$btn-vs-size: 28px;
+$btn-sm-size: 32px;
+$btn-md-size: 38px;
+$btn-lg-size: 42px;
+$btn-xl-size: 48px;
+$btn-xxl-size: 54px;
+
+
+// BORDER-RADIUS  **************************************************
+
+$border-radius-small: 4px;
+$border-radius-medium: 8px;
+$border-radius-large: 16px;
+
+
+// BOX-SHADOW   *******************************************************
+
+//vars
+$box-shadow-small: 0px 3px 8px 0 #00000033  ;
+$box-shadow-medium: 0px 6px 20px 0 #00000033  ;
+$box-shadow-large: 0px 15px 50px 0 #0000004D  ;
+
+//classes
+._bss {
+  box-shadow: $box-shadow-small;
+}
+._bsm {
+  box-shadow: $box-shadow-medium;
+}
+._bsl {
+  box-shadow: $box-shadow-large;
+}
+
+
+// DISPLAYS     ******************************************************
+
+//classes
+._d-n{
+  display: none;
+}
+._d-i{
+  display: inline;
+}
+._d-b{
+  display: block;
+}
+._d-ib{
+  display: inline-block;
+}
+._d-flex{
+  display: flex;
+}
+
+
+// TEXT ALIGN     ******************************************************
+
+._tx-center{
+  text-align: center !important;
+}
+._tx-end{
+  text-align: end;
+}
+._tx-left{
+  text-align: left;
+}
+._tx-start{
+  text-align: start;
+}
+
+
+// HEIGHT AND WIDTH     ******************************************************
+
+._full-vh{
+  height: 100vh;
+}
+
+._h-auto{
+  height: auto;
+}
+
+._h-full{
+  height: 100%;
+}
+
+._w-full{
+  width: 100%;
+}
+
+._w-fc{
+  width: fit-content;
+}
+
+
+
+// CURSOR POINTER    **********************************************************
+
+._cp{
+  cursor: pointer;
+}
+
+
+
+// TEXT DECORATION    **********************************************************
+
+._tx-dec-none{
+  text-decoration: none;
+}
+
+
+
+// BOX SIZING    *************************************************************
+
+._bx-border-box{
+  box-sizing: border-box;
+}
+
+
+
+// POSITIONS    *************************************************************
+
+._p-rel {
+  position: relative;
+}
+._p-abs {
+  position: absolute;
+}
+._p-st {
+  position: static;
+}
+._p-fx {
+  position: fixed;
+}
+._p-sty {
+  position: sticky;
+}
+
+
+
+// Z-INDEX    *************************************************************
+
+@for $z-index from 0 through 9 {
+  ._z-#{$z-index} {
+    z-index: #{$z-index};
+  }
+}
+
+
+// TRANSITION TIME
+$transition-duration-small: 0.2s;
+$transition-duration-medium: 0.4s;
+$transition-duration-large: 0.8s;
+
+
+// TRANSITIONS CLASSES AND VARIABLES  *************************************************************
+
+//variables
+$transition-fast: all 0.2s ease;
+$transition-medium: all 0.4s ease;
+$transition-slow: all 0.8s ease;
+
+// classes
+@for $transition-time from 1 through 9 {
+  ._t-#{$transition-time} {
+    transition: all #{(0.1) * $transition-time}s ease;
+  }
+}
+
+
+
+// OVERFLOWS  *************************************************************
+
+$overflow-dimensions: (
+  o: overflow,
+  ox: overflow-x,
+  oy: overflow-y
+);
+$overflow-properties: (
+  a: auto,
+  h: hidden,
+  s: scroll,
+  v: visible
+);
+@each $dim-short, $dim-full in $overflow-dimensions {
+  @each $prop-short, $prop-full in $overflow-properties {
+    ._#{$dim-short}-#{$prop-short} {
+      #{$dim-full}: #{$prop-full};
+    }
+  }
+}
+
+
+
+// BREAKPOINTS *************************************************************
+
+$breakpoints: 1720px, 1440px, 1200px, 992px, 768px , 576px;
+._wds{
+  @include min-width(1721){
+    width: 1650px;
+  }
+  @include screen-size(1440,1720){
+    width: 1350px;
+  }
+  @include screen-size(1200,1440){
+    width: 1050px;
+  }
+  @include screen-size(992,1200){
+    width: 940px;
+  }
+  @include screen-size(700,992){
+    width: 700px;
+  }
+}
+

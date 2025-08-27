@@ -1,0 +1,182 @@
+<div class="breadcrumbs-outer">
+  <ul>
+    <li><a (click)="navigateToApplications()" class="label medium"> Projects </a></li>
+    <li><span>/</span></li>
+    <li class="label medium">Logs</li>
+  </ul>
+</div>
+
+<div class="application-container">
+  <div class="application-container-inner">
+    <div class="subheader-container">
+      <div class="top-container">
+        <div class="heading">
+          <button class="d-btn d-btn--circle sm white-bg-circle _cp" (click)="navigateToApplications()">
+            <span class="res-menu-btn-hide back-button icon-leftarrow icon--sm"></span>
+          </button>
+          <div class="application-text">
+            <h2>Logs</h2>
+            <div class="line"></div>
+            <p class="small">{{ applicationName }}</p>
+          </div>
+        </div>
+
+
+        <div class="right right-panel">
+          <div class="search-n-btn">
+            <div class="search-bar search-bar--rounded " (click)="openFilterModal()">
+              <span class="material-symbols-outlined btn-icon">
+                search
+              </span>
+              <form [formGroup]="searchForm">
+                <input id="search" class="search-icon" type="text" placeholder="Search here..." formControlName="filter"
+                  readonly />
+              </form>
+            </div>
+          </div>
+          <div class="listing-page-buttons">
+            <button (click)="refreshLogs()" class="d-btn d-btn--secondary sm" type="button" [disabled]="isloadingLogs"
+              placement="start" [ngbTooltip]="isMobileScreen ? 'Refresh' : ''" triggers="hover">
+              <span class="material-symbols-rounded btn-icon">refresh</span>
+              <p class="">Refresh</p>
+            </button>
+            <button (click)="downloadLogs()" class="d-btn d-btn--secondary sm tooltip-btn" placement="start"
+              [ngbTooltip]="isMobileScreen ? 'Download' : ''" triggers="hover">
+              <span class="material-symbols-rounded btn-icon">download</span>
+              <p class="">Download</p>
+            </button>
+
+            @if (isColumnFilterActive) {
+            <button (click)="clearFilters()" class="d-btn d-btn--secondary sm" type="button" placement="start"
+              [ngbTooltip]="isMobileScreen ? 'Clear Filter' : ''">
+              <span class="material-symbols-rounded btn-icon">filter_list_off</span>
+              <p class="">Clear Filter</p>
+            </button>
+
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button class="d-btn d-btn--secondary sm deployment-btn" (click)="showDeploymentList = !showDeploymentList">
+      <span class="material-symbols-rounded"> menu </span>
+    </button>
+    <div class="note-outer">
+      <p><b>Note:</b> Logs are kept for 30 days or up to 100 MB.</p>
+    </div>
+    <div class="chips-outer">
+      <div class="chips-inner">
+        @if (advancedFilters.searchText) {
+        <div class="co-main" title="{{ advancedFilters.searchText }}">
+          <label>{{ advancedFilters.searchText }} </label>
+          <span (click)="removeFilter('searchText')">
+            <span class="material-symbols-rounded chip-close"> close </span>
+          </span>
+        </div>
+        }
+
+        @if (
+        advancedFilters.startTime?.trim() && !advancedFilters.endTime?.trim()
+        ) {
+        <div class="co-main">
+          <label>After {{ startTimeString }} </label>
+          <span (click)="removeFilter('startTime')"><span class="material-symbols-rounded"> close </span></span>
+        </div>
+        }
+
+        @if (
+        advancedFilters.endTime?.trim() && !advancedFilters.startTime?.trim()
+        ) {
+        <div class="co-main">
+          <label>Before {{ endTimeString }} </label>
+          <span (click)="removeFilter('endTime')"><span class="material-symbols-rounded"> close </span></span>
+        </div>
+        }
+
+        @if (
+        advancedFilters.startTime?.trim() && advancedFilters.endTime?.trim()
+        ) {
+        <div class="co-main">
+          <label>{{ startTimeString }} - {{ endTimeString }} </label>
+          <span (click)="removeFilter('bothTime')"><span class="material-symbols-rounded"> close </span></span>
+        </div>
+        }
+        @if (advancedFilters.priority) {
+        <div class="co-main">
+          <label>{{ advancedFilters.priority }} </label>
+          <span (click)="removeFilter('priority')"><span class="material-symbols-rounded"> close </span></span>
+        </div>
+        }
+      </div>
+      @if (advanceFilterApplied) {
+      <div class="clear-filters-outer">
+        <button (click)="clearAdvanceFilters()" class="d-btn d-btn--secondary sm" type="button" title="Refresh Logs"
+          [disabled]="isloadingLogs">
+          <span class="material-symbols-rounded btn-icon">filter_list_off</span>
+          <p class="ml-vvs">Clear Filter</p>
+        </button>
+      </div>
+      }
+    </div>
+
+    <div class="logs-developments">
+      <div class="panel-and-table">
+        <div class="logs-container logs-cell-padding inner-pages-footer">
+          @if (logsList.length > 0 && !isloadingLogs) {
+          <div class="outer-div">
+            <table class="log-table" [class.log-table-clear-filter]="advanceFilterApplied">
+              <tr class="heading-row">
+                <th class="headings">Message</th>
+                <th class="headings logs-grid-second-heading">Priority</th>
+              </tr>
+              <tbody class="log-rows" #tableBody [class]="{ 'chips-margin': advanceFilterApplied }">
+                @for (log of logsList; track $index) {
+                <tr [class]="{ 'last-record': log.lastRecord ? true : false }">
+                  <td class="logs-inner-list break-words" [style.background-color]="log?.color">
+                    @if (!log?.isLoading) {
+                    <button (click)="copyToClipboard(log?.message)" class="copy-btn d-btn d-btn--secondary sm">
+                      <p> Copy</p>
+                    </button>
+                    }
+                    @if (log?.isLoading) {
+                    <div class="loader-div" [class]="{ advance: log?.isAdvance }">
+                      <span class="material-symbols-rounded spin">cycle</span>
+                    </div>
+                    } @else {
+                    <pre [innerHTML]="highlightText(log?.message || '-')"></pre>
+                    }
+                  </td>
+                  @if (!log?.isLoading) {
+                  <td class="logs-status-outer">
+                    <div class="flag-outer">
+                      <span [class]="log?.flagColor" class="material-symbols-rounded">flag
+                      </span>
+                      {{ log?.priority || "-" }}
+                    </div>
+                  </td>
+                  }
+                </tr>
+                }
+              </tbody>
+            </table>
+          </div>
+          } @else if (!logsList.length && !isloadingLogs) {
+          <app-error></app-error>
+          }
+          <!-- <app-footer></app-footer> -->
+        </div>
+      </div>
+
+      @if (
+      deploymentIdList.length && selectedInstanceId !== "" && showDeploymentList
+      ) {
+      <div class="deployment-list" [class.deployments-clear-filter]="advanceFilterApplied">
+        <app-deployments [applicationName]="applicationName" [advancedFilters]="advanceFilterApplied"
+          (instanceId)="changeselectedInstanceId($event)" [selectedInstanceId]="selectedInstanceId"
+          [deploymentIdList]="deploymentIdList"></app-deployments>
+      </div>
+      }
+    </div>
+  </div>
+</div>

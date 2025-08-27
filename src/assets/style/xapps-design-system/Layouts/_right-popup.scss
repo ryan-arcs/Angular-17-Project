@@ -1,0 +1,62 @@
+@import "../../xapps-design-system/Foundations/foundation";
+@import "../../xapps-design-system/Abstract/mixins";
+@import "../../xapps-design-system/Themes/light/blue";
+@import "../../xapps-design-system/fonts/medium";
+
+
+.right-side-popup{
+    .modal-dialog{
+        margin: $zero-m $zero-m $zero-m auto;
+        .modal-content{
+            border-radius: 0;
+            border: none;
+        }
+    }
+}
+
+// .offcanvas {
+//   .offcanvas-header {
+//     background-color: $secondary-background-color;
+//     border-bottom: 1px solid hsl(180, 2%, 87%);
+//     padding: 10px 20px;
+//     @include flex-box(na, space-between, center, na, na);
+//     .offcanvas-title {
+//       @include typography($fs-xxl,$lh-tertiary, $font-bolder, $primary-text-color);
+//     }
+//     .selected-btn {
+//       @include flex-box(na, end, center, na, 6);
+//     }
+//     .btn-close {
+//       box-shadow: none;
+//       background-color: $light-grey-background-color;
+//       margin: 0;
+//     }
+//   }
+
+//   .offcanvas-body {
+//     padding: 12px 16px;
+//     .side-item-container {
+//       margin-top: 16px;
+//       @include flex-box(column, na, na, na, 18);
+//       .side-item-list {
+//         @include flex-box(na, na, center, na, 8);
+//         .custom-checkbox {
+//           margin: 0;
+//           padding: 0;
+//         }
+//         p {
+//           @include typography($fs-medium, na,$font-medium, $primary-text-color);
+//         }
+//       }
+//     }
+//   }
+
+//   .offcanvas-footer {
+//     padding: 18px 20px;
+//     border-top: 1px solid $layout-border-color;
+//     @include flex-box(na, end, center, na, 8);
+//     &.d-none {
+//       display: none;
+//     }
+//   }
+// }

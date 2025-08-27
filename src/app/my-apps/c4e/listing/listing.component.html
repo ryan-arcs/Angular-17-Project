@@ -1,0 +1,94 @@
+<ng-template #actionRow let-row="row" let-value="value" let-i="index">
+  <span class="action-row">
+    @if (hasPermissionToEditRecord() && hasEnabledColumn()) {
+    <div ngbDropdown container="body" class="ag-grid-more-outer">
+      <button type="button" class="d-btn d-btn--circle vs" id="dropdownBasic1" title="options" ngbDropdownToggle>
+        <span class="material-symbols-rounded more-icon">more_horiz</span>
+      </button>
+      <div class="dropdown-menu" ngbDropdownMenu aria-labelledby="dropdownBasic1">
+        <button ngbDropdownItem class="d-btn d-btn--tertiary sm" (click)="editRow(row)">
+          <i style="font-size: 17px; cursor: pointer;line-height:24px;" class="fa fa-edit btn-icon"></i>
+          <p>Edit</p>
+        </button>
+      </div>
+    </div>
+    } @else {
+    <span> - </span>
+    }
+  </span>
+</ng-template>
+
+<div class="application-container">
+  <div class="application-container-inner">
+    <!-- left-subheader -->
+    <div class="subheader-container">
+      <div class="tc-manage-screen">
+
+        <div class="heading">
+          <div class="application-text">
+            <h2>{{ category }}</h2>
+            <div class="line"></div>
+            <p class="small small-ellipsis" title="{{ formattedTableName }} ({{ selectedTableName }})"
+              [class]="{ 'with-filter': searchText }">
+              {{ formattedTableName }} ({{ selectedTableName }})
+            </p>
+          </div>
+        </div>
+
+        <div class="right right-panel">
+          <div class="listing-page-buttons-manage-screen">
+            <div class="search-n-btn">
+              <div class="search-bar search-bar--rounded">
+                <span class="material-symbols-outlined btn-icon">
+                  search
+                </span>
+                <form [formGroup]="searchForm" (ngSubmit)="shootSearch()">
+                  <div class="search-outer">
+  
+                    <input type="text" formControlName="filter" placeholder="Search here..."
+                      title="This search will be performed on all displayed and hidden columns." />
+                    <button class="d-btn d-btn--primary sm search-btn" type="submit">Search</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <div class="sh-buttons">
+             <div class="btns-res-divider">
+               <!-- @if (category === "Table") {
+               <button class="d-btn d-btn--secondary sm tooltip-btn" (click)="viewLogs(selectedTableName)"
+                 placement="start" [ngbTooltip]="isMobileScreen() ? 'Action Logs' : ''" triggers="hover">
+                 <span class="material-symbols-rounded btn-icon">history</span>
+                 <p class="">Action Logs</p>
+               </button>
+               } -->
+               <button class="d-btn d-btn--secondary sm tooltip-btn" (click)="getTableData()" placement="start"
+                 [ngbTooltip]="isMobileScreen() ? 'Refresh' : ''" triggers="hover">
+                 <span class="material-symbols-rounded btn-icon">refresh</span>
+                 <p class="">Refresh</p>
+               </button>
+               @if (columnFilters.length || searchText) {
+               <button class="d-btn d-btn--secondary sm tooltip-btn" (click)="clearFilters()" placement="start"
+                 [ngbTooltip]="isMobileScreen() ? 'Clear Filter' : ''">
+                 <span class="material-symbols-rounded btn-icon">filter_list_off</span>
+                 <p class="">Clear Filter</p>
+               </button>
+               }
+             </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- grid -->
+    <div class="panel-and-table">
+      <div class="logs-container logs-cell-padding inner-pages-footer">
+        <app-data-grid [gridName]="'c4e-list'" [gridColumns]="columns" [gridRows]="listingData"
+          [pagination]="tempPagination" [actionRowTemplate]="actionRow" [enableInlineSearch]="true"
+          [columnFilters]="columnFilters" [errorMessage]="errorMessage" (onGridSort)="onSort($event)"
+          (onGridPageSizeChange)="onGridPageSizeChange($event)" (onGridPageChange)="onGridPageChange($event)"
+          (onColumnFilterChange)="onColumnFilterChange($event)"></app-data-grid>
+      </div>
+    </div>
+  </div>
+</div>

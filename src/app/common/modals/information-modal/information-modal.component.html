@@ -1,0 +1,28 @@
+<div class="modal-header">
+  <h4 class="modal-title">Confirmation</h4>
+  <!-- <button
+    type="button"
+    class="btn-close"
+    aria-label="Close"
+    (click)="activeModal.close('CANCEL')"
+  ></button> -->
+</div>
+<div class="modal-body">
+  <p>{{ action }}</p>
+</div>
+<div class="modal-footer">
+  <button
+    type="button"
+    class="btn btn-secondary"
+    (click)="activeModal.close(button1)"
+  >
+    {{ button1 }}
+  </button>
+  <button
+    type="button"
+    class="btn btn-success"
+    (click)="activeModal.close(button2)"
+  >
+    {{ button2 }}
+  </button>
+</div>

@@ -1,0 +1,21 @@
+.d-btn--circle {
+    z-index: 100;
+    position: absolute;
+    box-shadow: var(--bs-var);
+    width: 32px;
+    height: 32px !important;
+    top: 50%;
+    left: 100%;
+    transform: translate(-50%, -50%) rotate(0deg);
+    cursor: pointer;
+    span{
+        font-size: 20px !important;
+        transform: rotateY(180deg);
+    }
+    &.sidebar-open {
+        margin-left: 20px;
+        span{
+            transform: rotateY(0deg) !important;
+        }
+    }
+}

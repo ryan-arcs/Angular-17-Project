@@ -1,0 +1,65 @@
+<div class="modal-header">
+  <div class="mh-inner">
+    <label class="x-large">Columns</label>
+
+    <div class="action-button selected-btn">
+      <button class="secondary-button d-btn d-btn--secondary sm" (click)="resetToOriginalColumn()">
+        <p>Reset</p>
+      </button>
+      @if (anyColumnHidden()) {
+      <button class="link-btn d-btn d-btn--primary sm" (click)="toggleAllColumns(false)">
+        <p>Select All</p>
+      </button>
+      } @else {
+      <button class="link-btn d-btn d-btn--primary sm" (click)="toggleAllColumns(true)">
+        <p> Unselect All</p>
+      </button>
+      }
+    </div>
+  </div>
+  <button type="button" class="modal-close-btn d-btn d-btn--circle white-bg-circle vs"
+    (click)="activeModal.close('CANCEL')">
+    <span class="material-symbols-outlined btn-icon">
+      close
+    </span>
+  </button>
+</div>
+
+<div class="modal-body">
+  <!-- <div class="input-wrapper">
+      <input class="search-icon" type="text" placeholder="Search Columns" (input)="filterColumns($event)" />
+    </div> -->
+
+  <div class="search-bar search-bar--rounded">
+    <span class="material-symbols-outlined btn-icon">
+      search
+    </span>
+    <input type="text" placeholder="Search Columns" (input)="filterColumns($event)" class="search-icon">
+  </div>
+  @if (gridColumns.length) {
+  <div class="cloumn-hide-show">
+    @for (col of gridColumns; track $index) {
+    @if (!col.suppressToggle) {
+    <div class="columns-outer" (click)="toggle(col)">
+      <div class="container">
+        <!-- <input type="checkbox" [checked]="!col.hidden" /> -->
+
+        <div class="custom-checkbox checkbox-vs">
+          <input type="checkbox" [checked]="!col.hidden">
+          <div class="checkbox-box">
+            <div class="checkmark"></div>
+          </div>
+        </div>
+        <p>{{ col.name }}</p>
+        <!-- <span class="checkmark">
+          <span class="material-symbols-outlined">
+            check
+          </span>
+        </span> -->
+      </div>
+    </div>
+    }
+    }
+  </div>
+  }
+</div>

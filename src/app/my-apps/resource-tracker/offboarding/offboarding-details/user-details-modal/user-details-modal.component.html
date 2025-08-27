@@ -1,0 +1,138 @@
+<div class="user-details-popup">
+  <div class="modal-header">
+    <div class="mh-inner">
+      <h2>User Details</h2>
+    </div>
+    <button
+      type="button"
+      class="circul-btn modal-close-btn"
+      (click)="activeModal.close('CANCEL')"
+    >
+      <span class="material-symbols-rounded"> close </span>
+    </button>
+  </div>
+
+  <div class="modal-body">
+    <!-- <p class="user-dtls-header">User details</p> -->
+    <div class="credentials-wrapper">
+      @if (offboardingResource?.parentTicket?.id) {
+        <div class="data-row">
+          <div class="data-column">
+            <span class="data-label">Employee Id:</span>
+            {{ offboardingResource?.employeeId || "-" }}
+          </div>
+          <div class="data-column">
+            <span class="data-label">Name:</span>
+            {{ offboardingResource?.firstName || "-" }}
+            {{ offboardingResource?.lastName || "-" }}
+          </div>
+        </div>
+
+        <div class="data-row">
+          <div class="data-column">
+            <span class="data-label">Preferred Name:</span>
+            {{ offboardingResource?.preferredName || "-" }}
+          </div>
+          <div class="data-column">
+            <span class="data-label">Termination Date:</span>
+            {{ offboardingResource?.formattedTerminationDate || "-" }}
+          </div>
+        </div>
+
+        <div class="data-row">
+          <div class="data-column">
+            <span class="data-label">Job Title:</span>
+            {{ offboardingResource?.jobTitle || "-" }}
+          </div>
+          <div class="data-column">
+            <span class="data-label">Department Name:</span>
+            {{ offboardingResource?.departmentName || "-" }}
+          </div>
+        </div>
+
+        <div class="data-row">
+          <div class="data-column">
+            <span class="data-label">Supervisor Name:</span>
+            {{ offboardingResource?.supervisorName || "-" }}
+          </div>
+          <div class="data-column">
+            <span class="data-label">Supervisor Email:</span>
+            {{ offboardingResource?.supervisorEmail || "-" }}
+          </div>
+        </div>
+
+        <div class="data-row">
+          <div class="data-column">
+            <span class="data-label">Worker Type:</span>
+            {{ offboardingResource?.workerType || "-" }}
+          </div>
+          <div class="data-column">
+            <span class="data-label">Employment Type:</span>
+            {{ offboardingResource?.employmentType || "-" }}
+          </div>
+        </div>
+
+        <div class="data-row">
+          <div class="data-column">
+            <span class="data-label">Job Grade:</span>
+            {{ offboardingResource?.jobGrade || "-" }}
+          </div>
+          <div class="data-column">
+            <span class="data-label">Hr Business Partness:</span>
+            {{ offboardingResource?.hrBusinessPartner || "-" }}
+          </div>
+        </div>
+
+        <div class="data-row">
+          <div class="data-column">
+            <span class="data-label">Work location:</span>
+            {{ offboardingResource?.workLocation || "-" }}
+          </div>
+          <div class="data-column">
+            <span class="data-label">Work State:</span>
+            {{ offboardingResource?.workState || "-" }}
+          </div>
+        </div>
+
+        <div class="data-row">
+          <div class="data-column">
+            <span class="data-label">Work State Name:</span>
+            {{ offboardingResource?.workStateName || "-" }}
+          </div>
+          <div class="data-column">
+            <span class="data-label">Company Code:</span>
+            {{ offboardingResource?.companyCode || "-" }}
+          </div>
+        </div>
+
+        <div class="data-row">
+          <div class="data-column">
+            <span class="data-label">Created Date:</span>
+            {{
+              offboardingResource?.formattedCreatedDate
+                | date: "MMM dd, yyyy hh:mm a" || "-"
+            }}
+          </div>
+          <div class="data-column">
+            <span class="data-label">Created By:</span>
+            {{ offboardingResource?.createdBy || "-" }}
+          </div>
+        </div>
+
+        <div class="data-row">
+          <div class="data-column">
+            <span class="data-label">Updated Date:</span>
+            {{
+              offboardingResource?.formattedUpdatedDate
+                | date: "MMM dd, yyyy hh:mm a" || "-"
+            }}
+          </div>
+          <div class="data-column">
+            <span class="data-label">Updated By:</span>
+            {{ offboardingResource?.updatedBy || "-" }}
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</div>

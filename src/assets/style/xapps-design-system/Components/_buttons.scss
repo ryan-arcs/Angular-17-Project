@@ -1,0 +1,454 @@
+@use "../Abstract/mixins" as *;
+
+.ellipsis-title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: pointer;
+}
+
+.more-icon{
+  font-size: var(--fs-tertiary) !important;
+}
+
+.d-btn {
+  border-radius: $border-radius-small;
+  @include typography(var(--fs-large), na, var(--font-medium), na);
+  @include flex-box(na, center, center, nowrap, 4);
+  border: none;
+  outline: none;
+  box-sizing: border-box;
+  margin: $zero-m;
+  background-color: transparent;
+
+  &.dropdown-btn {
+    max-width: 164px;
+    overflow: hidden;
+  }
+
+  p {
+    display: block !important;
+    white-space: nowrap !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &.vs {
+    font-size: var(--fs-small);
+    padding: $zero-p $vs-p;
+    @include dimensions($btn-vs-size, na);
+  }
+
+  &.sm {
+    font-size: var(--fs-medium);
+    padding: $zero-p $vvs-p;
+    padding-left: 6px;
+    @include dimensions($btn-sm-size, na);
+  }
+
+  &.md {
+    font-size: var(--fs-large);
+    padding: $zero-p $small-p;
+    @include dimensions($btn-md-size, na);
+  }
+
+  &.lg {
+    font-size: var(--fs-large);
+    padding: $zero-p $medium-p;
+    @include dimensions($btn-lg-size, na);
+  }
+
+  &.xl {
+    font-size: var(--fs-large);
+    padding: $zero-p $medium-p;
+    @include dimensions($btn-xl-size, na);
+  }
+
+  &.xxl {
+    padding: $zero-p $medium-p;
+    @include typography(var(--fs-xl), na, var(--font-bolder), na);
+    @include dimensions($btn-xxl-size, na);
+  }
+
+  &--primary {
+    background-color: var(--primary-color);
+    color: var(--text-color-on-primary) !important;
+    transition: $transition-fast;
+
+    .btn-icon {
+      white-space: nowrap;
+      font-size: var(--fs-xxl);
+      color: var(--text-color-on-primary) !important;
+      font-weight: var(--font-bolder);
+    }
+
+    p {
+      margin: $zero-m;
+      @include flex-box(na, center, center, na, 5);
+      @include typography(var(--fs-medium),
+        na,
+        var(--font-medium),
+        var(--text-color-on-primary) !important);
+    }
+
+    &:hover {
+      background-color: var(--primary-hover-color);
+
+      .btn-icon {
+        color: var(--text-color-on-primary) !important;
+      }
+
+      p {
+        color: var(--text-color-on-primary) !important;
+      }
+    }
+  }
+
+  &--secondary {
+    border: 1px solid var(--primary-color);
+    background-color: var(--primary-background-color);
+    color: var(--primary-color) !important;
+    transition: $transition-fast;
+
+    p {
+      margin: $zero-m;
+      @include flex-box(na, center, center, na, 5);
+      @include typography(var(--fs-medium),
+        na,
+        var(--font-medium),
+        var(--primary-color) !important);
+    }
+
+    .btn-icon {
+      white-space: nowrap;
+      font-size: var(--fs-xxl);
+      color: var(--primary-color) !important;
+      font-weight: var(--font-bolder);
+    }
+
+
+    &:hover {
+      background-color: var(--primary-color);
+      transition: $transition-fast;
+      color: var(--primary-background-color) !important;
+      border: $border-thin solid var(--primary-color);
+
+      p {
+        color: var(--primary-background-color) !important;
+      }
+
+      .btn-icon {
+        color: var(--primary-background-color) !important;
+      }
+
+    }
+  }
+
+  &--tertiary {
+    background-color: transparent;
+    transition: $transition-fast;
+    padding: $vvs-p;
+    gap: 8px;
+    @include typography(var(--fs-medium),
+      na,
+      var(--font-medium),
+      var(--secondary-text-color) !important);
+
+    .btn-icon {
+      white-space: nowrap;
+      // font-size: var(--fs-xxl);
+      // font-weight: var(--font-bold);
+      color: var(--icon-color-secondary) !important;
+    }
+
+    p {
+      margin: $zero-m;
+      @include flex-box(na, center, center, na, 5);
+      @include typography(var(--fs-medium),
+        na,
+        var(--font-medium),
+        var(--secondary-text-color) !important);
+    }
+
+    &:hover {
+      background-color: var(--primary-background-hover-color);
+      transition: $transition-fast;
+      color: var(--primary-text-color) !important;
+
+      p {
+        color: var(--primary-text-color) !important;
+      }
+
+      .btn-icon {
+        color: var(--icon-active-color) !important;
+      }
+    }
+  }
+
+  &--link {
+    background-color: transparent;
+    color: var(--primary-color) !important;
+    cursor: pointer;
+    transition: $transition-fast;
+
+    .btn-icon {
+      white-space: nowrap;
+      font-size: var(--fs-xxl);
+      font-weight: var(--font-bolder);
+      color: var(--primary-color) !important;
+    }
+
+    p {
+      margin: $zero-m;
+      @include flex-box(na, center, center, na, 5);
+      @include typography(var(--fs-medium),
+        na,
+        var(--font-medium),
+        var(--primary-color) !important);
+    }
+
+    &:hover {
+      color: var(--primary-hover-color);
+      text-decoration: underline;
+      transition: $transition-fast;
+
+      p {
+        color: var(--primary-hover-color) !important;
+      }
+
+      .btn-icon {
+        color: var(--primary-hover-color) !important;
+      }
+    }
+  }
+
+  &--success {
+    background-color: var(--positive-color);
+    color: var(--fixed-light-color);
+
+
+    .btn-icon {
+      white-space: nowrap;
+      font-size: var(--fs-xxl);
+      font-weight: var(--font-bolder);
+      color: var(--positive-color) !important;
+    }
+
+    p {
+      margin: $zero-m;
+      @include flex-box(na, center, center, na, 5);
+      @include typography(var(--fs-medium),
+        na,
+        var(--font-medium),
+        varvar(--positive-color) !important);
+    }
+
+    &:hover {
+      color: var(--positive-hover-color);
+      transition: $transition-fast;
+
+      p {
+        color: var(--fixed-light-color) !important;
+      }
+
+      .btn-icon {
+        color: var(--fixed-light-color) !important;
+      }
+    }
+  }
+
+  &--danger {
+    background-color: var(--negative-color);
+    color: var(--fixed-light-color);
+
+    .btn-icon {
+      white-space: nowrap;
+      color: var(--fixed-light-color) !important;
+    }
+
+    p {
+      margin: $zero-m;
+      @include flex-box(na, center, center, na, 5);
+      @include typography(var(--fs-medium),
+        na,
+        var(--font-medium),
+        varvar(--fixed-light-color) !important);
+    }
+
+    &:hover {
+      background-color: var(--negative-hover-color);
+      color: var(--fixed-light-color);
+      transition: $transition-fast;
+
+      p {
+        color: var(--fixed-light-color) !important;
+      }
+
+      .btn-icon {
+        color: var(--fixed-light-color) !important;
+      }
+    }
+
+  }
+
+
+
+
+  &--primary-disable {
+    background-color: var(--primary-color);
+    color: var(--fixed-light-color);
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  &--secondary-disable {
+    border: $border-thin solid var(--primary-color);
+    background-color: var(--fixed-light-color);
+    color: var(--primary-color);
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  &--tertiary-disable {
+    background-color: var(--primary-background-color);
+    color: var(--primary-text-color);
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  &.loader {
+    background-color: var(--primary-color);
+    border: none;
+    border-radius: $border-radius-small;
+    padding: $vs-p $large-p;
+    @include flex-box(na, center, center, na, na);
+
+    .loading {
+      @include dimensions(16, 16);
+      border: $border-thick solid #d3d3d3;
+      border-top: $border-thick solid var(--fixed-light-color);
+      border-radius: 50%;
+      animation: spin $transition-duration-large linear infinite;
+      animation-play-state: running;
+    }
+
+    &:hover &::after {
+      animation-play-state: paused;
+    }
+
+    &--vs {
+      padding: 6px 43px;
+      height: $btn-vs-size;
+
+      .loading {
+        @include dimensions(16, 16);
+      }
+    }
+
+    &--sm {
+      padding: 8px 37px;
+      height: $btn-sm-size;
+
+      .loading {
+        @include dimensions(18, 18);
+      }
+    }
+
+    &--md {
+      padding: 9px 46px;
+      height: $btn-md-size;
+
+      .loading {
+        @include dimensions(20, 20);
+      }
+    }
+
+    &--lg {
+      padding: 9px 42px;
+      height: $btn-lg-size;
+
+      .loading {
+        @include dimensions(24, 24);
+      }
+    }
+
+    &--xl {
+      padding: 10px 60px;
+      height: $btn-xl-size;
+
+      .loading {
+        @include dimensions(28, 28);
+      }
+    }
+
+    &--xxl {
+      padding: 11px 57px;
+      height: $btn-xxl-size;
+
+      .loading {
+        @include dimensions(32, 32);
+      }
+    }
+  }
+}
+
+.d-btn-small {
+  font-size: var(--fs-small);
+  font-weight: var(--font-medium);
+  padding: 3px $vvs-p;
+  outline: none;
+  border: none;
+  border-radius: $border-radius-small;
+
+  &--danger {
+    color: #e2445c;
+    background-color: #f9dade;
+  }
+
+  &--warning {
+    color: #7d6819;
+    background-color: #ffeeb4;
+  }
+
+  &--success {
+    color: #258750;
+    background-color: #e9f3ee;
+  }
+}
+
+.squr-btn {
+  padding: 10px;
+  border: none;
+  outline: none;
+  background-color: var(--primary-background-color);
+  @include dimensions(35, 35);
+  border-radius: $border-radius-small;
+
+  span {
+    @include dimensions(13, 13);
+
+    &::before {
+      color: var(--icon-color-on-dark-bg);
+    }
+  }
+
+  &:hover {
+    background-color: var(--secondary-background-color);
+
+    span {
+      &::before {
+        color: var(--icon-color-secondary);
+      }
+    }
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}

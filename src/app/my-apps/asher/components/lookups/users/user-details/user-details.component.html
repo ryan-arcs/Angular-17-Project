@@ -1,0 +1,229 @@
+<div class="main-manage-roles">
+  <div>
+    <div class="breadcrumbs-outer">
+      @if(userDetails?.firstname){
+        <ul>
+          <li><a (click)="navigateToUsers()"> Users </a></li>
+          <li><span>/</span></li>
+          <li>{{userDetails?.firstname}}</li>
+          <li><span>/</span></li>
+          <li> User Information </li>
+        </ul>
+      }
+    </div>
+
+    <div class="sub-header-outer">
+      <div class="header sh-heading">
+        <div class="heading">
+          <span class="res-menu-btn-hide material-symbols-rounded back-button" (click)="navigateBack()">
+            chevron_left
+          </span>
+          User Information
+        </div>
+      </div>
+    </div>
+
+    <div class="outer-box">
+      <div class="user-dtls-wrapper">
+        <div class="user-dtls">
+          @if(userDetails?.fullname_preferred) {
+          <div class="upper-part">
+            <div class="left-part">
+              <p class="heading">Personal Information</p>
+              <div class="emp-status-wrapper">
+                <div class="emp-detail">
+                  <div class="profile-pic">
+                    @if(this.userDetails?.userProfileImage){
+                      <img [src]="this.userDetails?.userProfileImage" [alt]="userDetails?.fullname_preferred">
+                    }
+                    @else {
+                      <span class="profile-initials">{{uiService.getNameInitials(userDetails?.fullname_preferred)}}</span>
+                    }
+                  </div>
+                  <div class="name-n-mail">
+                    <div class="part-name-n-mail part-name">
+                      <p class="name">{{userDetails?.fullname_preferred}}</p>
+                      <span class="material-symbols-outlined copy-text" (click)="copy('name', userDetails?.fullname_preferred)">{{ copiedField === 'name' ? 'check' : 'content_copy' }}</span>
+                    </div>
+                    <div class="part-name-n-mail part-mail">
+                      <p class="mail text">{{userDetails?.email}}</p>
+                      <span class="material-symbols-outlined copy-text" (click)="copy('email', userDetails?.email)">{{ copiedField === 'email' ? 'check' : 'content_copy' }}</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="emp-status">
+                  <p class="emp-s-title">Employment Status</p>
+                  <div class="emp-status-value" [class]="getEmploymentStatusClass(userDetails?.empl_status)">
+                    <span>{{userDetails?.empl_status}}</span>
+                  </div>
+                </div>
+              </div>
+              <ul class="employee-details">
+                <li>
+                  <span class="title">First Name</span>
+                  <span class="value">{{userDetails?.firstname}}</span>
+                </li>
+                <li>
+                  <span class="title">Middle Name</span>
+                  <span class="value">{{userDetails?.middlename || "-"}}</span>
+                </li>
+                <li>
+                  <span class="title">Last Name</span>
+                  <span class="value">{{userDetails?.lastname}}</span>
+                </li>
+                <li>
+                  <span class="title">Nickname</span>
+                  <span class="value">{{userDetails?.nickname || "-"}}</span>
+                </li>
+                <li>
+                  <span class="title">Network ID</span>
+                  <span class="value">{{userDetails?.network_id}}</span>
+                </li>
+                <li>
+                  <span class="title">Job Title</span>
+                  <span class="value">{{userDetails?.job_title}}</span>
+                </li>
+              </ul>
+            </div>
+
+            <div class="right-part">
+              <p class="heading">Manager Details</p>
+              <div class="emp-detail">
+                <div class="profile-pic manager-profile-pic" (click)="navigateManagerDetails(userDetails?.manager_email)">
+                  @if(this.userDetails?.managerProfileImage){
+                    <img [src]="this.userDetails?.managerProfileImage" [alt]="userDetails?.manager_name">
+                  }
+                  @else {
+                    <span class="profile-initials">{{uiService.getNameInitials(userDetails?.manager_name)}}</span>
+                  }
+                </div>
+                <div class="name-n-mail">
+                  <div class="part-name-n-mail part-manager-name">
+                    <p class="name manager-name" (click)="navigateManagerDetails(userDetails?.manager_email)">{{userDetails?.manager_name}} </p>
+                    <span class="material-symbols-outlined copy-text" (click)="copy('manager_name', userDetails?.manager_name)">{{ copiedField === 'manager_name' ? 'check' : 'content_copy' }}</span>
+                  </div>
+                  <div class="part-name-n-mail part-manager-mail">
+                    <p class="mail text">{{userDetails?.manager_email}}</p>
+                    <span class="material-symbols-outlined copy-text" (click)="copy('manager_email', userDetails?.manager_email)">{{ copiedField === 'manager_email' ? 'check' : 'content_copy' }}</span>
+                  </div>
+                </div>
+              </div>
+
+              <ul class="employee-details">
+                <li>
+                  <span class="title">Network ID</span>
+                  <span class="value">{{userDetails?.manager_user_id}}</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="lower-part">
+            <div class="more-info-part" (click)="isInformationPanelExpanded = !isInformationPanelExpanded">
+              <p class="other-information heading">More Information</p>
+              <button class="expanded-icon">
+                <span class="material-symbols-rounded"> {{isInformationPanelExpanded ? 'keyboard_arrow_up' :
+                  'keyboard_arrow_down' }} </span>
+              </button>
+            </div>
+            <ul class="user-dtls-listing" [class]="!isInformationPanelExpanded ? 'information-panel-collapsed' : 'information-panel-expanded'">
+              <div class="user-dtls-inner-div">
+                <li>
+                  <span class="user-name">Department</span>
+                  <span class="phno">{{userDetails?.department || "-"}}</span>
+                </li>
+              </div>
+              <div class="user-dtls-inner-div">
+                <li>
+                  <span class="user-name">Division</span>
+                  <span class="phno">{{userDetails?.division || "-"}}</span>
+                </li>
+              </div>
+              <div class="user-dtls-inner-div">
+                <li>
+                  <span class="user-name">Cost Center Code</span>
+                  <span class="phno">{{userDetails?.costcenter_code || "-"}}</span>
+                </li>
+              </div>
+              <div class="user-dtls-inner-div">
+                <li>
+                  <span class="user-name">Cost Center Description</span>
+                  <span class="phno">{{userDetails?.costcenter_desc || "-"}}</span>
+                </li>
+              </div>
+              <div class="user-dtls-inner-div">
+                <li>
+                  <span class="user-name">Employee Type</span>
+                  <span class="phno">{{userDetails?.employeetype || "-"}}</span>
+                </li>
+              </div>
+              
+              <div class="user-dtls-inner-div">
+                <li>
+                  <span class="user-name">Location</span>
+                  <span class="phno">{{userDetails?.local_remote || "-"}}</span>
+                </li>
+              </div>
+              
+              <div class="user-dtls-inner-div">
+                <li>
+                  <span class="user-name">Office</span>
+                  <span class="phno">{{userDetails?.office || "-"}}</span>
+                </li>
+              </div>
+              
+              <div class="user-dtls-inner-div">
+                <li>
+                  <span class="user-name">Building</span>
+                  <span class="phno">{{userDetails?.building || "-"}}</span>
+                </li>
+              </div>
+              <div class="user-dtls-inner-div">
+                <li>
+                  <span class="user-name">Work Address Line 1</span>
+                  <span class="phno">{{userDetails?.work_address_line1 || "-"}}</span>
+                </li>
+              </div>
+              <div class="user-dtls-inner-div">
+                <li>
+                  <span class="user-name">Work Address Line 2</span>
+                  <span class="phno">{{userDetails?.work_address_line2 || "-"}}</span>
+                </li>
+              </div>
+              <div class="user-dtls-inner-div">
+                <li>
+                  <span class="user-name">Work City</span>
+                  <span class="phno">{{userDetails?.work_city || "-"}}</span>
+                </li>
+              </div>
+              <div class="user-dtls-inner-div">
+                <li>
+                  <span class="user-name">Work State</span>
+                  <span class="phno">{{userDetails?.work_state || "-"}}</span>
+                </li>
+              </div>
+              <div class="user-dtls-inner-div">
+                <li>
+                  <span class="user-name">Work ZIP</span>
+                  <span class="phno">{{userDetails?.work_zip || "-"}}</span>
+                </li>
+              </div> 
+              <div class="user-dtls-inner-div">
+                <li>
+                  <span class="user-name">Work Country</span>
+                  <span class="phno">{{userDetails?.work_country || "-"}}</span>
+                </li>
+              </div>
+              <div class="user-dtls-inner-div">
+                <li>
+                  <span class="user-name">Last Updated Date</span>
+                  <span class="phno">{{ userDetails?.date_entered ? (userDetails.date_entered | date: defaultDateFormat) : '-' }}</span>
+                </li>
+              </div>
+            </ul>
+          </div>
+          }
+        </div>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,54 @@
+<div class="write-popup">
+  <div class="popup-header">
+
+    <h3>Download Report</h3>
+
+    <button class="d-btn d-btn--circle white-bg-circle vs" (click)="activeModal.close('CANCEL')">
+      <span class="material-symbols-rounded btn-icon">
+        close
+      </span>
+    </button>
+
+  </div>
+
+  <div class="popup-body">
+    <div class="download-image">
+      <img src="assets/images/rafiki.svg" alt="">
+    </div>
+
+    <form [formGroup]="downloadForm" (ngSubmit)="downloadFile()">
+      <div class="outer-box">
+        <div class="inner-box">
+          <div class="only-feilds">
+            <div class="input-feild-columns">
+              <div class="form-group" [class.error]='showErrors && downloadForm.get("fileName")?.invalid'
+                (click)="fileNameInputBox.focus()">
+
+                <div class="input-wrapper lg">
+                  <input #inputElement #fileNameInputBox type="text" id="fileName" formControlName="fileName"
+                    placeholder="" [class.filled]="downloadForm.get('fileName')?.value" />
+                  <label for="fileName" class="floating-label">File Name:<span class="required">*</span></label>
+                </div>
+                @if (showErrors && downloadForm.get("fileName")?.invalid) {
+                <p class="error-message">Please enter report name.</p>
+                }
+              </div>
+            </div>
+          </div>
+          @if(downloadForm.value?.fileName){
+          <p class="report-text _mt-4">
+            Report Name: {{ downloadForm.value?.fileName+'.xlsx'}}
+          </p>
+          }
+        </div>
+      </div>
+
+      <div class="outer-button">
+        <button type="submit" class="submit-btn d-btn d-btn--primary md" [class.error-btn]="isShowError()">
+          <span class="material-symbols-rounded btn-icon">download</span>
+          <p class="">Download</p>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

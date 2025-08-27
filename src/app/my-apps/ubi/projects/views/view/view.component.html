@@ -1,0 +1,42 @@
+<div class="reports-container">
+  <!-- header -->
+  <div class="overview-section">
+    <button class="d-btn d-btn--circle white-bg-circle sm tooltip-btn ml-16 mr-16 back-button" placement="end"
+      (click)="navigateToProjects()" ngbTooltip="Back">
+      <span class="icon-leftarrow add--xl"></span>
+    </button>
+    <div class="ol-wrapper">
+      <div class="overview-left" [class.with-navigate-btns]="isScrollable" #viewContainer (scroll)="updateScrollButtons()">
+
+        @for (view of views; track $index) {
+          <div #tabElement
+              class="overview _cp"
+              [class.active]="selectedView?.id == view.id"
+              [attr.data-view-id]="view.id">
+            <p class="overview-text medium" (click)="selectView(view)">
+              {{ view?.name }}
+            </p>
+            <button class="d-btn d-btn--secondary md cross-iconHover" (click)="removeView(view)">
+              <span class="icon-x icon--cross-md"></span>
+            </button>
+          </div>
+        }
+      </div>
+    </div>
+    @if(isScrollable){
+    <div class="buttons-wrapper">
+      <button class="left-right-slide d-btn d-btn--secondary sm" (click)="scrollViews(-250)" [ngbTooltip]="'Scroll Left'" triggers="hover">
+        <span class="material-symbols-outlined">arrow_back</span>
+      </button>
+      <button class="left-right-slide d-btn d-btn--secondary sm" (click)="scrollViews(250)" [ngbTooltip]="'Scroll Right'" triggers="hover">
+        <span class="material-symbols-outlined">arrow_forward</span>
+      </button>
+    </div>
+
+    }
+  </div>
+  <!-- iframe load -->
+  @for (view of views; track trackByViewId($index, view)) {
+  <div [id]="getVizContainerId(view)" class="executive-container" [hidden]="!view?.selected"></div>
+  }
+</div>
