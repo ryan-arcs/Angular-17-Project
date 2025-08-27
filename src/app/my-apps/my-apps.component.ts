@@ -43,32 +43,7 @@ export class MyAppsComponent implements OnInit, OnDestroy {
     this.permittedApplicationsSubscription =
       this.permittedApplicationService.permittedApplications$.subscribe({
         next: (applications) => {
-          console.log("applications", applications);
-          
-          this.setApplications([
-          {
-            id: 1,
-            slug: 'xapps-admin',
-            name: 'XApps Admin',
-            logo: '../../assets/images/xapps.svg',
-            sortOrder: 1,
-            appConfig: {
-              showPayroll: true,
-              enableLeaves: true,
-            },
-          },
-          {
-            id: 2,
-            slug: 'asher',
-            name: 'ASHER',
-            logo: '../../assets/images/asher.svg',
-            sortOrder: 2,
-            appConfig: {
-              currency: 'INR',
-              multiApproval: false,
-            },
-          },
-        ]);
+          this.setApplications(applications || []);
         },
       });
     this.permittedApplicationService.removeApplicationName();

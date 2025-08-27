@@ -5,6 +5,7 @@ import { environment } from 'src/environments/environment';
 import { RestApiService } from './rest-api.service';
 import { BehaviorSubject } from 'rxjs';
 import { UserProfileService } from './user-profile.service';
+import { PermittedApplicationService } from './permitted-appolication.service';
 
 interface DbRequest {
   tableModel: any;
@@ -24,7 +25,8 @@ export class GlobalDataService {
     private uiService: UIService,
     private toastService: ToastService,
     private restApiService: RestApiService,
-    private userProfileService: UserProfileService
+    private userProfileService: UserProfileService,
+    private permittedApplicationService: PermittedApplicationService
   ) {}
 
   async tableRecords(dbRequest: DbRequest) {
@@ -334,7 +336,6 @@ export class GlobalDataService {
             password: payload?.password,
           },
         }) as any;
-        console.log("response",response.data);
         this.toastService.fire({
           type: 'success',
           message: response?.statusDescription || 'Success!',
@@ -361,6 +362,7 @@ export class GlobalDataService {
   logout() {
     localStorage.removeItem('auth_token');
     this.userProfileService.clearLoggedInUserData();
+    this.permittedApplicationService.clearPermittedApplications();
     this.toastService.fire({
       type: 'success',
       message: 'Logout Successfully!',

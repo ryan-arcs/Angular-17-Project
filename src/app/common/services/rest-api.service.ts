@@ -36,7 +36,6 @@ export class RestApiService {
         responseType: request.responseType === 'blob' ? 'blob' : 'json'
       }
     );
-    console.log("axiosResponse",axiosResponse);
     return this.response({
       axiosResponse,
       type: 'post',
@@ -80,8 +79,6 @@ export class RestApiService {
 
   private async response(options: any) {
     const response: AxiosResponse = options.axiosResponse;
-    console.log("response in rest api service",response);
-    
     if (options.type === 'del') {
       return response.status;
     }
