@@ -349,7 +349,7 @@ export class GlobalDataService {
           message:
             error?.statusDescription ||
             (typeof error === 'string' && error) ||
-            error?.response?.data?.statusDescription ||
+            error?.error?.statusDescription ||
             'Something went wrong',
         });
         return [];

@@ -1,6 +1,6 @@
 import { Injectable, signal } from '@angular/core';
 // import { DefaultService } from '../swagger/api/services';
-import { BehaviorSubject} from 'rxjs';
+import { BehaviorSubject, firstValueFrom} from 'rxjs';
 import { UIService } from 'src/app/common/services/ui.service';
 import { ToastService } from 'src/app/common/services/toast.service';
 import { HttpClient } from '@angular/common/http';
@@ -44,8 +44,7 @@ let jwtTokenRefreshTimeout: ReturnType<typeof setTimeout>;
   providedIn: 'root',
 })
 export class TableauGlobalDataServiceNew {
-   private client: any = '';
-  
+   private token = localStorage.getItem('auth_token');
     // Subject to hold the list of Tableau personas
     private _tableauPersonas = new BehaviorSubject<Array<TableauPersona> | null>(null);
     tableauPersonas$ = this._tableauPersonas.asObservable();
@@ -86,11 +85,11 @@ export class TableauGlobalDataServiceNew {
     private _sliderState = new BehaviorSubject<boolean>(false);
     sliderState$ = this._sliderState.asObservable();
      
-  private _leftsiderbar = new BehaviorSubject<boolean>(false);
-  leftsiderbar$ = this._leftsiderbar.asObservable();
+    private _leftsiderbar = new BehaviorSubject<boolean>(false);
+    leftsiderbar$ = this._leftsiderbar.asObservable();
 
-  private _viewDetailSidebarState = new BehaviorSubject<boolean>(false);
-  public viewDetailSidebarState$ = this._viewDetailSidebarState.asObservable();
+    private _viewDetailSidebarState = new BehaviorSubject<boolean>(false);
+    public viewDetailSidebarState$ = this._viewDetailSidebarState.asObservable();
   
     private _viewLoadedFrom = new BehaviorSubject<string | null>(null);
     viewLoadedFrom$ = this._viewLoadedFrom.asObservable();
@@ -169,9 +168,13 @@ export class TableauGlobalDataServiceNew {
      * @returns {Promise<void>} A promise that resolves once the operation completes.
      */
     async fetchAuthCredentials() {
+      
       try {
         const result = await this.restApiService.getRequest({
-          path: `tableau/auth-token`
+          path: `tableau/auth-token`,
+          headers: {
+            'Authorization': `Bearer ${this.token}`
+          }
         });
   
         if (result?.credentials) {
@@ -232,24 +235,24 @@ export class TableauGlobalDataServiceNew {
             environmentName: selectedEnvironment?.toString() || 'DEV'
           }
         });
-        
-        this._environmentProjects.next(result?.selectedEnvironment?.projects);
-        
-        this._environments.next(result?.environments || []);
-  
-        if(result?.selectedEnvironment?.name){
-          this._tableauPersonas.next(result?.groups?.map((group: APIReportGroup) => {
+
+        this._environmentProjects.next(result?.data?.selectedEnvironment?.projects);
+
+        this._environments.next(result?.data?.environments || []);
+
+        if(result?.data?.selectedEnvironment?.name){
+          this._tableauPersonas.next(result?.data?.groups?.map((group: APIReportGroup) => {
             return {
-              environment: result.selectedEnvironment.name,
+              environment: result.data.selectedEnvironment.name,
               name: group.name,
               reports: group.reports || []
             }
           }));
         }
-        if (selectedEnvironment !== result?.selectedEnvironment?.name){
-          
+        if (selectedEnvironment !== result?.data?.selectedEnvironment?.name){
+
           await this.setEnvironment({
-            name: result?.selectedEnvironment?.name,
+            name: result?.data?.selectedEnvironment?.name,
             dbSync: true
           });
         } else {
@@ -264,8 +267,7 @@ export class TableauGlobalDataServiceNew {
         
         this.setApiResponse('initial-package', 200);
       } catch (err: any) {
-        
-        const error = JSON.parse(err?.response?.body);
+        const error = err?.response?.data;
         if (error?.error?.code === '401002') {
           this.clearAuthCredentials();
           const credentialsFetched = await this.fetchAuthCredentials();
@@ -615,20 +617,18 @@ export class TableauGlobalDataServiceNew {
       try {
         let jwtToken = this._jwtToken.getValue();
         if(!jwtToken || req?.forceAPICall){
-          const restOperation = get({ 
-                apiName: 'SSP',
-                path: `tableau/jwt`,
-              });
-  
-          const response = await restOperation.response;
-          const data = await response.body.json() as any;
-          jwtToken = response.headers['x-jwt-token'] as string || '';
+          const result = await firstValueFrom(
+            this.http.get<any>('http://localhost:3000/tableau/jwt', {
+              headers: { Authorization: `Bearer ${this.token}` },
+              observe: 'response'
+            })
+          );
+          jwtToken = result.headers.get('X-JWT-Token') || '';
           if(!jwtToken){
             throw new Error('Invalid JWT token!');
           }
           this._jwtToken.next(jwtToken);
-  
-          const viewBaseUrl = data.viewBaseUrl as string || '';
+          const viewBaseUrl = result?.body?.data?.viewBaseUrl as string || '';
           if(!viewBaseUrl){
             throw new Error('Invalid view base url!');
           }
@@ -731,7 +731,8 @@ export class TableauGlobalDataServiceNew {
         'Content-Type': 'application/json',
         'X-Tableau-Auth-Token': token,
         'X-Tableau-Site-Id': siteId,
-        'X-Tableau-user-Id': userId
+        'X-Tableau-user-Id': userId,
+        'Authorization': `Bearer ${this.token}`
       }
     }
   

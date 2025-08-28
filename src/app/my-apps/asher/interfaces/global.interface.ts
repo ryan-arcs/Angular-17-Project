@@ -369,6 +369,7 @@ export interface RestApiGetCallRequest {
   responseType?: RestApiGetCallResponseType;
   headers?: Headers;
   queryParams?: Record<string, string>;
+  observe?: 'body' | 'response';
 }
 
 export interface RestApiPostCallRequest extends RestApiGetCallRequest{
