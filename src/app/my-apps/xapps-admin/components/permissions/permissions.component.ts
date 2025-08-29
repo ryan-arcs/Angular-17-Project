@@ -442,6 +442,11 @@ export class PermissionsComponent
       module_name: 'All',
     };
     this.modules = [];
+    this.selectedSubmodule = {
+      id: 'all',
+      sub_module_name: 'All',
+    };
+    this.submodules = [];
     const applicationId =
       this.selectedApplication?.id === 'all'
         ? undefined

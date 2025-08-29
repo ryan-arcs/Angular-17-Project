@@ -361,6 +361,8 @@ export class GlobalDataService {
 
   logout() {
     localStorage.removeItem('auth_token');
+    localStorage.removeItem('appConfig');
+    localStorage.removeItem('gridConfigurations');
     this.userProfileService.clearLoggedInUserData();
     this.permittedApplicationService.clearPermittedApplications();
     this.toastService.fire({

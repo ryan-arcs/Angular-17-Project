@@ -49,7 +49,14 @@ export class AuthService {
     //   lastName: userProfileInfo.tokens?.idToken?.payload['family_name'],
     // };
  
-    return await this.getUserPermissions(token, route, state);
+    try {
+      const isValid = await this.getUserPermissions(token, route, state);
+      return isValid;
+    } catch (err: any) {
+      // Don't redirect here, interceptor will handle token expiry
+      console.error('Non-HTTP Authentication error:', err);
+      return false;
+    }
   }
  
   /**
@@ -97,7 +104,7 @@ export class AuthService {
       const applications = loggedInUserProfile?.data?.applications as PermittedApplication[] || [
                         {
                           "id": 1,
-                          "slug": "xapps-admin",
+                          "slug": "xapps_admin",
                           "name": "XApps Admin",
                           "logo": "../../assets/images/xapps.svg",
                           "sortOrder": 1,
@@ -116,6 +123,13 @@ export class AuthService {
                             "currency": "INR",
                             "multiApproval": false
                           }
+                        },
+                        {
+                          "id": 3,
+                          "slug": "ubi",
+                          "name": "UBI",
+                          "logo": "ubi.svg",
+                          "sortOrder": 3
                         }
                       ];
 
@@ -130,14 +144,62 @@ export class AuthService {
         // config: loggedInUserProfile?.data?.userProfile?.config || null,
         permissions: loggedInUserProfile?.data?.permissions || [
                       {
-                        "aSlug": "xapps-admin",
+                        "aSlug": "xapps_admin",
                         "mSlug": "users",
+                        "smSlug": "",
+                        "pSlug": "view"
+                      },
+                      {
+                        "aSlug": "xapps_admin",
+                        "mSlug": "users",
+                        "smSlug": "",
+                        "pSlug": "add"
+                      },
+                      {
+                        "aSlug": "xapps_admin",
+                        "mSlug": "applications",
+                        "smSlug": "",
+                        "pSlug": "view"
+                      },
+                      {
+                        "aSlug": "xapps_admin",
+                        "mSlug": "modules",
+                        "smSlug": "",
+                        "pSlug": "view"
+                      },
+                      {
+                        "aSlug": "xapps_admin",
+                        "mSlug": "submodules",
+                        "smSlug": "",
+                        "pSlug": "view"
+                      },
+                      {
+                        "aSlug": "xapps_admin",
+                        "mSlug": "permissions",
                         "smSlug": "",
                         "pSlug": "view"
                       },
                       {
                         "aSlug": "asher",
                         "mSlug": "applications",
+                        "smSlug": "",
+                        "pSlug": "view"
+                      },
+                      {
+                        "aSlug": "ubi",
+                        "mSlug": "home",
+                        "smSlug": "",
+                        "pSlug": "view"
+                      },
+                      {
+                        "aSlug": "ubi",
+                        "mSlug": "recents",
+                        "smSlug": "",
+                        "pSlug": "view"
+                      },
+                      {
+                        "aSlug": "ubi",
+                        "mSlug": "favorites",
                         "smSlug": "",
                         "pSlug": "view"
                       }
@@ -147,7 +209,7 @@ export class AuthService {
                           "id": 1,
                           "slug": "xapps-admin",
                           "name": "XApps Admin",
-                          "logo": "../../assets/images/xapps.svg",
+                          "logo": "/assets/images/xapps.svg",
                           "sortOrder": 1,
                           "appConfig": {
                             "showPayroll": true,
@@ -158,12 +220,19 @@ export class AuthService {
                           "id": 2,
                           "slug": "asher",
                           "name": "ASHER",
-                          "logo": "../../assets/images/asher.svg",
+                          "logo": "/assets/images/asher.svg",
                           "sortOrder": 2,
                           "appConfig": {
                             "currency": "INR",
                             "multiApproval": false
                           }
+                        },
+                        {
+                          "id": 3,
+                          "slug": "ubi",
+                          "name": "UBI",
+                          "logo": "ubi.svg",
+                          "sortOrder": 3
                         }
                       ]
       });
@@ -193,9 +262,9 @@ export class AuthService {
       this.uiService.setLoader(false);
       this.toastService.fire({
         type: 'error',
-        message: err?.message || err?.toString() || 'Unknown Error',
+        message: err?.error?.statusMessage || err?.toString() || 'Unknown Error',
       });
-      return false;
+      throw err;
     }
   }
   

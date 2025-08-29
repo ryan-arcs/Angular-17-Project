@@ -934,7 +934,6 @@ export class XAppsAdminGlobalDataService {
           'x-user-info': JSON.stringify(this.userProfileService.getUserInfoForTracking())
         }
       });
-
       this.notifySuccessMessage(response);
       const filterPayload = this.buildFilterListingPayload(this._users.getValue());
       this.getUsers(filterPayload);
@@ -962,7 +961,7 @@ export class XAppsAdminGlobalDataService {
           lastName: payload?.lastName,
           email: payload?.email,
           isActive: payload.isActive,
-          updatedByUserId: this.userProfileService.getUserInfoForTracking().id
+          updatedByUserId: this.userProfileService.getUserInfoForTracking()?.id
         },
         headers: {
           'x-user-info': JSON.stringify(this.userProfileService.getUserInfoForTracking())
@@ -1028,8 +1027,6 @@ export class XAppsAdminGlobalDataService {
       });
 
       this.notifySuccessMessage(response);
-      const filterPayload = this.buildFilterListingPayload(this._rolesResults.getValue())
-      this.getRoles(filterPayload);
     } catch (err: any) {
       this.logError(err);
     } finally {
@@ -1088,8 +1085,6 @@ export class XAppsAdminGlobalDataService {
       });
 
       this.notifySuccessMessage(response);
-      const filterPayload = this.buildFilterListingPayload(this._rolesResults.getValue())
-      this.getRoles(filterPayload);
     } catch (err: any) {
       this.logError(err);
     } finally {
@@ -1126,7 +1121,7 @@ export class XAppsAdminGlobalDataService {
    async addApplication(payload: AddApplication) {
     try {
       this.uiService.setLoader(true);
-
+      console.log("this.userProfileService.getUserInfoForTracking().id", this.userProfileService.getUserInfoForTracking().id);
       const response  = await this.restApiService.postRequest({
         path: `xapps-admin/apps`,
         body: {
@@ -1219,7 +1214,7 @@ export class XAppsAdminGlobalDataService {
    async addModule(payload: AddModulePayload) {
     try {
       this.uiService.setLoader(true);
-
+      console.log("this.userProfileService.getUserInfoForTracking().id====", this.userProfileService.getUserInfoForTracking().id);
       const response  = await this.restApiService.postRequest({
         path: `xapps-admin/modules`,
         body: {
@@ -1604,7 +1599,7 @@ export class XAppsAdminGlobalDataService {
 
   // Logs the error details to the console and displays a toast error message.
   logError(err: any) {
-    const error = JSON.parse(err?.response.body);
+    const error = err?.error;
     
     const errorMessage = error?.statusDescription || (typeof error === 'string' && error) || error?.message || 'Something went wrong';
       this.toastService.fire({

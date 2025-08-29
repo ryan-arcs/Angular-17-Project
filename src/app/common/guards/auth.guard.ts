@@ -34,13 +34,10 @@ export const authGuard: CanActivateFn = async (
     //   router.navigateByUrl(decodeURIComponent(redirectRoute));
     //   return false
     // }
- 
     const response = await authService.handleAuthentication(token, route, state);
     return response;
   } catch (error) {
     // localStorage.setItem('redirectURL', state.url);
-    console.error('Auth Guard Error:', error);
-    router.navigate(['/login']);
     return false;
   }
 };

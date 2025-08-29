@@ -37,7 +37,6 @@ export class ViewComponent implements OnInit, OnDestroy {
   projectId = '';
   projectName = '';
 
-
   isScrollable = false;
   showLeftButton = false;
   showRightButton = false;
@@ -48,7 +47,7 @@ export class ViewComponent implements OnInit, OnDestroy {
     private tableauGlobalDataService: TableauGlobalDataServiceNew,
     private renderer: Renderer2,
     private router: Router,
-  ) { }
+  ) {}
 
   /**
    * Angular lifecycle hook that runs after component initialization.
@@ -62,11 +61,13 @@ export class ViewComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.toggleSlidebar(true);
     this.selectedTableauPersona =
-    this.tableauGlobalDataService.retrieveTableauPersona() || '';
+      this.tableauGlobalDataService.retrieveTableauPersona() || '';
     this.tableauGlobalDataService.toggleSlider(false);
     this.route.params.subscribe(async (params) => {
       const viewId = params['id'] || '';
-      const from = params['loadedFrom'] ? params['loadedFrom']?.trim()?.toLowerCase() || '' : '';
+      const from = params['loadedFrom']
+        ? params['loadedFrom']?.trim()?.toLowerCase() || ''
+        : '';
       if (from) {
         this.loadedFrom = from;
       }
@@ -75,15 +76,19 @@ export class ViewComponent implements OnInit, OnDestroy {
       if (this.projectId && viewId && selectedViews?.length) {
         this.tableauGlobalDataService.selectedViews.set(selectedViews);
         const lastViews = this.views || [];
-        this.views = this.tableauGlobalDataService.getLocalViews({
-          viewIds: selectedViews
-        })?.map((view) => {
-          return {
-            ...view,
-            selected: view?.id === viewId ? true : false,
-            loaded: lastViews?.some((lastView) => lastView?.id === view?.id && lastView?.loaded),
-          }
-        });
+        this.views = this.tableauGlobalDataService
+          .getLocalViews({
+            viewIds: selectedViews,
+          })
+          ?.map((view) => {
+            return {
+              ...view,
+              selected: view?.id === viewId ? true : false,
+              loaded: lastViews?.some(
+                (lastView) => lastView?.id === view?.id && lastView?.loaded,
+              ),
+            };
+          });
         const thisView = this.views?.find((tview) => tview.id === viewId);
         if (thisView?.id) {
           this.selectedView = thisView;
@@ -106,20 +111,20 @@ export class ViewComponent implements OnInit, OnDestroy {
 
   scrollToSelectedTab(viewId: string | number): void {
     setTimeout(() => {
-      const tab = this.tabElements?.find(el =>
-      el.nativeElement?.dataset?.viewId === String(viewId)
-    );
+      const tab = this.tabElements?.find(
+        (el) => el.nativeElement?.dataset?.viewId === String(viewId),
+      );
 
-    if (tab) {
-      tab.nativeElement.scrollIntoView({
-        behavior: 'smooth',
-        block: 'nearest',
-        inline: 'center'
-      });
-    }
+      if (tab) {
+        tab.nativeElement.scrollIntoView({
+          behavior: 'smooth',
+          block: 'nearest',
+          inline: 'center',
+        });
+      }
     }, 0);
   }
-  
+
   /**
    * Creates and embeds a Tableau visualization view in the DOM using JWT authentication.
    * - Sets loading state before initiating request.
@@ -141,12 +146,14 @@ export class ViewComponent implements OnInit, OnDestroy {
       throw new Error('Invalid credentials');
     }
     const {
-      site: { contentUrl: siteContentUrl }
+      site: { contentUrl: siteContentUrl },
     } = credentials;
     const jwtToken = await this.tableauGlobalDataService.getJWTToken();
     const viewBaseUrl = this.tableauGlobalDataService.getViewBaseUrl();
 
-    const tableauVizContainer = await this.getTableauVizContainer(view) as HTMLElement;
+    const tableauVizContainer = (await this.getTableauVizContainer(
+      view,
+    )) as HTMLElement;
     if (tableauVizContainer) {
       tableauVizContainer.innerHTML = '';
     }
@@ -155,17 +162,16 @@ export class ViewComponent implements OnInit, OnDestroy {
 
     viz.src = `${viewBaseUrl}/t/${siteContentUrl}/views/${view?.workbook?.contentUrl}/${encodeURIComponent(view?.name?.replace(/\s+/g, ''))}`;
     viz.width = '100%';
-viz.height = 'calc(100vh - 48px)';
-viz.token = jwtToken;
-viz.hideTabs = true;
+    viz.height = 'calc(100vh - 48px)';
+    viz.token = jwtToken;
 
-// Apply styles properly
-viz.style.border = '1px solid var(--layout-border-color)';
-viz.style.borderRadius = '8px';
-viz.style.overflow = 'hidden'; 
+    // Apply styles properly
+    viz.style.border = '1px solid var(--layout-border-color)';
+    viz.style.borderRadius = '8px';
+    viz.style.overflow = 'hidden';
 
-// Append to container
-tableauVizContainer?.appendChild(viz);
+    // Append to container
+    tableauVizContainer?.appendChild(viz);
 
     setTimeout(() => {
       this.uiService.setLoader(false);
@@ -175,13 +181,10 @@ tableauVizContainer?.appendChild(viz);
   async getTableauVizContainer(view: any) {
     return new Promise((resolve) => {
       setTimeout(() => {
-        resolve(document.getElementById(
-          this.getVizContainerId(view),
-        ));
+        resolve(document.getElementById(this.getVizContainerId(view)));
       }, 0);
     });
   }
-
 
   /**
    * Navigates the user to the appropriate Tableau route based on the context from which the view was accessed.
@@ -252,12 +255,13 @@ tableauVizContainer?.appendChild(viz);
   navigateToView(viewId: string, loadedFrom: string): void {
     if (!viewId) return;
 
-    const environmentProject = this.tableauGlobalDataService.getLocalEnvironmentProjectByViewId(viewId);
+    const environmentProject =
+      this.tableauGlobalDataService.getLocalEnvironmentProjectByViewId(viewId);
     if (!environmentProject?.id) return;
     const selectedViews = this.tableauGlobalDataService.getSelectedViews();
 
     this.router.navigate([
-      `ubi/projects/${environmentProject.id}/views/${viewId}/${loadedFrom}/${selectedViews.join(',')}`
+      `ubi/projects/${environmentProject.id}/views/${viewId}/${loadedFrom}/${selectedViews.join(',')}`,
     ]);
   }
 
@@ -281,8 +285,11 @@ tableauVizContainer?.appendChild(viz);
       this.navigateToProjects();
       return;
     }
-    this.navigateToView(selectedViews[selectedViews.length - 1], this.loadedFrom);
-    this.checkScroll()
+    this.navigateToView(
+      selectedViews[selectedViews.length - 1],
+      this.loadedFrom,
+    );
+    this.checkScroll();
   }
 
   // TrackBy function for view rendering optimization in ngFor
@@ -305,37 +312,38 @@ tableauVizContainer?.appendChild(viz);
   ngAfterViewInit() {
     this.checkScroll();
   }
- 
+
   scrollViews(distance: number) {
     const container = this.viewContainer?.nativeElement;
-    if(container){
+    if (container) {
       container.scrollBy({
         left: distance,
-        behavior: 'smooth'
+        behavior: 'smooth',
       });
-   
+
       setTimeout(() => this.updateScrollButtons(), 300);
     }
   }
- 
+
   checkScroll() {
     const container = this.viewContainer?.nativeElement;
-    if(container){
+    if (container) {
       this.isScrollable = container?.scrollWidth > container?.clientWidth;
       this.updateScrollButtons();
     }
   }
- 
+
   updateScrollButtons() {
     const container = this.viewContainer?.nativeElement;
     this.showLeftButton = container.scrollLeft > 0;
-    this.showRightButton = container.scrollLeft + container?.clientWidth < container?.scrollWidth;
+    this.showRightButton =
+      container.scrollLeft + container?.clientWidth < container?.scrollWidth;
   }
- 
+
   ngOnDestroy(): void {
     //Called once, before the instance is destroyed.
     this.tableauGlobalDataService.getRecentsOfUser({
-      silentCall: true
+      silentCall: true,
     });
     this.tableauGlobalDataService.emptizeTableauCreds();
     this.tableauGlobalDataService.clearJWTInterval();

@@ -1,7 +1,6 @@
 <ng-template #actionRow let-row="row" let-value="value" let-i="index">
   <span class="action-row">
-    @if (isActionPermitted("edit") || isActionPermitted("special_permissions") || isActionPermitted("manage_roles") ||
-    isActionPermitted("edit")) {
+    @if (isActionPermitted("edit") || isActionPermitted("special_permissions") || isActionPermitted("manage_roles")) {
     <div ngbDropdown container="body" class="ag-grid-more-outer">
       <button type="button" class="d-btn d-btn--circle vs" id="dropdownBasic1" title="options" ngbDropdownToggle>
         <span class="material-symbols-rounded more-icon">more_horiz</span>
@@ -97,7 +96,6 @@
               <span class="material-symbols-rounded btn-icon">refresh</span>
               <p class="">Refresh</p>
           </button>
-          @if (isActionPermitted("add")) {
             <button class="d-btn d-btn--primary desktop sm tooltip-btn" (click)="navigateToAddUser()" placement="start"
               [ngbTooltip]="isMobileScreen() ? 'Add' : ''" triggers="hover">
               <span class="material-symbols-outlined btn-icon">
@@ -105,7 +103,6 @@
               </span>
               <p class="">Add</p>
             </button>
-          }
             </div>
           </div>
         </div>

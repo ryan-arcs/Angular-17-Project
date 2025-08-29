@@ -267,7 +267,7 @@ export class TableauGlobalDataServiceNew {
         
         this.setApiResponse('initial-package', 200);
       } catch (err: any) {
-        const error = err?.response?.data;
+        const error = err?.response?.data || err?.error;
         if (error?.error?.code === '401002') {
           this.clearAuthCredentials();
           const credentialsFetched = await this.fetchAuthCredentials();
@@ -280,7 +280,7 @@ export class TableauGlobalDataServiceNew {
         this.setApiResponse('initial-package', 520);
         this.toastService.fire({
           type: 'error',
-          message: error?.error?.detail || 'Something went wrong',
+          message: error?.error?.detail || error?.message || 'Something went wrong',
         });
       } finally {
         this.uiService.setLoader(false);

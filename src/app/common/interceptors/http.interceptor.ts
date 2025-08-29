@@ -17,11 +17,17 @@ export const apiInterceptor: HttpInterceptorFn = (req, next) => {
 
   return next(authReq).pipe(
     catchError((err) => {
-      if (err.status === 401 || err.status === 403) {
+      if (err.status === 403) {
         localStorage.removeItem('auth_token');
+        localStorage.removeItem('appConfig');
+        localStorage.removeItem('gridConfigurations');
         userProfileService.clearLoggedInUserData();
         permittedApplicationService.clearPermittedApplications();
-        router.navigate(['/login']);
+
+        // Only redirect if not already on login page
+        if (router.url !== '/login') {
+          router.navigate(['/login']);
+        }
       }
       return throwError(() => err);
     })
