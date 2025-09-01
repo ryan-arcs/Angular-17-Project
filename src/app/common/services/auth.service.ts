@@ -82,17 +82,17 @@ export class AuthService {
         }
       });
 
-      if(!loggedInUserProfile?.data?.id){
+      if(!loggedInUserProfile?.data?.userProfile?.id){
         throw Error('Invalid user!');
       }
  
       //throw error if the user is inactive as inactive users are not allowed to access the application
-      if (!loggedInUserProfile?.data?.is_active) {
+      if (!loggedInUserProfile?.data?.userProfile?.isActive) {
         throw Error('Inactive user!');
       }
- 
-      const theme = loggedInUserProfile?.data?.theme || 'light';
-      
+
+      const theme = loggedInUserProfile?.data?.userProfile?.theme || 'light';
+
       //publish the theme to subject
       this.uiService.setTheme({ activeTheme: theme });
  
@@ -100,141 +100,20 @@ export class AuthService {
       // const [profileImageUrl] = await Promise.all([
       //   this.uiService.getProfileImage(email)
       // ]);
- 
-      const applications = loggedInUserProfile?.data?.applications as PermittedApplication[] || [
-                        {
-                          "id": 1,
-                          "slug": "xapps_admin",
-                          "name": "XApps Admin",
-                          "logo": "../../assets/images/xapps.svg",
-                          "sortOrder": 1,
-                          "appConfig": {
-                            "showPayroll": true,
-                            "enableLeaves": true
-                          }
-                        },
-                        {
-                          "id": 2,
-                          "slug": "asher",
-                          "name": "ASHER",
-                          "logo": "../../assets/images/asher.svg",
-                          "sortOrder": 2,
-                          "appConfig": {
-                            "currency": "INR",
-                            "multiApproval": false
-                          }
-                        },
-                        {
-                          "id": 3,
-                          "slug": "ubi",
-                          "name": "UBI",
-                          "logo": "ubi.svg",
-                          "sortOrder": 3
-                        }
-                      ];
+
+      const applications = loggedInUserProfile?.data?.applications as PermittedApplication[] || [];
 
       this.userProfileService.publishLoggedInUserData({
-        id: loggedInUserProfile?.data?.id,
-        email: loggedInUserProfile?.data?.email || '',
-        firstName: loggedInUserProfile?.data?.given_name || '',
-        lastName: loggedInUserProfile?.data?.family_name || '',
-        fullName: loggedInUserProfile?.data?.given_name + " " + loggedInUserProfile?.data?.family_name || '',
-        nameInitials: this.uiService.getNameInitials(loggedInUserProfile?.data?.given_name + " " + loggedInUserProfile?.data?.family_name || ''),
+        id: loggedInUserProfile?.data?.userProfile?.id,
+        email: loggedInUserProfile?.data?.userProfile?.email || '',
+        firstName: loggedInUserProfile?.data?.userProfile?.firstName || '',
+        lastName: loggedInUserProfile?.data?.userProfile?.lastName || '',
+        fullName: loggedInUserProfile?.data?.userProfile?.fullName || '',
+        nameInitials: this.uiService.getNameInitials(loggedInUserProfile?.data?.userProfile?.fullName || ''),
         // profileImageUrl: profileImageUrl,
-        // config: loggedInUserProfile?.data?.userProfile?.config || null,
-        permissions: loggedInUserProfile?.data?.permissions || [
-                      {
-                        "aSlug": "xapps_admin",
-                        "mSlug": "users",
-                        "smSlug": "",
-                        "pSlug": "view"
-                      },
-                      {
-                        "aSlug": "xapps_admin",
-                        "mSlug": "users",
-                        "smSlug": "",
-                        "pSlug": "add"
-                      },
-                      {
-                        "aSlug": "xapps_admin",
-                        "mSlug": "applications",
-                        "smSlug": "",
-                        "pSlug": "view"
-                      },
-                      {
-                        "aSlug": "xapps_admin",
-                        "mSlug": "modules",
-                        "smSlug": "",
-                        "pSlug": "view"
-                      },
-                      {
-                        "aSlug": "xapps_admin",
-                        "mSlug": "submodules",
-                        "smSlug": "",
-                        "pSlug": "view"
-                      },
-                      {
-                        "aSlug": "xapps_admin",
-                        "mSlug": "permissions",
-                        "smSlug": "",
-                        "pSlug": "view"
-                      },
-                      {
-                        "aSlug": "asher",
-                        "mSlug": "applications",
-                        "smSlug": "",
-                        "pSlug": "view"
-                      },
-                      {
-                        "aSlug": "ubi",
-                        "mSlug": "home",
-                        "smSlug": "",
-                        "pSlug": "view"
-                      },
-                      {
-                        "aSlug": "ubi",
-                        "mSlug": "recents",
-                        "smSlug": "",
-                        "pSlug": "view"
-                      },
-                      {
-                        "aSlug": "ubi",
-                        "mSlug": "favorites",
-                        "smSlug": "",
-                        "pSlug": "view"
-                      }
-                    ],
-        applications: loggedInUserProfile?.data?.applications || [
-                        {
-                          "id": 1,
-                          "slug": "xapps-admin",
-                          "name": "XApps Admin",
-                          "logo": "/assets/images/xapps.svg",
-                          "sortOrder": 1,
-                          "appConfig": {
-                            "showPayroll": true,
-                            "enableLeaves": true
-                          }
-                        },
-                        {
-                          "id": 2,
-                          "slug": "asher",
-                          "name": "ASHER",
-                          "logo": "/assets/images/asher.svg",
-                          "sortOrder": 2,
-                          "appConfig": {
-                            "currency": "INR",
-                            "multiApproval": false
-                          }
-                        },
-                        {
-                          "id": 3,
-                          "slug": "ubi",
-                          "name": "UBI",
-                          "logo": "ubi.svg",
-                          "sortOrder": 3
-                        }
-                      ]
+        config: loggedInUserProfile?.data?.userProfile?.config || null,
+        permissions: loggedInUserProfile?.data?.permissions || [],
+        applications: loggedInUserProfile?.data?.applications || []
       });
 
       this.permittedApplicationService.setPermittedApplications(applications);

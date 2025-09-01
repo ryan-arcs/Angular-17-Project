@@ -19,8 +19,6 @@ export const apiInterceptor: HttpInterceptorFn = (req, next) => {
     catchError((err) => {
       if (err.status === 403) {
         localStorage.removeItem('auth_token');
-        localStorage.removeItem('appConfig');
-        localStorage.removeItem('gridConfigurations');
         userProfileService.clearLoggedInUserData();
         permittedApplicationService.clearPermittedApplications();
 
