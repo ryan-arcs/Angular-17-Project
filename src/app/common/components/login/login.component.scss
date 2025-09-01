@@ -3,27 +3,64 @@
 @import "src/assets/style/xapps-design-system/Abstract/_mixins.scss";
 
 .application-container {
-    display: flex;
-    padding: unset;
-    height: 100%;
-    .login-image {
-        width: 50%;
-        background: url('/assets/images/login-bg.jpg') no-repeat center center;
-        background-size: cover;
-    }
+  display: flex;
+  padding: unset;
+  height: 100%;
+  .login-image {
+    width: 50%;
+    background: url("/assets/images/login-bg.jpg") no-repeat center center;
+    background-size: cover;
+  }
   .right-login-content {
     width: 50%;
     padding: 8px;
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh - 48px);
+    .subheader-container {
+      justify-content: center;
+      position: unset;
+      flex-direction: row !important;
+      .login-text {
+        font-size: 28px !important;
+        font-weight: 600 !important;
+        color: var(--primary-text-color) !important;
+      }
+    }
+    .main-box {
+      height: unset;
+      width: 50%;
+      form {
+        height: unset !important;
+        .outer-box {
+          .inner-box {
+            .only-feilds {
+              .input-feild-columns {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                gap: 30px;
+              }
+            }
+          }
+        }
+        .login-btn-div {
+          .login-btn {
+            width: 100%;
+          }
+        }
+      }
+    }
   }
 }
 
 // //ng select box in add edit page
 ::ng-deep {
-    .right-content-main-wrapper{
-        width: 100% !important;
-    }
+  .right-content-main-wrapper {
+    width: 100% !important;
+  }
   ng-dropdown-panel .ng-dropdown-panel-items {
     background-color: var(--primary-background-color) !important;
     border-radius: $border-radius-small;
@@ -36,16 +73,23 @@
       height: 43px;
       display: flex !important;
       padding-left: $small-m;
-      @include typography(var(--fs-large) !important, na, var(--font-bold) !important, var(--secondary-text-color));
+      @include typography(
+        var(--fs-large) !important,
+        na,
+        var(--font-bold) !important,
+        var(--secondary-text-color)
+      );
       @include flex-box(na, start, center, na, na);
 
       .ng-option-label {
         width: 100%;
         @include flex-box(na, na, center, na, na);
-        @include typography(var(--fs-large),
+        @include typography(
+          var(--fs-large),
           na,
           var(--font-bold),
-          var(--secondary-text-color));
+          var(--secondary-text-color)
+        );
       }
 
       &:hover {
@@ -58,7 +102,6 @@
     }
   }
 }
-
 
 // this select box css is for chips where the multiple chips available
 ::ng-deep {
@@ -83,10 +126,12 @@
             padding: $tiny-p $vvvs-m;
             width: auto;
             height: 22px;
-            @include typography(var(--fs-large),
+            @include typography(
+              var(--fs-large),
               na,
               var(--font-regular),
-              var(--secondary-text-color));
+              var(--secondary-text-color)
+            );
 
             .ng-value-icon {
               border-radius: $border-radius-small;
@@ -96,7 +141,7 @@
               background-color: transparent;
               order: 2;
               margin-left: $vvvs-m;
-              transition: all .2s ease-in;
+              transition: all 0.2s ease-in;
 
               &:hover {
                 background-color: var(--primary-background-color);

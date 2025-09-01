@@ -2,27 +2,10 @@
     <div class="login-image"></div>
   <div class="right-login-content">
     <div class="subheader-container">
-      <div class="top-container ">
-        <div class="heading">
-          <div class="application-text">
-            <h2>Login</h2>
-          </div>
-        </div>
-
-        <div class="right">
-          <button class="d-btn d-btn--primary sm" type="submit" (click)="onSubmit()">
-            <span class="material-symbols-outlined btn-icon">check</span>
-            <p class=""> Login</p>
-          </button>
-        </div>
-      </div>
-
+      <h2 class="login-text">Login</h2>
     </div>
 
     <div class="main-box">
-      <div class="filled-important-div">
-        <p class="small">Fields marked with &nbsp;<span class="required">*</span>&nbsp; are required.</p>
-      </div>
       <form [formGroup]="loginForm">
 
         <!-- open close class for toggle accordian -->
@@ -70,6 +53,12 @@
               </div>
             </div>
           </div>
+        </div>
+        <div class="login-btn-div">
+          <button class="d-btn d-btn--primary sm login-btn" type="submit" (click)="onSubmit()">
+            <span class="material-symbols-outlined btn-icon">check</span>
+            <p class=""> Login</p>
+          </button>
         </div>
       </form>
     </div>
