@@ -6,10 +6,10 @@ import { ToastService } from 'src/app/common/services/toast.service';
 import { messages } from '../constants';
 import { UIService } from './ui.service';
 import { UserProfileService } from './user-profile.service';
-import { signOut } from 'aws-amplify/auth';
 import { RestApiService } from './rest-api.service';
 import { PermittedApplicationService } from './permitted-appolication.service';
 import { PermittedApplication } from '../interfaces/global.interface';
+import { GlobalDataService } from './global-data.service';
 
 interface PermissionRequest {
   appSlug: string;
@@ -35,7 +35,8 @@ export class AuthService {
     private uiService: UIService,
     private userProfileService: UserProfileService,
     private permittedApplicationService: PermittedApplicationService,
-    private restApiService: RestApiService
+    private restApiService: RestApiService,
+    private globalDataService: GlobalDataService
   ) { }
  
   async handleAuthentication(
@@ -222,7 +223,7 @@ export class AuthService {
    */
 
   async logOut(): Promise<void> {
-    this.userProfileService.clearLoggedInUserData();
-    await signOut();
+    this.globalDataService.logout();
+    this.router.navigate(['/login']);
   }
 }

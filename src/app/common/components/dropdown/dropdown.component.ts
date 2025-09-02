@@ -29,7 +29,7 @@ interface ThemeOptions {
   styleUrl: './dropdown.component.scss',
 })
 export class DropdownComponent implements OnInit, OnDestroy {
-  // private channel: BroadcastChannel = new BroadcastChannel('xapps-broadcast-channel');
+  private channel: BroadcastChannel = new BroadcastChannel('xapps-broadcast-channel');
   userDataSubscription: Subscription | undefined;
   userData: UserProfile | undefined;
   isMenuOpen = false;
@@ -61,8 +61,6 @@ export class DropdownComponent implements OnInit, OnDestroy {
     this.userDataSubscription =
       this.userProfileService.loggedInUserData$.subscribe({
         next: (data) => {
-          console.log("data from observable",data);
-          
           // Update user data with the data received from the observable
           this.userData = data;
         },
@@ -105,8 +103,10 @@ export class DropdownComponent implements OnInit, OnDestroy {
    */
 
   async logOut(): Promise<void> {
-    this.globalDataService.logout();
-    this.router.navigate(['/logout']);
+    const message = {
+      logout: true,
+    };
+    this.channel.postMessage(JSON.stringify(message));
   }
 
   setTheme(theme: any) {
