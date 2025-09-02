@@ -115,7 +115,6 @@ export class AuthService {
         permissions: loggedInUserProfile?.data?.permissions || [],
         applications: loggedInUserProfile?.data?.applications || []
       });
-
       this.permittedApplicationService.setPermittedApplications(applications);
 
       let singleAppAssignPath = '';

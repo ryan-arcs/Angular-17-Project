@@ -339,6 +339,7 @@
     }
 
     .datatable-body {
+      background-color: var(--grid-row-bg-color);
       datatable-selection {
         .un-scroll-horizantal {
           width: 100% !important;
