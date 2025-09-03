@@ -162,7 +162,7 @@
     <div class="logs-container logs-cell-padding inner-pages-footer">
       <app-data-grid [gridName]="gridName" [gridColumns]="columns" [gridRows]="usersList"
         [actionRowTemplate]="actionRow" [pagination]="pagination" [pageSizes]="paginationPageSizeSelector"
-        [enableInlineSearch]="false" [selectedPageSize]="defaultSize" [errorMessage]="errorMessage"
+        [selectedPageSize]="defaultSize" [errorMessage]="errorMessage"
         [gridSorts]="gridSort.prop ? [gridSort] : []" [columnFilters]="columnFilters" (onGridSort)="onSort($event)"
         (onGridPageSizeChange)="onGridPageSizeChange($event)" (onGridPageChange)="onGridPageChange($event)"
         (onColumnFilterChange)="onColumnFilterChange($event)"></app-data-grid>

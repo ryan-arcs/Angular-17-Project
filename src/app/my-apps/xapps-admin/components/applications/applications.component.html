@@ -105,7 +105,7 @@
 
     <div class="panel-and-table">
       <div class="logs-container logs-cell-padding inner-pages-footer">
-        <app-data-grid [gridName]="gridName" [gridColumns]="columns" [gridRows]="usersList" [enableInlineSearch]="false"
+        <app-data-grid [gridName]="gridName" [gridColumns]="columns" [gridRows]="usersList"
           [actionRowTemplate]="actionRow" [pagination]="pagination" [pageSizes]="paginationPageSizeSelector"
           [selectedPageSize]="defaultSize" [errorMessage]="errorMessage" [gridSorts]="gridSort.prop ? [gridSort] : []"
           [columnFilters]="columnFilters" (onGridSort)="onSort($event)"

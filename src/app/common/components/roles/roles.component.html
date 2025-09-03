@@ -179,7 +179,7 @@
         <app-data-grid [gridName]="gridName" [gridColumns]="columns" [gridRows]="rolesList"
           [columnFilters]="columnFilters" [actionRowTemplate]="actionRow" [pagination]="pagination"
           [externalPagination]="false" [externalSorting]="false" [pageSizes]="paginationPageSizeSelector"
-          [enableInlineSearch]="false" [selectedPageSize]="defaultSize" [gridSorts]="gridSort.prop ? [gridSort] : []"
+          [selectedPageSize]="defaultSize" [gridSorts]="gridSort.prop ? [gridSort] : []"
           [errorMessage]="errorMessage" (onGridSort)="onSort($event)"
           (onGridPageSizeChange)="onGridPageSizeChange($event)" (onGridPageChange)="onGridPageChange($event)"
           (onColumnFilterChange)="onColumnFilterChange($event)">
