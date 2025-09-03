@@ -709,7 +709,7 @@ export class AsherGlobalDataService {
       await this.restApiService.deleteRequest({
         path: `asher/applications/${payload.id}`,
         headers: {
-          user_info: JSON.stringify(this.userProfileService.getUserInfoForTracking())
+          'x-user-info': JSON.stringify(this.userProfileService.getUserInfoForTracking())
         }
       });
       this.toastService.fire({
@@ -875,7 +875,7 @@ export class AsherGlobalDataService {
       const check = await this.restApiService.deleteRequest({
         path: `asher/lifecycles/${payload.id}`,
         headers: {
-          user_info: JSON.stringify(this.userProfileService.getUserInfoForTracking())
+          'x-user-info': JSON.stringify(this.userProfileService.getUserInfoForTracking())
         }
       });
 
@@ -1057,7 +1057,7 @@ export class AsherGlobalDataService {
       await this.restApiService.deleteRequest({
         path: `asher/vendors/${payload.vendor_id}`,
         headers: {
-          user_info: JSON.stringify(this.userProfileService.getUserInfoForTracking())
+          'x-user-info': JSON.stringify(this.userProfileService.getUserInfoForTracking())
         }
       });
       this.toastService.fire({
@@ -1205,7 +1205,7 @@ export class AsherGlobalDataService {
 
   // Logs the error details to the console and displays a toast error message.
   logError(err: any) {
-    const error = JSON.parse(err?.response.body);
+    const error = err?.error;
     
     const errorMessage = error?.statusDescription || (typeof error === 'string' && error) || error?.message || 'Something went wrong';
       this.toastService.fire({

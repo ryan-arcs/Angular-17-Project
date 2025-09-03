@@ -11,5 +11,5 @@ export const environment = {
    sharpLayerNode: "arn:aws:lambda:us-east-1:633580402999:layer:nodejs-sharp-layer:1",
    defaultDateFormat: "MMM d, yyyy h:mm:ss a",
    
-   userInactivityLogoutTime: "10",
+   userInactivityLogoutTime: "60",
 } as any;

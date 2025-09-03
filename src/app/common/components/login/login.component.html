@@ -6,7 +6,7 @@
     </div>
 
     <div class="main-box">
-      <form [formGroup]="loginForm">
+      <form [formGroup]="loginForm"  (ngSubmit)="onSubmit()">
 
         <!-- open close class for toggle accordian -->
         <div class="outer-box accordian-box-wrapper">
@@ -39,11 +39,11 @@
                     <input #inputElement #passwordInputBox [type]="showPassword ? 'text' : 'password'"  id="password" formControlName="password"
                       placeholder=" " [class.filled]="loginForm.get('password')?.value" />
                     <label for="password" class="floating-label">Password: <span class="required">*</span></label>
-                    <button class="toggle-password cursor-pointer" (click)="showPassword = !showPassword">
+                    <div class="toggle-password cursor-pointer" (click)="showPassword = !showPassword">
                       <span class="material-symbols-outlined">
                         {{showPassword ? 'visibility_off' : 'visibility'}}
                       </span>
-                    </button>
+                    </div>
                   </div>
 
                   @if (showErrors && loginForm.get("password")?.invalid) {
@@ -55,7 +55,7 @@
           </div>
         </div>
         <div class="login-btn-div">
-          <button class="d-btn d-btn--primary sm login-btn" type="submit" (click)="onSubmit()">
+          <button class="d-btn d-btn--primary sm login-btn" type="submit">
             <span class="material-symbols-outlined btn-icon">check</span>
             <p class=""> Login</p>
           </button>
