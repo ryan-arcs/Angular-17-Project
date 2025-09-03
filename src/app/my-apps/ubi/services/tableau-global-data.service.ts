@@ -327,7 +327,7 @@ export class TableauGlobalDataServiceNew {
         }
         return imageUrl;
       } catch (err: any) {
-        const error = JSON.parse(err?.response.body);
+        const error = err?.response?.data || err?.error;
         if (error?.error?.code === '401002') {
           this.clearAuthCredentials();
           const credentialsFetched = await this.fetchAuthCredentials();
@@ -338,7 +338,7 @@ export class TableauGlobalDataServiceNew {
         }
         this.toastService.fire({
           type: 'error',
-          message: error?.error?.detail || 'Something went wrong',
+          message: error?.error?.detail || error?.message || 'Something went wrong',
         });
         return '';
       }
@@ -526,13 +526,12 @@ export class TableauGlobalDataServiceNew {
           path: `tableau/recents`,
           headers
         });
-  
-        this._userRecents.next(recents);
+        this._userRecents.next(recents?.data);
         this.setApiResponse('user-recents', 200);
         this.uiService.setLoader(false);
-        return recents;
+        return recents?.data;
       } catch (err: any) {
-        const error = JSON.parse(err?.response.body);
+        const error = err?.response?.data || err?.error;
         if (error?.error?.code === '401002') {
           this.clearAuthCredentials();
           const credentialsFetched = await this.fetchAuthCredentials();
@@ -546,7 +545,7 @@ export class TableauGlobalDataServiceNew {
         this.setApiResponse('user-recents', 520);
         this.toastService.fire({
           type: 'error',
-          message: error?.error?.detail || 'Something went wrong',
+          message: error?.error?.detail || error?.message || 'Something went wrong',
         });
       } 
     }
