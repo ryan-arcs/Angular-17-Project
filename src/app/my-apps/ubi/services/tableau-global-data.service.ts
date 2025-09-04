@@ -390,10 +390,10 @@ export class TableauGlobalDataServiceNew {
   
         this.setApiResponse('user-favorites', 200);
       } catch (err: any) {
-        const error = err?.response?.body ? JSON.parse(err.response.body) : undefined;
+        const error = JSON.parse(err.response.body)  || err?.error;
         this.toastService.fire({
           type: 'error',
-          message: error?.error?.detail || err?.toString() || 'Something went wrong',
+          message: error?.error?.detail || error?.message || err?.toString() || 'Something went wrong',
         });
         return;
       } finally {
@@ -423,10 +423,10 @@ export class TableauGlobalDataServiceNew {
   
         return result;
       } catch (err: any) {
-        const error = JSON.parse(err?.response.body);
+        const error = JSON.parse(err?.response.body) || err?.error;
         this.toastService.fire({
           type: 'error',
-          message: error?.error?.detail || 'Something went wrong'
+          message: error?.error?.detail || error?.message || 'Something went wrong'
         });
         return [];
       } finally{
