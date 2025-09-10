@@ -514,7 +514,7 @@ export class AsherGlobalDataService {
       });
       return apiDepartments['data']?.length > 0 ? apiDepartments['data']?.map((departments: any) => {
         return {
-          costcenterCode: departments?.costcenter_code,
+          id: departments?.id,
           name: departments?.['department_name']
         }
       }) : [];
@@ -680,8 +680,8 @@ export class AsherGlobalDataService {
             approver1: payload?.approver1 || undefined,
             sponsor: payload?.sponsor || undefined,
             version: payload?.version || undefined,
-            is_gxp: payload?.is_gxp || undefined,
-            is_sox: payload?.is_sox || undefined,
+            is_gxp: payload?.is_gxp,
+            is_sox: payload?.is_sox,
             user_info: this.userProfileService.getUserInfoForTracking(),
             record_status: 'active',
           },

@@ -581,9 +581,9 @@ export class AddEditAsherComponent implements OnInit {
   };
   
   // Adds a department to the funding departments list if it doesn't already exist.
-  addDepartmentIfNotExists(costcenterCode: number, name: string){
-    if (costcenterCode && !this.fundingDepartments.some(department => department.costcenterCode === costcenterCode)) {
-      this.fundingDepartments.push({ costcenterCode, name });
+  addDepartmentIfNotExists(id: number, name: string){
+    if (id && !this.fundingDepartments.some(department => department.id === id)) {
+      this.fundingDepartments.push({ id, name });
     }
   };
 

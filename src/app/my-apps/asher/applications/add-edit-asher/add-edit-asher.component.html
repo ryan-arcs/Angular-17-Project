@@ -369,8 +369,8 @@
                         (open)="setClassToLabel('fundingDepartment')" (close)="reinitializeDepartments()"
                         [class.filled]="addApplicationForm.get('fundingDepartment')?.value" appendTo="body"
                         [dropdownPosition]="'top'" placeholder=" ">
-                        @for(fundingDepartment of (fundingDepartments || []); track fundingDepartment?.costcenterCode) {
-                        <ng-option [value]="fundingDepartment?.costcenterCode">{{fundingDepartment?.name}}</ng-option>
+                        @for(fundingDepartment of (fundingDepartments || []); track fundingDepartment?.id) {
+                        <ng-option [value]="fundingDepartment?.id">{{fundingDepartment?.name}}</ng-option>
                         }
                       </ng-select>
                       <label
