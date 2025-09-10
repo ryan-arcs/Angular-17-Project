@@ -367,7 +367,7 @@ export class AsherGlobalDataService {
 
     try {
       const apiUsers = await this.restApiService.getRequest({
-        path: `asher/users${payload?.authorityType === 'it' ? '/itcontacts' : '/authorities'}?${queryString}`
+        path: `asher/applications${payload?.authorityType === 'it' ? '/itcontacts' : '/authorities'}?${queryString}`
       });
       return apiUsers['data']?.length > 0 ? apiUsers['data'] : [];
     } catch (err: any) {
@@ -546,13 +546,21 @@ export class AsherGlobalDataService {
         path: `asher/applications/${payload.id}`
       });
       const apiApplicationDetails = result?.data || null;
-
       if (!apiApplicationDetails) {
         throw new Error(messages.error.asher.notFound);
       }
 
-      this._asherDetails.next(apiApplicationDetails);
-      return apiApplicationDetails;
+      const transformedDetails = {
+        ...apiApplicationDetails,
+        product_manager: apiApplicationDetails?.product_managers?.map((pm: any) => pm.id) || [],
+        product_owner: apiApplicationDetails?.product_owners?.map((po: any) => po.id) || [],
+        system_owner: apiApplicationDetails?.system_owners?.map((so: any) => so.id) || [],
+        business_owner: apiApplicationDetails?.business_owners?.map((bo: any) => bo.id) || [],
+        it_contact: apiApplicationDetails?.it_contacts?.map((ic: any) => ic.id) || [],
+      }
+
+      this._asherDetails.next(transformedDetails);
+      return transformedDetails;
     } catch (err: any) {
       this.logError(err);
       return;
