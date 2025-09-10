@@ -1337,26 +1337,14 @@ export class AsherGlobalDataService {
     this.uiService.setLoader(true);
     try{
       const { queryParams } = this.buildQueryString(payload);
-      const base64Data = await this.restApiService.getRequest({
+      const blob = await this.restApiService.getRequest({
         path: `asher/applications`,
         queryParams: {
           ...queryParams,
           download: true,
           orderedColumns: payload?.orderedColumns || ''
         },
-        responseType: 'text'
-      });
-
-      const cleanBase64 = base64Data.replace(/[^A-Za-z0-9+/=]/g, '');
-      const binaryString = window.atob(cleanBase64);
-      const len = binaryString.length;
-      const bytes = new Uint8Array(len);
-      for (let i = 0; i < len; i++) {
-        bytes[i] = binaryString.charCodeAt(i);
-      }
-
-      const blob = new Blob([bytes], {
-        type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        responseType: 'blob'
       });
 
       const url = window.URL.createObjectURL(blob);
